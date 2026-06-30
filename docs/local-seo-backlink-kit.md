@@ -87,6 +87,7 @@ Use these when a partner, directory, or social profile has a relevant place for 
 - Teaching: https://wayside.church/teaching/
 - Sermons: https://wayside.church/sermons/
 - Beliefs: https://wayside.church/beliefs/
+- Leadership: https://wayside.church/leadership/
 - Ministries: https://wayside.church/ministries/
 - Church in Charlton, MA: https://wayside.church/church-in-charlton-ma/
 

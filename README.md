@@ -36,6 +36,7 @@ That file includes comments showing where to update:
 - Sunday Worship page copy and FAQ
 - Events page copy and FAQ
 - Families page copy
+- Leadership page copy and FAQ
 - Teaching page copy
 - Sermons page copy and FAQ
 - Beliefs page copy

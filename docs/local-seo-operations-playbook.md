@@ -56,6 +56,7 @@ Good review prompts:
 - Teaching: https://wayside.church/teaching/
 - Sermons: https://wayside.church/sermons/
 - Families: https://wayside.church/families/
+- Leadership: https://wayside.church/leadership/
 - Beliefs: https://wayside.church/beliefs/
 - Ministries: https://wayside.church/ministries/
 - Contact: https://wayside.church/contact/
@@ -84,6 +85,7 @@ Good review prompts:
   - `https://wayside.church/events/`
   - `https://wayside.church/teaching/`
   - `https://wayside.church/sermons/`
+  - `https://wayside.church/leadership/`
 - In Google Business Profile, keep the website URL, phone, service time, address, photos, and description aligned with the website.
 - Make the Google Business Profile description natural and local, not stuffed: Wayside Church is a welcoming Christian church in Charlton, MA, gathering Sundays at 10:00 AM at 6 Haggerty Rd.
 - Link real public events, seasonal gatherings, and teaching updates back to the most relevant page rather than always linking only to the homepage.

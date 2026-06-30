@@ -639,6 +639,39 @@ about:
   faithIntro: "These convictions keep us rooted as we worship, serve, teach, and live as a local church."
   gatheringNote: "When you join one of our worship gatherings, you may find it a little different than a traditional worship service. We model our gathering around patterns found in the Epistles and the book of Acts."
 
+leadershipPage:
+  metaTitle: "Pastor and Leadership at Wayside Church in Charlton, MA"
+  metaDescription: "Meet Pastor Chase Mendoza and the Wayside Church leadership team serving Charlton, MA through Scripture, prayer, care, discipleship, and Gospel-centered ministry."
+  eyebrow: "Leadership"
+  title: "Meet the leaders serving Wayside Church."
+  intro: "Church leadership should help people see Jesus more clearly. At Wayside, our leaders are here to shepherd, teach, pray, serve, and help people take their next faithful step."
+  primaryCta:
+    label: "Plan a Visit"
+    href: "/plan-a-visit/"
+  secondaryCta:
+    label: "About Wayside"
+    href: "/about/"
+  serving:
+    eyebrow: "How leaders serve"
+    title: "Shepherding with Scripture, prayer, and humility."
+    body: "Wayside leadership is not about platform or performance. It is about helping people follow Jesus in ordinary life through worship, teaching, care, discipleship, and mission."
+    items:
+      - title: "Open Scripture"
+        body: "We want God's Word to shape our worship, teaching, prayer, repentance, and growth."
+      - title: "Care for people"
+        body: "A smaller church can notice people, pray with them, and help them move at a faithful pace."
+      - title: "Equip disciples"
+        body: "Leaders help the church grow in ministry, service, hospitality, and everyday faithfulness."
+  faq:
+    - question: "Who is the pastor of Wayside Church?"
+      answer: "Chase Mendoza serves as Pastor of Wayside Church in Charlton, MA."
+    - question: "Can I meet a leader before or after worship?"
+      answer: "Yes. Sunday is usually the simplest time to meet someone, ask a question, or introduce your family."
+    - question: "What shapes leadership at Wayside Church?"
+      answer: "Wayside leaders seek to serve through Scripture, prayer, humility, Gospel-centered teaching, and practical care for people."
+    - question: "Can I contact the church before visiting?"
+      answer: "Yes. You are welcome to call the church if you have a question before coming on Sunday."
+
 # Update ministries here.
 ministries:
   title: "Life together at Wayside"

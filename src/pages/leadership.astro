@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { imageSize } from "../lib/images";
+import { withBase } from "../lib/paths";
+import { getFaqPageSchema, getLeaderPersonSchemas } from "../lib/schema";
+
+const leadership = site.leadershipPage;
+const leaders = site.about.leaders.map((leader) => ({
+  ...leader,
+  imageSize: imageSize(leader.image),
+}));
+const leadershipSchemas = [
+  ...getLeaderPersonSchemas(site.about.leaders, "/leadership/"),
+  getFaqPageSchema(leadership.faq),
+];
+---
+
+<BaseLayout title={leadership.metaTitle} description={leadership.metaDescription} extraSchemas={leadershipSchemas}>
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{leadership.eyebrow}</p>
+      <h1>{leadership.title}</h1>
+      <p>{leadership.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={leadership.primaryCta.href}>{leadership.primaryCta.label}</ButtonLink>
+        <ButtonLink href={leadership.secondaryCta.href} variant="secondary">{leadership.secondaryCta.label}</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell">
+      <SectionIntro eyebrow="Wayside leaders" title="Pastor, ministry leadership, and care for the church">
+        <p>{site.about.leadersIntro}</p>
+      </SectionIntro>
+
+      <div class="leader-grid leader-grid--feature">
+        {leaders.map((leader) => (
+          <article class="leader-card leader-card--feature">
+            <img src={withBase(leader.image)} alt={leader.name} width={leader.imageSize?.width} height={leader.imageSize?.height} loading="lazy" decoding="async" />
+            <div class="leader-card__body">
+              <p class="eyebrow">{leader.role}</p>
+              <h3>{leader.name}</h3>
+              <p>{leader.bio}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell plan-basics">
+      <SectionIntro eyebrow={leadership.serving.eyebrow} title={leadership.serving.title}>
+        <p>{leadership.serving.body}</p>
+      </SectionIntro>
+
+      <div class="plan-basics__list">
+        {leadership.serving.items.map((item, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">Leadership FAQ</p>
+        <h2>Questions before you meet us</h2>
+        <p>These answers help guests understand who serves Wayside and how leadership fits into the life of the church.</p>
+      </div>
+
+      <div class="belief-accordion">
+        {leadership.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Come meet us</p>
+        <h2>{site.service.primary.day}s at {site.service.primary.time}</h2>
+        <p>{site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <div class="button-row">
+        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+        <ButtonLink href="/directions/" variant="secondary">Directions</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
