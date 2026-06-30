@@ -31,6 +31,7 @@ That file includes comments showing where to update:
 - homepage copy
 - Start Here page copy for seekers and first-time guests
 - Plan a Visit page copy
+- Teaching page copy
 - Ministries page copy, audience labels, and weekly rhythm
 - Sunday calendar event settings
 - ministries
@@ -70,6 +71,10 @@ The site includes:
 - canonical URLs
 - Open Graph and Twitter card metadata
 - local church structured data using JSON-LD
+- recurring Sunday worship event schema
+- FAQ schema on visitor-focused pages
+- video schema for recent teaching pages when YouTube publish dates are available
+- `public/llms.txt` for AI discovery summaries
 - sitemap generation through `@astrojs/sitemap`
 - `public/robots.txt`
 - `public/site.webmanifest`
@@ -84,7 +89,7 @@ public/CNAME
 
 ## Latest YouTube Teaching
 
-The homepage automatically fetches the newest YouTube upload at build time from the channel feed:
+The homepage and `/teaching/` page automatically fetch YouTube uploads at build time from the channel feed:
 
 ```yaml
 youtube:
@@ -100,9 +105,9 @@ If Wayside changes YouTube channels, update `channelId`, `handle`, `feedUrl`, `c
 
 The site tries the YouTube feed first, then the public channel videos page, then the configured `featuredVideo`. If YouTube blocks the automatic lookup, update `featuredVideo.videoId` to keep a real teaching card on the homepage.
 
-No homepage edit is needed when a new sermon is uploaded. For a static deployment, schedule regular rebuilds in Vercel or Netlify so the build-time feed refreshes.
+No homepage or teaching page edit is needed when a new sermon is uploaded. For a static deployment, schedule regular rebuilds in Vercel, Netlify, or GitHub Actions so the build-time feed refreshes.
 
-If the feed fails during a build, the site shows a graceful fallback message and a button to visit the YouTube channel.
+If the feed fails during a build, the site shows a graceful fallback message or the configured featured video and a button to visit the YouTube channel.
 
 ## Deploy to Vercel
 

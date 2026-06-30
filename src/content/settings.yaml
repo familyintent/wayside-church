@@ -97,14 +97,14 @@ navigation:
     href: "/start-here/"
   - label: "Plan a Visit"
     href: "/plan-a-visit/"
+  - label: "Teaching"
+    href: "/teaching/"
   - label: "About"
     href: "/about/"
   - label: "Ministries"
     href: "/ministries/"
   - label: "Contact"
     href: "/contact/"
-  - label: "Newsletter"
-    href: "/newsletter/"
 
 home:
   # Update homepage hero copy here.
@@ -119,7 +119,7 @@ home:
       href: "/plan-a-visit/"
     secondaryCta:
       label: "Watch Teaching"
-      href: "#latest-teaching"
+      href: "/teaching/"
   # Update this section to help first-time guests know what to expect.
   visit:
     eyebrow: "New here?"
@@ -147,7 +147,7 @@ home:
       href: "/plan-a-visit/"
     - label: "Watch Teaching"
       text: "Catch up on the newest sermon from Wayside."
-      href: "#latest-teaching"
+      href: "/teaching/"
     - label: "Give"
       text: "Support the work of Wayside Church."
       href: "/giving/"
@@ -172,6 +172,17 @@ localSeo:
       body: "Come early for coffee, conversation, discipleship, and an easier first step into community."
     - title: "A welcoming church for families and guests"
       body: "There is no dress code, no pressure, and room for honest questions as you get to know Wayside."
+  nearby:
+    eyebrow: "Near Charlton"
+    title: "A church home for Charlton and nearby neighbors."
+    body: "Wayside is rooted in Charlton and welcomes people from nearby Worcester County communities. If the drive is reasonable for your family, we would be glad to meet you on a Sunday morning."
+    items:
+      - name: "Charlton"
+        note: "We gather in town at 6 Haggerty Rd, close to local neighborhoods and family routines."
+      - name: "Southbridge, Sturbridge, and Dudley"
+        note: "Neighbors from nearby towns can find a simple Sunday rhythm with worship at 10:00 AM."
+      - name: "Oxford, Auburn, and Worcester County"
+        note: "Guests from the wider area are welcome to visit, ask questions, and take the morning at their own pace."
   faq:
     - question: "Where is Wayside Church located in Charlton, MA?"
       answer: "Wayside Church gathers at 6 Haggerty Rd, Charlton, MA 01507."
@@ -192,7 +203,7 @@ startHere:
     href: "/plan-a-visit/"
   secondaryCta:
     label: "Watch Teaching"
-    href: "/#latest-teaching"
+    href: "/teaching/"
   pathway:
     eyebrow: "A simple path"
     title: "Take one faithful step"
@@ -205,7 +216,7 @@ startHere:
       - title: "Watch before you visit"
         body: "Hear a recent teaching and get a feel for how Scripture points us to the hope and life of Jesus Christ."
         cta: "Watch Teaching"
-        href: "/#latest-teaching"
+        href: "/teaching/"
       - title: "Know what to expect"
         body: "Check the basics: service time, address, family expectations, what to wear, and answers to common guest questions."
         cta: "Visitor FAQ"
@@ -264,6 +275,30 @@ planVisit:
         body: "Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
       - title: "Honest questions fit here"
         body: "You do not need to have everything figured out before you visit."
+  faqEyebrow: "Visitor FAQ"
+  faqTitle: "Questions before your first Sunday"
+  faqIntro: "A few honest answers can make it easier to walk into a new church for the first time."
+  faq:
+    - question: "Do I need to tell anyone before I come?"
+      answer: "No. You can simply come on Sunday morning. If you would like to talk with someone first, you are welcome to call the church."
+    - question: "Where should I go when I arrive?"
+      answer: "Come to 6 Haggerty Rd in Charlton. People will be glad to point you toward coffee, discipleship, worship, or a place to sit."
+    - question: "Is there a dress code?"
+      answer: "No. Some people dress casually and some dress more formally. Come in what feels normal for you."
+    - question: "Can my children or teens come with me?"
+      answer: "Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
+
+teachingPage:
+  metaTitle: "Teaching from Wayside Church in Charlton, MA"
+  metaDescription: "Watch recent Bible teaching and sermons from Wayside Church in Charlton, MA."
+  eyebrow: "Teaching"
+  title: "Recent teaching from Wayside Church"
+  intro: "Hear recent messages from Wayside Church as we open Scripture, follow Jesus, and grow together as a local church in Charlton."
+  latestTitle: "The latest message"
+  latestIntro: "The newest upload from the Wayside Church YouTube channel is shown here automatically."
+  recentTitle: "More recent teaching"
+  recentIntro: "These recent uploads help you get a feel for our preaching, Scripture focus, and hope in Jesus."
+  visitTitle: "Teaching is best heard in the life of the church."
 
 about:
   hero:

@@ -6,7 +6,16 @@ type FaqItem = {
   answer: string;
 };
 
+type TeachingVideo = {
+  title: string;
+  videoId: string;
+  url: string;
+  thumbnail: string;
+  published?: string;
+};
+
 const churchUrl = absoluteUrl("/", site.meta.siteUrl);
+const churchId = `${churchUrl}#church`;
 
 const postalAddress = {
   "@type": "PostalAddress",
@@ -50,6 +59,7 @@ export function getSundayWorshipEventSchema(pagePath = "/plan-a-visit/") {
     image: [absoluteUrl(site.meta.socialImage, site.meta.siteUrl), absoluteUrl(site.images.community, site.meta.siteUrl)],
     organizer: {
       "@type": "Church",
+      "@id": churchId,
       name: site.church.name,
       url: churchUrl,
     },
@@ -69,4 +79,23 @@ export function getSundayWorshipEventSchema(pagePath = "/plan-a-visit/") {
       scheduleTimezone: site.calendar.sunday.timezone,
     },
   };
+}
+
+export function getTeachingVideoSchema(video: TeachingVideo, pagePath = "/teaching/") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: video.title,
+    description: `${video.title} - Bible teaching from ${site.church.name} in ${site.church.city}, ${site.church.state}.`,
+    thumbnailUrl: [video.thumbnail],
+    uploadDate: video.published || undefined,
+    contentUrl: video.url,
+    embedUrl: `https://www.youtube.com/embed/${video.videoId}`,
+    url: absoluteUrl(pagePath, site.meta.siteUrl),
+    publisher: { "@id": churchId },
+  };
+}
+
+export function getTeachingVideoSchemas(videos: TeachingVideo[], pagePath = "/teaching/") {
+  return videos.filter((video) => Boolean(video.published)).map((video) => getTeachingVideoSchema(video, pagePath));
 }

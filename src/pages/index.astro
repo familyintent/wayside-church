@@ -6,9 +6,14 @@ import MinistryList from "../components/MinistryList.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { withBase } from "../lib/paths";
+import { getTeachingVideoSchemas } from "../lib/schema";
+import { getLatestTeaching } from "../lib/youtube";
+
+const latestTeaching = await getLatestTeaching(site.youtube);
+const homeSchemas = latestTeaching ? getTeachingVideoSchemas([latestTeaching], "/") : [];
 ---
 
-<BaseLayout>
+<BaseLayout extraSchemas={homeSchemas}>
   <section class="hero" aria-labelledby="hero-title">
     <img class="hero__image" src={withBase(site.images.hero)} alt={site.home.hero.imageAlt} loading="eager" decoding="async" fetchpriority="high" />
     <div class="hero__shade" aria-hidden="true"></div>
@@ -107,7 +112,7 @@ import { withBase } from "../lib/paths";
     </div>
   </section>
 
-  <LatestTeaching />
+  <LatestTeaching latest={latestTeaching} />
 
   <section class="section">
     <div class="shell">

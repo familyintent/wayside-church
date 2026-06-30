@@ -68,6 +68,23 @@ const localSchemas = [getFaqPageSchema(local.faq), getSundayWorshipEventSchema("
   </section>
 
   <section class="section">
+    <div class="shell nearby-communities">
+      <SectionIntro eyebrow={local.nearby.eyebrow} title={local.nearby.title}>
+        <p>{local.nearby.body}</p>
+      </SectionIntro>
+
+      <div class="nearby-communities__list">
+        {local.nearby.items.map((item) => (
+          <article>
+            <h2>{item.name}</h2>
+            <p>{item.note}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="shell">
       <CalendarActions eyebrow="Make Sunday easier" title="Save Wayside Church to your calendar." />
     </div>

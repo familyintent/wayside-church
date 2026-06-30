@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { getTeachingVideoSchemas } from "../lib/schema";
+import { formatPublishedDate, getRecentTeachings } from "../lib/youtube";
+
+const teachings = await getRecentTeachings(site.youtube, 6);
+const latest = teachings[0];
+const recent = teachings.slice(1);
+const teachingSchemas = getTeachingVideoSchemas(teachings, "/teaching/");
+const dateLabel = (video) => (video?.published ? formatPublishedDate(video.published) : video?.publishedLabel || "Wayside teaching");
+---
+
+<BaseLayout title={site.teachingPage.metaTitle} description={site.teachingPage.metaDescription} extraSchemas={teachingSchemas}>
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{site.teachingPage.eyebrow}</p>
+      <h1>{site.teachingPage.title}</h1>
+      <p>{site.teachingPage.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={site.links.youtube}>YouTube Channel</ButtonLink>
+        <ButtonLink href="/plan-a-visit/" variant="secondary">Plan a Visit</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  {
+    latest ? (
+      <section class="section section--ink">
+        <div class="shell">
+          <SectionIntro eyebrow="Latest teaching" title={site.teachingPage.latestTitle}>
+            <p>{site.teachingPage.latestIntro}</p>
+          </SectionIntro>
+
+          <article class="teaching-card teaching-card--feature">
+            <a class="teaching-card__image" href={latest.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch ${latest.title} on YouTube`}>
+              <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} loading="eager" decoding="async" />
+            </a>
+            <div class="teaching-card__body">
+              <p class="eyebrow">{latest.source === "featured" ? "Featured teaching" : "Newest upload"}</p>
+              <h2>{latest.title}</h2>
+              <p class="teaching-card__date">{dateLabel(latest)}</p>
+              <div class="button-row">
+                <ButtonLink href={latest.url}>Watch on YouTube</ButtonLink>
+                <ButtonLink href="/plan-a-visit/" variant="secondary">Visit Sunday</ButtonLink>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    ) : (
+      <section class="section section--ink">
+        <div class="shell teaching-fallback">
+          <h2>{site.youtube.fallbackTitle}</h2>
+          <p>{site.youtube.fallbackMessage}</p>
+          <ButtonLink href={site.links.youtube}>Visit YouTube Channel</ButtonLink>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    recent.length > 0 && (
+      <section class="section">
+        <div class="shell">
+          <SectionIntro eyebrow="Recent messages" title={site.teachingPage.recentTitle}>
+            <p>{site.teachingPage.recentIntro}</p>
+          </SectionIntro>
+
+          <div class="teaching-grid">
+            {recent.map((video) => (
+              <article class="teaching-tile">
+                <a class="teaching-tile__image" href={video.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch ${video.title} on YouTube`}>
+                  <img src={video.thumbnail} alt={`Thumbnail for ${video.title}`} loading="lazy" />
+                </a>
+                <div class="teaching-tile__body">
+                  <p>{dateLabel(video)}</p>
+                  <h2>{video.title}</h2>
+                  <a href={video.url} target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Come hear Scripture with us</p>
+        <h2>{site.teachingPage.visitTitle}</h2>
+        <p>{site.service.primary.day} at {site.service.primary.time} at {site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+    </div>
+  </section>
+</BaseLayout>

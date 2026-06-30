@@ -106,6 +106,49 @@ function getFeaturedVideo(settings: YouTubeSettings): LatestTeaching | null {
   );
 }
 
+function teachingFromFeedEntry(entry: any): LatestTeaching | null {
+  const videoId = entry?.videoId;
+  const title = typeof entry?.title === "string" ? entry.title : "Latest teaching";
+  const published = entry?.published || entry?.updated || "";
+  const link = asFirst(entry?.link);
+  const url = link?.["@_href"] || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "");
+  const thumbnail =
+    asFirst(entry?.group?.thumbnail)?.["@_url"] ||
+    (videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : "");
+
+  if (!videoId || !url || !thumbnail) return null;
+
+  return { title, videoId, url, thumbnail, published, source: "feed" };
+}
+
+export async function getRecentTeachings(settings: YouTubeSettings, limit = 6): Promise<LatestTeaching[]> {
+  const feedUrl =
+    settings.feedUrl ||
+    (settings.channelId ? `https://www.youtube.com/feeds/videos.xml?channel_id=${settings.channelId}` : "");
+
+  if (feedUrl) {
+    try {
+      const response = await fetch(feedUrl, {
+        headers: { Accept: "application/atom+xml, application/xml;q=0.9, text/xml;q=0.8" },
+      });
+
+      if (response.ok) {
+        const xml = await response.text();
+        const parsed = parser.parse(xml);
+        const entries = parsed?.feed?.entry ? (Array.isArray(parsed.feed.entry) ? parsed.feed.entry : [parsed.feed.entry]) : [];
+        const teachings = entries.map(teachingFromFeedEntry).filter(Boolean).slice(0, limit) as LatestTeaching[];
+
+        if (teachings.length > 0) return teachings;
+      }
+    } catch {
+      // Fall through to the same resilient fallback path used by the latest teaching section.
+    }
+  }
+
+  const latest = await getLatestTeaching(settings);
+  return latest ? [latest] : [];
+}
+
 export async function getLatestTeaching(settings: YouTubeSettings): Promise<LatestTeaching | null> {
   const feedUrl =
     settings.feedUrl ||
@@ -131,20 +174,12 @@ export async function getLatestTeaching(settings: YouTubeSettings): Promise<Late
       return (await getLatestFromChannelPage(settings)) || getFeaturedVideo(settings);
     }
 
-    const videoId = entry.videoId || xml.match(/<yt:videoId>([^<]+)<\/yt:videoId>/)?.[1];
-    const title = typeof entry.title === "string" ? entry.title : "Latest teaching";
-    const published = entry.published || entry.updated || "";
-    const link = asFirst(entry.link);
-    const url = link?.["@_href"] || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "");
-    const thumbnail =
-      asFirst(entry.group?.thumbnail)?.["@_url"] ||
-      (videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : "");
-
-    if (!videoId || !url || !thumbnail) {
+    const teaching = teachingFromFeedEntry(entry);
+    if (!teaching) {
       return (await getLatestFromChannelPage(settings)) || getFeaturedVideo(settings);
     }
 
-    return { title, videoId, url, thumbnail, published, source: "feed" };
+    return teaching;
   } catch {
     try {
       return (await getLatestFromChannelPage(settings)) || getFeaturedVideo(settings);

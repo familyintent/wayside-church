@@ -5,12 +5,13 @@ import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { withBase } from "../lib/paths";
-import { getSundayWorshipEventSchema } from "../lib/schema";
+import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
 
 const visit = site.planVisit;
+const visitSchemas = [getSundayWorshipEventSchema("/plan-a-visit/"), getFaqPageSchema(visit.faq)];
 ---
 
-<BaseLayout title="Plan a Visit to Wayside Church in Charlton, MA" description="Plan a visit to Wayside Church in Charlton, MA. Find Sunday worship time, address, directions, calendar links, and what to expect." extraSchemas={[getSundayWorshipEventSchema("/plan-a-visit/")]}>
+<BaseLayout title="Plan a Visit to Wayside Church in Charlton, MA" description="Plan a visit to Wayside Church in Charlton, MA. Find Sunday worship time, address, directions, calendar links, and what to expect." extraSchemas={visitSchemas}>
   <section class="page-hero plan-visit-hero">
     <div class="shell plan-visit-hero__grid">
       <div>
@@ -81,6 +82,27 @@ const visit = site.planVisit;
     </div>
   </section>
 
+  <section class="section section--muted">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">{visit.faqEyebrow}</p>
+        <h2>{visit.faqTitle}</h2>
+        <p>{visit.faqIntro}</p>
+      </div>
+
+      <div class="belief-accordion">
+        {visit.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="visit-band">
     <div class="shell visit-band__inner">
       <div>
@@ -88,7 +110,7 @@ const visit = site.planVisit;
         <h2>Watch a teaching before Sunday.</h2>
       </div>
       <div class="button-row">
-        <ButtonLink href="/#latest-teaching">Watch Teaching</ButtonLink>
+        <ButtonLink href="/teaching/">Watch Teaching</ButtonLink>
         <ButtonLink href="/start-here/" variant="secondary">Start Here</ButtonLink>
       </div>
     </div>

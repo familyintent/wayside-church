@@ -3,8 +3,14 @@ import ButtonLink from "./ButtonLink.astro";
 import SectionIntro from "./SectionIntro.astro";
 import { site } from "../lib/content";
 import { formatPublishedDate, getLatestTeaching } from "../lib/youtube";
+import type { LatestTeaching } from "../lib/youtube";
 
-const latest = await getLatestTeaching(site.youtube);
+type Props = {
+  latest?: LatestTeaching | null;
+};
+
+const { latest: providedLatest } = Astro.props;
+const latest = providedLatest === undefined ? await getLatestTeaching(site.youtube) : providedLatest;
 const latestLabel = latest?.source === "featured" ? "Featured teaching" : "Newest upload";
 const latestDate = latest?.published ? formatPublishedDate(latest.published) : latest?.publishedLabel;
 ---
@@ -25,14 +31,20 @@ const latestDate = latest?.published ? formatPublishedDate(latest.published) : l
             <p class="eyebrow">{latestLabel}</p>
             <h3 id="latest-teaching-title">{latest.title}</h3>
             {latestDate && <p class="teaching-card__date">{latestDate}</p>}
-            <ButtonLink href={latest.url}>Watch on YouTube</ButtonLink>
+            <div class="button-row">
+              <ButtonLink href={latest.url}>Watch on YouTube</ButtonLink>
+              <ButtonLink href="/teaching/" variant="secondary">More Teaching</ButtonLink>
+            </div>
           </div>
         </article>
       ) : (
         <div class="teaching-fallback">
           <h3 id="latest-teaching-title">{site.youtube.fallbackTitle}</h3>
           <p>{site.youtube.fallbackMessage}</p>
-          <ButtonLink href={site.links.youtube}>Visit YouTube Channel</ButtonLink>
+          <div class="button-row">
+            <ButtonLink href={site.links.youtube}>Visit YouTube Channel</ButtonLink>
+            <ButtonLink href="/teaching/" variant="secondary">Teaching Page</ButtonLink>
+          </div>
         </div>
       )
     }
