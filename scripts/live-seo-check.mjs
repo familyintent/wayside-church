@@ -3,6 +3,14 @@ const rootUrl = new URL("/", siteUrl).toString();
 const siteHost = new URL(siteUrl).host;
 const errors = [];
 const warnings = [];
+const expectedImageSizes = new Map([
+  ["/images/wayside-welcome-hero.webp", { width: 1717, height: 916 }],
+  ["/images/wayside-community.webp", { width: 1400, height: 1855 }],
+  ["/images/charlton.webp", { width: 852, height: 1080 }],
+  ["/images/chase-mendoza.webp", { width: 629, height: 549 }],
+  ["/images/owen-rushing.webp", { width: 900, height: 1350 }],
+  ["/images/wayside-social-card.jpg", { width: 1200, height: 630 }],
+]);
 
 function reportError(message) {
   errors.push(message);
@@ -41,6 +49,11 @@ function getMetaContent(html, name) {
 
 function getLinkHref(html, rel) {
   const regex = new RegExp(`<link[^>]+rel=["']${rel}["'][^>]+href=["']([^"']+)["'][^>]*>`, "i");
+  return html.match(regex)?.[1] || "";
+}
+
+function getMetaPropertyContent(html, property) {
+  const regex = new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=["']([^"']*)["'][^>]*>`, "i");
   return html.match(regex)?.[1] || "";
 }
 
@@ -272,6 +285,19 @@ async function checkLivePages(sitemapUrls) {
 
     const robots = getMetaContent(page.text, "robots");
     if (!robots.includes("index")) reportError(`${url} should be indexable, robots=${robots || "(missing)"}.`);
+
+    const ogImage = getMetaPropertyContent(page.text, "og:image");
+    const ogImageWidth = Number(getMetaPropertyContent(page.text, "og:image:width") || 0);
+    const ogImageHeight = Number(getMetaPropertyContent(page.text, "og:image:height") || 0);
+    if (ogImage) {
+      const ogImagePath = new URL(ogImage, rootUrl).pathname;
+      const expectedImageSize = expectedImageSizes.get(ogImagePath);
+      if (expectedImageSize && (ogImageWidth !== expectedImageSize.width || ogImageHeight !== expectedImageSize.height)) {
+        reportError(
+          `${url} og:image dimensions are ${ogImageWidth}x${ogImageHeight}, expected ${expectedImageSize.width}x${expectedImageSize.height}.`,
+        );
+      }
+    }
 
     const pathname = new URL(url).pathname;
     if (!htmlSitemapTargets.has(new URL(pathname, rootUrl).toString())) {

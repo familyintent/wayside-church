@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../lib/content";
+import { imageSize } from "../lib/images";
 import { absoluteUrl, withBase, withoutBase } from "../lib/paths";
 import "../styles/global.css";
 
@@ -27,6 +28,8 @@ const pageTitle = title
   : `${site.church.name} | Church in ${site.church.city}, ${site.church.state}`;
 const canonicalUrl = absoluteUrl(Astro.url.pathname, site.meta.siteUrl);
 const socialImageUrl = absoluteUrl(image, site.meta.siteUrl);
+const socialImageSize = imageSize(image) || imageSize(site.meta.socialImage) || { width: 1200, height: 630 };
+const churchImageUrls = Array.from(new Set([socialImageUrl, absoluteUrl(site.images.community, site.meta.siteUrl)]));
 const logoUrl = absoluteUrl(site.meta.logo, site.meta.siteUrl);
 const siteUrl = absoluteUrl("/", site.meta.siteUrl);
 const churchId = `${siteUrl}#church`;
@@ -52,7 +55,7 @@ const churchSchema = {
   url: siteUrl,
   slogan: site.church.tagline,
   logo: logoUrl,
-  image: [socialImageUrl, absoluteUrl(site.images.community, site.meta.siteUrl)],
+  image: churchImageUrls,
   description: churchDescription,
   disambiguatingDescription: `${site.church.name} is a local church at ${site.contact.addressLine1} in ${site.contact.cityStateZip}.`,
   telephone: phoneNumber,
@@ -154,8 +157,8 @@ const webPageSchema =
         primaryImageOfPage: {
           "@type": "ImageObject",
           url: socialImageUrl,
-          width: 1200,
-          height: 630,
+          width: socialImageSize.width,
+          height: socialImageSize.height,
         },
         inLanguage: "en-US",
       };
@@ -254,8 +257,8 @@ const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u0
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImageUrl} />
     <meta property="og:image:secure_url" content={socialImageUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content={String(socialImageSize.width)} />
+    <meta property="og:image:height" content={String(socialImageSize.height)} />
     <meta property="og:image:alt" content="Wayside Church in Charlton, MA" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />

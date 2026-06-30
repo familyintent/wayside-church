@@ -9,6 +9,7 @@ const imageSizes: Record<string, ImageSize> = {
   "/images/charlton.webp": { width: 852, height: 1080 },
   "/images/chase-mendoza.webp": { width: 629, height: 549 },
   "/images/owen-rushing.webp": { width: 900, height: 1350 },
+  "/images/wayside-social-card.jpg": { width: 1200, height: 630 },
   "/images/wayside-logo-mark-navy.png": { width: 361, height: 546 },
   "/images/wayside-logo-mark-white.png": { width: 361, height: 546 },
 };

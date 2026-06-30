@@ -151,6 +151,14 @@ const sitemapPath = path.join(distDir, "sitemap-0.xml");
 const sitemapUrls = fs.existsSync(sitemapPath) ? new Set(extractLocs(readText(sitemapPath))) : new Set();
 const titles = new Map();
 const descriptions = new Map();
+const expectedImageSizes = new Map([
+  ["/images/wayside-welcome-hero.webp", { width: 1717, height: 916 }],
+  ["/images/wayside-community.webp", { width: 1400, height: 1855 }],
+  ["/images/charlton.webp", { width: 852, height: 1080 }],
+  ["/images/chase-mendoza.webp", { width: 629, height: 549 }],
+  ["/images/owen-rushing.webp", { width: 900, height: 1350 }],
+  ["/images/wayside-social-card.jpg", { width: 1200, height: 630 }],
+]);
 
 for (const filePath of htmlFiles) {
   const html = readText(filePath);
@@ -163,6 +171,9 @@ for (const filePath of htmlFiles) {
   const canonical = getLinkHref(html, "canonical");
   const h1Count = [...html.matchAll(/<h1[\s>]/gi)].length;
   const expectedCanonical = new URL(route, siteUrl).toString();
+  const ogImage = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i)?.[1] || "";
+  const ogImageWidth = Number(html.match(/<meta[^>]+property=["']og:image:width["'][^>]+content=["']([^"']+)["'][^>]*>/i)?.[1] || 0);
+  const ogImageHeight = Number(html.match(/<meta[^>]+property=["']og:image:height["'][^>]+content=["']([^"']+)["'][^>]*>/i)?.[1] || 0);
 
   if (!title) errors.push(`${label}: missing <title>.`);
   if (!isNoIndex && title && title.length > 75) warnings.push(`${label}: title is ${title.length} characters.`);
@@ -175,6 +186,18 @@ for (const filePath of htmlFiles) {
     errors.push(`${label}: canonical is ${canonical}, expected ${expectedCanonical}.`);
   }
   if (!isNoIndex && h1Count !== 1) errors.push(`${label}: expected exactly one H1, found ${h1Count}.`);
+
+  if (!isNoIndex && ogImage) {
+    const ogImagePath = new URL(ogImage, siteUrl).pathname;
+    const expectedImageSize = expectedImageSizes.get(ogImagePath);
+    if (expectedImageSize) {
+      if (ogImageWidth !== expectedImageSize.width || ogImageHeight !== expectedImageSize.height) {
+        errors.push(
+          `${label}: og:image dimensions are ${ogImageWidth}x${ogImageHeight}, expected ${expectedImageSize.width}x${expectedImageSize.height}.`,
+        );
+      }
+    }
+  }
 
   if (!isNoIndex) {
     if (!sitemapUrls.has(expectedCanonical)) {
@@ -281,6 +304,19 @@ for (const filePath of htmlFiles) {
       if (!textIncludes(pageSchema.mainEntity, "#church")) errors.push(`${label}: page schema mainEntity should reference Church schema.`);
       if (!textIncludes(pageSchema.keywords, "Church in Charlton, MA")) {
         errors.push(`${label}: page schema missing local church keywords.`);
+      }
+      const primaryImageUrl = pageSchema.primaryImageOfPage?.url || "";
+      const primaryImagePath = primaryImageUrl ? new URL(primaryImageUrl, siteUrl).pathname : "";
+      const expectedImageSize = expectedImageSizes.get(primaryImagePath);
+      if (expectedImageSize) {
+        if (
+          pageSchema.primaryImageOfPage?.width !== expectedImageSize.width ||
+          pageSchema.primaryImageOfPage?.height !== expectedImageSize.height
+        ) {
+          errors.push(
+            `${label}: primaryImageOfPage dimensions are ${pageSchema.primaryImageOfPage?.width}x${pageSchema.primaryImageOfPage?.height}, expected ${expectedImageSize.width}x${expectedImageSize.height}.`,
+          );
+        }
       }
     }
   }
