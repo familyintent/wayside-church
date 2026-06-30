@@ -52,6 +52,9 @@ requireIncludes("src/lib/images.ts", imageHelper, "export const imageVariants");
 requireIncludes("src/lib/images.ts", imageHelper, "imageSrcset");
 requireIncludes("src/lib/images.ts", imageHelper, "imageSizesFor");
 requireIncludes("src/lib/images.ts", imageHelper, "withBase(variantPath)");
+requireIncludes("src/lib/images.ts", imageHelper, "wayside-local-1x1.webp");
+requireIncludes("src/lib/images.ts", imageHelper, "wayside-local-4x3.webp");
+requireIncludes("src/lib/images.ts", imageHelper, "wayside-local-16x9.webp");
 
 const homepage = readText("src/pages/index.astro");
 requireIncludes("src/pages/index.astro", homepage, "getLatestTeaching(site.youtube)");
@@ -128,6 +131,7 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "frame-src https://w
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageWidth");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageHeight");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "photo: churchPhotoObjects");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "localEntityImageSources");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "keywords: searchTopics");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "alternateName: alternateNames");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "knowsAbout: searchTopics");
@@ -186,6 +190,10 @@ requireIncludes("src/content/settings.yaml", settings, "feedUrl: \"https://www.y
 requireIncludes("src/content/settings.yaml", settings, "channelVideosUrl:");
 requireIncludes("src/content/settings.yaml", settings, "featuredVideo:");
 requireIncludes("src/content/settings.yaml", settings, "Only edit the page copy below");
+requireIncludes("src/content/settings.yaml", settings, "localEntity:");
+requireIncludes("src/content/settings.yaml", settings, "wayside-local-1x1.webp");
+requireIncludes("src/content/settings.yaml", settings, "wayside-local-4x3.webp");
+requireIncludes("src/content/settings.yaml", settings, "wayside-local-16x9.webp");
 
 const workflow = readText(".github/workflows/deploy.yml");
 requireIncludes(".github/workflows/deploy.yml", workflow, "schedule:");
@@ -222,6 +230,9 @@ requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "nearby.localN
 requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "nearby-communities__plan");
 requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "potentialAction");
 requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "town.directionsHref");
+
+const imageSitemapRoute = readText("src/pages/image-sitemap.xml.ts");
+requireIncludes("src/pages/image-sitemap.xml.ts", imageSitemapRoute, "site.images.localEntity");
 
 const generatedContactCard = readText("src/pages/wayside-church.vcf.ts");
 requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.contact.addressLine1");

@@ -11,6 +11,9 @@ const expectedImageSizes = new Map([
   ["/images/chase-mendoza.webp", { width: 629, height: 549 }],
   ["/images/owen-rushing.webp", { width: 900, height: 1350 }],
   ["/images/wayside-social-card.jpg", { width: 1200, height: 630 }],
+  ["/images/wayside-local-1x1.webp", { width: 1200, height: 1200 }],
+  ["/images/wayside-local-4x3.webp", { width: 1200, height: 900 }],
+  ["/images/wayside-local-16x9.webp", { width: 1200, height: 675 }],
 ]);
 const responsiveImageVariants = new Map([
   ["/images/wayside-welcome-hero.webp", ["/images/wayside-welcome-hero-640.webp", "/images/wayside-welcome-hero-960.webp", "/images/wayside-welcome-hero-1280.webp"]],
@@ -347,6 +350,11 @@ async function checkImageSitemap(sitemapUrls) {
   }
   if (imageUrls.length < 12) {
     reportError(`image-sitemap.xml should include representative local images, found ${imageUrls.length}.`);
+  }
+  for (const expectedLocalImage of ["wayside-local-1x1.webp", "wayside-local-4x3.webp", "wayside-local-16x9.webp"]) {
+    if (!text.includes(expectedLocalImage)) {
+      reportError(`image-sitemap.xml missing local entity image ${expectedLocalImage}.`);
+    }
   }
 
   for (const imagePageUrl of imagePageUrls) {
@@ -711,6 +719,11 @@ async function checkHomepageSchema(homeHtml) {
   if (churchSchema.publicAccess !== true) reportError("Church schema should mark public access for visitors.");
   if (!textIncludes(churchSchema.photo, "ImageObject") || !textIncludes(churchSchema.photo, "wayside-community.webp")) {
     reportError("Church schema missing real local photo objects.");
+  }
+  for (const expectedLocalImage of ["wayside-local-1x1.webp", "wayside-local-4x3.webp", "wayside-local-16x9.webp"]) {
+    if (!textIncludes(churchSchema.image, expectedLocalImage) || !textIncludes(churchSchema.photo, expectedLocalImage)) {
+      reportError(`Church schema missing local entity image ${expectedLocalImage}.`);
+    }
   }
   if (!textIncludes(churchSchema.contactPoint, "English")) reportError("Church schema contact point missing available language.");
 

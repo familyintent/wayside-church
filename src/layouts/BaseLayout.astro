@@ -39,7 +39,8 @@ const socialImageSize =
   imageWidth && imageHeight
     ? { width: imageWidth, height: imageHeight }
     : imageSize(image) || imageSize(site.meta.socialImage) || { width: 1200, height: 630 };
-const churchImageSources = [site.meta.socialImage, site.images.community];
+const localEntityImageSources = site.images.localEntity || [];
+const churchImageSources = [site.meta.socialImage, ...localEntityImageSources, site.images.community];
 const churchImageUrls = Array.from(new Set(churchImageSources.map((imagePath) => absoluteUrl(imagePath, site.meta.siteUrl))));
 const churchPhotoObjects = churchImageSources.map((imagePath) => {
   const dimensions = imageSize(imagePath);
@@ -49,6 +50,8 @@ const churchPhotoObjects = churchImageSources.map((imagePath) => {
     caption:
       imagePath === site.meta.socialImage
         ? site.meta.socialImageAlt
+        : localEntityImageSources.includes(imagePath)
+          ? "Real Wayside Church photo prepared for local church search results"
         : "Wayside Church family sharing fellowship in Charlton, Massachusetts",
     ...(dimensions ? { width: dimensions.width, height: dimensions.height } : {}),
   };

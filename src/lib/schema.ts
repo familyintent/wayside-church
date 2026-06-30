@@ -35,6 +35,10 @@ type Ministry = {
 
 const churchUrl = absoluteUrl("/", site.meta.siteUrl);
 const churchId = `${churchUrl}#church`;
+const localEntityImagePaths = site.images.localEntity || [];
+const churchEventImageUrls = [site.meta.socialImage, ...localEntityImagePaths, site.images.community].map((imagePath) =>
+  absoluteUrl(imagePath, site.meta.siteUrl),
+);
 
 const postalAddress = {
   "@type": "PostalAddress",
@@ -155,7 +159,7 @@ export function getSundayWorshipEventSchema(pagePath = "/plan-a-visit/") {
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     url: absoluteUrl(pagePath, site.meta.siteUrl),
-    image: [absoluteUrl(site.meta.socialImage, site.meta.siteUrl), absoluteUrl(site.images.community, site.meta.siteUrl)],
+    image: churchEventImageUrls,
     organizer: {
       "@type": "Church",
       "@id": churchId,
@@ -215,7 +219,7 @@ export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/min
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
         eventStatus: "https://schema.org/EventScheduled",
         url: absoluteUrl(ministry.id ? `${pagePath}#${ministry.id}` : pagePath, site.meta.siteUrl),
-        image: [absoluteUrl(site.meta.socialImage, site.meta.siteUrl), absoluteUrl(site.images.community, site.meta.siteUrl)],
+        image: churchEventImageUrls,
         organizer: {
           "@type": "Church",
           "@id": churchId,

@@ -138,6 +138,12 @@ images:
   chase: "/images/chase-mendoza.webp"
   owen: "/images/owen-rushing.webp"
   charlton: "/images/charlton.webp"
+  # Search-friendly real Wayside image crops used in Church schema and image discovery.
+  # Keep these as actual Wayside photos in common 1:1, 4:3, and 16:9 ratios.
+  localEntity:
+    - "/images/wayside-local-1x1.webp"
+    - "/images/wayside-local-4x3.webp"
+    - "/images/wayside-local-16x9.webp"
 
 navigation:
   - label: "Home"

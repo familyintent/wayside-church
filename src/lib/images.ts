@@ -26,6 +26,9 @@ const imageSizes: Record<string, ImageSize> = {
   "/images/owen-rushing-320.webp": { width: 320, height: 480 },
   "/images/owen-rushing-640.webp": { width: 640, height: 960 },
   "/images/wayside-social-card.jpg": { width: 1200, height: 630 },
+  "/images/wayside-local-1x1.webp": { width: 1200, height: 1200 },
+  "/images/wayside-local-4x3.webp": { width: 1200, height: 900 },
+  "/images/wayside-local-16x9.webp": { width: 1200, height: 675 },
   "/images/wayside-logo-mark-navy.png": { width: 361, height: 546 },
   "/images/wayside-logo-mark-white.png": { width: 361, height: 546 },
 };

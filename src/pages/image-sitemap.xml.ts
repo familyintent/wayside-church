@@ -14,6 +14,11 @@ const entries: ImageSitemapEntry[] = [
   {
     page: "/",
     images: [
+      ...(site.images.localEntity || []).map((path: string) => ({
+        path,
+        title: "Wayside Church in Charlton, MA",
+        caption: "Real Wayside Church imagery prepared for local church search results.",
+      })),
       {
         path: site.images.hero,
         title: "Wayside Church welcome table",
