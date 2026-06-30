@@ -29,8 +29,12 @@ That file includes comments showing where to update:
 - service times
 - address and phone
 - homepage copy
+- Start Here page copy for seekers and first-time guests
+- Plan a Visit page copy
+- Sunday calendar event settings
 - ministries
 - giving, newsletter, YouTube, and social links
+- optional connect card / follow-up link
 - leader bios
 - contact page FAQ
 
@@ -118,9 +122,35 @@ src/
   styles/global.css    Design system and layout styles
 ```
 
+## Visitor Path
+
+The `Start Here` page is designed for seekers, first-time guests, and people new to faith. Update its copy in `src/content/settings.yaml` under `startHere`.
+
+The `links.connectCard` value is ready for a future Planning Center, Church Center, Fillout, Microsoft Forms, or similar follow-up form. Until a dedicated form is ready, it can point to `/contact/`.
+
+## Sunday Calendar
+
+The Plan a Visit and Contact pages include calendar links for Google/Gmail, Apple/iPhone, and Outlook.
+
+Update the editable event text and Google Calendar link settings in:
+
+```text
+src/content/settings.yaml
+```
+
+under `calendar.sunday`.
+
+Apple/iPhone and Outlook use this standards-based recurring calendar file:
+
+```text
+public/calendar/wayside-sunday-worship.ics
+```
+
+If the worship time, address, or event description changes, update both `calendar.sunday` and the `.ics` file so all calendar options stay aligned.
+
 ## Notes
 
 - The site is mobile-first and uses semantic HTML.
 - Navigation, buttons, and FAQ details are keyboard-friendly.
 - External GivingTools, Microsoft Forms, and social links are configurable in one settings file.
-- The custom Wayside logo is inline SVG, with a small favicon in `public/favicon.svg`.
+- The supplied Wayside logo is used for the site mark, favicon, app icons, and social preview image.

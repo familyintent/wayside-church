@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import CalendarActions from "../components/CalendarActions.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { withBase } from "../lib/paths";
+
+const visit = site.planVisit;
+---
+
+<BaseLayout title="Plan a Visit" description="Plan a visit to Wayside Church in Charlton, MA. Find Sunday worship time, address, directions, calendar links, and what to expect.">
+  <section class="page-hero plan-visit-hero">
+    <div class="shell plan-visit-hero__grid">
+      <div>
+        <p class="eyebrow">{visit.eyebrow}</p>
+        <h1>{visit.title}</h1>
+        <p>{visit.intro}</p>
+        <div class="page-hero__actions">
+          <ButtonLink href="#visit-calendar">Save to Calendar</ButtonLink>
+          <ButtonLink href={site.links.maps} variant="secondary">Get Directions</ButtonLink>
+        </div>
+      </div>
+
+      <div class="plan-visit-card" aria-label="Sunday gathering details">
+        <span>{site.service.primary.day}</span>
+        <strong>{site.service.primary.time}</strong>
+        <p>{site.service.primary.label}</p>
+        <small>{site.service.coffee.label} at {site.service.coffee.time}</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <CalendarActions />
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell plan-basics">
+      <SectionIntro eyebrow={visit.arrival.eyebrow} title={visit.arrival.title}>
+        <p>{visit.intro}</p>
+      </SectionIntro>
+
+      <div class="plan-basics__list">
+        {visit.arrival.items.map((item, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split">
+      <div>
+        <SectionIntro eyebrow={visit.whatToExpect.eyebrow} title={visit.whatToExpect.title}>
+          <p>{visit.whatToExpect.body}</p>
+        </SectionIntro>
+
+        <div class="visitor-list visitor-list--single">
+          {visit.whatToExpect.items.map((item, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <figure class="image-panel image-panel--map">
+        <img src={withBase(site.images.charlton)} alt="Map of Charlton, Massachusetts" loading="lazy" />
+        <figcaption>{site.contact.addressLine1}, {site.contact.cityStateZip}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Still getting a feel for us?</p>
+        <h2>Watch a teaching before Sunday.</h2>
+      </div>
+      <div class="button-row">
+        <ButtonLink href="/#latest-teaching">Watch Teaching</ButtonLink>
+        <ButtonLink href="/start-here/" variant="secondary">Start Here</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

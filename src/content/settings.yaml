@@ -50,6 +50,20 @@ links:
   # Add a real Instagram profile URL here when one is ready. Leave blank to hide it.
   instagram: ""
   maps: "https://www.google.com/maps/place/Wayside+Church/@42.104233,-71.9553559,17z/data=!3m1!4b1!4m6!3m5!1s0x89e6a0a0a38d8579:0x109a39272ac71348!8m2!3d42.104233!4d-71.952781!16s%2Fg%2F1tfg8pyw?entry=ttu"
+  # Replace this with Planning Center, Church Center, Fillout, Microsoft Forms, or another follow-up form when ready.
+  connectCard: "/contact/"
+
+# Update the Sunday calendar event here if the gathering time or address changes.
+# The .ics file in public/calendar should match these values so Apple, iPhone, and Outlook stay current.
+calendar:
+  sunday:
+    title: "Wayside Church Sunday Worship"
+    description: "Sunday Worship begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM."
+    startLocal: "20260705T100000"
+    endLocal: "20260705T113000"
+    timezone: "America/New_York"
+    recurrenceRule: "RRULE:FREQ=WEEKLY;BYDAY=SU"
+    ics: "/calendar/wayside-sunday-worship.ics"
 
 # Update this only if the YouTube channel changes.
 # Staff should only need to upload sermons to YouTube; the homepage reads the newest upload from this feed at build time.
@@ -70,6 +84,10 @@ images:
 navigation:
   - label: "Home"
     href: "/"
+  - label: "Start Here"
+    href: "/start-here/"
+  - label: "Plan a Visit"
+    href: "/plan-a-visit/"
   - label: "About"
     href: "/about/"
   - label: "Ministries"
@@ -89,7 +107,7 @@ home:
     body: "Join us Sunday mornings as we worship Jesus, open Scripture, share life, and make room for families, guests, and neighbors."
     primaryCta:
       label: "Plan a Visit"
-      href: "/contact/"
+      href: "/plan-a-visit/"
     secondaryCta:
       label: "Watch Teaching"
       href: "#latest-teaching"
@@ -112,12 +130,12 @@ home:
     headline: "A small church with a big vision for Jesus."
     body: "There is no dress code. Come in a suit or casually, whatever you prefer. Wayside is a church family that loves, encourages, and challenges each other to grow in Jesus Christ."
   nextSteps:
+    - label: "Start Here"
+      text: "A gentle first step for seekers, guests, and people new to faith."
+      href: "/start-here/"
     - label: "Plan a Visit"
       text: "Find service time, address, and what to expect."
-      href: "/contact/"
-    - label: "Contact Us"
-      text: "Reach out with a question, prayer need, or next step."
-      href: "/contact/"
+      href: "/plan-a-visit/"
     - label: "Watch Teaching"
       text: "Catch up on the newest sermon from Wayside."
       href: "#latest-teaching"
@@ -127,6 +145,89 @@ home:
   scripture:
     reference: "Psalm 23:1"
     text: "The Lord is my shepherd; I have what I need."
+
+# Update this page to serve seekers, first-time guests, and people new to faith.
+startHere:
+  eyebrow: "Start here"
+  title: "A place to begin, even if you are not sure what you believe."
+  intro: "If you are curious about Jesus, carrying questions, returning to church, or looking for a place where your family can grow in faith, this page is for you."
+  primaryCta:
+    label: "Plan a Visit"
+    href: "/plan-a-visit/"
+  secondaryCta:
+    label: "Watch Teaching"
+    href: "/#latest-teaching"
+  pathway:
+    eyebrow: "A simple path"
+    title: "Take one faithful step"
+    body: "You do not need to fill anything out or make a commitment before visiting. You can simply see what Sunday is like, watch a teaching first, or read what to expect."
+    steps:
+      - title: "Come and see"
+        body: "Join a Sunday gathering, listen, observe, sing if you want, and meet a few people at your own pace."
+        cta: "Plan a Visit"
+        href: "/plan-a-visit/"
+      - title: "Watch before you visit"
+        body: "Hear a recent teaching and get a feel for how Scripture points us to the hope and life of Jesus Christ."
+        cta: "Watch Teaching"
+        href: "/#latest-teaching"
+      - title: "Know what to expect"
+        body: "Check the basics: service time, address, family expectations, what to wear, and answers to common guest questions."
+        cta: "Visitor FAQ"
+        href: "/contact/#faq"
+  sunday:
+    eyebrow: "What Sunday feels like"
+    title: "Warm, simple, and centered on Jesus"
+    body: "A Sunday at Wayside includes Scripture, prayer, worship, fellowship, and people glad to welcome you without pressure."
+    rhythm:
+      - time: "9:00 AM"
+        title: "Coffee and Discipleship"
+        body: "Arrive early for coffee, conversation, and a slower entry into community."
+      - time: "10:00 AM"
+        title: "Sunday Worship"
+        body: "We worship Jesus, open the Bible, pray, and make room for families and guests."
+      - time: "After Worship"
+        title: "Stay if you would like"
+        body: "You can leave quietly, meet someone, or linger for conversation. No pressure."
+  questions:
+    eyebrow: "Honest questions"
+    title: "Questions are welcome here"
+    intro: "Faith often begins with honest questions. You do not have to pretend, perform, or have everything settled before you come."
+    items:
+      - question: "Can I come if I am not a Christian?"
+        answer: "Yes. You are welcome to attend, listen, ask questions, and take your time. We believe Jesus meets people with truth and grace."
+      - question: "What if church has been difficult for me?"
+        answer: "We are sorry for places where church has been painful. You are welcome to move slowly, ask careful questions, and get to know people at your own pace."
+      - question: "Where should I start if I want to learn about Jesus?"
+        answer: "A good first step is to attend Sunday worship, watch a recent teaching, or ask someone to read one of the Gospels with you."
+      - question: "Can someone pray with me?"
+        answer: "Yes. Most people ask in person or by phone. We would be honored to pray with you when you visit or talk with someone from Wayside."
+
+# Update this page to help guests make a clear Sunday plan.
+planVisit:
+  eyebrow: "Plan a visit"
+  title: "Join us this Sunday"
+  intro: "Sunday Worship begins at 10:00 AM, with Coffee and Discipleship at 9:00 AM. Come as you are, bring your questions, and take the morning at your own pace."
+  arrival:
+    eyebrow: "Before you arrive"
+    title: "The basics are simple"
+    items:
+      - title: "Time"
+        body: "Coffee and Discipleship begins at 9:00 AM, and Sunday Worship begins at 10:00 AM."
+      - title: "Place"
+        body: "Wayside Church gathers at 6 Haggerty Rd in Charlton, Massachusetts."
+      - title: "Pace"
+        body: "You can listen, observe, sing if you would like, and leave quietly or stay to meet people afterward."
+  whatToExpect:
+    eyebrow: "What to expect"
+    title: "A warm morning centered on Jesus"
+    body: "You will find Scripture, worship, prayer, fellowship, and real people glad to welcome guests without pressure."
+    items:
+      - title: "No dress code"
+        body: "Some people dress casually and some dress more formally. Come in what feels normal for you."
+      - title: "Families are welcome"
+        body: "Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
+      - title: "Honest questions fit here"
+        body: "You do not need to have everything figured out before you visit."
 
 about:
   hero:
@@ -215,7 +316,7 @@ ministries:
 
 contactPage:
   title: "Contact us"
-  intro: "Have a question, prayer request, or plan to visit? We would be glad to hear from you."
+  intro: "Find the address, phone number, Sunday details, and a simple way to save the gathering to your calendar."
   visitCopy: "When you join one of our worship gatherings, you may find it a little different than a traditional worship service. You will find worship, Scripture, prayer, fellowship, and people glad to meet you."
   faq:
     - question: "What should I expect when I visit for the first time?"

@@ -1,0 +1,54 @@
+---
+import { site } from "../lib/content";
+import { withBase } from "../lib/paths";
+
+type Props = {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+};
+
+const {
+  id = "visit-calendar",
+  eyebrow = "Save Sunday",
+  title = "Put Wayside on your calendar.",
+} = Astro.props;
+
+const event = site.calendar.sunday;
+const address = `${site.contact.addressLine1}, ${site.contact.cityStateZip}`;
+const details = `${event.description}\n\n${address}`;
+const googleDates = `${event.startLocal}/${event.endLocal}`;
+const googleCalendarUrl = `https://calendar.google.com/calendar/render?${new URLSearchParams({
+  action: "TEMPLATE",
+  text: event.title,
+  dates: googleDates,
+  details,
+  location: address,
+  ctz: event.timezone,
+  recur: event.recurrenceRule,
+}).toString()}`;
+const icsUrl = withBase(event.ics);
+---
+
+<div class="calendar-actions" id={id}>
+  <div class="calendar-actions__copy">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{title}</h2>
+    <p>{event.description} The address is included so Sunday is easy to find when the morning comes.</p>
+  </div>
+
+  <div class="calendar-actions__links" aria-label="Calendar and direction links">
+    <a class="button button--primary" href={googleCalendarUrl} target="_blank" rel="noopener noreferrer">
+      Google / Gmail
+    </a>
+    <a class="button button--secondary" href={icsUrl} download="wayside-sunday-worship.ics">
+      Apple / iPhone
+    </a>
+    <a class="button button--secondary" href={icsUrl} download="wayside-sunday-worship.ics">
+      Outlook
+    </a>
+    <a class="button button--text" href={site.links.maps} target="_blank" rel="noopener noreferrer">
+      Open in Maps
+    </a>
+  </div>
+</div>

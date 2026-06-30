@@ -308,6 +308,7 @@ summary:focus-visible {
   color: var(--muted);
   font-weight: 750;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav__links a:hover,
@@ -661,6 +662,197 @@ summary:focus-visible {
 .page-hero__actions {
   justify-content: center;
   margin-top: 1.6rem;
+}
+
+.plan-visit-hero {
+  background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+}
+
+.plan-visit-hero__grid {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.plan-visit-hero .page-hero__actions {
+  justify-content: flex-start;
+}
+
+.plan-visit-card {
+  display: grid;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: clamp(1.35rem, 6vw, 2.2rem);
+}
+
+.plan-visit-card span {
+  color: var(--accent-strong);
+  font-size: 0.82rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.plan-visit-card strong {
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 14vw, 6rem);
+  line-height: 0.9;
+}
+
+.plan-visit-card p {
+  margin-bottom: 0;
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 850;
+}
+
+.plan-visit-card small {
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.calendar-actions {
+  display: grid;
+  gap: 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: clamp(1.25rem, 5vw, 2rem);
+}
+
+.calendar-actions h2 {
+  margin-bottom: 0.85rem;
+  font-size: clamp(1.9rem, 7vw, 3.2rem);
+}
+
+.calendar-actions p:last-child {
+  margin-bottom: 0;
+}
+
+.calendar-actions__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.section-action-wide {
+  margin-top: 2rem;
+}
+
+.plan-basics {
+  display: grid;
+  gap: 1rem;
+}
+
+.plan-basics__list {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.plan-basics__list article {
+  border-bottom: 1px solid var(--line);
+  padding: 1.25rem 0;
+}
+
+.plan-basics__list span {
+  color: var(--accent-strong);
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.plan-basics__list h2 {
+  margin: 0.45rem 0 0.65rem;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+}
+
+.plan-basics__list p {
+  margin-bottom: 0;
+}
+
+.start-hero {
+  background: var(--bg-soft);
+}
+
+.start-hero .page-hero__inner {
+  max-width: 980px;
+}
+
+.start-pathway .section-intro {
+  max-width: 850px;
+}
+
+.pathway-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.pathway-card {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: clamp(1.2rem, 5vw, 1.7rem);
+}
+
+.pathway-card span,
+.start-timeline span {
+  color: var(--accent-strong);
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pathway-card h2 {
+  margin-bottom: 0;
+  font-size: clamp(1.65rem, 5vw, 2.4rem);
+}
+
+.pathway-card p {
+  margin-bottom: 0.2rem;
+}
+
+.pathway-card .button {
+  justify-self: start;
+  margin-top: 0.4rem;
+}
+
+.start-sunday__grid,
+.start-questions__grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.start-sunday__grid > div:first-child,
+.start-questions__grid > div:first-child {
+  max-width: 680px;
+}
+
+.start-timeline {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.start-timeline article {
+  border-bottom: 1px solid var(--line);
+  padding: 1.2rem 0;
+}
+
+.start-timeline h3 {
+  margin: 0.45rem 0 0.65rem;
+  font-size: 1.45rem;
+}
+
+.start-timeline p {
+  margin-bottom: 0;
 }
 
 .about-hero {
@@ -1092,7 +1284,27 @@ summary:focus-visible {
     border-left: 1px solid var(--line);
   }
 
+  .visitor-list--single {
+    grid-template-columns: 1fr;
+    border-left: 0;
+  }
+
   .visitor-list article {
+    border-right: 1px solid var(--line);
+    padding: 1.35rem;
+  }
+
+  .visitor-list--single article {
+    border-right: 0;
+    padding-inline: 0;
+  }
+
+  .plan-basics__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-left: 1px solid var(--line);
+  }
+
+  .plan-basics__list article {
     border-right: 1px solid var(--line);
     padding: 1.35rem;
   }
@@ -1106,6 +1318,20 @@ summary:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .pathway-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .start-timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-left: 1px solid var(--line);
+  }
+
+  .start-timeline article {
+    border-right: 1px solid var(--line);
+    padding: 1.35rem;
+  }
+
   .leader-card {
     grid-template-columns: minmax(180px, 0.5fr) 1fr;
   }
@@ -1116,23 +1342,6 @@ summary:focus-visible {
 }
 
 @media (min-width: 880px) {
-  .nav {
-    grid-template-columns: auto 1fr auto;
-  }
-
-  .nav__menu-button {
-    display: none;
-  }
-
-  .nav__links {
-    position: static;
-    display: flex;
-    justify-content: center;
-    border: 0;
-    background: transparent;
-    padding: 0;
-  }
-
   .split,
   .contact-grid {
     grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
@@ -1144,6 +1353,19 @@ summary:focus-visible {
     align-items: start;
   }
 
+  .plan-visit-hero__grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.55fr);
+  }
+
+  .calendar-actions {
+    grid-template-columns: minmax(0, 0.95fr) minmax(360px, auto);
+    align-items: center;
+  }
+
+  .calendar-actions__links {
+    justify-content: flex-end;
+  }
+
   .about-hero__grid {
     grid-template-columns: minmax(0, 0.9fr) minmax(390px, 0.72fr);
   }
@@ -1153,7 +1375,9 @@ summary:focus-visible {
   }
 
   .about-story__grid,
-  .about-faith__grid {
+  .about-faith__grid,
+  .start-sunday__grid,
+  .start-questions__grid {
     grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1fr);
     align-items: start;
   }
@@ -1175,6 +1399,25 @@ summary:focus-visible {
   .ministry-detail-list,
   .footer-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1040px) {
+  .nav {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .nav__menu-button {
+    display: none;
+  }
+
+  .nav__links {
+    position: static;
+    display: flex;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    padding: 0;
   }
 }
 
