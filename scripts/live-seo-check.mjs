@@ -1,6 +1,7 @@
 const siteUrl = process.env.LIVE_SEO_SITE_URL || "https://wayside.church";
 const rootUrl = new URL("/", siteUrl).toString();
 const siteHost = new URL(siteUrl).host;
+const teachingFeedUrl = new URL("/teaching-feed.xml", rootUrl).toString();
 const errors = [];
 const warnings = [];
 const expectedImageSizes = new Map([
@@ -42,6 +43,10 @@ function extractVideoTitles(xml) {
 
 function extractVideoDescriptions(xml) {
   return [...xml.matchAll(/<video:description>([\s\S]*?)<\/video:description>/g)].map((match) => match[1].trim());
+}
+
+function extractAtomEntries(xml) {
+  return [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map((match) => match[1].trim());
 }
 
 function extractJsonLd(html) {
@@ -298,6 +303,41 @@ async function checkVideoSitemap(sitemapUrls) {
   }
 }
 
+async function checkTeachingFeed() {
+  const { response, text } = await fetchText(teachingFeedUrl, {
+    accept: "application/atom+xml,application/xml,text/xml,text/plain;q=0.9,*/*;q=0.8",
+  });
+
+  if (!response.ok) {
+    reportError(`${teachingFeedUrl} should be fetchable, got ${response.status}.`);
+    return;
+  }
+
+  const entries = extractAtomEntries(text);
+
+  if (!text.includes('xmlns="http://www.w3.org/2005/Atom"')) {
+    reportError("teaching-feed.xml is missing the Atom namespace.");
+  }
+  if (!text.includes('xmlns:media="http://search.yahoo.com/mrss/"')) {
+    reportError("teaching-feed.xml is missing the Media RSS namespace.");
+  }
+  if (!text.includes(`<link href="${teachingFeedUrl}" rel="self" type="application/atom+xml" />`)) {
+    reportError("teaching-feed.xml is missing its self link.");
+  }
+  if (!text.includes(`<link href="${new URL("/teaching/", rootUrl).toString()}" rel="alternate" type="text/html" />`)) {
+    reportError("teaching-feed.xml should point readers to /teaching/.");
+  }
+  if (entries.length < 3) {
+    reportError(`teaching-feed.xml should include multiple recent YouTube entries, found ${entries.length}.`);
+  }
+  if (entries.some((entry) => !/https:\/\/www\.youtube\.com\/(?:watch\?v=|shorts\/)/.test(entry))) {
+    reportError("teaching-feed.xml entries should link to YouTube videos or Shorts.");
+  }
+  if (entries.some((entry) => !entry.includes("<media:thumbnail url=\"https://"))) {
+    reportError("teaching-feed.xml entries should include video thumbnails.");
+  }
+}
+
 async function checkHomepageSchema(homeHtml) {
   const jsonLdBlocks = extractJsonLd(homeHtml);
   const parsedSchemas = [];
@@ -469,6 +509,9 @@ async function checkLiveTeachingPages() {
     if (!text.includes("Recent messages")) {
       reportError(`${url} should show the recent-message section populated from YouTube.`);
     }
+    if (!text.includes('type="application/atom+xml"') || !text.includes(`href="${teachingFeedUrl}"`)) {
+      reportError(`${url} should advertise the automated teaching feed in the page head.`);
+    }
 
     const recentTileCount = countMatches(text, /class=["']teaching-tile["']/g);
     if (recentTileCount < 3) {
@@ -502,6 +545,7 @@ async function main() {
 
   await checkImageSitemap(sitemapUrls);
   await checkVideoSitemap(sitemapUrls);
+  await checkTeachingFeed();
   await checkLivePages(sitemapUrls);
   await checkLiveTeachingPages();
 

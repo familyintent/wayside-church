@@ -4,7 +4,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 
 ## Weekly Rhythm
 
-- After a sermon is uploaded to YouTube, either wait for the daily GitHub Pages rebuild or manually run the deploy workflow from GitHub Actions to refresh the homepage, teaching page, and sermons page.
+- After a sermon is uploaded to YouTube, either wait for the daily GitHub Pages rebuild or manually run the deploy workflow from GitHub Actions to refresh the homepage, teaching page, sermons page, video sitemap, and teaching feed.
 - Add one fresh photo to Google Business Profile when there is a real church moment worth sharing: Sunday setup, fellowship, meals, ministry rhythms, baptisms, outreach, or building updates.
 - Add one short Google Business Profile post when there is a real next step: Sunday worship, holiday gatherings, community care, teaching series, or ministry updates.
 - Update the YouTube description for new teachings with:
@@ -31,7 +31,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 - Run `pnpm automation:audit` before major deploys if teaching or sermon pages change. It confirms the latest and recent teaching sections still come from YouTube instead of manual cards.
 - Run `pnpm seo:live` after major deploys or DNS changes. It verifies production redirects, robots, sitemap coverage, live canonicals, live local schema, and live recent-teaching cards.
 - Keep real Wayside photos in `public/images/` and listed in `image-sitemap.xml` through `src/pages/image-sitemap.xml.ts` so search engines can discover actual church imagery, not just a generic preview card.
-- Keep recent teaching discoverable through `video-sitemap.xml`, generated from the same YouTube feed used by the Teaching and Sermons pages. Staff should only need to upload the sermon to YouTube.
+- Keep recent teaching discoverable through `video-sitemap.xml` and `teaching-feed.xml`, both generated from the same YouTube feed used by the Teaching and Sermons pages. Staff should only need to upload the sermon to YouTube.
 - Keep the human-readable site map at `https://wayside.church/sitemap/` current. It should link every indexed page while the footer stays simple for visitors.
 - Look for one legitimate local mention or backlink opportunity from:
   - Advent Christian or regional church directories

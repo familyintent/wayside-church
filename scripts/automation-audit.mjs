@@ -52,6 +52,16 @@ requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "getRecentTeachi
 requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "xmlns:video=\"http://www.google.com/schemas/sitemap-video/1.1\"");
 requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "https://www.youtube.com/embed/");
 
+const teachingFeed = readText("src/pages/teaching-feed.xml.ts");
+requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "getRecentTeachings(site.youtube, 6)");
+requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "application/atom+xml");
+requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "xmlns=\"http://www.w3.org/2005/Atom\"");
+requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "media:thumbnail");
+
+const baseLayout = readText("src/layouts/BaseLayout.astro");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
+
 const settings = readText("src/content/settings.yaml");
 requireIncludes("src/content/settings.yaml", settings, "Staff should only need to upload sermons to YouTube");
 requireIncludes("src/content/settings.yaml", settings, "feedUrl: \"https://www.youtube.com/feeds/videos.xml");
@@ -66,7 +76,7 @@ requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm build");
 requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm automation:audit");
 
 const readme = readText("README.md");
-requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, or video-sitemap edit is needed");
+requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, video-sitemap, or teaching-feed edit is needed");
 requireIncludes("README.md", readme, "daily so the build-time YouTube feed can refresh");
 
 if (errors.length > 0) {

@@ -29,6 +29,7 @@ Mission: Wayside Church is a community dedicated to seeing individuals, families
 - Families: https://wayside.church/families/
 - Teaching: https://wayside.church/teaching/
 - Sermons: https://wayside.church/sermons/
+- Automated Teaching Feed: https://wayside.church/teaching-feed.xml
 - About: https://wayside.church/about/
 - Leadership: https://wayside.church/leadership/
 - Beliefs: https://wayside.church/beliefs/

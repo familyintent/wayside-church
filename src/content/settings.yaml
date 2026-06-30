@@ -88,7 +88,8 @@ calendar:
     ics: "/calendar/wayside-sunday-worship.ics"
 
 # Update this only if the YouTube channel changes.
-# Staff should only need to upload sermons to YouTube; the homepage, Teaching page, and Sermons page read the newest and recent uploads from this feed at build time.
+# Staff should only need to upload sermons to YouTube.
+# The homepage, Teaching page, Sermons page, recent-message cards, video sitemap, and teaching feed read the newest and recent uploads from this feed at build time.
 youtube:
   channelId: "UCETcyl8b0ylPXNQtUtTZpAQ"
   handle: "@waysidechurch864"

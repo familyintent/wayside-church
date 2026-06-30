@@ -6,6 +6,7 @@ const distDir = path.join(rootDir, "dist");
 const siteUrl = "https://wayside.church";
 const rootUrl = new URL("/", siteUrl).toString();
 const siteHost = new URL(siteUrl).host;
+const teachingFeedUrl = new URL("/teaching-feed.xml", siteUrl).toString();
 const errors = [];
 const warnings = [];
 
@@ -166,6 +167,10 @@ function extractVideoDescriptions(xml) {
   return [...xml.matchAll(/<video:description>([\s\S]*?)<\/video:description>/g)].map((match) => match[1].trim());
 }
 
+function extractAtomEntries(xml) {
+  return [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map((match) => match[1].trim());
+}
+
 function textIncludes(value, expected) {
   return JSON.stringify(value || "").toLowerCase().includes(expected.toLowerCase());
 }
@@ -227,6 +232,12 @@ for (const filePath of htmlFiles) {
   if (!canonical) errors.push(`${label}: missing canonical link.`);
   if (!isNoIndex && canonical !== expectedCanonical) {
     errors.push(`${label}: canonical is ${canonical}, expected ${expectedCanonical}.`);
+  }
+  if (
+    !isNoIndex &&
+    (!html.includes('type="application/atom+xml"') || !html.includes(`href="${teachingFeedUrl}"`))
+  ) {
+    errors.push(`${label}: missing teaching-feed alternate link.`);
   }
   if (!isNoIndex && h1Count !== 1) errors.push(`${label}: expected exactly one H1, found ${h1Count}.`);
 
@@ -507,6 +518,9 @@ if (!fs.existsSync(indexNowScriptPath)) {
   if (!indexNowScript.includes("video-sitemap.xml")) {
     errors.push("IndexNow submission should include video-sitemap.xml for teaching video discovery.");
   }
+  if (!indexNowScript.includes("teaching-feed.xml")) {
+    errors.push("IndexNow submission should include teaching-feed.xml for automated teaching discovery.");
+  }
   if (!indexNowScript.includes("INDEXNOW_DRY_RUN")) {
     errors.push("IndexNow submission should keep a dry-run mode for safe verification.");
   }
@@ -574,6 +588,36 @@ if (!fs.existsSync(videoSitemapPath)) {
     } catch {
       errors.push(`video-sitemap.xml contains invalid thumbnail URL: ${thumbnailUrl}.`);
     }
+  }
+}
+
+const teachingFeedPath = path.join(distDir, "teaching-feed.xml");
+if (!fs.existsSync(teachingFeedPath)) {
+  errors.push("Missing teaching-feed.xml.");
+} else {
+  const teachingFeed = readText(teachingFeedPath);
+  const entries = extractAtomEntries(teachingFeed);
+
+  if (!teachingFeed.includes('xmlns="http://www.w3.org/2005/Atom"')) {
+    errors.push("teaching-feed.xml is missing the Atom namespace.");
+  }
+  if (!teachingFeed.includes('xmlns:media="http://search.yahoo.com/mrss/"')) {
+    errors.push("teaching-feed.xml is missing the Media RSS namespace for thumbnails.");
+  }
+  if (!teachingFeed.includes(`<link href="${teachingFeedUrl}" rel="self" type="application/atom+xml" />`)) {
+    errors.push("teaching-feed.xml is missing its self link.");
+  }
+  if (!teachingFeed.includes(`<link href="${siteUrl}/teaching/" rel="alternate" type="text/html" />`)) {
+    errors.push("teaching-feed.xml should point readers to /teaching/.");
+  }
+  if (entries.length < 3) {
+    errors.push(`teaching-feed.xml should include multiple recent YouTube entries, found ${entries.length}.`);
+  }
+  if (entries.some((entry) => !/https:\/\/www\.youtube\.com\/(?:watch\?v=|shorts\/)/.test(entry))) {
+    errors.push("teaching-feed.xml entries should link to YouTube videos or Shorts.");
+  }
+  if (entries.some((entry) => !entry.includes("<media:thumbnail url=\"https://"))) {
+    errors.push("teaching-feed.xml entries should include video thumbnails.");
   }
 }
 
