@@ -38,6 +38,9 @@ contact:
   postalCode: "01507"
   addressCountry: "US"
   cityStateZip: "Charlton, MA 01507"
+  # Coordinates used for local search structured data. Update only if the church address changes.
+  latitude: 42.104233
+  longitude: -71.952781
   phone: "(508) 434-0401"
   phoneHref: "tel:+15084340401"
 

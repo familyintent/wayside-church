@@ -2,17 +2,22 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../lib/content";
-import { absoluteUrl, withBase } from "../lib/paths";
+import { absoluteUrl, withBase, withoutBase } from "../lib/paths";
 import "../styles/global.css";
 
 type Props = {
   title?: string;
   description?: string;
   image?: string;
+  robots?: string;
 };
 
-const { title, description = site.meta.description, image = site.meta.socialImage } = Astro.props;
-const pageTitle = title ? `${title} | ${site.church.name}` : `${site.church.name} - The Church in ${site.church.city}, ${site.church.state}`;
+const { title, description = site.meta.description, image = site.meta.socialImage, robots = "index, follow" } = Astro.props;
+const pageTitle = title
+  ? title.includes(site.church.name)
+    ? title
+    : `${title} | ${site.church.name}`
+  : `${site.church.name} | Church in ${site.church.city}, ${site.church.state}`;
 const canonicalUrl = absoluteUrl(Astro.url.pathname, site.meta.siteUrl);
 const socialImageUrl = absoluteUrl(image, site.meta.siteUrl);
 const logoUrl = absoluteUrl(site.meta.logo, site.meta.siteUrl);
@@ -20,6 +25,7 @@ const siteUrl = absoluteUrl("/", site.meta.siteUrl);
 const churchId = `${siteUrl}#church`;
 const webSiteId = `${siteUrl}#website`;
 const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube].filter(Boolean);
+const phoneNumber = site.contact.phoneHref.replace(/^tel:/, "");
 const churchSchema = {
   "@context": "https://schema.org",
   "@type": "Church",
@@ -27,9 +33,10 @@ const churchSchema = {
   name: site.church.name,
   url: siteUrl,
   logo: logoUrl,
-  image: socialImageUrl,
+  image: [socialImageUrl, absoluteUrl(site.images.community, site.meta.siteUrl)],
   description: site.meta.description,
-  telephone: site.contact.phone,
+  telephone: phoneNumber,
+  hasMap: site.links.maps,
   address: {
     "@type": "PostalAddress",
     streetAddress: site.contact.addressLine1,
@@ -38,14 +45,35 @@ const churchSchema = {
     postalCode: site.contact.postalCode,
     addressCountry: site.contact.addressCountry,
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: site.contact.latitude,
+    longitude: site.contact.longitude,
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: phoneNumber,
+    contactType: "church office",
+    areaServed: `${site.church.city}, ${site.church.state}`,
+  },
+  areaServed: [
+    {
+      "@type": "City",
+      name: `${site.church.city}, ${site.church.state}`,
+    },
+    {
+      "@type": "AdministrativeArea",
+      name: "Worcester County, MA",
+    },
+  ],
   sameAs,
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: "Sunday",
-      opens: "10:00",
+      opens: "09:00",
       closes: "11:30",
-      description: site.service.primary.label,
+      description: `${site.service.coffee.label} and ${site.service.primary.label}`,
     },
   ],
 };
@@ -56,7 +84,32 @@ const webSiteSchema = {
   name: site.church.name,
   url: siteUrl,
   publisher: { "@id": churchId },
+  inLanguage: "en-US",
 };
+const normalizedPath = withoutBase(Astro.url.pathname);
+const currentNavItem = site.navigation.find((item) => item.href === normalizedPath || item.href === `${normalizedPath}/`);
+const breadcrumbLabel = title || currentNavItem?.label;
+const breadcrumbSchema =
+  normalizedPath === "/" || robots.includes("noindex")
+    ? null
+    : {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: breadcrumbLabel || pageTitle,
+            item: canonicalUrl,
+          },
+        ],
+      };
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -72,6 +125,7 @@ const contentSecurityPolicy = [
   "worker-src 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
+const schemas = [churchSchema, webSiteSchema, breadcrumbSchema].filter(Boolean);
 const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u003c");
 ---
 
@@ -81,7 +135,7 @@ const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u0
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots} />
     <meta name="theme-color" content="#fbfaf6" />
     <meta http-equiv="Content-Security-Policy" content={contentSecurityPolicy} />
     <link rel="canonical" href={canonicalUrl} />
@@ -105,8 +159,7 @@ const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u0
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
     <title>{pageTitle}</title>
-    <script type="application/ld+json" set:html={toJsonLd(churchSchema)} />
-    <script type="application/ld+json" set:html={toJsonLd(webSiteSchema)} />
+    {schemas.map((schema) => <script type="application/ld+json" set:html={toJsonLd(schema)} />)}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
