@@ -16,7 +16,7 @@ const heroImageSize = imageSize(site.images.hero);
 const communityImageSize = imageSize(site.images.community);
 ---
 
-<BaseLayout extraSchemas={homeSchemas}>
+<BaseLayout image={site.images.hero} extraSchemas={homeSchemas}>
   <section class="hero" aria-labelledby="hero-title">
     <img class="hero__image" src={withBase(site.images.hero)} alt={site.home.hero.imageAlt} width={heroImageSize?.width} height={heroImageSize?.height} loading="eager" decoding="async" fetchpriority="high" />
     <div class="hero__shade" aria-hidden="true"></div>

@@ -105,6 +105,7 @@ The site includes:
 - a manual `pnpm seo:live` check for production redirects, robots, sitemaps, live canonicals, live local schema, and live recent-teaching output
 - sitemap generation through `@astrojs/sitemap`
 - a human-readable `/sitemap/` page that links every indexed page without cluttering the main footer
+- `image-sitemap.xml` for representative real Wayside images on key pages
 - `public/robots.txt`
 - `public/site.webmanifest`
 - IndexNow key file and deploy notification for participating search engines

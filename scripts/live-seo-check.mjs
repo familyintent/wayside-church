@@ -16,6 +16,10 @@ function extractLocs(xml) {
   return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1].trim());
 }
 
+function extractImageLocs(xml) {
+  return [...xml.matchAll(/<image:loc>(.*?)<\/image:loc>/g)].map((match) => match[1].trim());
+}
+
 function extractJsonLd(html) {
   return [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].map((match) =>
     match[1].trim(),
@@ -135,6 +139,49 @@ async function checkRobots() {
 
   if (!text.includes(`${rootUrl}sitemap-index.xml`)) {
     reportError("robots.txt should reference the production sitemap-index.xml.");
+  }
+
+  if (!text.includes(`${rootUrl}image-sitemap.xml`)) {
+    reportError("robots.txt should reference the production image-sitemap.xml.");
+  }
+}
+
+async function checkImageSitemap(sitemapUrls) {
+  const imageSitemapUrl = new URL("/image-sitemap.xml", rootUrl).toString();
+  const { response, text } = await fetchText(imageSitemapUrl, { accept: "application/xml,text/xml,text/plain;q=0.9,*/*;q=0.8" });
+
+  if (!response.ok) {
+    reportError(`${imageSitemapUrl} should be fetchable, got ${response.status}.`);
+    return;
+  }
+
+  const imagePageUrls = extractLocs(text);
+  const imageUrls = extractImageLocs(text);
+
+  if (!text.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"')) {
+    reportError("image-sitemap.xml is missing the Google image sitemap namespace.");
+  }
+  if (imagePageUrls.length < 10) {
+    reportError(`image-sitemap.xml should include key visual pages, found ${imagePageUrls.length}.`);
+  }
+  if (imageUrls.length < 12) {
+    reportError(`image-sitemap.xml should include representative local images, found ${imageUrls.length}.`);
+  }
+
+  for (const imagePageUrl of imagePageUrls) {
+    if (!sitemapUrls.includes(imagePageUrl)) {
+      reportError(`image-sitemap.xml page URL is missing from the XML sitemap: ${imagePageUrl}.`);
+    }
+  }
+
+  for (const imageUrl of imageUrls) {
+    try {
+      const url = new URL(imageUrl);
+      if (url.host !== siteHost) reportError(`image-sitemap.xml image URL should use ${siteHost}: ${imageUrl}.`);
+      if (!url.pathname.startsWith("/images/")) reportError(`image-sitemap.xml image should use a local /images/ asset: ${imageUrl}.`);
+    } catch {
+      reportError(`image-sitemap.xml contains invalid image URL: ${imageUrl}.`);
+    }
   }
 }
 
@@ -277,6 +324,7 @@ async function main() {
   if (sitemapUrls.length < 20) reportError(`Expected at least 20 sitemap URLs, found ${sitemapUrls.length}.`);
   if (!sitemapUrls.includes(new URL("/sitemap/", rootUrl).toString())) reportError("XML sitemap should include /sitemap/.");
 
+  await checkImageSitemap(sitemapUrls);
   await checkLivePages(sitemapUrls);
   await checkLiveTeachingPages();
 

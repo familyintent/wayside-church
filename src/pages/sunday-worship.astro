@@ -13,7 +13,7 @@ const communityImageSize = imageSize(site.images.community);
 const sundaySchemas = [getSundayWorshipEventSchema("/sunday-worship/"), getFaqPageSchema(sunday.faq)];
 ---
 
-<BaseLayout title={sunday.metaTitle} description={sunday.metaDescription} extraSchemas={sundaySchemas}>
+<BaseLayout title={sunday.metaTitle} description={sunday.metaDescription} image={site.images.community} extraSchemas={sundaySchemas}>
   <section class="page-hero sunday-hero">
     <div class="shell page-hero__inner">
       <p class="eyebrow">{sunday.eyebrow}</p>

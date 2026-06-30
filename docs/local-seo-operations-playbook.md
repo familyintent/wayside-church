@@ -30,6 +30,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 - Run `pnpm build` and `pnpm seo:audit` before major SEO edits. The audit checks canonical URLs, sitemap coverage, structured data, local church entity fields, image alt text, and internal links.
 - Run `pnpm automation:audit` before major deploys if teaching or sermon pages change. It confirms the latest and recent teaching sections still come from YouTube instead of manual cards.
 - Run `pnpm seo:live` after major deploys or DNS changes. It verifies production redirects, robots, sitemap coverage, live canonicals, live local schema, and live recent-teaching cards.
+- Keep real Wayside photos in `public/images/` and listed in `image-sitemap.xml` through `src/pages/image-sitemap.xml.ts` so search engines can discover actual church imagery, not just a generic preview card.
 - Keep the human-readable site map at `https://wayside.church/sitemap/` current. It should link every indexed page while the footer stays simple for visitors.
 - Look for one legitimate local mention or backlink opportunity from:
   - Advent Christian or regional church directories

@@ -134,6 +134,10 @@ function extractLocs(xml) {
   return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1].trim());
 }
 
+function extractImageLocs(xml) {
+  return [...xml.matchAll(/<image:loc>(.*?)<\/image:loc>/g)].map((match) => match[1].trim());
+}
+
 function textIncludes(value, expected) {
   return JSON.stringify(value || "").toLowerCase().includes(expected.toLowerCase());
 }
@@ -313,11 +317,59 @@ if (!fs.existsSync(robotsPath)) {
   if (!robots.includes(`${siteUrl}/sitemap-index.xml`)) {
     errors.push("robots.txt does not reference the production sitemap-index.xml.");
   }
+  if (!robots.includes(`${siteUrl}/image-sitemap.xml`)) {
+    errors.push("robots.txt does not reference the production image-sitemap.xml.");
+  }
 }
 
 const llmsPath = path.join(distDir, "llms.txt");
 if (!fs.existsSync(llmsPath)) {
   errors.push("Missing llms.txt.");
+}
+
+const imageSitemapPath = path.join(distDir, "image-sitemap.xml");
+if (!fs.existsSync(imageSitemapPath)) {
+  errors.push("Missing image-sitemap.xml.");
+} else {
+  const imageSitemap = readText(imageSitemapPath);
+  const imagePageUrls = extractLocs(imageSitemap);
+  const imageUrls = extractImageLocs(imageSitemap);
+
+  if (!imageSitemap.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"')) {
+    errors.push("image-sitemap.xml is missing the Google image sitemap namespace.");
+  }
+  if (imagePageUrls.length < 10) {
+    errors.push(`image-sitemap.xml should include key visual pages, found ${imagePageUrls.length}.`);
+  }
+  if (imageUrls.length < 12) {
+    errors.push(`image-sitemap.xml should include representative local images, found ${imageUrls.length}.`);
+  }
+
+  for (const imagePageUrl of imagePageUrls) {
+    if (!sitemapUrls.has(imagePageUrl)) {
+      errors.push(`image-sitemap.xml page URL is missing from sitemap-0.xml: ${imagePageUrl}.`);
+    }
+  }
+
+  for (const imageUrl of imageUrls) {
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(imageUrl);
+    } catch {
+      errors.push(`image-sitemap.xml contains invalid image URL: ${imageUrl}.`);
+      continue;
+    }
+
+    if (parsedUrl.host !== siteHost) {
+      errors.push(`image-sitemap.xml image URL should use ${siteHost}: ${imageUrl}.`);
+      continue;
+    }
+
+    const imagePath = path.join(distDir, decodeURIComponent(parsedUrl.pathname).replace(/^\//, ""));
+    if (!fs.existsSync(imagePath)) {
+      errors.push(`image-sitemap.xml image does not exist in dist: ${imageUrl}.`);
+    }
+  }
 }
 
 const htmlSitemapPath = path.join(distDir, "sitemap", "index.html");
