@@ -5,9 +5,10 @@ import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { withBase } from "../lib/paths";
+import { getFaqPageSchema } from "../lib/schema";
 ---
 
-<BaseLayout title="Contact Wayside Church in Charlton, MA" description="Plan a visit to Wayside Church in Charlton, MA, find Sunday worship details, contact information, directions, and guest FAQs.">
+<BaseLayout title="Contact Wayside Church in Charlton, MA" description="Plan a visit to Wayside Church in Charlton, MA, find Sunday worship details, contact information, directions, and guest FAQs." extraSchemas={[getFaqPageSchema(site.contactPage.faq)]}>
   <section class="page-hero">
     <div class="shell page-hero__inner">
       <p class="eyebrow">Contact</p>

@@ -5,11 +5,12 @@ import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { withBase } from "../lib/paths";
+import { getSundayWorshipEventSchema } from "../lib/schema";
 
 const visit = site.planVisit;
 ---
 
-<BaseLayout title="Plan a Visit to Wayside Church in Charlton, MA" description="Plan a visit to Wayside Church in Charlton, MA. Find Sunday worship time, address, directions, calendar links, and what to expect.">
+<BaseLayout title="Plan a Visit to Wayside Church in Charlton, MA" description="Plan a visit to Wayside Church in Charlton, MA. Find Sunday worship time, address, directions, calendar links, and what to expect." extraSchemas={[getSundayWorshipEventSchema("/plan-a-visit/")]}>
   <section class="page-hero plan-visit-hero">
     <div class="shell plan-visit-hero__grid">
       <div>

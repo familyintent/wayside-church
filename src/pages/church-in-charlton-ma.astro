@@ -5,23 +5,13 @@ import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { withBase } from "../lib/paths";
+import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
 
 const local = site.localSeo;
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: local.faq.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-};
+const localSchemas = [getFaqPageSchema(local.faq), getSundayWorshipEventSchema("/church-in-charlton-ma/")];
 ---
 
-<BaseLayout title={local.metaTitle} description={local.metaDescription} extraSchemas={[faqSchema]}>
+<BaseLayout title={local.metaTitle} description={local.metaDescription} extraSchemas={localSchemas}>
   <section class="page-hero">
     <div class="shell page-hero__inner">
       <p class="eyebrow">{local.eyebrow}</p>
