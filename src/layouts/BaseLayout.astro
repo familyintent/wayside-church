@@ -31,6 +31,7 @@ const logoUrl = absoluteUrl(site.meta.logo, site.meta.siteUrl);
 const siteUrl = absoluteUrl("/", site.meta.siteUrl);
 const churchId = `${siteUrl}#church`;
 const webSiteId = `${siteUrl}#website`;
+const normalizedPath = withoutBase(Astro.url.pathname);
 const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube].filter(Boolean);
 const phoneNumber = site.contact.phoneHref.replace(/^tel:/, "");
 const churchSchema = {
@@ -93,7 +94,35 @@ const webSiteSchema = {
   publisher: { "@id": churchId },
   inLanguage: "en-US",
 };
-const normalizedPath = withoutBase(Astro.url.pathname);
+const pageSchemaType =
+  normalizedPath === "/about/" || normalizedPath === "/beliefs/"
+    ? "AboutPage"
+    : normalizedPath === "/contact/"
+      ? "ContactPage"
+      : normalizedPath === "/ministries/" || normalizedPath === "/teaching/"
+        ? "CollectionPage"
+        : "WebPage";
+const webPageSchema =
+  robots.includes("noindex")
+    ? null
+    : {
+        "@context": "https://schema.org",
+        "@type": pageSchemaType,
+        "@id": `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: pageTitle,
+        description,
+        isPartOf: { "@id": webSiteId },
+        about: { "@id": churchId },
+        publisher: { "@id": churchId },
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: socialImageUrl,
+          width: 1200,
+          height: 630,
+        },
+        inLanguage: "en-US",
+      };
 const currentNavItem = site.navigation.find((item) => item.href === normalizedPath || item.href === `${normalizedPath}/`);
 const breadcrumbLabel = title || currentNavItem?.label;
 const breadcrumbSchema =
@@ -132,7 +161,7 @@ const contentSecurityPolicy = [
   "worker-src 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
-const schemas = [churchSchema, webSiteSchema, breadcrumbSchema, ...extraSchemas].filter(Boolean);
+const schemas = [churchSchema, webSiteSchema, webPageSchema, breadcrumbSchema, ...extraSchemas].filter(Boolean);
 const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u003c");
 ---
 

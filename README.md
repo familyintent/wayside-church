@@ -73,6 +73,7 @@ The site includes:
 - canonical URLs
 - Open Graph and Twitter card metadata
 - local church structured data using JSON-LD
+- page-level `WebPage`, `AboutPage`, `ContactPage`, and `CollectionPage` structured data
 - recurring Sunday worship event schema
 - FAQ schema on visitor-focused pages
 - video schema for recent teaching pages when YouTube publish dates are available
@@ -89,6 +90,13 @@ GitHub Pages custom domain support is kept in:
 
 ```text
 public/CNAME
+```
+
+Ongoing local SEO work is documented in:
+
+```text
+docs/local-seo-operations-playbook.md
+docs/local-seo-backlink-kit.md
 ```
 
 ## Latest YouTube Teaching

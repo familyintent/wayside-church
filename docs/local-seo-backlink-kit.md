@@ -2,6 +2,8 @@
 
 Use this kit to earn legitimate local backlinks and citations for Wayside Church. Do not buy bulk backlinks, comment-spam blogs, or submit to unrelated directories. Google local ranking is helped by consistent, trustworthy mentions of the church across the web.
 
+For the weekly and monthly SEO rhythm, use `docs/local-seo-operations-playbook.md`.
+
 ## Official Church Info
 
 Name: Wayside Church
