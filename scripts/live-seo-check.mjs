@@ -370,6 +370,15 @@ async function getSitemapUrls() {
   }
 
   const childSitemapUrls = extractLocs(text).filter((url) => url.endsWith(".xml"));
+  for (const expectedSitemap of [
+    new URL("/sitemap-0.xml", rootUrl).toString(),
+    new URL("/image-sitemap.xml", rootUrl).toString(),
+    new URL("/video-sitemap.xml", rootUrl).toString(),
+  ]) {
+    if (!childSitemapUrls.includes(expectedSitemap)) {
+      reportError(`sitemap-index.xml should reference ${expectedSitemap}.`);
+    }
+  }
   if (childSitemapUrls.length === 0) return extractLocs(text);
 
   const childUrlSets = await Promise.all(

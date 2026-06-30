@@ -359,6 +359,9 @@ const sitemapPath = path.join(distDir, "sitemap-0.xml");
 const sitemapXml = fs.existsSync(sitemapPath) ? readText(sitemapPath) : "";
 const sitemapUrls = sitemapXml ? new Set(extractLocs(sitemapXml)) : new Set();
 const sitemapEntries = sitemapXml ? extractSitemapEntries(sitemapXml) : [];
+const sitemapIndexPath = path.join(distDir, "sitemap-index.xml");
+const sitemapIndexXml = fs.existsSync(sitemapIndexPath) ? readText(sitemapIndexPath) : "";
+const sitemapIndexUrls = sitemapIndexXml ? extractLocs(sitemapIndexXml) : [];
 const sitemapLastmods = new Map(sitemapEntries.map((entry) => [entry.loc, entry.lastmod]));
 const titles = new Map();
 const descriptions = new Map();
@@ -382,6 +385,16 @@ const responsiveImageVariants = new Map([
   ["/images/chase-mendoza.webp", ["/images/chase-mendoza-320.webp", "/images/chase-mendoza-480.webp"]],
   ["/images/owen-rushing.webp", ["/images/owen-rushing-320.webp", "/images/owen-rushing-640.webp"]],
 ]);
+
+if (!sitemapIndexXml) {
+  errors.push("Missing sitemap-index.xml.");
+} else {
+  for (const expectedSitemap of [`${siteUrl}/sitemap-0.xml`, `${siteUrl}/image-sitemap.xml`, `${siteUrl}/video-sitemap.xml`]) {
+    if (!sitemapIndexUrls.includes(expectedSitemap)) {
+      errors.push(`sitemap-index.xml missing ${expectedSitemap}.`);
+    }
+  }
+}
 
 function localPathFromUrl(value) {
   try {

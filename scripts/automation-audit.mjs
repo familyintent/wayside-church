@@ -325,6 +325,14 @@ requireIncludes("README.md", readme, "XML sitemap `lastmod`");
 const packageJson = readText("package.json");
 requireIncludes("package.json", packageJson, "\"performance:audit\": \"node scripts/performance-audit.mjs\"");
 requireIncludes("package.json", packageJson, "pnpm performance:audit");
+requireIncludes("package.json", packageJson, "scripts/extend-sitemap-index.mjs");
+
+const sitemapIndexExtender = readText("scripts/extend-sitemap-index.mjs");
+requireIncludes("scripts/extend-sitemap-index.mjs", sitemapIndexExtender, "new XMLParser");
+requireIncludes("scripts/extend-sitemap-index.mjs", sitemapIndexExtender, "new XMLBuilder");
+requireIncludes("scripts/extend-sitemap-index.mjs", sitemapIndexExtender, "image-sitemap.xml");
+requireIncludes("scripts/extend-sitemap-index.mjs", sitemapIndexExtender, "video-sitemap.xml");
+requireIncludes("scripts/extend-sitemap-index.mjs", sitemapIndexExtender, "sitemap-index.xml");
 
 const performanceAudit = readText("scripts/performance-audit.mjs");
 requireIncludes("scripts/performance-audit.mjs", performanceAudit, "Homepage should preload the hero image");
@@ -359,6 +367,12 @@ requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "town.directio
 const imageSitemapRoute = readText("src/pages/image-sitemap.xml.ts");
 requireIncludes("src/pages/image-sitemap.xml.ts", imageSitemapRoute, "site.images.localEntity");
 requireIncludes("src/pages/image-sitemap.xml.ts", imageSitemapRoute, "image:geo_location");
+requireIncludes("src/pages/image-sitemap.xml.ts", imageSitemapRoute, "<lastmod>");
+requireIncludes("src/pages/image-sitemap.xml.ts", imageSitemapRoute, "gitCommitDate");
+
+requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "<lastmod>");
+requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "newestIsoDate");
+requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "gitCommitDate");
 
 const generatedContactCard = readText("src/pages/wayside-church.vcf.ts");
 requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.contact.addressLine1");

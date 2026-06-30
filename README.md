@@ -137,6 +137,7 @@ The site includes:
 - a reusable `pnpm automation:audit` check that protects the YouTube-powered latest and recent teaching sections from becoming manual content lists
 - a manual `pnpm seo:live` check for production redirects, robots, sitemaps, live canonicals, live local schema, and live recent-teaching output
 - sitemap generation through `@astrojs/sitemap`
+- post-build sitemap index extension so Search Console can discover the custom image and video sitemaps from `sitemap-index.xml`
 - XML sitemap `lastmod` freshness from the current Git commit and YouTube publish dates for generated teaching pages
 - a human-readable `/sitemap/` page that links every indexed page without cluttering the main footer
 - `image-sitemap.xml` for representative real Wayside images on key pages, with titles, captions, and Charlton location metadata

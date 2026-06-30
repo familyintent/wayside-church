@@ -3,6 +3,7 @@ import { absoluteUrl } from "../lib/paths";
 import { getTeachingPagePath } from "../lib/teaching-routes";
 import { getRecentTeachings } from "../lib/youtube";
 import type { LatestTeaching } from "../lib/youtube";
+import { execSync } from "node:child_process";
 
 type VideoSitemapPage = {
   path: string;
@@ -20,6 +21,26 @@ function xmlEscape(value: string) {
 
 function truncate(value: string, maxLength: number) {
   return value.length <= maxLength ? value : `${value.slice(0, maxLength - 3).trimEnd()}...`;
+}
+
+function isoDate(value: string | Date) {
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime()) ? "" : date.toISOString();
+}
+
+function newestIsoDate(values: Array<string | undefined>) {
+  const timestamps = values.map((value) => Date.parse(value || "")).filter((value) => !Number.isNaN(value));
+  if (timestamps.length === 0) return "";
+
+  return new Date(Math.max(...timestamps)).toISOString();
+}
+
+function gitCommitDate() {
+  try {
+    return isoDate(execSync("git show -s --format=%cI HEAD", { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim());
+  } catch {
+    return isoDate(new Date());
+  }
 }
 
 function videoDescription(video: LatestTeaching) {
@@ -47,6 +68,7 @@ function videoEntryXml(video: LatestTeaching) {
 
 export async function GET() {
   const teachings = await getRecentTeachings(site.youtube, 6);
+  const commitLastmod = gitCommitDate();
   const latest = teachings[0] ? [teachings[0]] : [];
   const pages: VideoSitemapPage[] = [
     { path: "/", videos: latest },
@@ -59,11 +81,12 @@ export async function GET() {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">',
     ...pages.map((page) =>
-      [
-        "  <url>",
-        `    <loc>${xmlEscape(absoluteUrl(page.path, site.meta.siteUrl))}</loc>`,
-        ...page.videos.map(videoEntryXml),
-        "  </url>",
+        [
+          "  <url>",
+          `    <loc>${xmlEscape(absoluteUrl(page.path, site.meta.siteUrl))}</loc>`,
+          `    <lastmod>${xmlEscape(newestIsoDate([commitLastmod, ...page.videos.map((video) => video.published)]) || commitLastmod)}</lastmod>`,
+          ...page.videos.map(videoEntryXml),
+          "  </url>",
       ].join("\n"),
     ),
     "</urlset>",

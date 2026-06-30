@@ -1,5 +1,6 @@
 import { site } from "../lib/content";
 import { absoluteUrl } from "../lib/paths";
+import { execSync } from "node:child_process";
 
 type ImageSitemapEntry = {
   page: string;
@@ -148,6 +149,21 @@ const entries: ImageSitemapEntry[] = [
 
 const imageGeoLocation = "Charlton, Massachusetts";
 
+function isoDate(value: string | Date) {
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime()) ? "" : date.toISOString();
+}
+
+function gitCommitDate() {
+  try {
+    return isoDate(execSync("git show -s --format=%cI HEAD", { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim());
+  } catch {
+    return isoDate(new Date());
+  }
+}
+
+const sitemapLastmod = gitCommitDate();
+
 function xmlEscape(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -176,6 +192,7 @@ export function GET() {
       [
         "  <url>",
         `    <loc>${xmlEscape(absoluteUrl(entry.page, site.meta.siteUrl))}</loc>`,
+        `    <lastmod>${xmlEscape(sitemapLastmod)}</lastmod>`,
         ...entry.images.map(imageEntryXml),
         "  </url>",
       ].join("\n"),
