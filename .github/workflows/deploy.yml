@@ -52,6 +52,9 @@ jobs:
       - name: Run automation audit
         run: pnpm automation:audit
 
+      - name: Run performance audit
+        run: pnpm performance:audit
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5.0.0
         with:

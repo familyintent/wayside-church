@@ -29,8 +29,10 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 - Check Bing Webmaster Tools after major launches or page additions. The deploy workflow also submits sitemap URLs through IndexNow for participating search engines.
 - Run `pnpm build` and `pnpm seo:audit` before major SEO edits. The audit checks canonical URLs, sitemap coverage, structured data, local church entity fields, image alt text, and internal links.
 - Run `pnpm automation:audit` before major deploys if teaching or sermon pages change. It confirms the latest and recent teaching sections still come from YouTube instead of manual cards.
+- Run `pnpm performance:audit` after a production build before major deploys. It keeps deployed HTML, CSS, JS, image weight, hero loading priority, and third-party asset boundaries healthy for visitors and search crawlers.
 - Run `pnpm seo:live` after major deploys or DNS changes. It verifies production redirects, robots, sitemap coverage, live canonicals, live local schema, and live recent-teaching cards.
 - Keep real Wayside photos in `public/images/` and listed in `image-sitemap.xml` through `src/pages/image-sitemap.xml.ts` so search engines can discover actual church imagery, not just a generic preview card.
+- Keep full-size source photos in `source-assets/original-images/` instead of `public/images/`. Anything under `public/` is deployed, so use compressed WebP or appropriately sized JPG/PNG assets there.
 - Keep the local entity crops in `images.localEntity` as real Wayside photos in 1:1, 4:3, and 16:9 ratios. These support Church schema, image discovery, and rich link previews without using stock or generic imagery.
 - Keep recent teaching discoverable through generated `/teaching/.../` watch pages, `video-sitemap.xml`, and `teaching-feed.xml`, all generated from the same YouTube feed used by the Teaching and Sermons pages. Staff should only need to upload the sermon to YouTube.
 - Keep `/llms.txt` generated from site settings and the YouTube feed so AI tools see current service times, contact details, official pages, machine-readable resources, and recent teaching pages.

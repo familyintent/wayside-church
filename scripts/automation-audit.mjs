@@ -200,6 +200,7 @@ requireIncludes(".github/workflows/deploy.yml", workflow, "schedule:");
 requireIncludes(".github/workflows/deploy.yml", workflow, "workflow_dispatch:");
 requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm build");
 requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm automation:audit");
+requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm performance:audit");
 requireIncludes(".github/workflows/deploy.yml", workflow, "actions/checkout@v7.0.0");
 requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm/action-setup@v6.0.9");
 requireIncludes(".github/workflows/deploy.yml", workflow, "actions/setup-node@v6.4.0");
@@ -213,6 +214,18 @@ const readme = readText("README.md");
 requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, individual watch page, video-sitemap, or teaching-feed edit is needed");
 requireIncludes("README.md", readme, "update `calendar.sunday` only");
 requireIncludes("README.md", readme, "daily so the build-time YouTube feed can refresh");
+requireIncludes("README.md", readme, "pnpm performance:audit");
+
+const packageJson = readText("package.json");
+requireIncludes("package.json", packageJson, "\"performance:audit\": \"node scripts/performance-audit.mjs\"");
+requireIncludes("package.json", packageJson, "pnpm performance:audit");
+
+const performanceAudit = readText("scripts/performance-audit.mjs");
+requireIncludes("scripts/performance-audit.mjs", performanceAudit, "fetchpriority=\"high\"");
+requireIncludes("scripts/performance-audit.mjs", performanceAudit, "wayside-welcome-hero-640.webp 640w");
+requireIncludes("scripts/performance-audit.mjs", performanceAudit, "Content-Security-Policy");
+requireIncludes("scripts/performance-audit.mjs", performanceAudit, "unexpected external script");
+requireIncludes("scripts/performance-audit.mjs", performanceAudit, "Total deployed image assets");
 
 const generatedCalendar = readText("src/pages/calendar/wayside-sunday-worship.ics.ts");
 requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "text/calendar");

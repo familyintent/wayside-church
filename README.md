@@ -15,6 +15,7 @@ Build for production:
 pnpm build
 pnpm seo:audit
 pnpm automation:audit
+pnpm performance:audit
 pnpm preview
 ```
 
@@ -85,6 +86,14 @@ The logo, favicon, and app icons were generated from the supplied Wayside logo f
 
 Large page photos should use the optimized `.webp` variants referenced in `src/content/settings.yaml`. Keep replacement hero, community, map, and leader images reasonably compressed so the homepage stays fast for mobile visitors.
 
+Full-size originals that should not be deployed live in:
+
+```text
+source-assets/original-images/
+```
+
+Keep public images web-ready before putting them in `public/images/`; files in `public/` are copied directly to the deployed site.
+
 ## SEO
 
 The site includes:
@@ -111,6 +120,7 @@ The site includes:
 - automatic YouTube thumbnail dimensions for latest and recent teaching cards, so feed-driven video images stay stable in the layout
 - responsive WebP variants with `srcset` and `sizes` for real Wayside photos, so large local images stay sharp without forcing oversized downloads
 - search-friendly 1:1, 4:3, and 16:9 real Wayside image crops for local entity schema and image discovery
+- a reusable `pnpm performance:audit` check for deployed HTML, CSS, JS, image weight, homepage hero priority, responsive hero candidates, and unexpected third-party asset loads
 - leader `Person` schema on the About page
 - recurring ministry `Event` schema on the Ministries page
 - generated `llms.txt` for AI discovery summaries, current visitor facts, machine-readable resources, and recent teaching links
@@ -182,6 +192,7 @@ It runs:
 - Node.js 24 with current pinned GitHub Actions releases
 - `pnpm seo:audit` after the Astro build, before the Pages artifact is uploaded
 - `pnpm automation:audit` after the SEO audit, so recent teaching stays connected to the YouTube feed instead of becoming manual page content
+- `pnpm performance:audit` before upload, so oversized raw images, bloated assets, or unexpected third-party scripts do not ship to GitHub Pages
 - after deployment, it submits page, sitemap, image-sitemap, video-sitemap, teaching-feed, and llms.txt URLs to IndexNow so participating search engines can discover changed pages, visual assets, teaching videos, and AI-facing site facts faster
 
 After a deploy finishes, you can run `pnpm seo:live` locally to verify the public site, canonical redirects, live sitemap coverage, deployed structured data, and live recent-teaching cards.
