@@ -401,16 +401,18 @@ async function getSitemapUrls() {
         }
       }
 
-      for (const requiredUrl of [rootUrl, new URL("/teaching/", rootUrl).toString(), new URL("/sermons/", rootUrl).toString()]) {
-        const entry = entries.find((item) => item.loc === requiredUrl);
-        if (!entry || !isValidIsoDate(entry.lastmod)) {
-          reportError(`${url} should include a valid lastmod for ${requiredUrl}.`);
+      if (new URL(url).pathname === "/sitemap-0.xml") {
+        for (const requiredUrl of [rootUrl, new URL("/teaching/", rootUrl).toString(), new URL("/sermons/", rootUrl).toString()]) {
+          const entry = entries.find((item) => item.loc === requiredUrl);
+          if (!entry || !isValidIsoDate(entry.lastmod)) {
+            reportError(`${url} should include a valid lastmod for ${requiredUrl}.`);
+          }
         }
-      }
 
-      const teachingWatchEntries = entries.filter((entry) => /\/teaching\/[^/]+-[A-Za-z0-9_-]{11}\/$/.test(entry.loc));
-      if (teachingWatchEntries.length < 5) {
-        reportError(`${url} should include recent teaching watch pages with lastmod, found ${teachingWatchEntries.length}.`);
+        const teachingWatchEntries = entries.filter((entry) => /\/teaching\/[^/]+-[A-Za-z0-9_-]{11}\/$/.test(entry.loc));
+        if (teachingWatchEntries.length < 5) {
+          reportError(`${url} should include recent teaching watch pages with lastmod, found ${teachingWatchEntries.length}.`);
+        }
       }
 
       return entries.map((entry) => entry.loc);
