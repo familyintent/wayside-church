@@ -144,6 +144,10 @@ function countMatches(value, regex) {
   return [...value.matchAll(regex)].length;
 }
 
+function hasUpcomingSundayDate(html) {
+  return /<time\b[^>]*datetime=["']\d{4}-\d{2}-\d{2}["'][^>]*>(?:Sunday, )?[A-Z][a-z]+ \d{1,2}<\/time>/.test(html);
+}
+
 function isYouTubeThumbnailUrl(value) {
   try {
     return new URL(value).host.endsWith("ytimg.com");
@@ -922,6 +926,7 @@ async function checkHomepageSchema(homeHtml) {
   const churchSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Church"))[0];
   const webSiteSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebSite"))[0];
   const siteNavigationSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "SiteNavigationElement"));
+  const eventSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Event"));
   const homePageSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"));
   const matchingHomePageSchemas = homePageSchemas.filter((schema) => schema.url === rootUrl || schema["@id"] === `${rootUrl}#webpage`);
   const pageSchema =
@@ -936,6 +941,13 @@ async function checkHomepageSchema(homeHtml) {
     reportError("Homepage missing Church schema.");
     return;
   }
+  if (eventSchemas.length === 0) {
+    reportError("Homepage should expose Sunday Worship Event schema.");
+  }
+  if (!hasUpcomingSundayDate(homeHtml)) {
+    reportError("Homepage should show the automated upcoming Sunday date with semantic time markup.");
+  }
+  checkLiveEventSchemas(homeHtml, "Homepage");
 
   if (churchSchema.url !== rootUrl) reportError(`Church schema url should be ${rootUrl}.`);
   if (!textIncludes(churchSchema.alternateName, "Wayside") || !textIncludes(churchSchema.alternateName, "Wayside Church Charlton")) {
@@ -1103,6 +1115,13 @@ async function checkLivePages(sitemapUrls) {
     }
 
     const pathname = new URL(url).pathname;
+    if (
+      ["/", "/plan-a-visit/", "/sunday-worship/", "/new-to-church/", "/visitor-faq/", "/nearby-communities/", "/directions/", "/events/"].includes(pathname) &&
+      !hasUpcomingSundayDate(page.text)
+    ) {
+      reportError(`${url} should show the automated upcoming Sunday date with semantic time markup.`);
+    }
+
     if (pathname === "/giving/") {
       const parsedSchemas = [];
       for (const block of extractJsonLd(page.text)) {

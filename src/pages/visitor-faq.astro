@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import SundayDate from "../components/SundayDate.astro";
 import { site } from "../lib/content";
 import { getFaqPageSchema } from "../lib/schema";
 
@@ -25,7 +26,7 @@ const faqItems = visitorFaq.sections.flatMap((section) => section.questions);
   <section class="service-strip" aria-label="Sunday visitor basics">
     <div class="shell service-strip__grid">
       <div>
-        <p class="eyebrow">This Sunday</p>
+        <p class="eyebrow">This Sunday, <SundayDate weekday={false} /></p>
         <h2>{site.service.primary.label}</h2>
       </div>
       <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>

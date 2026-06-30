@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import SundayDate from "../components/SundayDate.astro";
 import { site } from "../lib/content";
 import { absoluteUrl } from "../lib/paths";
 import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
@@ -48,7 +49,7 @@ const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getF
   <section class="service-strip" aria-label="Sunday gathering information for nearby communities">
     <div class="shell service-strip__grid">
       <div>
-        <p class="eyebrow">This Sunday</p>
+        <p class="eyebrow">This Sunday, <SundayDate weekday={false} /></p>
         <h2>{site.service.primary.label}</h2>
       </div>
       <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>

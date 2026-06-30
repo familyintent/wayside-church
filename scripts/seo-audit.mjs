@@ -100,6 +100,10 @@ function countMatches(value, regex) {
   return [...value.matchAll(regex)].length;
 }
 
+function hasUpcomingSundayDate(html) {
+  return /<time\b[^>]*datetime=["']\d{4}-\d{2}-\d{2}["'][^>]*>(?:Sunday, )?[A-Z][a-z]+ \d{1,2}<\/time>/.test(html);
+}
+
 function childImageAlt(value) {
   const imageAlt = value.match(/<img\b[^>]*\salt=(["'])(.*?)\1[^>]*>/i)?.[2] || "";
   return textContent(imageAlt);
@@ -481,6 +485,12 @@ for (const filePath of htmlFiles) {
     errors.push(`${label}: Sunday calendar action block should include the generated church contact card.`);
   }
   if (!isNoIndex && h1Count !== 1) errors.push(`${label}: expected exactly one H1, found ${h1Count}.`);
+  if (
+    ["/", "/plan-a-visit/", "/sunday-worship/", "/new-to-church/", "/visitor-faq/", "/nearby-communities/", "/directions/", "/events/"].includes(route) &&
+    !hasUpcomingSundayDate(html)
+  ) {
+    errors.push(`${label}: missing automated upcoming Sunday date with semantic time markup.`);
+  }
 
   if (!isNoIndex && ogImage) {
     if (!ogImageAlt || ogImageAlt.length < 20) {
@@ -719,6 +729,9 @@ for (const filePath of htmlFiles) {
       if (!textIncludes(eventSchema.eventSchedule, "America/New_York")) {
         errors.push(`${label}: Event schema schedule should include the local timezone.`);
       }
+    }
+    if (route === "/" && eventSchemas.length === 0) {
+      errors.push("/: homepage should expose Sunday Worship Event schema.");
     }
 
     if (route === "/giving/") {

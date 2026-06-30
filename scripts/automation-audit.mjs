@@ -64,11 +64,25 @@ requireIncludes("src/lib/images.ts", imageHelper, "wayside-local-16x9.webp");
 const homepage = readText("src/pages/index.astro");
 requireIncludes("src/pages/index.astro", homepage, "getLatestTeaching(site.youtube)");
 requireIncludes("src/pages/index.astro", homepage, "<LatestTeaching latest={latestTeaching}");
+requireIncludes("src/pages/index.astro", homepage, "getSundayWorshipEventSchema(\"/\")");
+requireIncludes("src/pages/index.astro", homepage, "SundayDate");
 requireIncludes("src/pages/index.astro", homepage, "const heroPreload =");
 requireIncludes("src/pages/index.astro", homepage, "preloadImages={[heroPreload]}");
 requireIncludes("src/pages/index.astro", homepage, "srcset={heroImageSrcset}");
 requireIncludes("src/pages/index.astro", homepage, "sizes={heroImageSizes}");
 requireIncludes("src/pages/index.astro", homepage, "srcset={communityImageSrcset}");
+
+for (const visitorPath of [
+  "src/pages/plan-a-visit.astro",
+  "src/pages/sunday-worship.astro",
+  "src/pages/new-to-church.astro",
+  "src/pages/visitor-faq.astro",
+  "src/pages/nearby-communities.astro",
+  "src/pages/directions.astro",
+  "src/pages/events.astro",
+]) {
+  requireIncludes(visitorPath, readText(visitorPath), "SundayDate");
+}
 
 const latestTeachingComponent = readText("src/components/LatestTeaching.astro");
 requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "getLatestTeaching");
@@ -83,6 +97,16 @@ const teachingDateComponent = readText("src/components/TeachingDate.astro");
 requireIncludes("src/components/TeachingDate.astro", teachingDateComponent, "formatPublishedDate(video.published)");
 requireIncludes("src/components/TeachingDate.astro", teachingDateComponent, "<time datetime={video.published}>");
 requireIncludes("src/components/TeachingDate.astro", teachingDateComponent, "video.publishedLabel || fallbackLabel");
+
+const sundayDateComponent = readText("src/components/SundayDate.astro");
+requireIncludes("src/components/SundayDate.astro", sundayDateComponent, "getNextSundayDate");
+requireIncludes("src/components/SundayDate.astro", sundayDateComponent, "<time datetime={nextSunday.iso}>");
+
+const serviceDatesHelper = readText("src/lib/service-dates.ts");
+requireIncludes("src/lib/service-dates.ts", serviceDatesHelper, "site.calendar.sunday.timezone");
+requireIncludes("src/lib/service-dates.ts", serviceDatesHelper, "serviceEndMinutes");
+requireIncludes("src/lib/service-dates.ts", serviceDatesHelper, "daysUntil === 0");
+requireIncludes("src/lib/service-dates.ts", serviceDatesHelper, "formatDateLabel");
 
 checkTeachingPage("src/pages/teaching.astro", "src/pages/teaching.astro");
 checkTeachingPage("src/pages/sermons.astro", "src/pages/sermons.astro");

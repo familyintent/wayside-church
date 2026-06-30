@@ -5,14 +5,15 @@ import ChurchContactBlock from "../components/ChurchContactBlock.astro";
 import LatestTeaching from "../components/LatestTeaching.astro";
 import MinistryList from "../components/MinistryList.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import SundayDate from "../components/SundayDate.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
-import { getTeachingVideoSchemas } from "../lib/schema";
+import { getSundayWorshipEventSchema, getTeachingVideoSchemas } from "../lib/schema";
 import { getLatestTeaching } from "../lib/youtube";
 
 const latestTeaching = await getLatestTeaching(site.youtube);
-const homeSchemas = latestTeaching ? getTeachingVideoSchemas([latestTeaching], "/") : [];
+const homeSchemas = [getSundayWorshipEventSchema("/"), ...(latestTeaching ? getTeachingVideoSchemas([latestTeaching], "/") : [])];
 const heroImageSize = imageSize(site.images.hero);
 const communityImageSize = imageSize(site.images.community);
 const heroImageSrcset = imageSrcset(site.images.hero);
@@ -45,7 +46,7 @@ const heroPreload = {
   <section class="service-strip" aria-label="Sunday service information">
     <div class="shell service-strip__grid">
       <div>
-        <p class="eyebrow">This Sunday</p>
+        <p class="eyebrow">This Sunday, <SundayDate weekday={false} /></p>
         <h2>{site.service.primary.label}</h2>
       </div>
       <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>

@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import SundayDate from "../components/SundayDate.astro";
 import VisitorDetails from "../components/VisitorDetails.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
@@ -29,7 +30,7 @@ const charltonImageSrcset = imageSrcset(site.images.charlton);
       </div>
 
       <div class="plan-visit-card" aria-label="Sunday gathering details">
-        <span>{site.service.primary.day}</span>
+        <span><SundayDate /></span>
         <strong>{site.service.primary.time}</strong>
         <p>{site.service.primary.label}</p>
         <small>{site.service.coffee.label} at {site.service.coffee.time}</small>

@@ -131,6 +131,7 @@ The site includes:
 - a reusable `pnpm performance:audit` check for deployed HTML, CSS, JS, image weight, homepage hero priority, responsive hero candidates, and unexpected third-party asset loads
 - leader `Person` schema on the About and Leadership pages, connected to visible leader cards with stable page anchors
 - recurring ministry `Event` schema on the Ministries page
+- automated upcoming Sunday date markup on visitor pages, refreshed by the daily build and matched to the configured church timezone
 - truthful `DonateAction` schema on the Giving page that points to the configured GivingTools URL
 - generated `llms.txt` for AI discovery summaries, current visitor facts, visitor FAQ answers, public leadership facts, machine-readable resources, and recent teaching links
 - a reusable `pnpm seo:audit` check for canonical URLs, sitemap coverage, local structured data, image alt text, and broken internal links

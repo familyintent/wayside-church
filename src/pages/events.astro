@@ -4,6 +4,7 @@ import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import MinistryCalendarLinks from "../components/MinistryCalendarLinks.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import SundayDate from "../components/SundayDate.astro";
 import { site } from "../lib/content";
 import { getFaqPageSchema, getMinistryEventSchemas, getSundayWorshipEventSchema } from "../lib/schema";
 
@@ -36,7 +37,7 @@ const eventSchemas = [
         <h2>{site.church.name}</h2>
       </div>
       <p><strong>{site.service.coffee.label}: {site.service.coffee.time}</strong><br />{site.service.coffee.summary}</p>
-      <p><strong>{site.service.primary.label}: {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
+      <p><strong>{site.service.primary.label}: <SundayDate /> at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
       <ButtonLink href={site.links.maps} variant="secondary">Get Directions</ButtonLink>
     </div>
   </section>

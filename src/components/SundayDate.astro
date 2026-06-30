@@ -1,0 +1,9 @@
+---
+import { getNextSundayDate } from "../lib/service-dates";
+
+const { weekday = true } = Astro.props;
+const nextSunday = getNextSundayDate();
+const label = weekday ? nextSunday.label : nextSunday.label.replace(/^Sunday,\s*/, "");
+---
+
+<time datetime={nextSunday.iso}>{label}</time>

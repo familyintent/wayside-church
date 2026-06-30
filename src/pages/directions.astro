@@ -4,6 +4,7 @@ import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import ChurchContactBlock from "../components/ChurchContactBlock.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import SundayDate from "../components/SundayDate.astro";
 import VisitorDetails from "../components/VisitorDetails.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
@@ -36,7 +37,7 @@ const directionsSchemas = [getSundayWorshipEventSchema("/directions/"), getFaqPa
         <h2>{site.contact.addressLine1}</h2>
       </div>
       <p><strong>{site.contact.cityStateZip}</strong><br />{site.church.name} gathers in Charlton, Massachusetts.</p>
-      <p><strong>{site.service.primary.day}s at {site.service.primary.time}</strong><br />{site.service.coffee.label} begins at {site.service.coffee.time}.</p>
+      <p><strong><SundayDate /> at {site.service.primary.time}</strong><br />{site.service.coffee.label} begins at {site.service.coffee.time}.</p>
       <ButtonLink href={site.links.maps} variant="secondary">Open in Maps</ButtonLink>
     </div>
   </section>
