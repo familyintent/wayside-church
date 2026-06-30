@@ -631,7 +631,9 @@ async function checkVideoSitemap(sitemapUrls) {
     }
     const watchVideoObjects = watchSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
     const watchVideoObject = watchVideoObjects[0];
-    const watchWebPage = watchSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"))[0];
+    const watchWebPages = watchSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"));
+    const watchWebPage =
+      watchWebPages.find((schema) => schema.url === videoPageUrl || schema["@id"] === `${videoPageUrl}#webpage`) || watchWebPages[0];
     if (!watchVideoObject) {
       reportError(`${videoPageUrl} should include inspectable VideoObject schema.`);
     } else {
@@ -909,7 +911,15 @@ async function checkHomepageSchema(homeHtml) {
   const churchSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Church"))[0];
   const webSiteSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebSite"))[0];
   const siteNavigationSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "SiteNavigationElement"));
-  const pageSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"))[0];
+  const homePageSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"));
+  const matchingHomePageSchemas = homePageSchemas.filter((schema) => schema.url === rootUrl || schema["@id"] === `${rootUrl}#webpage`);
+  const pageSchema =
+    matchingHomePageSchemas.find(
+      (schema) => textIncludes(schema.mainEntity, "#church") && textIncludes(schema.keywords, "Church in Charlton, MA"),
+    ) ||
+    matchingHomePageSchemas.find((schema) => schema.primaryImageOfPage) ||
+    matchingHomePageSchemas[0] ||
+    homePageSchemas[0];
 
   if (!churchSchema) {
     reportError("Homepage missing Church schema.");
@@ -964,6 +974,16 @@ async function checkHomepageSchema(homeHtml) {
   if (!textIncludes(churchSchema.additionalProperty, "Mission") || !textIncludes(churchSchema.additionalProperty, "radically transformed by the Gospel")) {
     reportError("Church schema missing mission additional property.");
   }
+  for (const actionTarget of ["Plan a Visit", "Get Directions", "Watch Recent Teaching", "Save Sunday Worship Calendar"]) {
+    if (!textIncludes(churchSchema.potentialAction, actionTarget)) {
+      reportError(`Church schema missing potential action ${actionTarget}.`);
+    }
+  }
+  for (const actionUrl of ["/plan-a-visit/", "google.com/maps", "/teaching/", "/calendar/wayside-sunday-worship.ics"]) {
+    if (!textIncludes(churchSchema.potentialAction, actionUrl)) {
+      reportError(`Church schema potential actions missing ${actionUrl}.`);
+    }
+  }
 
   if (!webSiteSchema?.keywords || !textIncludes(webSiteSchema.keywords, "Church in Charlton, MA")) {
     reportError("WebSite schema missing local church keywords.");
@@ -976,6 +996,14 @@ async function checkHomepageSchema(homeHtml) {
   }
   if (!textIncludes(webSiteSchema?.about, "#church") || !textIncludes(webSiteSchema?.mainEntity, "#church")) {
     reportError("WebSite schema should point about/mainEntity to Church schema.");
+  }
+  for (const keyPage of ["/plan-a-visit/", "/visitor-faq/", "/church-in-charlton-ma/", "/nearby-communities/", "/teaching/", "/ministries/", "/contact/"]) {
+    if (!textIncludes(webSiteSchema?.hasPart, keyPage)) {
+      reportError(`WebSite schema hasPart missing ${keyPage}.`);
+    }
+  }
+  if (!textIncludes(webSiteSchema?.hasPart, "Answers for first-time guests") || !textIncludes(webSiteSchema?.hasPart, "neighbors from Dudley")) {
+    reportError("WebSite schema hasPart should summarize visitor and nearby-community pages.");
   }
 
   for (const navItem of [

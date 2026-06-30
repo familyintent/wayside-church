@@ -627,6 +627,16 @@ for (const filePath of htmlFiles) {
       if (!textIncludes(churchSchema.additionalProperty, "Accessibility questions")) {
         errors.push(`${label}: Church schema missing practical visitor details.`);
       }
+      for (const actionTarget of ["Plan a Visit", "Get Directions", "Watch Recent Teaching", "Save Sunday Worship Calendar"]) {
+        if (!textIncludes(churchSchema.potentialAction, actionTarget)) {
+          errors.push(`${label}: Church schema missing potential action ${actionTarget}.`);
+        }
+      }
+      for (const actionUrl of ["/plan-a-visit/", "google.com/maps", "/teaching/", "/calendar/wayside-sunday-worship.ics"]) {
+        if (!textIncludes(churchSchema.potentialAction, actionUrl)) {
+          errors.push(`${label}: Church schema potential actions missing ${actionUrl}.`);
+        }
+      }
     }
 
     const webSiteSchema = webSiteSchemas[0];
@@ -646,6 +656,14 @@ for (const filePath of htmlFiles) {
       }
       if (!textIncludes(webSiteSchema.keywords, "Church in Charlton, MA")) {
         errors.push(`${label}: WebSite schema missing local church keywords.`);
+      }
+      for (const keyPage of ["/plan-a-visit/", "/visitor-faq/", "/church-in-charlton-ma/", "/nearby-communities/", "/teaching/", "/ministries/", "/contact/"]) {
+        if (!textIncludes(webSiteSchema.hasPart, keyPage)) {
+          errors.push(`${label}: WebSite schema hasPart missing ${keyPage}.`);
+        }
+      }
+      if (!textIncludes(webSiteSchema.hasPart, "Answers for first-time guests") || !textIncludes(webSiteSchema.hasPart, "neighbors from Dudley")) {
+        errors.push(`${label}: WebSite schema hasPart should summarize visitor and nearby-community pages.`);
       }
     }
 
@@ -747,7 +765,16 @@ for (const filePath of htmlFiles) {
       }
     }
 
-    const pageSchema = pageSchemas[0];
+    const matchingPageSchemas = pageSchemas.filter(
+      (schema) => schema.url === expectedCanonical || schema["@id"] === `${expectedCanonical}#webpage`,
+    );
+    const pageSchema =
+      matchingPageSchemas.find(
+        (schema) => textIncludes(schema.mainEntity, "#church") && textIncludes(schema.keywords, "Church in Charlton, MA"),
+      ) ||
+      matchingPageSchemas.find((schema) => schema.primaryImageOfPage) ||
+      matchingPageSchemas[0] ||
+      pageSchemas[0];
     if (!pageSchema) {
       errors.push(`${label}: missing inspectable page schema.`);
     } else {
@@ -1318,7 +1345,9 @@ if (!fs.existsSync(videoSitemapPath)) {
     }
     const watchVideoObjects = watchPageSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
     const watchVideoObject = watchVideoObjects[0];
-    const watchWebPage = watchPageSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"))[0];
+    const watchWebPages = watchPageSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"));
+    const watchWebPage =
+      watchWebPages.find((schema) => schema.url === videoPageUrl || schema["@id"] === `${videoPageUrl}#webpage`) || watchWebPages[0];
     if (!watchVideoObject) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should include inspectable VideoObject schema.`);
     } else {

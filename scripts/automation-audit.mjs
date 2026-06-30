@@ -198,6 +198,13 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "keywords: searchTop
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "alternateName: alternateNames");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "knowsAbout: searchTopics");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "mainEntityOfPage: siteUrl");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "structuredSiteParts");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "hasPart: structuredSiteParts");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "churchPotentialActions");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "potentialAction: churchPotentialActions");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "Save Sunday Worship Calendar");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "Watch Recent Teaching");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/nearby-communities/");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "name: \"Mission\"");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "description: site.meta.description");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "isAccessibleForFree: true");

@@ -87,6 +87,76 @@ const searchTopics = site.church.searchTopics || [
   `Church in ${site.church.city}, ${site.church.state}`,
   `Sunday worship in ${site.church.city}, ${site.church.state}`,
 ];
+const structuredSiteParts = [
+  {
+    name: "Plan a Visit",
+    href: "/plan-a-visit/",
+    description: "Sunday worship time, address, directions, calendar links, and what to expect before visiting Wayside Church.",
+  },
+  {
+    name: "Visitor FAQ",
+    href: "/visitor-faq/",
+    description: "Answers for first-time guests, families, seekers, and people returning to church.",
+  },
+  {
+    name: "Church in Charlton, MA",
+    href: "/church-in-charlton-ma/",
+    description: "Local church information for neighbors searching for a church in Charlton, Massachusetts.",
+  },
+  {
+    name: "Nearby Communities",
+    href: "/nearby-communities/",
+    description: "Directions and visitor information for neighbors from Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities.",
+  },
+  {
+    name: "Teaching",
+    href: "/teaching/",
+    description: "Recent Bible teaching from the Wayside Church YouTube channel.",
+  },
+  {
+    name: "Ministries",
+    href: "/ministries/",
+    description: "Wayside Church ministries for discipleship, families, youth, men, and community life.",
+  },
+  {
+    name: "Contact",
+    href: "/contact/",
+    description: "Address, phone, directions, calendar links, and contact details for Wayside Church.",
+  },
+].map((part) => {
+  const partUrl = absoluteUrl(part.href, site.meta.siteUrl);
+  return {
+    "@type": "WebPage",
+    "@id": `${partUrl}#webpage`,
+    name: `${part.name} | ${site.church.name}`,
+    url: partUrl,
+    description: part.description,
+    isPartOf: { "@id": webSiteId },
+    about: { "@id": churchId },
+  };
+});
+const churchPotentialActions = [
+  {
+    "@type": "ViewAction",
+    name: "Plan a Visit",
+    target: absoluteUrl("/plan-a-visit/", site.meta.siteUrl),
+  },
+  {
+    "@type": "ViewAction",
+    name: "Get Directions",
+    target: site.links.maps,
+  },
+  {
+    "@type": "ViewAction",
+    name: "Watch Recent Teaching",
+    target: absoluteUrl("/teaching/", site.meta.siteUrl),
+  },
+  {
+    "@type": "ViewAction",
+    name: "Save Sunday Worship Calendar",
+    target: absoluteUrl(site.calendar.sunday.ics, site.meta.siteUrl),
+  },
+];
 const nearbyAreaServed = (site.church.nearbyCommunities || []).map((name) => ({
   "@type": "City",
   name,
@@ -119,6 +189,7 @@ const churchSchema = {
   mainEntityOfPage: siteUrl,
   telephone: phoneNumber,
   hasMap: site.links.maps,
+  potentialAction: churchPotentialActions,
   isAccessibleForFree: true,
   publicAccess: true,
   address: {
@@ -200,6 +271,7 @@ const webSiteSchema = {
   about: { "@id": churchId },
   mainEntity: { "@id": churchId },
   keywords: searchTopics,
+  hasPart: structuredSiteParts,
   inLanguage: "en-US",
 };
 const siteNavigationSchema = {
