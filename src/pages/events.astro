@@ -1,0 +1,122 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import CalendarActions from "../components/CalendarActions.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { getFaqPageSchema, getMinistryEventSchemas, getSundayWorshipEventSchema } from "../lib/schema";
+
+const events = site.eventsPage;
+const weeklyGatherings = site.ministries.items.filter((ministry) => ministry.event);
+const eventSchemas = [
+  getSundayWorshipEventSchema("/events/"),
+  ...getMinistryEventSchemas(weeklyGatherings, "/events/"),
+  getFaqPageSchema(events.faq),
+];
+---
+
+<BaseLayout title={events.metaTitle} description={events.metaDescription} extraSchemas={eventSchemas}>
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{events.eyebrow}</p>
+      <h1>{events.title}</h1>
+      <p>{events.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={events.primaryCta.href}>{events.primaryCta.label}</ButtonLink>
+        <ButtonLink href={events.secondaryCta.href} variant="secondary">{events.secondaryCta.label}</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-strip" aria-label="Wayside Church weekly event information">
+    <div class="shell service-strip__grid">
+      <div>
+        <p class="eyebrow">This week</p>
+        <h2>{site.church.name}</h2>
+      </div>
+      <p><strong>{site.service.coffee.label}: {site.service.coffee.time}</strong><br />{site.service.coffee.summary}</p>
+      <p><strong>{site.service.primary.label}: {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
+      <ButtonLink href={site.links.maps} variant="secondary">Get Directions</ButtonLink>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split">
+      <div>
+        <SectionIntro eyebrow={events.sunday.eyebrow} title={events.sunday.title}>
+          <p>{events.sunday.body}</p>
+        </SectionIntro>
+
+        <div class="start-timeline">
+          {events.sunday.items.map((item) => (
+            <article>
+              <span>{item.time}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <CalendarActions id="save-sunday" eyebrow="Save Sunday" title="Add Sunday Worship to your calendar." />
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell">
+      <SectionIntro eyebrow={events.weekly.eyebrow} title={events.weekly.title}>
+        <p>{events.weekly.body}</p>
+      </SectionIntro>
+
+      <div class="ministry-card-grid">
+        {weeklyGatherings.map((gathering, index) => (
+          <article id={gathering.id} class:list={["ministry-card", index === 0 && "ministry-card--featured"]}>
+            <div class="ministry-card__meta">
+              <span>{gathering.schedule}</span>
+              <span>{gathering.audience}</span>
+            </div>
+            <h2>{gathering.name}</h2>
+            <p class="ministry-card__summary">{gathering.summary}</p>
+            <p>{gathering.details}</p>
+            <ButtonLink href={`/ministries/#${gathering.id}`} variant="text">Ministry Details</ButtonLink>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">Event FAQ</p>
+        <h2>Questions about visiting a gathering</h2>
+        <p>Guests can begin simply. Start with Sunday Worship, then take another step into community when you are ready.</p>
+      </div>
+
+      <div class="belief-accordion">
+        {events.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Come this Sunday</p>
+        <h2>{site.service.primary.day}s at {site.service.primary.time}</h2>
+        <p>{site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <div class="button-row">
+        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+        <ButtonLink href="/sunday-worship/" variant="secondary">Sunday Worship</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

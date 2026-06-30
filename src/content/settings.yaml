@@ -97,6 +97,8 @@ navigation:
     href: "/start-here/"
   - label: "Plan a Visit"
     href: "/plan-a-visit/"
+  - label: "Events"
+    href: "/events/"
   - label: "Teaching"
     href: "/teaching/"
   - label: "About"
@@ -342,6 +344,47 @@ sundayPage:
       answer: "No. You can simply come on Sunday morning. If you want to talk with someone first, you are welcome to call the church."
     - question: "Are families welcome during Sunday Worship?"
       answer: "Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
+
+# Update this page when recurring gatherings, studies, or community rhythms change.
+eventsPage:
+  metaTitle: "Church Events in Charlton, MA"
+  metaDescription: "See weekly gatherings and church events at Wayside Church in Charlton, MA, including Sunday Worship, Coffee and Discipleship, youth, children, men, and midweek groups."
+  eyebrow: "Events and gatherings"
+  title: "Weekly church gatherings in Charlton."
+  intro: "Wayside keeps church life simple, relational, and centered on Jesus. These weekly rhythms help guests and members worship, grow, pray, and build real community."
+  primaryCta:
+    label: "Plan a Visit"
+    href: "/plan-a-visit/"
+  secondaryCta:
+    label: "Save Sunday"
+    href: "#save-sunday"
+  sunday:
+    eyebrow: "Sunday morning"
+    title: "Start with Sunday Worship."
+    body: "If you are new, Sunday morning is the clearest place to begin. Come for Coffee and Discipleship at 9:00 AM, Sunday Worship at 10:00 AM, or simply take one step at your own pace."
+    items:
+      - time: "9:00 AM"
+        title: "Coffee and Discipleship"
+        body: "Coffee, conversation, and discipleship before worship."
+      - time: "10:00 AM"
+        title: "Sunday Worship"
+        body: "Worship, Scripture, prayer, teaching, children, youth, and fellowship."
+      - time: "After Worship"
+        title: "Conversation"
+        body: "Stay to meet someone, ask a question, or head home quietly."
+  weekly:
+    eyebrow: "During the week"
+    title: "Simple rhythms for discipleship and care."
+    body: "Wayside is not trying to keep people busy with a crowded calendar. Our gatherings are meant to help people follow Jesus together in ordinary life."
+  faq:
+    - question: "Do I need to register for Wayside Church events?"
+      answer: "Most weekly gatherings do not require registration. If you are new, Sunday Worship at 10:00 AM is the simplest place to begin."
+    - question: "Where do Wayside Church events happen?"
+      answer: "Wayside Church gathers at 6 Haggerty Rd in Charlton, MA unless a specific ministry announces another location."
+    - question: "Can visitors attend groups or ministries?"
+      answer: "Yes. Visitors are welcome to start with Sunday Worship and ask about the ministry rhythm that fits their season of life."
+    - question: "Are children and youth included?"
+      answer: "Yes. Little Disciples and NewLife Youth Ministry are part of the life of the church, and families are welcome on Sunday mornings."
 
 teachingPage:
   metaTitle: "Teaching from Wayside Church in Charlton, MA"

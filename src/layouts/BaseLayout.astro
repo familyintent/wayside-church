@@ -99,7 +99,10 @@ const pageSchemaType =
     ? "AboutPage"
     : normalizedPath === "/contact/"
       ? "ContactPage"
-      : normalizedPath === "/ministries/" || normalizedPath === "/teaching/" || normalizedPath === "/sermons/"
+      : normalizedPath === "/ministries/" ||
+          normalizedPath === "/events/" ||
+          normalizedPath === "/teaching/" ||
+          normalizedPath === "/sermons/"
         ? "CollectionPage"
         : "WebPage";
 const webPageSchema =

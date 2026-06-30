@@ -644,7 +644,8 @@ summary:focus-visible {
 
 .ministry-card--featured h2,
 .ministry-card--featured p,
-.ministry-card--featured span {
+.ministry-card--featured span,
+.ministry-card--featured .button--text {
   color: #ffffff;
 }
 

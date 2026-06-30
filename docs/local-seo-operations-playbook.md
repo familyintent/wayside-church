@@ -4,7 +4,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 
 ## Weekly Rhythm
 
-- After a sermon is uploaded to YouTube, either wait for the daily GitHub Pages rebuild or manually run the deploy workflow from GitHub Actions to refresh the homepage and teaching page.
+- After a sermon is uploaded to YouTube, either wait for the daily GitHub Pages rebuild or manually run the deploy workflow from GitHub Actions to refresh the homepage, teaching page, and sermons page.
 - Add one fresh photo to Google Business Profile when there is a real church moment worth sharing: Sunday setup, fellowship, meals, ministry rhythms, baptisms, outreach, or building updates.
 - Add one short Google Business Profile post when there is a real next step: Sunday worship, holiday gatherings, community care, teaching series, or ministry updates.
 - Update the YouTube description for new teachings with:
@@ -49,6 +49,7 @@ Good review prompts:
 - Main site: https://wayside.church/
 - Sunday Worship: https://wayside.church/sunday-worship/
 - Plan a Visit: https://wayside.church/plan-a-visit/
+- Events: https://wayside.church/events/
 - Church in Charlton, MA: https://wayside.church/church-in-charlton-ma/
 - Teaching: https://wayside.church/teaching/
 - Sermons: https://wayside.church/sermons/
@@ -76,6 +77,7 @@ Good review prompts:
   - `https://wayside.church/church-in-charlton-ma/`
   - `https://wayside.church/sunday-worship/`
   - `https://wayside.church/plan-a-visit/`
+  - `https://wayside.church/events/`
   - `https://wayside.church/teaching/`
   - `https://wayside.church/sermons/`
 - In Google Business Profile, keep the website URL, phone, service time, address, photos, and description aligned with the website.

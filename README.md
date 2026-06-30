@@ -32,6 +32,7 @@ That file includes comments showing where to update:
 - Start Here page copy for seekers and first-time guests
 - Plan a Visit page copy
 - Sunday Worship page copy and FAQ
+- Events page copy and FAQ
 - Families page copy
 - Teaching page copy
 - Sermons page copy and FAQ
@@ -122,7 +123,7 @@ If Wayside changes YouTube channels, update `channelId`, `handle`, `feedUrl`, `c
 
 The site tries the YouTube feed first, then the public channel videos page, then the configured `featuredVideo`. If YouTube blocks the automatic lookup, update `featuredVideo.videoId` to keep a real teaching card on the homepage.
 
-No homepage or teaching page edit is needed when a new sermon is uploaded. The GitHub Pages workflow runs on pushes, can be run manually, and also rebuilds daily so the build-time YouTube feed can refresh even when no site files change.
+No homepage, teaching page, or sermons page edit is needed when a new sermon is uploaded. The GitHub Pages workflow runs on pushes, can be run manually, and also rebuilds daily so the build-time YouTube feed can refresh even when no site files change.
 
 If the feed fails during a build, the site shows a graceful fallback message or the configured featured video and a button to visit the YouTube channel.
 
