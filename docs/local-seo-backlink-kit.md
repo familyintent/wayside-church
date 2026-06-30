@@ -81,6 +81,7 @@ Use these when a partner, directory, or social profile has a relevant place for 
 - Nearby Communities: https://wayside.church/nearby-communities/
 - Sunday Worship: https://wayside.church/sunday-worship/
 - Plan a Visit: https://wayside.church/plan-a-visit/
+- Visitor FAQ: https://wayside.church/visitor-faq/
 - Directions: https://wayside.church/directions/
 - Events: https://wayside.church/events/
 - Families: https://wayside.church/families/

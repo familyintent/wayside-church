@@ -276,7 +276,7 @@ startHere:
       - title: "Know what to expect"
         body: "Check the basics: service time, address, family expectations, what to wear, and answers to common guest questions."
         cta: "Visitor FAQ"
-        href: "/contact/#faq"
+        href: "/visitor-faq/"
   sunday:
     eyebrow: "What Sunday feels like"
     title: "Warm, simple, and centered on Jesus"
@@ -343,6 +343,57 @@ planVisit:
       answer: "No. Some people dress casually and some dress more formally. Come in what feels normal for you."
     - question: "Can my children or teens come with me?"
       answer: "Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
+
+visitorFaqPage:
+  metaTitle: "Visitor FAQ for Wayside Church in Charlton, MA"
+  metaDescription: "Find answers for first-time guests visiting Wayside Church in Charlton, MA, including Sunday worship time, what to wear, children and youth, directions, and questions about faith."
+  eyebrow: "Visitor FAQ"
+  title: "Questions before your first Sunday."
+  intro: "Walking into a church for the first time can feel like a lot. These answers are here to make the first step simpler for guests, families, seekers, and people returning to church."
+  primaryCta:
+    label: "Plan a Visit"
+    href: "/plan-a-visit/"
+  secondaryCta:
+    label: "Get Directions"
+    href: "/directions/"
+  sections:
+    - eyebrow: "Sunday basics"
+      title: "Time, address, and arrival"
+      questions:
+        - question: "What time is Sunday Worship at Wayside Church?"
+          answer: "Sunday Worship begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM."
+        - question: "Where is Wayside Church located?"
+          answer: "Wayside Church gathers at 6 Haggerty Rd, Charlton, MA 01507."
+        - question: "Do I need to sign up before I come?"
+          answer: "No. You can simply come on Sunday morning. If you would like to talk with someone first, you are welcome to call the church."
+        - question: "Where should I go when I arrive?"
+          answer: "Come to 6 Haggerty Rd in Charlton. People will be glad to point you toward coffee, discipleship, worship, or a place to sit."
+    - eyebrow: "What to expect"
+      title: "A warm morning centered on Jesus"
+      questions:
+        - question: "What should I expect when I visit for the first time?"
+          answer: "You will find a warm and welcoming community, worship, Bible teaching, prayer, and time for fellowship before or after the gathering."
+        - question: "Is there a dress code?"
+          answer: "No. Some people dress casually and some dress more formally. Come in what feels normal for you."
+        - question: "Can my children or teens come with me?"
+          answer: "Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
+        - question: "Will I be pressured or singled out?"
+          answer: "No. You are welcome to listen, observe, sing if you would like, and take the morning at your own pace."
+    - eyebrow: "Faith and care"
+      title: "Honest questions are welcome"
+      questions:
+        - question: "Can I attend if I am not a Christian?"
+          answer: "Yes. You are welcome to attend, listen, ask questions, and take your time. We believe Jesus meets people with truth and grace."
+        - question: "What if church has been difficult for me?"
+          answer: "We are sorry for places where church has been painful. You are welcome to move slowly, ask careful questions, and get to know people at your own pace."
+        - question: "Can someone pray with me?"
+          answer: "Yes. Most people ask in person or by phone. We would be honored to pray with you when you visit or talk with someone from Wayside."
+        - question: "Where should I start if I want to learn about Jesus?"
+          answer: "A good first step is to attend Sunday worship, watch a recent teaching, or ask someone to read one of the Gospels with you."
+  next:
+    eyebrow: "Next step"
+    title: "Start with one clear step."
+    body: "You can plan a visit, save directions, watch a recent teaching, or simply come Sunday morning and take things at your own pace."
 
 # Update this page when the address, Sunday rhythm, or map link changes.
 directionsPage:

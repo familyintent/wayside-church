@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { getFaqPageSchema } from "../lib/schema";
+
+const visitorFaq = site.visitorFaqPage;
+const faqItems = visitorFaq.sections.flatMap((section) => section.questions);
+---
+
+<BaseLayout title={visitorFaq.metaTitle} description={visitorFaq.metaDescription} extraSchemas={[getFaqPageSchema(faqItems)]}>
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{visitorFaq.eyebrow}</p>
+      <h1>{visitorFaq.title}</h1>
+      <p>{visitorFaq.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={visitorFaq.primaryCta.href}>{visitorFaq.primaryCta.label}</ButtonLink>
+        <ButtonLink href={visitorFaq.secondaryCta.href} variant="secondary">{visitorFaq.secondaryCta.label}</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-strip" aria-label="Sunday visitor basics">
+    <div class="shell service-strip__grid">
+      <div>
+        <p class="eyebrow">This Sunday</p>
+        <h2>{site.service.primary.label}</h2>
+      </div>
+      <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
+      <p><strong>{site.contact.addressLine1}</strong><br />{site.contact.cityStateZip}</p>
+      <ButtonLink href="/directions/" variant="secondary">Directions</ButtonLink>
+    </div>
+  </section>
+
+  {visitorFaq.sections.map((section, sectionIndex) => (
+    <section class:list={["section", sectionIndex % 2 === 1 && "section--muted"]}>
+      <div class="shell start-questions__grid">
+        <div>
+          <p class="eyebrow">{section.eyebrow}</p>
+          <h2>{section.title}</h2>
+          <p>{sectionIndex === 0 ? "The practical details should be easy to find before you leave home." : sectionIndex === 1 ? "You can take the morning at your own pace." : "You do not have to pretend or have everything settled before you come."}</p>
+        </div>
+
+        <div class="belief-accordion">
+          {section.questions.map((item, index) => (
+            <details class="belief-item" open={sectionIndex === 0 && index === 0}>
+              <summary>
+                <span>{item.question}</span>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">{visitorFaq.next.eyebrow}</p>
+        <h2>{visitorFaq.next.title}</h2>
+        <p>{visitorFaq.next.body}</p>
+      </div>
+      <div class="button-row">
+        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+        <ButtonLink href="/teaching/" variant="secondary">Watch Teaching</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
