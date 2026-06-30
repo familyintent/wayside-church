@@ -5,6 +5,8 @@ import { site } from "../lib/content";
 import { formatPublishedDate, getLatestTeaching } from "../lib/youtube";
 
 const latest = await getLatestTeaching(site.youtube);
+const latestLabel = latest?.source === "featured" ? "Featured teaching" : "Newest upload";
+const latestDate = latest?.published ? formatPublishedDate(latest.published) : latest?.publishedLabel;
 ---
 
 <section class="section section--ink" id="latest-teaching" aria-labelledby="latest-teaching-title">
@@ -20,9 +22,9 @@ const latest = await getLatestTeaching(site.youtube);
             <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} loading="lazy" />
           </div>
           <div class="teaching-card__body">
-            <p class="eyebrow">Newest upload</p>
+            <p class="eyebrow">{latestLabel}</p>
             <h3 id="latest-teaching-title">{latest.title}</h3>
-            {latest.published && <p class="teaching-card__date">{formatPublishedDate(latest.published)}</p>}
+            {latestDate && <p class="teaching-card__date">{latestDate}</p>}
             <ButtonLink href={latest.url}>Watch on YouTube</ButtonLink>
           </div>
         </article>

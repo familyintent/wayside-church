@@ -71,8 +71,14 @@ youtube:
   channelId: "UCETcyl8b0ylPXNQtUtTZpAQ"
   handle: "@waysidechurch864"
   feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UCETcyl8b0ylPXNQtUtTZpAQ"
-  fallbackTitle: "Latest teaching"
-  fallbackMessage: "We could not load the latest teaching right now, but the full video library is available on YouTube."
+  channelVideosUrl: "https://www.youtube.com/@waysidechurch864/videos"
+  # Used only if YouTube blocks the automatic latest-video lookup.
+  featuredVideo:
+    title: "20. The Day of Salvation"
+    videoId: "8seMnGM1qZk"
+    publishedLabel: "Featured teaching from Wayside"
+  fallbackTitle: "Teaching library"
+  fallbackMessage: "Recent messages from Wayside Church are available on our YouTube channel."
 
 images:
   hero: "/images/wayside-welcome-hero.png"

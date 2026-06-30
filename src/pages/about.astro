@@ -11,7 +11,7 @@ const aboutHero = site.about.hero;
 <BaseLayout title="About" description="Learn what Wayside Church believes, meet the leaders, and discover the Gospel-centered mission shaping this local church in Charlton, MA.">
   <section class="about-hero" aria-labelledby="about-title">
     <div class="shell about-hero__grid">
-      <div class="about-hero__copy" data-reveal>
+      <div class="about-hero__copy">
         <p class="eyebrow">{aboutHero.eyebrow}</p>
         <h1 id="about-title">{site.about.title}</h1>
         <p>{site.about.intro}</p>
@@ -21,7 +21,7 @@ const aboutHero = site.about.hero;
         </div>
       </div>
 
-      <div class="about-hero__media" data-reveal>
+      <div class="about-hero__media">
         <figure class="about-hero__image-frame">
           <img src={withBase(aboutHero.image)} alt={aboutHero.imageAlt} loading="eager" />
           <figcaption>{aboutHero.caption}</figcaption>
@@ -40,7 +40,7 @@ const aboutHero = site.about.hero;
 
   <section class="section about-story">
     <div class="shell about-story__grid">
-      <div data-reveal>
+      <div>
         <SectionIntro eyebrow="Our center" title={site.about.gospel.title}>
           <p>{site.about.gospel.body}</p>
         </SectionIntro>
@@ -51,7 +51,7 @@ const aboutHero = site.about.hero;
 
       <div class="about-markers" aria-label="What shapes Wayside Church">
         {site.about.markers.map((marker, index) => (
-          <article data-reveal style={`--reveal-delay: ${index * 70}ms`}>
+          <article>
             <span>{String(index + 1).padStart(2, "0")}</span>
             <h2>{marker.title}</h2>
             <p>{marker.body}</p>
@@ -69,7 +69,7 @@ const aboutHero = site.about.hero;
 
       <div class="fivefold-list">
         {site.about.fiveFold.items.map((item, index) => (
-          <article data-reveal style={`--reveal-delay: ${index * 55}ms`}>
+          <article>
             <span>{String(index + 1).padStart(2, "0")}</span>
             <h3>{item.title}</h3>
             <p>{item.body}</p>
@@ -86,7 +86,7 @@ const aboutHero = site.about.hero;
       </SectionIntro>
       <div class="leader-grid leader-grid--feature">
         {site.about.leaders.map((leader, index) => (
-          <article class="leader-card leader-card--feature" data-reveal style={`--reveal-delay: ${index * 90}ms`}>
+          <article class="leader-card leader-card--feature">
             <img src={withBase(leader.image)} alt={leader.name} loading="lazy" />
             <div class="leader-card__body">
               <p class="eyebrow">{leader.role}</p>
@@ -101,14 +101,14 @@ const aboutHero = site.about.hero;
 
   <section class="section about-faith">
     <div class="shell about-faith__grid">
-      <div data-reveal>
+      <div>
         <p class="eyebrow">Statement of faith</p>
         <h2>Our statement of faith</h2>
         <p>{site.about.faithIntro}</p>
         <p>{site.about.gatheringNote}</p>
       </div>
 
-      <div class="belief-accordion" data-reveal>
+      <div class="belief-accordion">
         {site.about.beliefs.map((belief, index) => (
           <details class="belief-item" open={index === 0}>
             <summary>
@@ -132,30 +132,3 @@ const aboutHero = site.about.hero;
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (!reduceMotion) {
-    document.documentElement.classList.add("reveal-ready");
-    const revealItems = document.querySelectorAll<HTMLElement>("[data-reveal]");
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-revealed");
-              observer.unobserve(entry.target);
-            }
-          }
-        },
-        { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
-      );
-
-      revealItems.forEach((item) => observer.observe(item));
-    } else {
-      revealItems.forEach((item) => item.classList.add("is-revealed"));
-    }
-  }
-</script>

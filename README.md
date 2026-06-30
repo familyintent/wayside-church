@@ -84,9 +84,15 @@ The homepage automatically fetches the newest YouTube upload at build time from 
 youtube:
   channelId: "UCETcyl8b0ylPXNQtUtTZpAQ"
   feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UCETcyl8b0ylPXNQtUtTZpAQ"
+  channelVideosUrl: "https://www.youtube.com/@waysidechurch864/videos"
+  featuredVideo:
+    title: "20. The Day of Salvation"
+    videoId: "8seMnGM1qZk"
 ```
 
-If Wayside changes YouTube channels, update `channelId`, `handle`, `feedUrl`, and the `links.youtube` value in `src/content/settings.yaml`.
+If Wayside changes YouTube channels, update `channelId`, `handle`, `feedUrl`, `channelVideosUrl`, and the `links.youtube` value in `src/content/settings.yaml`.
+
+The site tries the YouTube feed first, then the public channel videos page, then the configured `featuredVideo`. If YouTube blocks the automatic lookup, update `featuredVideo.videoId` to keep a real teaching card on the homepage.
 
 No homepage edit is needed when a new sermon is uploaded. For a static deployment, schedule regular rebuilds in Vercel or Netlify so the build-time feed refreshes.
 

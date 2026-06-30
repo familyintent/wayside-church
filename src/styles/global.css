@@ -859,6 +859,7 @@ summary:focus-visible {
 
 .plan-visit-hero {
   background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+  padding-block: clamp(3.25rem, 9vw, 6rem) clamp(2.25rem, 6vw, 4rem);
 }
 
 .plan-visit-hero__grid {
@@ -1432,20 +1433,6 @@ summary:focus-visible {
 .footer-bottom p {
   margin: 0;
   font-size: 0.92rem;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .reveal-ready [data-reveal] {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 600ms ease, transform 600ms ease;
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-
-  .reveal-ready [data-reveal].is-revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @media (min-width: 680px) {
