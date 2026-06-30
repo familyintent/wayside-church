@@ -215,11 +215,19 @@ requireIncludes(".github/workflows/deploy.yml", workflow, "actions/upload-pages-
 requireIncludes(".github/workflows/deploy.yml", workflow, "include-hidden-files: true");
 requireIncludes(".github/workflows/deploy.yml", workflow, "actions/deploy-pages@v5.0.0");
 
+const astroConfig = readText("astro.config.mjs");
+requireIncludes("astro.config.mjs", astroConfig, "serialize: getSitemapItem");
+requireIncludes("astro.config.mjs", astroConfig, "git show -s --format=%cI HEAD");
+requireIncludes("astro.config.mjs", astroConfig, "getTeachingFreshness");
+requireIncludes("astro.config.mjs", astroConfig, "lastmod: newestIsoDate");
+requireIncludes("astro.config.mjs", astroConfig, "XMLParser");
+
 const readme = readText("README.md");
 requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, individual watch page, video-sitemap, or teaching-feed edit is needed");
 requireIncludes("README.md", readme, "update `calendar.sunday` only");
 requireIncludes("README.md", readme, "daily so the build-time YouTube feed can refresh");
 requireIncludes("README.md", readme, "pnpm performance:audit");
+requireIncludes("README.md", readme, "XML sitemap `lastmod`");
 
 const packageJson = readText("package.json");
 requireIncludes("package.json", packageJson, "\"performance:audit\": \"node scripts/performance-audit.mjs\"");

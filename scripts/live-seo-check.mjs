@@ -35,6 +35,20 @@ function extractLocs(xml) {
   return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1].trim());
 }
 
+function extractSitemapEntries(xml) {
+  return [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => {
+    const entry = match[1];
+    return {
+      loc: entry.match(/<loc>(.*?)<\/loc>/)?.[1]?.trim() || "",
+      lastmod: entry.match(/<lastmod>(.*?)<\/lastmod>/)?.[1]?.trim() || "",
+    };
+  });
+}
+
+function isValidIsoDate(value) {
+  return Boolean(value && !Number.isNaN(Date.parse(value)));
+}
+
 function extractImageLocs(xml) {
   return [...xml.matchAll(/<image:loc>(.*?)<\/image:loc>/g)].map((match) => match[1].trim());
 }
@@ -276,7 +290,32 @@ async function getSitemapUrls() {
         reportError(`${url} should be fetchable, got ${child.response.status}.`);
         return [];
       }
-      return extractLocs(child.text);
+
+      if (child.text.includes("<priority>")) reportError(`${url} should not use priority values.`);
+      if (child.text.includes("<changefreq>")) reportError(`${url} should not use changefreq values.`);
+
+      const entries = extractSitemapEntries(child.text);
+      for (const entry of entries) {
+        if (!entry.lastmod) {
+          reportError(`${url} missing lastmod for ${entry.loc}.`);
+        } else if (!isValidIsoDate(entry.lastmod)) {
+          reportError(`${url} has invalid lastmod for ${entry.loc}: ${entry.lastmod}.`);
+        }
+      }
+
+      for (const requiredUrl of [rootUrl, new URL("/teaching/", rootUrl).toString(), new URL("/sermons/", rootUrl).toString()]) {
+        const entry = entries.find((item) => item.loc === requiredUrl);
+        if (!entry || !isValidIsoDate(entry.lastmod)) {
+          reportError(`${url} should include a valid lastmod for ${requiredUrl}.`);
+        }
+      }
+
+      const teachingWatchEntries = entries.filter((entry) => /\/teaching\/[^/]+-[A-Za-z0-9_-]{11}\/$/.test(entry.loc));
+      if (teachingWatchEntries.length < 5) {
+        reportError(`${url} should include recent teaching watch pages with lastmod, found ${teachingWatchEntries.length}.`);
+      }
+
+      return entries.map((entry) => entry.loc);
     }),
   );
 

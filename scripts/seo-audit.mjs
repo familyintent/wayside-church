@@ -147,6 +147,20 @@ function extractLocs(xml) {
   return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1].trim());
 }
 
+function extractSitemapEntries(xml) {
+  return [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => {
+    const entry = match[1];
+    return {
+      loc: entry.match(/<loc>(.*?)<\/loc>/)?.[1]?.trim() || "",
+      lastmod: entry.match(/<lastmod>(.*?)<\/lastmod>/)?.[1]?.trim() || "",
+    };
+  });
+}
+
+function isValidIsoDate(value) {
+  return Boolean(value && !Number.isNaN(Date.parse(value)));
+}
+
 function extractImageLocs(xml) {
   return [...xml.matchAll(/<image:loc>(.*?)<\/image:loc>/g)].map((match) => match[1].trim());
 }
@@ -239,7 +253,10 @@ if (!fs.existsSync(distDir)) {
 
 const htmlFiles = fs.existsSync(distDir) ? walkFiles(distDir, (filePath) => filePath.endsWith(".html")) : [];
 const sitemapPath = path.join(distDir, "sitemap-0.xml");
-const sitemapUrls = fs.existsSync(sitemapPath) ? new Set(extractLocs(readText(sitemapPath))) : new Set();
+const sitemapXml = fs.existsSync(sitemapPath) ? readText(sitemapPath) : "";
+const sitemapUrls = sitemapXml ? new Set(extractLocs(sitemapXml)) : new Set();
+const sitemapEntries = sitemapXml ? extractSitemapEntries(sitemapXml) : [];
+const sitemapLastmods = new Map(sitemapEntries.map((entry) => [entry.loc, entry.lastmod]));
 const titles = new Map();
 const descriptions = new Map();
 const indexedRoutes = new Set();
@@ -278,6 +295,30 @@ for (const variants of responsiveImageVariants.values()) {
     if (!fs.existsSync(variantPath)) {
       errors.push(`Missing responsive image variant: ${variant}.`);
     }
+  }
+}
+
+if (sitemapXml) {
+  if (sitemapXml.includes("<priority>")) errors.push("sitemap-0.xml should not use priority values.");
+  if (sitemapXml.includes("<changefreq>")) errors.push("sitemap-0.xml should not use changefreq values.");
+
+  for (const entry of sitemapEntries) {
+    if (!entry.lastmod) {
+      errors.push(`sitemap-0.xml missing lastmod for ${entry.loc}.`);
+    } else if (!isValidIsoDate(entry.lastmod)) {
+      errors.push(`sitemap-0.xml has invalid lastmod for ${entry.loc}: ${entry.lastmod}.`);
+    }
+  }
+
+  for (const requiredUrl of [`${siteUrl}/`, `${siteUrl}/teaching/`, `${siteUrl}/sermons/`]) {
+    if (!isValidIsoDate(sitemapLastmods.get(requiredUrl))) {
+      errors.push(`sitemap-0.xml should include a valid lastmod for ${requiredUrl}.`);
+    }
+  }
+
+  const teachingWatchEntries = sitemapEntries.filter((entry) => /\/teaching\/[^/]+-[A-Za-z0-9_-]{11}\/$/.test(entry.loc));
+  if (teachingWatchEntries.length < 5) {
+    errors.push(`sitemap-0.xml should include recent teaching watch pages with lastmod, found ${teachingWatchEntries.length}.`);
   }
 }
 
