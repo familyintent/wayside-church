@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+---
+
+<BaseLayout title="Page Not Found" description="The page you are looking for could not be found on the Wayside Church website.">
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">Page not found</p>
+      <h1>This page may have moved.</h1>
+      <p>If you were looking for Sunday details, church information, or a way to get in touch, these links should help.</p>
+      <div class="page-hero__actions">
+        <ButtonLink href="/">Home</ButtonLink>
+        <ButtonLink href="/plan-a-visit/" variant="secondary">Plan a Visit</ButtonLink>
+        <ButtonLink href="/contact/" variant="secondary">Contact</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
