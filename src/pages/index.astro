@@ -6,7 +6,7 @@ import LatestTeaching from "../components/LatestTeaching.astro";
 import MinistryList from "../components/MinistryList.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
-import { imageSize } from "../lib/images";
+import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
 import { getTeachingVideoSchemas } from "../lib/schema";
 import { getLatestTeaching } from "../lib/youtube";
@@ -15,11 +15,13 @@ const latestTeaching = await getLatestTeaching(site.youtube);
 const homeSchemas = latestTeaching ? getTeachingVideoSchemas([latestTeaching], "/") : [];
 const heroImageSize = imageSize(site.images.hero);
 const communityImageSize = imageSize(site.images.community);
+const heroImageSrcset = imageSrcset(site.images.hero);
+const communityImageSrcset = imageSrcset(site.images.community);
 ---
 
 <BaseLayout image={site.images.hero} imageAlt={site.home.hero.imageAlt} extraSchemas={homeSchemas}>
   <section class="hero" aria-labelledby="hero-title">
-    <img class="hero__image" src={withBase(site.images.hero)} alt={site.home.hero.imageAlt} width={heroImageSize?.width} height={heroImageSize?.height} loading="eager" decoding="async" fetchpriority="high" />
+    <img class="hero__image" src={withBase(site.images.hero)} srcset={heroImageSrcset} sizes={imageSizesFor("hero")} alt={site.home.hero.imageAlt} width={heroImageSize?.width} height={heroImageSize?.height} loading="eager" decoding="async" fetchpriority="high" />
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="shell hero__content">
       <p class="eyebrow">{site.home.hero.eyebrow}</p>
@@ -104,7 +106,7 @@ const communityImageSize = imageSize(site.images.community);
         </div>
       </div>
       <figure class="image-panel">
-        <img src={withBase(site.images.community)} alt="People sharing a meal at Wayside Church" width={communityImageSize?.width} height={communityImageSize?.height} loading="lazy" decoding="async" />
+        <img src={withBase(site.images.community)} srcset={communityImageSrcset} sizes={imageSizesFor("panel")} alt="People sharing a meal at Wayside Church" width={communityImageSize?.width} height={communityImageSize?.height} loading="lazy" decoding="async" />
         <figcaption>Warm fellowship, practical care, and life together.</figcaption>
       </figure>
     </div>

@@ -4,13 +4,14 @@ import ButtonLink from "../components/ButtonLink.astro";
 import MinistryCalendarLinks from "../components/MinistryCalendarLinks.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
-import { imageSize } from "../lib/images";
+import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
 import { getMinistryEventSchemas } from "../lib/schema";
 
 const ministries = site.ministries.items;
 const ministrySchemas = getMinistryEventSchemas(ministries);
 const communityImageSize = imageSize(site.images.community);
+const communityImageSrcset = imageSrcset(site.images.community);
 ---
 
 <BaseLayout title="Ministries at Wayside Church in Charlton, MA" description="Explore Wayside Church ministries for coffee and discipleship, men, children, youth, and midweek community in Charlton, MA." image={site.images.community} imageAlt="Wayside Church family sharing a meal together in Charlton, Massachusetts" extraSchemas={ministrySchemas}>
@@ -28,7 +29,7 @@ const communityImageSize = imageSize(site.images.community);
 
       <div class="ministry-hero__side">
         <figure class="ministry-hero__image">
-          <img src={withBase(site.images.community)} alt="Wayside Church family sharing a meal together" width={communityImageSize?.width} height={communityImageSize?.height} loading="eager" decoding="async" />
+          <img src={withBase(site.images.community)} srcset={communityImageSrcset} sizes={imageSizesFor("panel")} alt="Wayside Church family sharing a meal together" width={communityImageSize?.width} height={communityImageSize?.height} loading="eager" decoding="async" />
           <figcaption>Faith grows around Scripture, prayer, meals, service, and ordinary friendship.</figcaption>
         </figure>
       </div>

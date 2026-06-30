@@ -5,13 +5,14 @@ import CalendarActions from "../components/CalendarActions.astro";
 import ChurchContactBlock from "../components/ChurchContactBlock.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
-import { imageSize } from "../lib/images";
+import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
 import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
 
 const local = site.localSeo;
 const localSchemas = [getFaqPageSchema(local.faq), getSundayWorshipEventSchema("/church-in-charlton-ma/")];
 const communityImageSize = imageSize(site.images.community);
+const communityImageSrcset = imageSrcset(site.images.community);
 ---
 
 <BaseLayout title={local.metaTitle} description={local.metaDescription} image={site.images.community} imageAlt="Wayside Church family sharing a meal together in Charlton, Massachusetts" extraSchemas={localSchemas}>
@@ -42,7 +43,7 @@ const communityImageSize = imageSize(site.images.community);
       </div>
 
       <figure class="image-panel">
-        <img src={withBase(site.images.community)} alt="Wayside Church family sharing a meal in Charlton, Massachusetts" width={communityImageSize?.width} height={communityImageSize?.height} loading="lazy" decoding="async" />
+        <img src={withBase(site.images.community)} srcset={communityImageSrcset} sizes={imageSizesFor("panel")} alt="Wayside Church family sharing a meal in Charlton, Massachusetts" width={communityImageSize?.width} height={communityImageSize?.height} loading="lazy" decoding="async" />
         <figcaption>{local.localAreas}</figcaption>
       </figure>
     </div>

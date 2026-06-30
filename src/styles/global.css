@@ -1796,7 +1796,9 @@ summary:focus-visible {
 }
 
 .leader-card img {
+  display: block;
   width: 100%;
+  height: clamp(220px, 28vw, 320px);
   aspect-ratio: 4 / 3;
   border-radius: calc(var(--radius) - 2px);
   object-fit: cover;

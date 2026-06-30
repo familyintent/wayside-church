@@ -12,6 +12,13 @@ const expectedImageSizes = new Map([
   ["/images/owen-rushing.webp", { width: 900, height: 1350 }],
   ["/images/wayside-social-card.jpg", { width: 1200, height: 630 }],
 ]);
+const responsiveImageVariants = new Map([
+  ["/images/wayside-welcome-hero.webp", ["/images/wayside-welcome-hero-640.webp", "/images/wayside-welcome-hero-960.webp", "/images/wayside-welcome-hero-1280.webp"]],
+  ["/images/wayside-community.webp", ["/images/wayside-community-420.webp", "/images/wayside-community-700.webp", "/images/wayside-community-960.webp"]],
+  ["/images/charlton.webp", ["/images/charlton-420.webp", "/images/charlton-640.webp"]],
+  ["/images/chase-mendoza.webp", ["/images/chase-mendoza-320.webp", "/images/chase-mendoza-480.webp"]],
+  ["/images/owen-rushing.webp", ["/images/owen-rushing-320.webp", "/images/owen-rushing-640.webp"]],
+]);
 
 function reportError(message) {
   errors.push(message);
@@ -122,6 +129,15 @@ function getTagAttribute(tag, name) {
   return match?.[2] || "";
 }
 
+function localPathFromUrl(value) {
+  try {
+    const url = new URL(value, rootUrl);
+    return url.host === siteHost ? url.pathname : "";
+  } catch {
+    return "";
+  }
+}
+
 function checkHtmlYouTubeThumbnailImages(html, context) {
   for (const img of html.matchAll(/<img\b[^>]*>/gi)) {
     const tag = img[0];
@@ -140,6 +156,27 @@ function checkHtmlYouTubeThumbnailImages(html, context) {
       reportError(
         `${context} YouTube thumbnail ${src} should use intrinsic dimensions ${expectedThumbnailSize.width}x${expectedThumbnailSize.height}, found ${width}x${height}.`,
       );
+    }
+  }
+}
+
+function checkHtmlResponsiveImages(html, context) {
+  for (const img of html.matchAll(/<img\b[^>]*>/gi)) {
+    const tag = img[0];
+    const src = getTagAttribute(tag, "src");
+    const localSrcPath = localPathFromUrl(src);
+    const expectedVariants = responsiveImageVariants.get(localSrcPath);
+    if (!expectedVariants) continue;
+
+    const srcset = getTagAttribute(tag, "srcset");
+    const sizes = getTagAttribute(tag, "sizes");
+    if (!srcset) reportError(`${context} responsive image ${localSrcPath} is missing srcset.`);
+    if (!sizes) reportError(`${context} responsive image ${localSrcPath} is missing sizes.`);
+
+    for (const variant of expectedVariants) {
+      if (!srcset.includes(variant)) {
+        reportError(`${context} responsive image ${localSrcPath} srcset missing ${variant}.`);
+      }
     }
   }
 }
@@ -770,6 +807,7 @@ async function checkLivePages(sitemapUrls) {
     }
 
     checkHtmlYouTubeThumbnailImages(page.text, url);
+    checkHtmlResponsiveImages(page.text, url);
 
     const canonical = getLinkHref(page.text, "canonical");
     if (canonical !== url) reportError(`${url} canonical is ${canonical || "(missing)"}.`);

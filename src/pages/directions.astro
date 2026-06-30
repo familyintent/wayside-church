@@ -6,12 +6,13 @@ import ChurchContactBlock from "../components/ChurchContactBlock.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import VisitorDetails from "../components/VisitorDetails.astro";
 import { site } from "../lib/content";
-import { imageSize } from "../lib/images";
+import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
 import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
 
 const directions = site.directionsPage;
 const charltonImageSize = imageSize(site.images.charlton);
+const charltonImageSrcset = imageSrcset(site.images.charlton);
 const directionsSchemas = [getSundayWorshipEventSchema("/directions/"), getFaqPageSchema(directions.faq)];
 ---
 
@@ -59,7 +60,7 @@ const directionsSchemas = [getSundayWorshipEventSchema("/directions/"), getFaqPa
       </div>
 
       <figure class="image-panel image-panel--map">
-        <img src={withBase(site.images.charlton)} alt="Map of Charlton, Massachusetts near Wayside Church" width={charltonImageSize?.width} height={charltonImageSize?.height} loading="lazy" decoding="async" />
+        <img src={withBase(site.images.charlton)} srcset={charltonImageSrcset} sizes={imageSizesFor("panel")} alt="Map of Charlton, Massachusetts near Wayside Church" width={charltonImageSize?.width} height={charltonImageSize?.height} loading="lazy" decoding="async" />
         <figcaption>{site.contact.addressLine1}, {site.contact.cityStateZip}</figcaption>
       </figure>
     </div>

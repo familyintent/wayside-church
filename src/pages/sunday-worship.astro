@@ -4,12 +4,13 @@ import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
-import { imageSize } from "../lib/images";
+import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
 import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
 
 const sunday = site.sundayPage;
 const communityImageSize = imageSize(site.images.community);
+const communityImageSrcset = imageSrcset(site.images.community);
 const sundaySchemas = [getSundayWorshipEventSchema("/sunday-worship/"), getFaqPageSchema(sunday.faq)];
 ---
 
@@ -57,7 +58,7 @@ const sundaySchemas = [getSundayWorshipEventSchema("/sunday-worship/"), getFaqPa
       </div>
 
       <figure class="image-panel">
-        <img src={withBase(site.images.community)} alt="Wayside Church family sharing a meal together" width={communityImageSize?.width} height={communityImageSize?.height} loading="lazy" decoding="async" />
+        <img src={withBase(site.images.community)} srcset={communityImageSrcset} sizes={imageSizesFor("panel")} alt="Wayside Church family sharing a meal together" width={communityImageSize?.width} height={communityImageSize?.height} loading="lazy" decoding="async" />
         <figcaption>{site.contact.addressLine1}, {site.contact.cityStateZip}</figcaption>
       </figure>
     </div>

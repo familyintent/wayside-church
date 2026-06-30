@@ -109,6 +109,7 @@ The site includes:
 - build-time generated watch pages for recent YouTube teachings, so each message has a local page where the video is the main content
 - page-specific social preview thumbnails for generated teaching watch pages
 - automatic YouTube thumbnail dimensions for latest and recent teaching cards, so feed-driven video images stay stable in the layout
+- responsive WebP variants with `srcset` and `sizes` for real Wayside photos, so large local images stay sharp without forcing oversized downloads
 - leader `Person` schema on the About page
 - recurring ministry `Event` schema on the Ministries page
 - generated `llms.txt` for AI discovery summaries, current visitor facts, machine-readable resources, and recent teaching links

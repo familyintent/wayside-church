@@ -5,13 +5,14 @@ import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import VisitorDetails from "../components/VisitorDetails.astro";
 import { site } from "../lib/content";
-import { imageSize } from "../lib/images";
+import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
 import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
 
 const visit = site.planVisit;
 const visitSchemas = [getSundayWorshipEventSchema("/plan-a-visit/"), getFaqPageSchema(visit.faq)];
 const charltonImageSize = imageSize(site.images.charlton);
+const charltonImageSrcset = imageSrcset(site.images.charlton);
 ---
 
 <BaseLayout title="Plan a Visit to Wayside Church in Charlton, MA" description="Plan a visit to Wayside Church in Charlton, MA. Find Sunday worship time, address, directions, calendar links, and what to expect." image={site.images.charlton} imageAlt="Map of Charlton, Massachusetts near Wayside Church" extraSchemas={visitSchemas}>
@@ -81,7 +82,7 @@ const charltonImageSize = imageSize(site.images.charlton);
       </div>
 
       <figure class="image-panel image-panel--map">
-        <img src={withBase(site.images.charlton)} alt="Map of Charlton, Massachusetts" width={charltonImageSize?.width} height={charltonImageSize?.height} loading="lazy" decoding="async" />
+        <img src={withBase(site.images.charlton)} srcset={charltonImageSrcset} sizes={imageSizesFor("panel")} alt="Map of Charlton, Massachusetts" width={charltonImageSize?.width} height={charltonImageSize?.height} loading="lazy" decoding="async" />
         <figcaption>{site.contact.addressLine1}, {site.contact.cityStateZip}</figcaption>
       </figure>
     </div>

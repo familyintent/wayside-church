@@ -252,6 +252,31 @@ const expectedImageSizes = new Map([
   ["/images/owen-rushing.webp", { width: 900, height: 1350 }],
   ["/images/wayside-social-card.jpg", { width: 1200, height: 630 }],
 ]);
+const responsiveImageVariants = new Map([
+  ["/images/wayside-welcome-hero.webp", ["/images/wayside-welcome-hero-640.webp", "/images/wayside-welcome-hero-960.webp", "/images/wayside-welcome-hero-1280.webp"]],
+  ["/images/wayside-community.webp", ["/images/wayside-community-420.webp", "/images/wayside-community-700.webp", "/images/wayside-community-960.webp"]],
+  ["/images/charlton.webp", ["/images/charlton-420.webp", "/images/charlton-640.webp"]],
+  ["/images/chase-mendoza.webp", ["/images/chase-mendoza-320.webp", "/images/chase-mendoza-480.webp"]],
+  ["/images/owen-rushing.webp", ["/images/owen-rushing-320.webp", "/images/owen-rushing-640.webp"]],
+]);
+
+function localPathFromUrl(value) {
+  try {
+    const url = new URL(value, siteUrl);
+    return url.host === siteHost ? url.pathname : "";
+  } catch {
+    return "";
+  }
+}
+
+for (const variants of responsiveImageVariants.values()) {
+  for (const variant of variants) {
+    const variantPath = path.join(distDir, variant.replace(/^\//, ""));
+    if (!fs.existsSync(variantPath)) {
+      errors.push(`Missing responsive image variant: ${variant}.`);
+    }
+  }
+}
 
 for (const filePath of htmlFiles) {
   const html = readText(filePath);
@@ -581,6 +606,20 @@ for (const filePath of htmlFiles) {
         errors.push(
           `${label}: YouTube thumbnail ${src} should use intrinsic dimensions ${expectedThumbnailSize.width}x${expectedThumbnailSize.height}, found ${width}x${height}.`,
         );
+      }
+    }
+
+    const localSrcPath = localPathFromUrl(src);
+    const expectedResponsiveVariants = responsiveImageVariants.get(localSrcPath);
+    if (expectedResponsiveVariants) {
+      const srcset = getTagAttribute(tag, "srcset");
+      const sizes = getTagAttribute(tag, "sizes");
+      if (!srcset) errors.push(`${label}: responsive image ${localSrcPath} is missing srcset.`);
+      if (!sizes) errors.push(`${label}: responsive image ${localSrcPath} is missing sizes.`);
+      for (const variant of expectedResponsiveVariants) {
+        if (!srcset.includes(variant)) {
+          errors.push(`${label}: responsive image ${localSrcPath} srcset missing ${variant}.`);
+        }
       }
     }
   }

@@ -889,7 +889,7 @@ ministries:
     - label: "Sunday morning"
       detail: "Coffee and Discipleship, worship, children, and youth."
     - label: "Quarterly men's gatherings"
-      detail: "Men's Iron Sharpens Iron meets quarterly for different events, encouragement, and friendship."
+      detail: "Men's Iron Sharpens Iron is a quarterly men's ministry with different events for encouragement and friendship. Reach out for the next group."
     - label: "Wednesday evening"
       detail: "Identity Groups make room for midweek community and discipleship."
   items:
@@ -907,7 +907,7 @@ ministries:
       name: "Men's Iron Sharpens Iron"
       schedule: "Quarterly events"
       audience: "Men"
-      summary: "Quarterly gatherings for men to encourage one another and grow in faithful friendship."
+      summary: "A quarterly men's ministry for encouragement, friendship, and faithful discipleship."
       details: "Men's Iron Sharpens Iron meets quarterly for different events. Reach out for the next men's group."
     - id: "little-disciples"
       name: "Little Disciples"

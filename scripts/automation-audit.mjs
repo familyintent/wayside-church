@@ -47,9 +47,18 @@ requireIncludes("src/lib/youtube.ts", youtubeHelper, "slice(0, limit)");
 requireIncludes("src/lib/youtube.ts", youtubeHelper, "getLatestFromChannelPage(settings)");
 requireIncludes("src/lib/youtube.ts", youtubeHelper, "getFeaturedVideo(settings)");
 
+const imageHelper = readText("src/lib/images.ts");
+requireIncludes("src/lib/images.ts", imageHelper, "export const imageVariants");
+requireIncludes("src/lib/images.ts", imageHelper, "imageSrcset");
+requireIncludes("src/lib/images.ts", imageHelper, "imageSizesFor");
+requireIncludes("src/lib/images.ts", imageHelper, "withBase(variantPath)");
+
 const homepage = readText("src/pages/index.astro");
 requireIncludes("src/pages/index.astro", homepage, "getLatestTeaching(site.youtube)");
 requireIncludes("src/pages/index.astro", homepage, "<LatestTeaching latest={latestTeaching}");
+requireIncludes("src/pages/index.astro", homepage, "srcset={heroImageSrcset}");
+requireIncludes("src/pages/index.astro", homepage, "sizes={imageSizesFor(\"hero\")}");
+requireIncludes("src/pages/index.astro", homepage, "srcset={communityImageSrcset}");
 
 const latestTeachingComponent = readText("src/components/LatestTeaching.astro");
 requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "getLatestTeaching");
@@ -60,6 +69,19 @@ requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, 
 
 checkTeachingPage("src/pages/teaching.astro", "src/pages/teaching.astro");
 checkTeachingPage("src/pages/sermons.astro", "src/pages/sermons.astro");
+
+const aboutPage = readText("src/pages/about.astro");
+requireIncludes("src/pages/about.astro", aboutPage, "imageSrcset(aboutHero.image)");
+requireIncludes("src/pages/about.astro", aboutPage, "sizes={imageSizesFor(\"panel\")}");
+requireIncludes("src/pages/about.astro", aboutPage, "sizes={imageSizesFor(\"leader\")}");
+
+const contactPage = readText("src/pages/contact.astro");
+requireIncludes("src/pages/contact.astro", contactPage, "charltonImageSrcset");
+requireIncludes("src/pages/contact.astro", contactPage, "sizes={imageSizesFor(\"panel\")}");
+
+const ministriesPhotoPage = readText("src/pages/ministries.astro");
+requireIncludes("src/pages/ministries.astro", ministriesPhotoPage, "communityImageSrcset");
+requireIncludes("src/pages/ministries.astro", ministriesPhotoPage, "sizes={imageSizesFor(\"panel\")}");
 
 const videoSitemap = readText("src/pages/video-sitemap.xml.ts");
 requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "getRecentTeachings(site.youtube, 6)");
@@ -231,4 +253,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log("Automation audit passed: teaching pages are wired to the YouTube feed and daily rebuild workflow.");
+console.log("Automation audit passed: teaching pages are wired to the YouTube feed, responsive images, and daily rebuild workflow.");
