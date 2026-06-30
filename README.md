@@ -74,7 +74,13 @@ The site includes:
 - `public/robots.txt`
 - `public/site.webmanifest`
 
-Update the production URL, default description, logo, and social image in `src/content/settings.yaml` under `meta`.
+The production URL is configured as `https://wayside.church` in `astro.config.mjs` and `src/content/settings.yaml` under `meta`. Update the default description, logo, and social image in `src/content/settings.yaml` under `meta`.
+
+GitHub Pages custom domain support is kept in:
+
+```text
+public/CNAME
+```
 
 ## Latest YouTube Teaching
 

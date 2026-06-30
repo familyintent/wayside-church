@@ -32,6 +32,6 @@ RRULE:FREQ=WEEKLY;BYDAY=SU
 SUMMARY:Wayside Church Sunday Worship
 LOCATION:6 Haggerty Rd\, Charlton\, MA 01507
 DESCRIPTION:Sunday Worship begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM. Wayside Church gathers at 6 Haggerty Rd in Charlton\, Massachusetts.
-URL:https://familyintent.github.io/wayside-church/
+URL:https://wayside.church/
 END:VEVENT
 END:VCALENDAR

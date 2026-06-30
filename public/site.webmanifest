@@ -2,18 +2,18 @@
   "name": "Wayside Church",
   "short_name": "Wayside",
   "description": "Wayside Church in Charlton, MA.",
-  "start_url": "/wayside-church/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#fbfaf6",
   "theme_color": "#5f7159",
   "icons": [
     {
-      "src": "/wayside-church/icon-192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/wayside-church/icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
