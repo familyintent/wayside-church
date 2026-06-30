@@ -1255,6 +1255,33 @@ summary:focus-visible {
   margin-top: auto;
 }
 
+.local-neighbor-note {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 860px;
+}
+
+.local-neighbor-note h2 {
+  margin-bottom: 0;
+  font-size: clamp(2rem, 7vw, 3.5rem);
+}
+
+.local-neighbor-note p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.nearby-communities__plan {
+  border-left: 3px solid var(--accent);
+  padding-left: 0.9rem;
+  color: var(--ink);
+}
+
+.nearby-communities__plan strong {
+  font-weight: 850;
+}
+
 .nearby-communities__note {
   color: var(--muted);
   font-size: 0.95rem;

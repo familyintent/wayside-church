@@ -480,6 +480,44 @@ for (const filePath of htmlFiles) {
         }
       }
     }
+
+    if (route === "/nearby-communities/") {
+      const requiredNearbyText = [
+        "One real church family",
+        "These town links are not separate campuses or duplicate pages",
+        "Sunday plan:",
+        "Directions from Dudley",
+        "Directions from Oxford",
+        "Directions from Sturbridge",
+        "Directions from Southbridge",
+      ];
+
+      for (const expected of requiredNearbyText) {
+        if (!html.includes(expected)) {
+          errors.push(`${label}: nearby communities page missing ${expected}.`);
+        }
+      }
+
+      const nearbyItemListSchema = parsedSchemas
+        .flatMap((schema) => collectSchemasByType(schema, "ItemList"))
+        .find((schema) => schema.name === "Nearby communities served by Wayside Church");
+
+      if (!nearbyItemListSchema) {
+        errors.push(`${label}: missing nearby communities ItemList schema.`);
+      } else {
+        for (const town of ["Dudley", "Oxford", "Sturbridge", "Southbridge"]) {
+          if (!textIncludes(nearbyItemListSchema, town)) {
+            errors.push(`${label}: nearby communities schema missing ${town}.`);
+          }
+          if (!textIncludes(nearbyItemListSchema, `Directions from ${town}`)) {
+            errors.push(`${label}: nearby communities schema missing directions action for ${town}.`);
+          }
+        }
+        if (!textIncludes(nearbyItemListSchema, "potentialAction") || !textIncludes(nearbyItemListSchema, "google.com/maps/dir")) {
+          errors.push(`${label}: nearby communities schema should expose direction actions.`);
+        }
+      }
+    }
   }
 
   for (const anchor of extractAnchors(html)) {

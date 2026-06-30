@@ -16,8 +16,17 @@ const nearbyItemListSchema = {
   itemListElement: nearby.towns.map((town, index) => ({
     "@type": "ListItem",
     position: index + 1,
-    name: `${town.name}, MA`,
-    url: absoluteUrl(`/nearby-communities/#${getTownId(town.name)}`, site.meta.siteUrl),
+    item: {
+      "@type": "Place",
+      name: `${town.name}, MA`,
+      description: `${town.body} ${town.sundayPlan}`,
+      url: absoluteUrl(`/nearby-communities/#${getTownId(town.name)}`, site.meta.siteUrl),
+      potentialAction: {
+        "@type": "ViewAction",
+        name: town.directionsLabel,
+        target: town.directionsHref,
+      },
+    },
   })),
 };
 const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getFaqPageSchema(nearby.faq), nearbyItemListSchema];
@@ -48,6 +57,14 @@ const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getF
     </div>
   </section>
 
+  <section class="section section--muted">
+    <div class="shell local-neighbor-note">
+      <p class="eyebrow">{nearby.localNote.eyebrow}</p>
+      <h2>{nearby.localNote.title}</h2>
+      <p>{nearby.localNote.body}</p>
+    </div>
+  </section>
+
   <section class="section">
     <div class="shell nearby-communities">
       <SectionIntro eyebrow={nearby.sunday.eyebrow} title={nearby.sunday.title}>
@@ -60,6 +77,7 @@ const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getF
             <p class="eyebrow">{town.label}</p>
             <h2>{town.name}, MA</h2>
             <p>{town.body}</p>
+            <p class="nearby-communities__plan"><strong>Sunday plan:</strong> {town.sundayPlan}</p>
             <p class="nearby-communities__note">{town.routeNote}</p>
             <ButtonLink href={town.directionsHref} variant="text">{town.directionsLabel}</ButtonLink>
           </article>

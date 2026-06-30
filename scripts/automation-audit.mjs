@@ -147,6 +147,8 @@ const settings = readText("src/content/settings.yaml");
 requireIncludes("src/content/settings.yaml", settings, "Staff should only need to upload sermons to YouTube");
 requireIncludes("src/content/settings.yaml", settings, "visitDetails:");
 requireIncludes("src/content/settings.yaml", settings, "Parking is available near the building");
+requireIncludes("src/content/settings.yaml", settings, "One real church family");
+requireIncludes("src/content/settings.yaml", settings, "sundayPlan:");
 requireIncludes("src/content/settings.yaml", settings, "generated .ics route");
 requireIncludes("src/content/settings.yaml", settings, "Ministries with an event block automatically get structured-data event signals and generated .ics calendar files");
 requireIncludes("src/content/settings.yaml", settings, "feedUrl: \"https://www.youtube.com/feeds/videos.xml");
@@ -183,6 +185,12 @@ requireIncludes("src/pages/ministries.astro", ministriesPage, "MinistryCalendarL
 
 const eventsPage = readText("src/pages/events.astro");
 requireIncludes("src/pages/events.astro", eventsPage, "MinistryCalendarLinks");
+
+const nearbyPage = readText("src/pages/nearby-communities.astro");
+requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "nearby.localNote");
+requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "nearby-communities__plan");
+requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "potentialAction");
+requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "town.directionsHref");
 
 const generatedContactCard = readText("src/pages/wayside-church.vcf.ts");
 requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.contact.addressLine1");

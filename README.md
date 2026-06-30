@@ -96,6 +96,7 @@ The site includes:
 - enhanced local `Church` schema for public access, free access, Sunday hours, real photo objects, and local keywords
 - page-level `WebPage`, `AboutPage`, `ContactPage`, and `CollectionPage` structured data
 - local entity checks for address, phone, map link, social profiles, service hours, and nearby communities
+- a nearby-neighbor page with real town direction links and structured direction actions, without creating thin duplicate town pages
 - semantic church address blocks for consistent name, address, phone, and map details
 - generated `wayside-church.vcf` contact card from the same editable church settings
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data

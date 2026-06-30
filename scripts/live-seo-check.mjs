@@ -895,6 +895,61 @@ async function checkLiveSemanticContactBlocks() {
   }
 }
 
+async function checkLiveNearbyCommunities() {
+  const url = new URL("/nearby-communities/", rootUrl).toString();
+  const { response, text } = await fetchText(url);
+
+  if (!response.ok) {
+    reportError(`${url} should be fetchable, got ${response.status}.`);
+    return;
+  }
+
+  for (const expected of [
+    "One real church family",
+    "These town links are not separate campuses or duplicate pages",
+    "Sunday plan:",
+    "Directions from Dudley",
+    "Directions from Oxford",
+    "Directions from Sturbridge",
+    "Directions from Southbridge",
+  ]) {
+    if (!text.includes(expected)) {
+      reportError(`${url} missing ${expected}.`);
+    }
+  }
+
+  const parsedSchemas = [];
+  for (const block of extractJsonLd(text)) {
+    try {
+      parsedSchemas.push(JSON.parse(block));
+    } catch (error) {
+      reportError(`${url} has invalid JSON-LD: ${error.message}`);
+    }
+  }
+
+  const nearbyItemListSchema = parsedSchemas
+    .flatMap((schema) => collectSchemasByType(schema, "ItemList"))
+    .find((schema) => schema.name === "Nearby communities served by Wayside Church");
+
+  if (!nearbyItemListSchema) {
+    reportError(`${url} missing nearby communities ItemList schema.`);
+    return;
+  }
+
+  for (const town of ["Dudley", "Oxford", "Sturbridge", "Southbridge"]) {
+    if (!textIncludes(nearbyItemListSchema, town)) {
+      reportError(`${url} nearby communities schema missing ${town}.`);
+    }
+    if (!textIncludes(nearbyItemListSchema, `Directions from ${town}`)) {
+      reportError(`${url} nearby communities schema missing directions action for ${town}.`);
+    }
+  }
+
+  if (!textIncludes(nearbyItemListSchema, "potentialAction") || !textIncludes(nearbyItemListSchema, "google.com/maps/dir")) {
+    reportError(`${url} nearby communities schema should expose direction actions.`);
+  }
+}
+
 async function main() {
   await checkDomainCanonicalization();
   await checkRobots();
@@ -920,6 +975,7 @@ async function main() {
   await checkLiveTeachingPages();
   await checkLiveVisitorDetails();
   await checkLiveSemanticContactBlocks();
+  await checkLiveNearbyCommunities();
 
   if (warnings.length > 0) {
     console.warn("Live SEO warnings:");
