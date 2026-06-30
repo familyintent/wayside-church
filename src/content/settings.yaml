@@ -13,6 +13,8 @@ meta:
 church:
   name: "Wayside Church"
   tagline: "A place to grow your faith"
+  description: "Wayside Church is a Gospel-centered Christian church in Charlton, MA, welcoming families, guests, seekers, and neighbors from nearby Worcester County communities."
+  faithTradition: "Advent Christian"
   city: "Charlton"
   state: "MA"
   nearbyCommunities:
@@ -22,6 +24,17 @@ church:
     - "Southbridge, MA"
   # Update the mission statement here.
   mission: "We are a community dedicated to seeing individuals, families, communities, and cities radically transformed by the Gospel of Jesus Christ."
+  # These help search engines and AI systems understand the real local topics Wayside serves. Keep them natural and accurate.
+  searchTopics:
+    - "Wayside Church"
+    - "Christian church in Charlton, MA"
+    - "Church in Charlton, MA"
+    - "Sunday worship in Charlton, MA"
+    - "Bible teaching in Charlton, MA"
+    - "Church near Dudley, MA"
+    - "Church near Oxford, MA"
+    - "Church near Sturbridge, MA"
+    - "Church near Southbridge, MA"
 
 # Update service times, address, and phone here.
 service:

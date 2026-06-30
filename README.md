@@ -85,6 +85,7 @@ The site includes:
 - Open Graph and Twitter card metadata
 - local church structured data using JSON-LD
 - page-level `WebPage`, `AboutPage`, `ContactPage`, and `CollectionPage` structured data
+- local entity checks for address, phone, map link, social profiles, service hours, and nearby communities
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data
 - recurring Sunday worship event schema
 - FAQ schema on visitor-focused pages
@@ -92,7 +93,7 @@ The site includes:
 - leader `Person` schema on the About page
 - recurring ministry `Event` schema on the Ministries page
 - `public/llms.txt` for AI discovery summaries
-- a reusable `pnpm seo:audit` check for canonical URLs, sitemap coverage, structured data, image alt text, and broken internal links
+- a reusable `pnpm seo:audit` check for canonical URLs, sitemap coverage, local structured data, image alt text, and broken internal links
 - sitemap generation through `@astrojs/sitemap`
 - `public/robots.txt`
 - `public/site.webmanifest`

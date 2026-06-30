@@ -4,6 +4,7 @@ import path from "node:path";
 const rootDir = process.cwd();
 const distDir = path.join(rootDir, "dist");
 const siteUrl = "https://wayside.church";
+const rootUrl = new URL("/", siteUrl).toString();
 const siteHost = new URL(siteUrl).host;
 const errors = [];
 const warnings = [];
@@ -111,8 +112,30 @@ function schemaTypes(schema) {
   return values.flat();
 }
 
+function collectSchemasByType(schema, type, acc = []) {
+  const visit = (node) => {
+    if (!node || typeof node !== "object") return;
+    if (Array.isArray(node)) {
+      node.forEach(visit);
+      return;
+    }
+
+    const nodeTypes = Array.isArray(node["@type"]) ? node["@type"] : [node["@type"]].filter(Boolean);
+    if (nodeTypes.includes(type)) acc.push(node);
+
+    Object.values(node).forEach(visit);
+  };
+
+  visit(schema);
+  return acc;
+}
+
 function extractLocs(xml) {
   return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1].trim());
+}
+
+function textIncludes(value, expected) {
+  return JSON.stringify(value || "").toLowerCase().includes(expected.toLowerCase());
 }
 
 if (!fs.existsSync(distDir)) {
@@ -169,13 +192,22 @@ for (const filePath of htmlFiles) {
   if (!isNoIndex && jsonLdBlocks.length === 0) errors.push(`${label}: missing JSON-LD structured data.`);
 
   const allSchemaTypes = [];
+  const parsedSchemas = [];
   for (const block of jsonLdBlocks) {
     try {
-      allSchemaTypes.push(...schemaTypes(JSON.parse(block)));
+      const parsed = JSON.parse(block);
+      parsedSchemas.push(parsed);
+      allSchemaTypes.push(...schemaTypes(parsed));
     } catch (error) {
       errors.push(`${label}: invalid JSON-LD (${error.message}).`);
     }
   }
+
+  const churchSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Church"));
+  const webSiteSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebSite"));
+  const pageSchemas = parsedSchemas.flatMap((schema) =>
+    ["WebPage", "AboutPage", "ContactPage", "CollectionPage"].flatMap((type) => collectSchemasByType(schema, type)),
+  );
 
   if (!isNoIndex && !allSchemaTypes.includes("Church")) errors.push(`${label}: missing Church schema.`);
   if (
@@ -189,6 +221,64 @@ for (const filePath of htmlFiles) {
   }
   if (!isNoIndex && route !== "/" && !allSchemaTypes.includes("BreadcrumbList")) {
     errors.push(`${label}: missing BreadcrumbList schema.`);
+  }
+
+  if (!isNoIndex) {
+    const churchSchema = churchSchemas[0];
+    if (!churchSchema) {
+      errors.push(`${label}: missing inspectable Church schema.`);
+    } else {
+      if (churchSchema.url !== rootUrl) errors.push(`${label}: Church schema url should be ${rootUrl}.`);
+      if (!textIncludes(churchSchema.logo, `${siteUrl}/images/`)) errors.push(`${label}: Church schema missing production logo URL.`);
+      if (!churchSchema.slogan) errors.push(`${label}: Church schema missing slogan.`);
+      if (!churchSchema.description || churchSchema.description.length < 80) {
+        errors.push(`${label}: Church schema description should be a substantial local church description.`);
+      }
+      if (!churchSchema.telephone) errors.push(`${label}: Church schema missing telephone.`);
+      if (!textIncludes(churchSchema.hasMap, "google.com/maps")) errors.push(`${label}: Church schema missing Google Maps link.`);
+      if (!textIncludes(churchSchema.address, "6 Haggerty Rd")) errors.push(`${label}: Church schema missing street address.`);
+      if (!textIncludes(churchSchema.address, "Charlton")) errors.push(`${label}: Church schema missing address locality.`);
+      if (!textIncludes(churchSchema.address, "01507")) errors.push(`${label}: Church schema missing postal code.`);
+      if (!textIncludes(churchSchema.geo, "42.104233") || !textIncludes(churchSchema.geo, "-71.952781")) {
+        errors.push(`${label}: Church schema missing expected geographic coordinates.`);
+      }
+      for (const profile of ["facebook.com", "youtube.com", "google.com/maps"]) {
+        if (!textIncludes(churchSchema.sameAs, profile)) errors.push(`${label}: Church schema sameAs missing ${profile}.`);
+      }
+      for (const community of ["Charlton", "Dudley", "Oxford", "Sturbridge", "Southbridge", "Worcester County"]) {
+        if (!textIncludes(churchSchema.areaServed, community)) errors.push(`${label}: Church schema areaServed missing ${community}.`);
+      }
+      if (!textIncludes(churchSchema.openingHoursSpecification, "Sunday")) {
+        errors.push(`${label}: Church schema missing Sunday opening hours.`);
+      }
+      if (!textIncludes(churchSchema.openingHoursSpecification, "09:00") || !textIncludes(churchSchema.openingHoursSpecification, "11:30")) {
+        errors.push(`${label}: Church schema opening hours should cover Coffee and Discipleship through worship.`);
+      }
+      if (!textIncludes(churchSchema.additionalProperty, "Sunday Worship") || !textIncludes(churchSchema.additionalProperty, "Coffee and Discipleship")) {
+        errors.push(`${label}: Church schema missing service-time additional properties.`);
+      }
+    }
+
+    const webSiteSchema = webSiteSchemas[0];
+    if (!webSiteSchema) {
+      errors.push(`${label}: missing inspectable WebSite schema.`);
+    } else {
+      if (webSiteSchema.url !== rootUrl) errors.push(`${label}: WebSite schema url should be ${rootUrl}.`);
+      if (!textIncludes(webSiteSchema.publisher, "#church")) errors.push(`${label}: WebSite schema publisher should reference Church schema.`);
+      if (!textIncludes(webSiteSchema.keywords, "Church in Charlton, MA")) {
+        errors.push(`${label}: WebSite schema missing local church keywords.`);
+      }
+    }
+
+    const pageSchema = pageSchemas[0];
+    if (!pageSchema) {
+      errors.push(`${label}: missing inspectable page schema.`);
+    } else {
+      if (!textIncludes(pageSchema.mainEntity, "#church")) errors.push(`${label}: page schema mainEntity should reference Church schema.`);
+      if (!textIncludes(pageSchema.keywords, "Church in Charlton, MA")) {
+        errors.push(`${label}: page schema missing local church keywords.`);
+      }
+    }
   }
 
   for (const href of extractUrls(html, "href")) {

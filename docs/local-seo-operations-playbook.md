@@ -18,10 +18,16 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 ## Monthly Rhythm
 
 - Check Google Business Profile hours, service time, website URL, phone, address, photos, and categories.
+- Keep every public profile and citation pointed to the canonical domain: `https://wayside.church/`. Do not mix in `https://www.wayside.church/` unless the directory forces it; `www` should redirect to the apex domain.
+- Verify domain consistency after DNS or hosting changes:
+  - `https://wayside.church/` should load the current Astro site.
+  - `https://www.wayside.church/` should 301 redirect to `https://wayside.church/`.
+  - `http://wayside.church/` should 301 redirect to `https://wayside.church/`.
 - Check Apple Maps and Bing Places for the same name, address, phone, and website.
 - Add one local or ministry update to Facebook that points to a relevant site page.
 - Review Google Search Console for indexing, sitemap, query, and page performance issues. Keep `https://wayside.church/sitemap-index.xml` submitted.
 - Check Bing Webmaster Tools after major launches or page additions. The deploy workflow also submits sitemap URLs through IndexNow for participating search engines.
+- Run `pnpm build` and `pnpm seo:audit` before major SEO edits. The audit checks canonical URLs, sitemap coverage, structured data, local church entity fields, image alt text, and internal links.
 - Look for one legitimate local mention or backlink opportunity from:
   - Advent Christian or regional church directories
   - local ministry partners

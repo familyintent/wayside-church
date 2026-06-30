@@ -34,6 +34,12 @@ const webSiteId = `${siteUrl}#website`;
 const normalizedPath = withoutBase(Astro.url.pathname);
 const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube, site.links.maps].filter(Boolean);
 const phoneNumber = site.contact.phoneHref.replace(/^tel:/, "");
+const churchDescription = site.church.description || site.meta.description;
+const searchTopics = site.church.searchTopics || [
+  site.church.name,
+  `Church in ${site.church.city}, ${site.church.state}`,
+  `Sunday worship in ${site.church.city}, ${site.church.state}`,
+];
 const nearbyAreaServed = (site.church.nearbyCommunities || []).map((name) => ({
   "@type": "City",
   name,
@@ -44,9 +50,11 @@ const churchSchema = {
   "@id": churchId,
   name: site.church.name,
   url: siteUrl,
+  slogan: site.church.tagline,
   logo: logoUrl,
   image: [socialImageUrl, absoluteUrl(site.images.community, site.meta.siteUrl)],
-  description: site.meta.description,
+  description: churchDescription,
+  disambiguatingDescription: `${site.church.name} is a local church at ${site.contact.addressLine1} in ${site.contact.cityStateZip}.`,
   telephone: phoneNumber,
   hasMap: site.links.maps,
   address: {
@@ -89,6 +97,23 @@ const churchSchema = {
       description: `${site.service.coffee.label} and ${site.service.primary.label}`,
     },
   ],
+  additionalProperty: [
+    {
+      "@type": "PropertyValue",
+      name: site.service.primary.label,
+      value: `${site.service.primary.day} at ${site.service.primary.time}`,
+    },
+    {
+      "@type": "PropertyValue",
+      name: site.service.coffee.label,
+      value: `${site.service.coffee.day} at ${site.service.coffee.time}`,
+    },
+    site.church.faithTradition && {
+      "@type": "PropertyValue",
+      name: "Faith tradition",
+      value: site.church.faithTradition,
+    },
+  ].filter(Boolean),
 };
 const webSiteSchema = {
   "@context": "https://schema.org",
@@ -97,6 +122,7 @@ const webSiteSchema = {
   name: site.church.name,
   url: siteUrl,
   publisher: { "@id": churchId },
+  keywords: searchTopics,
   inLanguage: "en-US",
 };
 const pageSchemaType =
@@ -120,8 +146,10 @@ const webPageSchema =
         url: canonicalUrl,
         name: pageTitle,
         description,
+        keywords: searchTopics,
         isPartOf: { "@id": webSiteId },
         about: { "@id": churchId },
+        mainEntity: { "@id": churchId },
         publisher: { "@id": churchId },
         primaryImageOfPage: {
           "@type": "ImageObject",
