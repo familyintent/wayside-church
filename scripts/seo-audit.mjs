@@ -503,6 +503,28 @@ if (!fs.existsSync(robotsPath)) {
   }
 }
 
+const securityTxtPath = path.join(distDir, ".well-known", "security.txt");
+if (!fs.existsSync(securityTxtPath)) {
+  errors.push("Missing .well-known/security.txt.");
+} else {
+  const securityTxt = readText(securityTxtPath);
+  const securityContact = `${siteUrl}/contact/`;
+  const securityCanonical = `${siteUrl}/.well-known/security.txt`;
+  if (!securityTxt.includes(`Contact: ${securityContact}`)) {
+    errors.push(".well-known/security.txt should point security reports to the contact page.");
+  }
+  if (!securityTxt.includes(`Canonical: ${securityCanonical}`)) {
+    errors.push(".well-known/security.txt should include the production canonical URL.");
+  }
+  if (!securityTxt.includes("Preferred-Languages: en")) {
+    errors.push(".well-known/security.txt should include Preferred-Languages.");
+  }
+  const expiresMatch = securityTxt.match(/^Expires:\s*(.+)$/m);
+  if (!expiresMatch || Number.isNaN(Date.parse(expiresMatch[1]))) {
+    errors.push(".well-known/security.txt should include a valid Expires timestamp.");
+  }
+}
+
 const llmsPath = path.join(distDir, "llms.txt");
 if (!fs.existsSync(llmsPath)) {
   errors.push("Missing llms.txt.");

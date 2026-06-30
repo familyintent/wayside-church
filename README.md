@@ -120,6 +120,7 @@ The site includes:
 - page-specific social image alt text and structured-data image captions
 - visible navigation structured data and an internal-link audit so indexed pages are reachable through the real site, not only the sitemap
 - `public/robots.txt`
+- generated `/.well-known/security.txt` with the current contact URL, canonical URL, and expiration date
 - `public/site.webmanifest`
 - IndexNow key file and deploy notification for participating search engines, including page, sitemap, image-sitemap, video-sitemap, teaching-feed, llms.txt, and generated calendar URLs
 
@@ -171,6 +172,7 @@ It runs:
 - on every push to `main`
 - manually from the GitHub Actions tab with `workflow_dispatch`
 - daily on a schedule to refresh build-time content like the latest YouTube teaching
+- Node.js 24 with current pinned GitHub Actions releases
 - `pnpm seo:audit` after the Astro build, before the Pages artifact is uploaded
 - `pnpm automation:audit` after the SEO audit, so recent teaching stays connected to the YouTube feed instead of becoming manual page content
 - after deployment, it submits page, sitemap, image-sitemap, video-sitemap, teaching-feed, and llms.txt URLs to IndexNow so participating search engines can discover changed pages, visual assets, teaching videos, and AI-facing site facts faster

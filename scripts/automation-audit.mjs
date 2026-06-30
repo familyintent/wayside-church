@@ -137,6 +137,13 @@ requireIncludes(".github/workflows/deploy.yml", workflow, "schedule:");
 requireIncludes(".github/workflows/deploy.yml", workflow, "workflow_dispatch:");
 requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm build");
 requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm automation:audit");
+requireIncludes(".github/workflows/deploy.yml", workflow, "actions/checkout@v7.0.0");
+requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm/action-setup@v6.0.9");
+requireIncludes(".github/workflows/deploy.yml", workflow, "actions/setup-node@v6.4.0");
+requireIncludes(".github/workflows/deploy.yml", workflow, "node-version: 24");
+requireIncludes(".github/workflows/deploy.yml", workflow, "actions/configure-pages@v6.0.0");
+requireIncludes(".github/workflows/deploy.yml", workflow, "actions/upload-pages-artifact@v5.0.0");
+requireIncludes(".github/workflows/deploy.yml", workflow, "actions/deploy-pages@v5.0.0");
 
 const readme = readText("README.md");
 requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, individual watch page, video-sitemap, or teaching-feed edit is needed");
@@ -159,6 +166,13 @@ requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.c
 requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.service.primary");
 requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "text/vcard");
 requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "BEGIN:VCARD");
+
+const securityContact = readText("src/pages/.well-known/security.txt.ts");
+requireIncludes("src/pages/.well-known/security.txt.ts", securityContact, "Contact:");
+requireIncludes("src/pages/.well-known/security.txt.ts", securityContact, "/contact/");
+requireIncludes("src/pages/.well-known/security.txt.ts", securityContact, "Canonical:");
+requireIncludes("src/pages/.well-known/security.txt.ts", securityContact, "Expires:");
+requireIncludes("src/pages/.well-known/security.txt.ts", securityContact, "text/plain");
 
 if (fs.existsSync(path.join(rootDir, "public", "calendar", "wayside-sunday-worship.ics"))) {
   errors.push("Calendar .ics should be generated from settings, not manually maintained in public/calendar.");

@@ -218,6 +218,31 @@ async function checkRobots() {
   }
 }
 
+async function checkSecurityTxt() {
+  const securityTxtUrl = new URL("/.well-known/security.txt", rootUrl).toString();
+  const { response, text } = await fetchText(securityTxtUrl, { accept: "text/plain,*/*;q=0.8" });
+
+  if (!response.ok) {
+    reportError(`${securityTxtUrl} should be fetchable, got ${response.status}.`);
+    return;
+  }
+
+  if (!text.includes(`Contact: ${new URL("/contact/", rootUrl).toString()}`)) {
+    reportError("security.txt should point security reports to the Wayside contact page.");
+  }
+  if (!text.includes(`Canonical: ${securityTxtUrl}`)) {
+    reportError("security.txt should include its production canonical URL.");
+  }
+  if (!text.includes("Preferred-Languages: en")) {
+    reportError("security.txt should include Preferred-Languages.");
+  }
+
+  const expiresMatch = text.match(/^Expires:\s*(.+)$/m);
+  if (!expiresMatch || Number.isNaN(Date.parse(expiresMatch[1]))) {
+    reportError("security.txt should include a valid Expires timestamp.");
+  }
+}
+
 async function checkImageSitemap(sitemapUrls) {
   const imageSitemapUrl = new URL("/image-sitemap.xml", rootUrl).toString();
   const { response, text } = await fetchText(imageSitemapUrl, { accept: "application/xml,text/xml,text/plain;q=0.9,*/*;q=0.8" });
@@ -806,6 +831,7 @@ async function checkLiveSemanticContactBlocks() {
 async function main() {
   await checkDomainCanonicalization();
   await checkRobots();
+  await checkSecurityTxt();
 
   const home = await fetchText(rootUrl);
   if (!home.response.ok) reportError(`${rootUrl} should be fetchable, got ${home.response.status}.`);
