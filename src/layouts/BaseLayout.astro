@@ -132,27 +132,56 @@ const webPageSchema =
         inLanguage: "en-US",
       };
 const currentNavItem = site.navigation.find((item) => item.href === normalizedPath || item.href === `${normalizedPath}/`);
-const breadcrumbLabel = title || currentNavItem?.label;
-const breadcrumbSchema =
+const normalizedPathKey = normalizedPath.endsWith("/") ? normalizedPath : `${normalizedPath}/`;
+const pageLabels: Record<string, string> = {
+  "/about/": "About",
+  "/beliefs/": "Beliefs",
+  "/church-in-charlton-ma/": "Church in Charlton",
+  "/contact/": "Contact",
+  "/directions/": "Directions",
+  "/events/": "Events",
+  "/families/": "Families",
+  "/giving/": "Giving",
+  "/leadership/": "Leadership",
+  "/ministries/": "Ministries",
+  "/nearby-communities/": "Nearby Communities",
+  "/newsletter/": "Newsletter",
+  "/plan-a-visit/": "Plan a Visit",
+  "/sermons/": "Sermons",
+  "/start-here/": "Start Here",
+  "/sunday-worship/": "Sunday Worship",
+  "/teaching/": "Teaching",
+  "/visitor-faq/": "Visitor FAQ",
+};
+const fallbackBreadcrumbLabel = (title || pageTitle).replace(` | ${site.church.name}`, "");
+const breadcrumbLabel = currentNavItem?.label || pageLabels[normalizedPathKey] || fallbackBreadcrumbLabel;
+const breadcrumbItems =
   normalizedPath === "/" || robots.includes("noindex")
+    ? []
+    : [
+        {
+          name: "Home",
+          href: "/",
+          item: siteUrl,
+        },
+        {
+          name: breadcrumbLabel,
+          href: normalizedPathKey,
+          item: canonicalUrl,
+        },
+      ];
+const breadcrumbSchema =
+  breadcrumbItems.length === 0
     ? null
     : {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: siteUrl,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: breadcrumbLabel || pageTitle,
-            item: canonicalUrl,
-          },
-        ],
+        itemListElement: breadcrumbItems.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          item: item.item,
+        })),
       };
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -209,6 +238,25 @@ const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u0
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
     <main id="main">
+      {
+        breadcrumbItems.length > 0 && (
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <div class="shell">
+              <ol class="breadcrumb__list">
+                {breadcrumbItems.map((item, index) => (
+                  <li>
+                    {index === breadcrumbItems.length - 1 ? (
+                      <span aria-current="page">{item.name}</span>
+                    ) : (
+                      <a href={withBase(item.href)}>{item.name}</a>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </nav>
+        )
+      }
       <slot />
     </main>
     <Footer />

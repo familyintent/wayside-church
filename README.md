@@ -83,6 +83,7 @@ The site includes:
 - Open Graph and Twitter card metadata
 - local church structured data using JSON-LD
 - page-level `WebPage`, `AboutPage`, `ContactPage`, and `CollectionPage` structured data
+- visible breadcrumb navigation with matching `BreadcrumbList` structured data
 - recurring Sunday worship event schema
 - FAQ schema on visitor-focused pages
 - video schema for recent teaching pages when YouTube publish dates are available
