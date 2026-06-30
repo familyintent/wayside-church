@@ -1020,13 +1020,31 @@ async function checkHomepageSchema(homeHtml) {
   if (!textIncludes(webSiteSchema?.about, "#church") || !textIncludes(webSiteSchema?.mainEntity, "#church")) {
     reportError("WebSite schema should point about/mainEntity to Church schema.");
   }
-  for (const keyPage of ["/plan-a-visit/", "/visitor-faq/", "/church-in-charlton-ma/", "/nearby-communities/", "/teaching/", "/ministries/", "/contact/"]) {
+  for (const keyPage of [
+    "/start-here/",
+    "/new-to-church/",
+    "/plan-a-visit/",
+    "/sunday-worship/",
+    "/directions/",
+    "/visitor-faq/",
+    "/church-in-charlton-ma/",
+    "/nearby-communities/",
+    "/families/",
+    "/teaching/",
+    "/ministries/",
+    "/contact/",
+  ]) {
     if (!textIncludes(webSiteSchema?.hasPart, keyPage)) {
       reportError(`WebSite schema hasPart missing ${keyPage}.`);
     }
   }
-  if (!textIncludes(webSiteSchema?.hasPart, "Answers for first-time guests") || !textIncludes(webSiteSchema?.hasPart, "neighbors from Dudley")) {
-    reportError("WebSite schema hasPart should summarize visitor and nearby-community pages.");
+  if (
+    !textIncludes(webSiteSchema?.hasPart, "A gentle first step for seekers") ||
+    !textIncludes(webSiteSchema?.hasPart, "Answers for first-time guests") ||
+    !textIncludes(webSiteSchema?.hasPart, "neighbors from Dudley") ||
+    !textIncludes(webSiteSchema?.hasPart, "Family, children, and youth information")
+  ) {
+    reportError("WebSite schema hasPart should summarize seeker, visitor, nearby-community, and family pages.");
   }
 
   for (const navItem of [
