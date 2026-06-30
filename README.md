@@ -135,7 +135,7 @@ The site includes:
 - sitemap generation through `@astrojs/sitemap`
 - XML sitemap `lastmod` freshness from the current Git commit and YouTube publish dates for generated teaching pages
 - a human-readable `/sitemap/` page that links every indexed page without cluttering the main footer
-- `image-sitemap.xml` for representative real Wayside images on key pages
+- `image-sitemap.xml` for representative real Wayside images on key pages, with titles, captions, and Charlton location metadata
 - `video-sitemap.xml` generated from the YouTube-powered recent teaching feed
 - `teaching-feed.xml` generated from the same YouTube uploads for automated teaching discovery
 - `llms.txt` generated from the editable church settings and YouTube feed so AI-facing facts stay aligned with the website

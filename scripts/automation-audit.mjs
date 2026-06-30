@@ -292,6 +292,7 @@ requireIncludes("src/pages/nearby-communities.astro", nearbyPage, "town.directio
 
 const imageSitemapRoute = readText("src/pages/image-sitemap.xml.ts");
 requireIncludes("src/pages/image-sitemap.xml.ts", imageSitemapRoute, "site.images.localEntity");
+requireIncludes("src/pages/image-sitemap.xml.ts", imageSitemapRoute, "image:geo_location");
 
 const generatedContactCard = readText("src/pages/wayside-church.vcf.ts");
 requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.contact.addressLine1");

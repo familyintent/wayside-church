@@ -146,6 +146,8 @@ const entries: ImageSitemapEntry[] = [
   },
 ];
 
+const imageGeoLocation = "Charlton, Massachusetts";
+
 function xmlEscape(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -161,6 +163,7 @@ function imageEntryXml(image: ImageSitemapEntry["images"][number]) {
     `      <image:loc>${xmlEscape(absoluteUrl(image.path, site.meta.siteUrl))}</image:loc>`,
     `      <image:title>${xmlEscape(image.title)}</image:title>`,
     `      <image:caption>${xmlEscape(image.caption)}</image:caption>`,
+    `      <image:geo_location>${xmlEscape(imageGeoLocation)}</image:geo_location>`,
     "    </image:image>",
   ].join("\n");
 }

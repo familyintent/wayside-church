@@ -169,6 +169,18 @@ function extractImageLocs(xml) {
   return [...xml.matchAll(/<image:loc>(.*?)<\/image:loc>/g)].map((match) => match[1].trim());
 }
 
+function extractImageTitles(xml) {
+  return [...xml.matchAll(/<image:title>([\s\S]*?)<\/image:title>/g)].map((match) => match[1].trim());
+}
+
+function extractImageCaptions(xml) {
+  return [...xml.matchAll(/<image:caption>([\s\S]*?)<\/image:caption>/g)].map((match) => match[1].trim());
+}
+
+function extractImageGeoLocations(xml) {
+  return [...xml.matchAll(/<image:geo_location>([\s\S]*?)<\/image:geo_location>/g)].map((match) => match[1].trim());
+}
+
 function extractVideoPlayerLocs(xml) {
   return [...xml.matchAll(/<video:player_loc(?:\s[^>]*)?>(.*?)<\/video:player_loc>/g)].map((match) => match[1].trim());
 }
@@ -943,6 +955,9 @@ if (!fs.existsSync(imageSitemapPath)) {
   const imageSitemap = readText(imageSitemapPath);
   const imagePageUrls = extractLocs(imageSitemap);
   const imageUrls = extractImageLocs(imageSitemap);
+  const imageTitles = extractImageTitles(imageSitemap);
+  const imageCaptions = extractImageCaptions(imageSitemap);
+  const imageGeoLocations = extractImageGeoLocations(imageSitemap);
 
   if (!imageSitemap.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"')) {
     errors.push("image-sitemap.xml is missing the Google image sitemap namespace.");
@@ -952,6 +967,18 @@ if (!fs.existsSync(imageSitemapPath)) {
   }
   if (imageUrls.length < 12) {
     errors.push(`image-sitemap.xml should include representative local images, found ${imageUrls.length}.`);
+  }
+  if (imageTitles.length !== imageUrls.length || imageTitles.some((title) => title.length === 0)) {
+    errors.push("image-sitemap.xml should include a non-empty title for every image.");
+  }
+  if (imageCaptions.length !== imageUrls.length || imageCaptions.some((caption) => caption.length === 0)) {
+    errors.push("image-sitemap.xml should include a non-empty caption for every image.");
+  }
+  if (
+    imageGeoLocations.length !== imageUrls.length ||
+    imageGeoLocations.some((location) => !location.includes("Charlton"))
+  ) {
+    errors.push("image-sitemap.xml should include Charlton geo_location metadata for every local image.");
   }
   for (const expectedLocalImage of ["wayside-local-1x1.webp", "wayside-local-4x3.webp", "wayside-local-16x9.webp"]) {
     if (!imageSitemap.includes(expectedLocalImage)) {
