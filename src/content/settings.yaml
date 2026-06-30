@@ -293,6 +293,43 @@ planVisit:
     - question: "Can my children or teens come with me?"
       answer: "Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
 
+# Update this page when the address, Sunday rhythm, or map link changes.
+directionsPage:
+  metaTitle: "Directions to Wayside Church in Charlton, MA"
+  metaDescription: "Find directions to Wayside Church at 6 Haggerty Rd in Charlton, MA. Get Sunday worship time, map link, phone number, and calendar options for your visit."
+  eyebrow: "Directions"
+  title: "Find Wayside Church in Charlton."
+  intro: "Wayside Church gathers at 6 Haggerty Rd in Charlton, Massachusetts. Use this page to open directions, save Sunday Worship to your calendar, and know the simple Sunday rhythm before you arrive."
+  primaryCta:
+    label: "Open in Maps"
+  secondaryCta:
+    label: "Plan a Visit"
+    href: "/plan-a-visit/"
+  arrival:
+    eyebrow: "Getting here"
+    title: "A simple Sunday plan"
+    body: "The easiest next step is to open the map, save the address, and arrive at the pace that helps your household settle in."
+    items:
+      - title: "Open the address"
+        body: "Use the map link for turn-by-turn directions to 6 Haggerty Rd in Charlton."
+      - title: "Come early if helpful"
+        body: "Coffee and Discipleship begins at 9:00 AM for conversation and a quieter entry into community."
+      - title: "Worship at 10:00 AM"
+        body: "Sunday Worship includes Scripture, prayer, teaching, worship, and fellowship."
+  support:
+    eyebrow: "Need help finding us?"
+    title: "Call the church if you need a hand."
+    body: "If you have a question before visiting, you are welcome to call the church office. You do not need to register before attending Sunday Worship."
+  faq:
+    - question: "What is the address for Wayside Church?"
+      answer: "Wayside Church gathers at 6 Haggerty Rd, Charlton, MA 01507."
+    - question: "What time should I arrive?"
+      answer: "Sunday Worship begins at 10:00 AM. If you would like a slower start, Coffee and Discipleship begins at 9:00 AM."
+    - question: "Do I need to sign up before coming to Wayside Church?"
+      answer: "No. You can simply come on Sunday morning. If you want to talk with someone first, you are welcome to call the church."
+    - question: "Can I save the church address to my calendar?"
+      answer: "Yes. The calendar links on this page include the Sunday Worship time and the Wayside Church address."
+
 # Update this page when the Sunday worship rhythm changes.
 sundayPage:
   metaTitle: "Sunday Worship at Wayside Church in Charlton, MA"

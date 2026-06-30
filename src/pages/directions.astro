@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import CalendarActions from "../components/CalendarActions.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { imageSize } from "../lib/images";
+import { withBase } from "../lib/paths";
+import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
+
+const directions = site.directionsPage;
+const charltonImageSize = imageSize(site.images.charlton);
+const directionsSchemas = [getSundayWorshipEventSchema("/directions/"), getFaqPageSchema(directions.faq)];
+---
+
+<BaseLayout title={directions.metaTitle} description={directions.metaDescription} extraSchemas={directionsSchemas}>
+  <section class="page-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{directions.eyebrow}</p>
+      <h1>{directions.title}</h1>
+      <p>{directions.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={site.links.maps}>{directions.primaryCta.label}</ButtonLink>
+        <ButtonLink href={directions.secondaryCta.href} variant="secondary">{directions.secondaryCta.label}</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-strip" aria-label="Wayside Church address and Sunday information">
+    <div class="shell service-strip__grid">
+      <div>
+        <p class="eyebrow">Address</p>
+        <h2>{site.contact.addressLine1}</h2>
+      </div>
+      <p><strong>{site.contact.cityStateZip}</strong><br />{site.church.name} gathers in Charlton, Massachusetts.</p>
+      <p><strong>{site.service.primary.day}s at {site.service.primary.time}</strong><br />{site.service.coffee.label} begins at {site.service.coffee.time}.</p>
+      <ButtonLink href={site.links.maps} variant="secondary">Open in Maps</ButtonLink>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split">
+      <div>
+        <SectionIntro eyebrow={directions.arrival.eyebrow} title={directions.arrival.title}>
+          <p>{directions.arrival.body}</p>
+        </SectionIntro>
+
+        <div class="visitor-list visitor-list--single">
+          {directions.arrival.items.map((item, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <figure class="image-panel image-panel--map">
+        <img src={withBase(site.images.charlton)} alt="Map of Charlton, Massachusetts near Wayside Church" width={charltonImageSize?.width} height={charltonImageSize?.height} loading="lazy" decoding="async" />
+        <figcaption>{site.contact.addressLine1}, {site.contact.cityStateZip}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell contact-grid">
+      <div>
+        <p class="eyebrow">{directions.support.eyebrow}</p>
+        <h2>{directions.support.title}</h2>
+        <p>{directions.support.body}</p>
+      </div>
+      <div class="quiet-box">
+        <h2>{site.church.name}</h2>
+        <p><strong>{site.service.primary.day}s at {site.service.primary.time}</strong></p>
+        <p>{site.contact.addressLine1}<br />{site.contact.cityStateZip}</p>
+        <p><a href={site.contact.phoneHref}>{site.contact.phone}</a></p>
+        <div class="button-row">
+          <ButtonLink href={site.links.maps}>Open in Maps</ButtonLink>
+          <ButtonLink href={site.contact.phoneHref} variant="secondary">Call the Church</ButtonLink>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="directions-calendar">
+    <div class="shell">
+      <CalendarActions id="directions-calendar-actions" eyebrow="Save the address" title="Add Sunday Worship to your calendar." />
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">Directions FAQ</p>
+        <h2>Practical details before you drive over</h2>
+        <p>These answers are meant to make your first Sunday feel simpler before you leave the house.</p>
+      </div>
+
+      <div class="belief-accordion">
+        {directions.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Ready for Sunday?</p>
+        <h2>Plan your visit to Wayside Church.</h2>
+        <p>{site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <div class="button-row">
+        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+        <ButtonLink href="/sunday-worship/" variant="secondary">Sunday Worship</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

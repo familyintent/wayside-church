@@ -80,6 +80,7 @@ Use these when a partner, directory, or social profile has a relevant place for 
 - Main website: https://wayside.church/
 - Sunday Worship: https://wayside.church/sunday-worship/
 - Plan a Visit: https://wayside.church/plan-a-visit/
+- Directions: https://wayside.church/directions/
 - Events: https://wayside.church/events/
 - Families: https://wayside.church/families/
 - Teaching: https://wayside.church/teaching/

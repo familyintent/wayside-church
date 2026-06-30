@@ -31,6 +31,7 @@ That file includes comments showing where to update:
 - homepage copy
 - Start Here page copy for seekers and first-time guests
 - Plan a Visit page copy
+- Directions page copy and FAQ
 - Sunday Worship page copy and FAQ
 - Events page copy and FAQ
 - Families page copy
