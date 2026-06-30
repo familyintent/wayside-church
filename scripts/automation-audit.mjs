@@ -62,6 +62,11 @@ const baseLayout = readText("src/layouts/BaseLayout.astro");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
 
+const contactBlock = readText("src/components/ChurchContactBlock.astro");
+requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "<address");
+requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "itemprop=\"streetAddress\"");
+requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "itemprop=\"telephone\"");
+
 const schemaHelper = readText("src/lib/schema.ts");
 requireIncludes("src/lib/schema.ts", schemaHelper, "getZonedDateParts");
 requireIncludes("src/lib/schema.ts", schemaHelper, "site.calendar.sunday.timezone");

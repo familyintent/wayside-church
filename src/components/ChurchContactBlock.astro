@@ -1,0 +1,40 @@
+---
+import { site } from "../lib/content";
+
+type Props = {
+  showName?: boolean;
+  showService?: boolean;
+  showPhone?: boolean;
+  note?: string;
+  pluralDay?: boolean;
+};
+
+const { showName = false, showService = true, showPhone = true, note = "", pluralDay = false } = Astro.props;
+const dayLabel = pluralDay ? `${site.service.primary.day}s` : site.service.primary.day;
+---
+
+<address class="church-contact-block" itemscope itemtype="https://schema.org/PostalAddress">
+  {showName && <p><strong>{site.church.name}</strong></p>}
+  {
+    showService && (
+      <p>
+        <strong>{dayLabel} at {site.service.primary.time}</strong><br />
+        <span>{site.service.coffee.label} at {site.service.coffee.time}</span>
+      </p>
+    )
+  }
+  <p>
+    <a href={site.links.maps} target="_blank" rel="noopener noreferrer" aria-label={`Open maps to ${site.church.name}`}>
+      <span itemprop="streetAddress">{site.contact.addressLine1}</span><br />
+      <span itemprop="addressLocality">{site.contact.addressLocality}</span>, <span itemprop="addressRegion">{site.contact.addressRegion}</span> <span itemprop="postalCode">{site.contact.postalCode}</span>
+    </a>
+  </p>
+  {
+    showPhone && (
+      <p>
+        <a href={site.contact.phoneHref} itemprop="telephone">{site.contact.phone}</a>
+      </p>
+    )
+  }
+  {note && <p class="church-contact-block__note">{note}</p>}
+</address>

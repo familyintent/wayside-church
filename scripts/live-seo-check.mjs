@@ -584,6 +584,25 @@ async function checkLiveVisitorDetails() {
   }
 }
 
+async function checkLiveSemanticContactBlocks() {
+  for (const pathname of ["/", "/contact/", "/directions/", "/church-in-charlton-ma/"]) {
+    const url = new URL(pathname, rootUrl).toString();
+    const { response, text } = await fetchText(url);
+
+    if (!response.ok) {
+      reportError(`${url} should be fetchable, got ${response.status}.`);
+      continue;
+    }
+
+    if (!text.includes("<address") || !text.includes("church-contact-block")) {
+      reportError(`${url} should include a semantic church address block.`);
+    }
+    if (!text.includes('itemprop="streetAddress"') || !text.includes('itemprop="telephone"')) {
+      reportError(`${url} church address block should expose street address and phone microdata.`);
+    }
+  }
+}
+
 async function main() {
   await checkDomainCanonicalization();
   await checkRobots();
@@ -604,6 +623,7 @@ async function main() {
   await checkLivePages(sitemapUrls);
   await checkLiveTeachingPages();
   await checkLiveVisitorDetails();
+  await checkLiveSemanticContactBlocks();
 
   if (warnings.length > 0) {
     console.warn("Live SEO warnings:");

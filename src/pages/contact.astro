@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
+import ChurchContactBlock from "../components/ChurchContactBlock.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { imageSize } from "../lib/images";
@@ -26,11 +27,7 @@ const charltonImageSize = imageSize(site.images.charlton);
         <SectionIntro eyebrow="Come visit us" title={`${site.church.city}, ${site.church.state}`}>
           <p>{site.contactPage.visitCopy}</p>
         </SectionIntro>
-        <div class="contact-list">
-          <p><strong>{site.service.primary.day}s at {site.service.primary.time}</strong></p>
-          <p>{site.contact.addressLine1}<br />{site.contact.cityStateZip}</p>
-          <p><a href={site.contact.phoneHref}>{site.contact.phone}</a></p>
-        </div>
+        <ChurchContactBlock pluralDay />
         <div class="button-row">
           <ButtonLink href={site.links.maps}>Open in Maps</ButtonLink>
           <ButtonLink href="/directions/" variant="secondary">Directions</ButtonLink>

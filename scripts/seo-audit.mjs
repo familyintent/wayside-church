@@ -454,6 +454,15 @@ for (const filePath of htmlFiles) {
       errors.push(`${label}: missing practical accessibility question guidance for visitors.`);
     }
   }
+
+  if (!isNoIndex && ["/", "/contact/", "/directions/", "/church-in-charlton-ma/"].includes(route)) {
+    if (!html.includes("<address") || !html.includes("church-contact-block")) {
+      errors.push(`${label}: missing semantic church address block.`);
+    }
+    if (!html.includes('itemprop="streetAddress"') || !html.includes('itemprop="telephone"')) {
+      errors.push(`${label}: church address block should expose street address and phone microdata.`);
+    }
+  }
 }
 
 const robotsPath = path.join(distDir, "robots.txt");

@@ -1,4 +1,5 @@
 ---
+import ChurchContactBlock from "./ChurchContactBlock.astro";
 import Logo from "./Logo.astro";
 import { site } from "../lib/content";
 import { withBase } from "../lib/paths";
@@ -43,9 +44,7 @@ const footerLinks = [
 
     <div class="footer-contact">
       <h2>Gather With Us</h2>
-      <p><strong>{site.service.primary.day}s at {site.service.primary.time}</strong></p>
-      <p>{site.contact.addressLine1}<br />{site.contact.cityStateZip}</p>
-      <p><a href={site.contact.phoneHref}>{site.contact.phone}</a></p>
+      <ChurchContactBlock pluralDay />
     </div>
 
     <div class="footer-links">

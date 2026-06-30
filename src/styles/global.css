@@ -506,6 +506,27 @@ summary:focus-visible {
   margin-bottom: 0;
 }
 
+.church-contact-block {
+  display: grid;
+  gap: 0.55rem;
+  margin-block: 1rem;
+  color: inherit;
+  font-style: normal;
+}
+
+.church-contact-block p {
+  margin-bottom: 0;
+}
+
+.church-contact-block a {
+  color: inherit;
+  text-underline-offset: 0.22em;
+}
+
+.church-contact-block__note {
+  color: var(--muted);
+}
+
 .section {
   padding-block: clamp(4rem, 10vw, 7rem);
 }
