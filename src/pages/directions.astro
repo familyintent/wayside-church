@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import VisitorDetails from "../components/VisitorDetails.astro";
 import { site } from "../lib/content";
 import { imageSize } from "../lib/images";
 import { withBase } from "../lib/paths";
@@ -63,7 +64,9 @@ const directionsSchemas = [getSundayWorshipEventSchema("/directions/"), getFaqPa
     </div>
   </section>
 
-  <section class="section section--muted">
+  <VisitorDetails muted />
+
+  <section class="section">
     <div class="shell contact-grid">
       <div>
         <p class="eyebrow">{directions.support.eyebrow}</p>

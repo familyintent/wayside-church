@@ -1,0 +1,32 @@
+---
+import SectionIntro from "./SectionIntro.astro";
+import { site } from "../lib/content";
+
+type Props = {
+  muted?: boolean;
+};
+
+const { muted = false } = Astro.props;
+const details = site.visitDetails;
+---
+
+{
+  details && (
+    <section class:list={["section", muted && "section--muted"]}>
+      <div class="shell visit-details">
+        <SectionIntro eyebrow={details.eyebrow} title={details.title}>
+          <p>{details.body}</p>
+        </SectionIntro>
+
+        <div class="visit-details__grid">
+          {details.items.map((item) => (
+            <article>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

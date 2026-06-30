@@ -87,6 +87,31 @@ calendar:
     recurrenceRule: "RRULE:FREQ=WEEKLY;BYDAY=SU"
     ics: "/calendar/wayside-sunday-worship.ics"
 
+# Update these practical visitor details when parking, entry, family, or accessibility guidance changes.
+# These details appear on visitor-focused pages and help guests and search engines understand the real Sunday experience.
+visitDetails:
+  eyebrow: "Sunday made practical"
+  title: "A few details that make the first visit easier."
+  body: "Most guests want the basics before they drive over: where to park, when to arrive, whether children can come, and how to ask a question. Here is the simple version."
+  items:
+    - title: "Parking"
+      body: "Parking is available near the building. If you are unsure where to enter, someone will be glad to point you in."
+    - title: "Arriving with kids or teens"
+      body: "Children and youth are welcome with you on Sunday. You can sit together, step out if needed, and take the morning at your family's pace."
+    - title: "Coffee before worship"
+      body: "Coffee and Discipleship begins at 9:00 AM for conversation, Scripture, and a quieter first step before worship."
+    - title: "Accessibility questions"
+      body: "If mobility, seating, or another practical question would help you plan, call the church before Sunday and we will do our best to help."
+  amenityFeatures:
+    - "Parking available"
+  searchDetails:
+    - name: "Parking"
+      value: "Parking is available near the building."
+    - name: "Family welcome"
+      value: "Children and youth are welcome with families on Sunday."
+    - name: "Accessibility questions"
+      value: "Guests can call the church before Sunday with mobility, seating, or practical questions."
+
 # Update this only if the YouTube channel changes.
 # Staff should only need to upload sermons to YouTube.
 # The homepage, Teaching page, Sermons page, recent-message cards, video sitemap, and teaching feed read the newest and recent uploads from this feed at build time.
@@ -434,6 +459,8 @@ planVisit:
       answer: "No. You can simply come on Sunday morning. If you would like to talk with someone first, you are welcome to call the church."
     - question: "Where should I go when I arrive?"
       answer: "Come to 6 Haggerty Rd in Charlton. People will be glad to point you toward coffee, discipleship, worship, or a place to sit."
+    - question: "Is parking available at Wayside Church?"
+      answer: "Parking is available near the building. If you are unsure where to enter, someone will be glad to point you in."
     - question: "Is there a dress code?"
       answer: "No. Some people dress casually and some dress more formally. Come in what feels normal for you."
     - question: "Can my children or teens come with me?"
@@ -463,6 +490,8 @@ visitorFaqPage:
           answer: "No. You can simply come on Sunday morning. If you would like to talk with someone first, you are welcome to call the church."
         - question: "Where should I go when I arrive?"
           answer: "Come to 6 Haggerty Rd in Charlton. People will be glad to point you toward coffee, discipleship, worship, or a place to sit."
+        - question: "Is parking available?"
+          answer: "Parking is available near the building. If you are unsure where to enter, someone will be glad to point you in."
     - eyebrow: "What to expect"
       title: "A warm morning centered on Jesus"
       questions:
@@ -474,6 +503,8 @@ visitorFaqPage:
           answer: "Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
         - question: "Will I be pressured or singled out?"
           answer: "No. You are welcome to listen, observe, sing if you would like, and take the morning at your own pace."
+        - question: "What if I have a mobility, seating, or accessibility question?"
+          answer: "Call the church before Sunday and we will do our best to help you plan a clear and comfortable first visit."
     - eyebrow: "Faith and care"
       title: "Honest questions are welcome"
       questions:
@@ -522,6 +553,8 @@ directionsPage:
       answer: "Wayside Church gathers at 6 Haggerty Rd, Charlton, MA 01507."
     - question: "What time should I arrive?"
       answer: "Sunday Worship begins at 10:00 AM. If you would like a slower start, Coffee and Discipleship begins at 9:00 AM."
+    - question: "Is parking available at Wayside Church?"
+      answer: "Parking is available near the building. If you are unsure where to enter, someone will be glad to point you in."
     - question: "Do I need to sign up before coming to Wayside Church?"
       answer: "No. You can simply come on Sunday morning. If you want to talk with someone first, you are welcome to call the church."
     - question: "Can I save the church address to my calendar?"

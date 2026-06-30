@@ -51,6 +51,16 @@ const nearbyAreaServed = (site.church.nearbyCommunities || []).map((name) => ({
   "@type": "City",
   name,
 }));
+const amenityFeatures = (site.visitDetails?.amenityFeatures || []).map((name) => ({
+  "@type": "LocationFeatureSpecification",
+  name,
+  value: true,
+}));
+const visitorSearchDetails = (site.visitDetails?.searchDetails || []).map((detail) => ({
+  "@type": "PropertyValue",
+  name: detail.name,
+  value: detail.value,
+}));
 const churchSchema = {
   "@context": "https://schema.org",
   "@type": "Church",
@@ -77,6 +87,7 @@ const churchSchema = {
     latitude: site.contact.latitude,
     longitude: site.contact.longitude,
   },
+  amenityFeature: amenityFeatures,
   contactPoint: {
     "@type": "ContactPoint",
     telephone: phoneNumber,
@@ -120,6 +131,7 @@ const churchSchema = {
       name: "Faith tradition",
       value: site.church.faithTradition,
     },
+    ...visitorSearchDetails,
   ].filter(Boolean),
 };
 const webSiteSchema = {

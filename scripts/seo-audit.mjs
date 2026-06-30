@@ -354,6 +354,12 @@ for (const filePath of htmlFiles) {
       if (!textIncludes(churchSchema.additionalProperty, "Sunday Worship") || !textIncludes(churchSchema.additionalProperty, "Coffee and Discipleship")) {
         errors.push(`${label}: Church schema missing service-time additional properties.`);
       }
+      if (!textIncludes(churchSchema.amenityFeature, "Parking available")) {
+        errors.push(`${label}: Church schema missing visitor parking amenity feature.`);
+      }
+      if (!textIncludes(churchSchema.additionalProperty, "Accessibility questions")) {
+        errors.push(`${label}: Church schema missing practical visitor details.`);
+      }
     }
 
     const webSiteSchema = webSiteSchemas[0];
@@ -437,6 +443,15 @@ for (const filePath of htmlFiles) {
     const tag = img[0];
     if (!/\salt=["'][^"']*["']/i.test(tag)) {
       errors.push(`${label}: image missing alt attribute: ${tag.slice(0, 120)}.`);
+    }
+  }
+
+  if (!isNoIndex && ["/plan-a-visit/", "/directions/"].includes(route)) {
+    if (!html.includes("Parking is available near the building")) {
+      errors.push(`${label}: missing practical parking guidance for visitors.`);
+    }
+    if (!html.includes("Accessibility questions")) {
+      errors.push(`${label}: missing practical accessibility question guidance for visitors.`);
     }
   }
 }

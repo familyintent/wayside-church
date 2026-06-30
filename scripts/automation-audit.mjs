@@ -64,6 +64,8 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xm
 
 const settings = readText("src/content/settings.yaml");
 requireIncludes("src/content/settings.yaml", settings, "Staff should only need to upload sermons to YouTube");
+requireIncludes("src/content/settings.yaml", settings, "visitDetails:");
+requireIncludes("src/content/settings.yaml", settings, "Parking is available near the building");
 requireIncludes("src/content/settings.yaml", settings, "feedUrl: \"https://www.youtube.com/feeds/videos.xml");
 requireIncludes("src/content/settings.yaml", settings, "channelVideosUrl:");
 requireIncludes("src/content/settings.yaml", settings, "featuredVideo:");

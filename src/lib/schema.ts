@@ -51,6 +51,12 @@ const geo = {
   longitude: site.contact.longitude,
 };
 
+const amenityFeatures = (site.visitDetails?.amenityFeatures || []).map((name: string) => ({
+  "@type": "LocationFeatureSpecification",
+  name,
+  value: true,
+}));
+
 const dayIndexes: Record<string, number> = {
   Sunday: 0,
   Monday: 1,
@@ -119,6 +125,7 @@ export function getSundayWorshipEventSchema(pagePath = "/plan-a-visit/") {
       "@type": "Place",
       name: site.church.name,
       hasMap: site.links.maps,
+      amenityFeature: amenityFeatures,
       address: postalAddress,
       geo,
     },
@@ -178,6 +185,7 @@ export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/min
           "@type": "Place",
           name: site.church.name,
           hasMap: site.links.maps,
+          amenityFeature: amenityFeatures,
           address: postalAddress,
           geo,
         },

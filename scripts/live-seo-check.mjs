@@ -377,6 +377,12 @@ async function checkHomepageSchema(homeHtml) {
   if (!textIncludes(churchSchema.openingHoursSpecification, "09:00") || !textIncludes(churchSchema.openingHoursSpecification, "11:30")) {
     reportError("Church schema opening hours should cover Coffee and Discipleship through worship.");
   }
+  if (!textIncludes(churchSchema.amenityFeature, "Parking available")) {
+    reportError("Church schema missing visitor parking amenity feature.");
+  }
+  if (!textIncludes(churchSchema.additionalProperty, "Accessibility questions")) {
+    reportError("Church schema missing practical visitor details.");
+  }
 
   if (!webSiteSchema?.keywords || !textIncludes(webSiteSchema.keywords, "Church in Charlton, MA")) {
     reportError("WebSite schema missing local church keywords.");
@@ -530,6 +536,28 @@ async function checkLiveTeachingPages() {
   }
 }
 
+async function checkLiveVisitorDetails() {
+  for (const pathname of ["/plan-a-visit/", "/directions/"]) {
+    const url = new URL(pathname, rootUrl).toString();
+    const { response, text } = await fetchText(url);
+
+    if (!response.ok) {
+      reportError(`${url} should be fetchable, got ${response.status}.`);
+      continue;
+    }
+
+    if (!text.includes("Sunday made practical")) {
+      reportError(`${url} should include practical Sunday visitor details.`);
+    }
+    if (!text.includes("Parking is available near the building")) {
+      reportError(`${url} should include parking guidance for visitors.`);
+    }
+    if (!text.includes("Accessibility questions")) {
+      reportError(`${url} should include accessibility question guidance for visitors.`);
+    }
+  }
+}
+
 async function main() {
   await checkDomainCanonicalization();
   await checkRobots();
@@ -548,6 +576,7 @@ async function main() {
   await checkTeachingFeed();
   await checkLivePages(sitemapUrls);
   await checkLiveTeachingPages();
+  await checkLiveVisitorDetails();
 
   if (warnings.length > 0) {
     console.warn("Live SEO warnings:");

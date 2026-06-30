@@ -41,6 +41,7 @@ That file includes comments showing where to update:
 - New to Church page copy for seekers, returning guests, and people unfamiliar with church
 - Nearby Communities page copy and FAQ
 - Plan a Visit page copy
+- practical visitor details such as parking, children and youth, coffee, and accessibility questions
 - Visitor FAQ page copy
 - Directions page copy and FAQ
 - Sunday Worship page copy and FAQ
@@ -96,6 +97,7 @@ The site includes:
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data
 - recurring Sunday worship event schema
 - FAQ schema on visitor-focused pages
+- practical visitor detail structured data for parking and first-visit planning
 - video schema for recent teaching pages when YouTube publish dates are available
 - leader `Person` schema on the About page
 - recurring ministry `Event` schema on the Ministries page
@@ -222,6 +224,8 @@ src/
 ## Visitor Path
 
 The `Start Here` page is designed for seekers, first-time guests, and people new to faith. Update its copy in `src/content/settings.yaml` under `startHere`.
+
+The practical visitor details on Plan a Visit and Directions are edited in `src/content/settings.yaml` under `visitDetails`. Keep parking, children and youth, coffee, and accessibility wording accurate to the real Sunday experience.
 
 The `links.connectCard` value is ready for a future Planning Center, Church Center, Fillout, Microsoft Forms, or similar follow-up form. Until a dedicated form is ready, it can point to `/contact/`.
 
