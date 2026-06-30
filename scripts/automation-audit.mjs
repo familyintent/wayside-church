@@ -88,9 +88,18 @@ checkTeachingPage("src/pages/teaching.astro", "src/pages/teaching.astro");
 checkTeachingPage("src/pages/sermons.astro", "src/pages/sermons.astro");
 
 const aboutPage = readText("src/pages/about.astro");
+requireIncludes("src/pages/about.astro", aboutPage, "getLeaderId");
+requireIncludes("src/pages/about.astro", aboutPage, "id: getLeaderId(leader)");
+requireIncludes("src/pages/about.astro", aboutPage, "id={leader.id}");
 requireIncludes("src/pages/about.astro", aboutPage, "imageSrcset(aboutHero.image)");
 requireIncludes("src/pages/about.astro", aboutPage, "sizes={imageSizesFor(\"panel\")}");
 requireIncludes("src/pages/about.astro", aboutPage, "sizes={imageSizesFor(\"leader\")}");
+
+const leadershipPage = readText("src/pages/leadership.astro");
+requireIncludes("src/pages/leadership.astro", leadershipPage, "getLeaderId");
+requireIncludes("src/pages/leadership.astro", leadershipPage, "id: getLeaderId(leader)");
+requireIncludes("src/pages/leadership.astro", leadershipPage, "id={leader.id}");
+requireIncludes("src/pages/leadership.astro", leadershipPage, "getLeaderPersonSchemas(site.about.leaders, \"/leadership/\")");
 
 const contactPage = readText("src/pages/contact.astro");
 requireIncludes("src/pages/contact.astro", contactPage, "charltonImageSrcset");
@@ -217,6 +226,10 @@ requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "itempr
 requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "itemprop=\"telephone\"");
 
 const schemaHelper = readText("src/lib/schema.ts");
+requireIncludes("src/lib/schema.ts", schemaHelper, "export function getLeaderId");
+requireIncludes("src/lib/schema.ts", schemaHelper, "\"@id\": leaderUrl");
+requireIncludes("src/lib/schema.ts", schemaHelper, "mainEntityOfPage");
+requireIncludes("src/lib/schema.ts", schemaHelper, "url: leaderUrl");
 requireIncludes("src/lib/schema.ts", schemaHelper, "getZonedDateParts");
 requireIncludes("src/lib/schema.ts", schemaHelper, "dateTimeWithOffset");
 requireIncludes("src/lib/schema.ts", schemaHelper, "timeZoneName: \"longOffset\"");

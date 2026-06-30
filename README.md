@@ -127,7 +127,7 @@ The site includes:
 - homepage hero image preloading with responsive candidates, so the first visual moment is discovered early by the browser
 - search-friendly 1:1, 4:3, and 16:9 real Wayside image crops for local entity schema and image discovery
 - a reusable `pnpm performance:audit` check for deployed HTML, CSS, JS, image weight, homepage hero priority, responsive hero candidates, and unexpected third-party asset loads
-- leader `Person` schema on the About page
+- leader `Person` schema on the About and Leadership pages, connected to visible leader cards with stable page anchors
 - recurring ministry `Event` schema on the Ministries page
 - truthful `DonateAction` schema on the Giving page that points to the configured GivingTools URL
 - generated `llms.txt` for AI discovery summaries, current visitor facts, machine-readable resources, and recent teaching links

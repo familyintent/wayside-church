@@ -212,17 +212,37 @@ export function getSundayWorshipEventSchema(pagePath = "/plan-a-visit/") {
 }
 
 export function getLeaderPersonSchemas(leaders: Leader[], pagePath = "/about/") {
-  return leaders.map((leader) => ({
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: leader.name,
-    jobTitle: leader.role,
-    description: leader.bio,
-    image: absoluteUrl(leader.image, site.meta.siteUrl),
-    url: absoluteUrl(pagePath, site.meta.siteUrl),
-    worksFor: { "@id": churchId },
-    affiliation: { "@id": churchId },
-  }));
+  const pageUrl = absoluteUrl(pagePath, site.meta.siteUrl);
+
+  return leaders.map((leader) => {
+    const leaderUrl = absoluteUrl(`${pagePath}#${getLeaderId(leader)}`, site.meta.siteUrl);
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": leaderUrl,
+      name: leader.name,
+      jobTitle: leader.role,
+      description: leader.bio,
+      image: absoluteUrl(leader.image, site.meta.siteUrl),
+      url: leaderUrl,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+      },
+      worksFor: { "@id": churchId },
+      affiliation: { "@id": churchId },
+    };
+  });
+}
+
+export function getLeaderId(leader: Pick<Leader, "name">) {
+  return leader.name
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/ministries/") {

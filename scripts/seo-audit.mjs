@@ -528,6 +528,7 @@ for (const filePath of htmlFiles) {
   const eventSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Event"));
   const videoSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
   const donateActionSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "DonateAction"));
+  const personSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Person"));
   const pageSchemas = parsedSchemas.flatMap((schema) =>
     ["WebPage", "AboutPage", "ContactPage", "CollectionPage"].flatMap((type) => collectSchemasByType(schema, type)),
   );
@@ -702,6 +703,46 @@ for (const filePath of htmlFiles) {
         }
         if (!textIncludes(donateAction.recipient, "#church") || !textIncludes(donateAction.recipient, "Wayside Church")) {
           errors.push(`${label}: DonateAction should identify Wayside Church as the recipient.`);
+        }
+      }
+    }
+
+    if (route === "/about/" || route === "/leadership/") {
+      const expectedLeaders = [
+        { id: "chase-mendoza", name: "Chase Mendoza", role: "Pastor", image: "chase-mendoza.webp" },
+        { id: "owen-rushing", name: "Owen Rushing", role: "Ministry Leader", image: "owen-rushing.webp" },
+      ];
+      const pageUrl = new URL(route, siteUrl).toString();
+
+      if (personSchemas.length < expectedLeaders.length) {
+        errors.push(`${label}: should include Person schema for each visible Wayside leader.`);
+      }
+
+      for (const leader of expectedLeaders) {
+        const leaderUrl = `${pageUrl}#${leader.id}`;
+        if (!html.includes(`id="${leader.id}"`)) {
+          errors.push(`${label}: visible leader card missing stable id ${leader.id}.`);
+        }
+
+        const personSchema = personSchemas.find((schema) => schema.name === leader.name);
+        if (!personSchema) {
+          errors.push(`${label}: missing Person schema for ${leader.name}.`);
+          continue;
+        }
+        if (personSchema["@id"] !== leaderUrl || personSchema.url !== leaderUrl) {
+          errors.push(`${label}: ${leader.name} Person schema should point to ${leaderUrl}.`);
+        }
+        if (personSchema.jobTitle !== leader.role) {
+          errors.push(`${label}: ${leader.name} Person schema should include jobTitle ${leader.role}.`);
+        }
+        if (!textIncludes(personSchema.image, leader.image)) {
+          errors.push(`${label}: ${leader.name} Person schema should include the leader image.`);
+        }
+        if (!textIncludes(personSchema.worksFor, "#church") || !textIncludes(personSchema.affiliation, "#church")) {
+          errors.push(`${label}: ${leader.name} Person schema should link worksFor and affiliation to Wayside Church.`);
+        }
+        if (personSchema.mainEntityOfPage?.["@id"] !== `${pageUrl}#webpage`) {
+          errors.push(`${label}: ${leader.name} Person schema should point mainEntityOfPage to this page.`);
         }
       }
     }

@@ -5,7 +5,7 @@ import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
-import { getLeaderPersonSchemas } from "../lib/schema";
+import { getLeaderId, getLeaderPersonSchemas } from "../lib/schema";
 
 const aboutHero = site.about.hero;
 const aboutSchemas = getLeaderPersonSchemas(site.about.leaders);
@@ -13,6 +13,7 @@ const aboutHeroImageSize = imageSize(aboutHero.image);
 const aboutHeroImageSrcset = imageSrcset(aboutHero.image);
 const leaders = site.about.leaders.map((leader) => ({
   ...leader,
+  id: getLeaderId(leader),
   imageSize: imageSize(leader.image),
   imageSrcset: imageSrcset(leader.image),
 }));
@@ -96,7 +97,7 @@ const leaders = site.about.leaders.map((leader) => ({
       </SectionIntro>
       <div class="leader-grid leader-grid--feature">
         {leaders.map((leader) => (
-          <article class="leader-card leader-card--feature">
+          <article class="leader-card leader-card--feature" id={leader.id}>
             <img src={withBase(leader.image)} srcset={leader.imageSrcset} sizes={imageSizesFor("leader")} alt={leader.name} width={leader.imageSize?.width} height={leader.imageSize?.height} loading="lazy" decoding="async" />
             <div class="leader-card__body">
               <p class="eyebrow">{leader.role}</p>

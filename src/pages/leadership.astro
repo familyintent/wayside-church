@@ -5,11 +5,12 @@ import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
-import { getFaqPageSchema, getLeaderPersonSchemas } from "../lib/schema";
+import { getFaqPageSchema, getLeaderId, getLeaderPersonSchemas } from "../lib/schema";
 
 const leadership = site.leadershipPage;
 const leaders = site.about.leaders.map((leader) => ({
   ...leader,
+  id: getLeaderId(leader),
   imageSize: imageSize(leader.image),
   imageSrcset: imageSrcset(leader.image),
 }));
@@ -40,7 +41,7 @@ const leadershipSchemas = [
 
       <div class="leader-grid leader-grid--feature">
         {leaders.map((leader) => (
-          <article class="leader-card leader-card--feature">
+          <article class="leader-card leader-card--feature" id={leader.id}>
             <img src={withBase(leader.image)} srcset={leader.imageSrcset} sizes={imageSizesFor("leader")} alt={leader.name} width={leader.imageSize?.width} height={leader.imageSize?.height} loading="lazy" decoding="async" />
             <div class="leader-card__body">
               <p class="eyebrow">{leader.role}</p>

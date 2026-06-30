@@ -1284,6 +1284,66 @@ async function checkLiveNearbyCommunities() {
   }
 }
 
+async function checkLiveLeaderSchemas() {
+  for (const pathname of ["/about/", "/leadership/"]) {
+    const url = new URL(pathname, rootUrl).toString();
+    const { response, text } = await fetchText(url);
+
+    if (!response.ok) {
+      reportError(`${url} should be fetchable, got ${response.status}.`);
+      continue;
+    }
+
+    const parsedSchemas = [];
+    for (const block of extractJsonLd(text)) {
+      try {
+        parsedSchemas.push(JSON.parse(block));
+      } catch (error) {
+        reportError(`${url} has invalid JSON-LD: ${error.message}`);
+      }
+    }
+
+    const personSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Person"));
+    const expectedLeaders = [
+      { id: "chase-mendoza", name: "Chase Mendoza", role: "Pastor", image: "chase-mendoza.webp" },
+      { id: "owen-rushing", name: "Owen Rushing", role: "Ministry Leader", image: "owen-rushing.webp" },
+    ];
+
+    if (personSchemas.length < expectedLeaders.length) {
+      reportError(`${url} should include Person schema for each visible Wayside leader.`);
+    }
+
+    for (const leader of expectedLeaders) {
+      const leaderUrl = `${url}#${leader.id}`;
+      if (!text.includes(`id="${leader.id}"`)) {
+        reportError(`${url} visible leader card missing stable id ${leader.id}.`);
+      }
+
+      const personSchema = personSchemas.find((schema) => schema.name === leader.name);
+      if (!personSchema) {
+        reportError(`${url} missing Person schema for ${leader.name}.`);
+        continue;
+      }
+
+      if (personSchema["@id"] !== leaderUrl || personSchema.url !== leaderUrl) {
+        reportError(`${url} ${leader.name} Person schema should point to ${leaderUrl}.`);
+      }
+      if (personSchema.jobTitle !== leader.role) {
+        reportError(`${url} ${leader.name} Person schema should include jobTitle ${leader.role}.`);
+      }
+      if (!textIncludes(personSchema.image, leader.image)) {
+        reportError(`${url} ${leader.name} Person schema should include the leader image.`);
+      }
+      if (!textIncludes(personSchema.worksFor, "#church") || !textIncludes(personSchema.affiliation, "#church")) {
+        reportError(`${url} ${leader.name} Person schema should link worksFor and affiliation to Wayside Church.`);
+      }
+      if (personSchema.mainEntityOfPage?.["@id"] !== `${url}#webpage`) {
+        reportError(`${url} ${leader.name} Person schema should point mainEntityOfPage to this page.`);
+      }
+    }
+  }
+}
+
 async function main() {
   await checkDomainCanonicalization();
   await checkRobots();
@@ -1310,6 +1370,7 @@ async function main() {
   await checkLiveVisitorDetails();
   await checkLiveSemanticContactBlocks();
   await checkLiveNearbyCommunities();
+  await checkLiveLeaderSchemas();
 
   if (warnings.length > 0) {
     console.warn("Live SEO warnings:");
