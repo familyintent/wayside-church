@@ -104,11 +104,40 @@ function textContent(value) {
     .trim();
 }
 
+function childImageAlt(value) {
+  const imageAlt = value.match(/<img\b[^>]*\salt=(["'])(.*?)\1[^>]*>/i)?.[2] || "";
+  return textContent(imageAlt);
+}
+
+function linkName(openingTag, innerHtml) {
+  return (
+    textContent(innerHtml) ||
+    textContent(getTagAttribute(openingTag, "aria-label")) ||
+    textContent(getTagAttribute(openingTag, "title")) ||
+    childImageAlt(innerHtml)
+  );
+}
+
+function hasGenericLinkName(value) {
+  return /^(click here|here|learn more|read more|more|website|link)$/i.test(value.trim());
+}
+
 function extractAnchors(html) {
-  return [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map((match) => ({
-    href: match[1],
-    text: textContent(match[2]),
-  }));
+  return [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)]
+    .map((match) => {
+      const openingTag = match[0].match(/^<a\b[^>]*>/i)?.[0] || "";
+      const href = getTagAttribute(openingTag, "href");
+      if (!href) return null;
+
+      const text = textContent(match[2]);
+      const name = linkName(openingTag, match[2]);
+      return {
+        href,
+        text,
+        name,
+      };
+    })
+    .filter(Boolean);
 }
 
 function countMatches(value, regex) {
@@ -1051,6 +1080,12 @@ async function checkLivePages(sitemapUrls) {
     }
 
     for (const anchor of extractAnchors(page.text)) {
+      if (!anchor.name) {
+        reportError(`${url} link to ${anchor.href} should have visible text, aria-label, title, or image alt text.`);
+      } else if (hasGenericLinkName(anchor.name)) {
+        reportError(`${url} link to ${anchor.href} uses generic link text "${anchor.name}".`);
+      }
+
       try {
         const targetUrl = new URL(anchor.href, rootUrl);
         if (targetUrl.host !== siteHost) continue;

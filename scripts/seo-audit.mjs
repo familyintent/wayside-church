@@ -100,11 +100,40 @@ function countMatches(value, regex) {
   return [...value.matchAll(regex)].length;
 }
 
+function childImageAlt(value) {
+  const imageAlt = value.match(/<img\b[^>]*\salt=(["'])(.*?)\1[^>]*>/i)?.[2] || "";
+  return textContent(imageAlt);
+}
+
+function linkName(openingTag, innerHtml) {
+  return (
+    textContent(innerHtml) ||
+    textContent(getTagAttribute(openingTag, "aria-label")) ||
+    textContent(getTagAttribute(openingTag, "title")) ||
+    childImageAlt(innerHtml)
+  );
+}
+
+function hasGenericLinkName(value) {
+  return /^(click here|here|learn more|read more|more|website|link)$/i.test(value.trim());
+}
+
 function extractAnchors(html) {
-  return [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map((match) => ({
-    href: match[1],
-    text: textContent(match[2]),
-  }));
+  return [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)]
+    .map((match) => {
+      const openingTag = match[0].match(/^<a\b[^>]*>/i)?.[0] || "";
+      const href = getTagAttribute(openingTag, "href");
+      if (!href) return null;
+
+      const text = textContent(match[2]);
+      const name = linkName(openingTag, match[2]);
+      return {
+        href,
+        text,
+        name,
+      };
+    })
+    .filter(Boolean);
 }
 
 function extractJsonLd(html) {
@@ -751,6 +780,12 @@ for (const filePath of htmlFiles) {
 
   for (const anchor of extractAnchors(html)) {
     const href = anchor.href;
+
+    if (!anchor.name) {
+      errors.push(`${label}: link to ${href} should have visible text, aria-label, title, or image alt text.`);
+    } else if (hasGenericLinkName(anchor.name)) {
+      errors.push(`${label}: link to ${href} uses generic link text "${anchor.name}".`);
+    }
 
     const target = resolveInternalTarget(href);
     if (target && !existsInDist(target)) {
