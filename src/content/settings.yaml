@@ -61,7 +61,7 @@ youtube:
   fallbackMessage: "We could not load the latest teaching right now, but the full video library is available on YouTube."
 
 images:
-  hero: "/images/wayside-hero.png"
+  hero: "/images/wayside-welcome-hero.png"
   community: "/images/wayside-community.jpg"
   chase: "/images/chase-mendoza.jpg"
   owen: "/images/owen-rushing.jpg"
@@ -85,6 +85,7 @@ home:
     eyebrow: "The church in Charlton, MA"
     headline: "Wayside Church"
     subheadline: "A place to grow your faith."
+    imageAlt: "An open Bible, coffee cups, and flowers on a warm welcome table"
     body: "Join us Sunday mornings as we worship Jesus, open Scripture, share life, and make room for families, guests, and neighbors."
     primaryCta:
       label: "Plan a Visit"
@@ -92,6 +93,20 @@ home:
     secondaryCta:
       label: "Watch Teaching"
       href: "#latest-teaching"
+  # Update this section to help first-time guests know what to expect.
+  visit:
+    eyebrow: "New here?"
+    headline: "You can take the first step at your own pace."
+    body: "Whether you grew up in church, have been away for a while, or are exploring faith for the first time, you are welcome at Wayside."
+    notes:
+      - title: "Come as you are"
+        body: "There is no dress code. You will find people dressed casually and people dressed more formally."
+      - title: "A simple Sunday rhythm"
+        body: "Coffee and Discipleship begins at 9:00 AM, and Sunday Worship begins at 10:00 AM."
+      - title: "Families are welcome"
+        body: "Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
+      - title: "Real people, real questions"
+        body: "You do not need to have everything figured out before you visit. We are glad to meet you and answer honest questions."
   mission:
     eyebrow: "Our church family"
     headline: "A small church with a big vision for Jesus."

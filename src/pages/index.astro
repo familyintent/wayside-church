@@ -10,7 +10,7 @@ import { withBase } from "../lib/paths";
 
 <BaseLayout>
   <section class="hero" aria-labelledby="hero-title">
-    <img class="hero__image" src={withBase(site.images.hero)} alt="Open church doors on a warm Sunday morning" />
+    <img class="hero__image" src={withBase(site.images.hero)} alt={site.home.hero.imageAlt} loading="eager" decoding="async" fetchpriority="high" />
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="shell hero__content">
       <p class="eyebrow">{site.home.hero.eyebrow}</p>
@@ -33,6 +33,30 @@ import { withBase } from "../lib/paths";
       <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
       <p><strong>{site.service.coffee.label}: {site.service.coffee.time}</strong><br />{site.service.coffee.summary}</p>
       <ButtonLink href="/contact/" variant="secondary">Plan a Visit</ButtonLink>
+    </div>
+  </section>
+
+  <section class="section visitor-section" aria-labelledby="visitor-title">
+    <div class="shell visitor-grid">
+      <div class="visitor-copy">
+        <p class="eyebrow">{site.home.visit.eyebrow}</p>
+        <h2 id="visitor-title">{site.home.visit.headline}</h2>
+        <p>{site.home.visit.body}</p>
+        <div class="button-row">
+          <ButtonLink href="/contact/">Plan a Visit</ButtonLink>
+          <ButtonLink href="/about/" variant="secondary">Learn About Wayside</ButtonLink>
+        </div>
+      </div>
+
+      <div class="visitor-list">
+        {site.home.visit.notes.map((note, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{note.title}</h3>
+            <p>{note.body}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 

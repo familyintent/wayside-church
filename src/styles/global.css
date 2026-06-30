@@ -342,11 +342,13 @@ summary:focus-visible {
 
 .hero__image {
   object-fit: cover;
-  object-position: 62% center;
+  object-position: center;
 }
 
 .hero__shade {
-  background: rgba(20, 19, 16, 0.56);
+  background:
+    linear-gradient(90deg, rgba(28, 26, 22, 0.78) 0%, rgba(28, 26, 22, 0.6) 42%, rgba(28, 26, 22, 0.18) 100%),
+    linear-gradient(0deg, rgba(28, 26, 22, 0.45) 0%, rgba(28, 26, 22, 0.06) 48%);
 }
 
 .hero__content {
@@ -402,6 +404,51 @@ summary:focus-visible {
 }
 
 .service-strip p {
+  margin-bottom: 0;
+}
+
+.visitor-section {
+  background: var(--bg);
+}
+
+.visitor-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.visitor-copy {
+  max-width: 700px;
+}
+
+.visitor-copy > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 1.12rem;
+}
+
+.visitor-list {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.visitor-list article {
+  border-bottom: 1px solid var(--line);
+  padding: 1.2rem 0;
+}
+
+.visitor-list span {
+  color: var(--accent-strong);
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.visitor-list h3 {
+  margin: 0.45rem 0 0.65rem;
+  font-size: 1.35rem;
+}
+
+.visitor-list p {
   margin-bottom: 0;
 }
 
@@ -1040,6 +1087,16 @@ summary:focus-visible {
     align-items: center;
   }
 
+  .visitor-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-left: 1px solid var(--line);
+  }
+
+  .visitor-list article {
+    border-right: 1px solid var(--line);
+    padding: 1.35rem;
+  }
+
   .ministry-row {
     grid-template-columns: minmax(190px, 0.7fr) 1.3fr;
     align-items: baseline;
@@ -1080,6 +1137,11 @@ summary:focus-visible {
   .contact-grid {
     grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
     align-items: center;
+  }
+
+  .visitor-grid {
+    grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
+    align-items: start;
   }
 
   .about-hero__grid {
