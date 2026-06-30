@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { site } from "../lib/content";
 import { getMinistryCalendarPath } from "../lib/calendar";
 import { absoluteUrl } from "../lib/paths";
+import { getLeaderId } from "../lib/schema";
 import { getTeachingPagePath } from "../lib/teaching-routes";
 import { formatPublishedDate, getRecentTeachings } from "../lib/youtube";
 
@@ -21,6 +22,10 @@ function externalLine(label: string, href: string) {
 function teachingLine(video: Awaited<ReturnType<typeof getRecentTeachings>>[number]) {
   const published = video.published ? ` (${formatPublishedDate(video.published)})` : "";
   return `- ${video.title}${published}: ${absoluteUrl(getTeachingPagePath(video), site.meta.siteUrl)}`;
+}
+
+function leaderLine(leader: (typeof site.about.leaders)[number]) {
+  return `- ${leader.name}, ${leader.role}: ${absoluteUrl(`/leadership/#${getLeaderId(leader)}`, site.meta.siteUrl)}`;
 }
 
 export const GET: APIRoute = async () => {
@@ -90,6 +95,10 @@ export const GET: APIRoute = async () => {
     `- Faith tradition: ${site.church.faithTradition}`,
     `- Nearby communities: ${site.church.nearbyCommunities.join(", ")}`,
     `- Official website: ${absoluteUrl("/", site.meta.siteUrl)}`,
+    "",
+    "## Public Leadership",
+    "",
+    ...site.about.leaders.map(leaderLine),
     "",
     "## Summary",
     "",

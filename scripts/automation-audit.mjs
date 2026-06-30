@@ -87,6 +87,16 @@ requireIncludes("src/components/TeachingDate.astro", teachingDateComponent, "vid
 checkTeachingPage("src/pages/teaching.astro", "src/pages/teaching.astro");
 checkTeachingPage("src/pages/sermons.astro", "src/pages/sermons.astro");
 
+const teachingPage = readText("src/pages/teaching.astro");
+requireIncludes("src/pages/teaching.astro", teachingPage, "title={site.teachingPage.recentTitle}");
+requireIncludes("src/pages/teaching.astro", teachingPage, "site.teachingPage.recentIntro");
+requireIncludes("src/pages/teaching.astro", teachingPage, "recentWithThumbnailSizes.map(({ video, thumbnailSize })");
+
+const sermonsPage = readText("src/pages/sermons.astro");
+requireIncludes("src/pages/sermons.astro", sermonsPage, "title={sermons.recentTitle}");
+requireIncludes("src/pages/sermons.astro", sermonsPage, "sermons.recentIntro");
+requireIncludes("src/pages/sermons.astro", sermonsPage, "recentWithThumbnailSizes.map(({ video, thumbnailSize })");
+
 const aboutPage = readText("src/pages/about.astro");
 requireIncludes("src/pages/about.astro", aboutPage, "getLeaderId");
 requireIncludes("src/pages/about.astro", aboutPage, "id: getLeaderId(leader)");
@@ -155,6 +165,10 @@ requireIncludes("src/pages/llms.txt.ts", llmsRoute, "site.service.primary");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "Machine-Readable Resources");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "Entity Facts");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "Common local name");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "getLeaderId");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "Public Leadership");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "site.about.leaders.map(leaderLine)");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "/leadership/#");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "AI Usage Notes");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "text/plain");
 
