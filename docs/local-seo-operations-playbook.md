@@ -52,6 +52,7 @@ Good review prompts:
 - Sunday Worship: https://wayside.church/sunday-worship/
 - Plan a Visit: https://wayside.church/plan-a-visit/
 - Visitor FAQ: https://wayside.church/visitor-faq/
+- New to Church: https://wayside.church/new-to-church/
 - Directions: https://wayside.church/directions/
 - Events: https://wayside.church/events/
 - Church in Charlton, MA: https://wayside.church/church-in-charlton-ma/
@@ -85,6 +86,7 @@ Good review prompts:
   - `https://wayside.church/sunday-worship/`
   - `https://wayside.church/plan-a-visit/`
   - `https://wayside.church/visitor-faq/`
+  - `https://wayside.church/new-to-church/`
   - `https://wayside.church/directions/`
   - `https://wayside.church/events/`
   - `https://wayside.church/teaching/`

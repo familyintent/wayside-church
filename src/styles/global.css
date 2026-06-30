@@ -560,14 +560,17 @@ summary:focus-visible {
 }
 
 .image-panel {
+  overflow: hidden;
   margin: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .image-panel img {
+  display: block;
   width: 100%;
-  aspect-ratio: 1 / 1.05;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  height: clamp(240px, 34vw, 420px);
+  max-height: min(520px, 62vh);
   object-fit: cover;
 }
 
@@ -580,7 +583,7 @@ summary:focus-visible {
 .ministry-hero {
   overflow: hidden;
   background: var(--bg-soft);
-  padding-block: clamp(4rem, 12vw, 7rem);
+  padding-block: clamp(3.25rem, 8vw, 5.5rem);
 }
 
 .ministry-hero__grid {
@@ -604,15 +607,19 @@ summary:focus-visible {
 }
 
 .ministry-hero__image {
+  overflow: hidden;
   margin: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .ministry-hero__image img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3.1;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  height: clamp(240px, 34vw, 420px);
+  max-height: min(520px, 62vh);
   object-fit: cover;
+  object-position: center 54%;
 }
 
 .ministry-hero__image figcaption {
@@ -1044,9 +1051,13 @@ summary:focus-visible {
   padding: clamp(1.25rem, 5vw, 2rem);
 }
 
+.calendar-actions__copy {
+  min-width: 0;
+}
+
 .calendar-actions h2 {
   margin-bottom: 0.85rem;
-  font-size: clamp(1.9rem, 7vw, 3.2rem);
+  font-size: clamp(1.9rem, 6vw, 3rem);
 }
 
 .calendar-actions p:last-child {
@@ -1057,6 +1068,15 @@ summary:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+}
+
+.calendar-actions__links .button {
+  flex: 1 1 160px;
+  white-space: nowrap;
+}
+
+.calendar-actions__links .button--text {
+  flex-basis: 100%;
 }
 
 .section-action-wide {
@@ -1345,7 +1365,7 @@ summary:focus-visible {
 .about-hero {
   overflow: hidden;
   background: var(--bg-soft);
-  padding-block: clamp(2.4rem, 7vw, 4.5rem);
+  padding-block: clamp(3rem, 7vw, 5rem);
 }
 
 .about-hero__grid {
@@ -1384,9 +1404,12 @@ summary:focus-visible {
 }
 
 .about-hero__image-frame img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3.15;
+  height: clamp(240px, 34vw, 420px);
+  max-height: min(520px, 62vh);
   object-fit: cover;
+  object-position: center 52%;
 }
 
 .about-hero__image-frame figcaption {
@@ -1820,7 +1843,7 @@ summary:focus-visible {
   }
 
   .pathway-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .start-timeline {
@@ -1872,20 +1895,15 @@ summary:focus-visible {
   }
 
   .calendar-actions {
-    grid-template-columns: minmax(0, 0.95fr) minmax(360px, auto);
-    align-items: center;
+    align-items: start;
   }
 
   .calendar-actions__links {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   .about-hero__grid {
     grid-template-columns: minmax(0, 0.9fr) minmax(390px, 0.72fr);
-  }
-
-  .about-hero__image-frame img {
-    aspect-ratio: 4 / 3;
   }
 
   .about-story__grid,
@@ -1995,6 +2013,10 @@ summary:focus-visible {
   }
 
   .next-steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .pathway-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }

@@ -25,6 +25,7 @@ Mission: Wayside Church is a community dedicated to seeing individuals, families
 - Directions: https://wayside.church/directions/
 - Events: https://wayside.church/events/
 - Start Here: https://wayside.church/start-here/
+- New to Church: https://wayside.church/new-to-church/
 - Families: https://wayside.church/families/
 - Teaching: https://wayside.church/teaching/
 - Sermons: https://wayside.church/sermons/
@@ -44,4 +45,4 @@ Mission: Wayside Church is a community dedicated to seeing individuals, families
 
 ## Summary
 
-Wayside Church gathers Sundays in Charlton, MA for worship, Bible teaching, prayer, fellowship, and discipleship. Guests, families, seekers, children, youth, and people returning to church from Charlton, Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities are welcome to visit at their own pace.
+Wayside Church gathers Sundays in Charlton, MA for worship, Bible teaching, prayer, fellowship, and discipleship. Guests, families, seekers, people new to church, children, youth, and people returning to church from Charlton, Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities are welcome to visit at their own pace.

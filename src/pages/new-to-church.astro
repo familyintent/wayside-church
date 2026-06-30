@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import CalendarActions from "../components/CalendarActions.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
+
+const newToChurch = site.newToChurchPage;
+const schemas = [getSundayWorshipEventSchema("/new-to-church/"), getFaqPageSchema(newToChurch.questions.items)];
+---
+
+<BaseLayout title={newToChurch.metaTitle} description={newToChurch.metaDescription} extraSchemas={schemas}>
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{newToChurch.eyebrow}</p>
+      <h1>{newToChurch.title}</h1>
+      <p>{newToChurch.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={newToChurch.primaryCta.href}>{newToChurch.primaryCta.label}</ButtonLink>
+        <ButtonLink href={newToChurch.secondaryCta.href} variant="secondary">{newToChurch.secondaryCta.label}</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-strip" aria-label="Sunday gathering basics">
+    <div class="shell service-strip__grid">
+      <div>
+        <p class="eyebrow">This Sunday</p>
+        <h2>{site.service.primary.label}</h2>
+      </div>
+      <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
+      <p><strong>{site.service.coffee.label}: {site.service.coffee.time}</strong><br />{site.service.coffee.summary}</p>
+      <ButtonLink href="/directions/" variant="secondary">Get Directions</ButtonLink>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell plan-basics">
+      <SectionIntro eyebrow={newToChurch.welcome.eyebrow} title={newToChurch.welcome.title}>
+        <p>{newToChurch.welcome.body}</p>
+      </SectionIntro>
+
+      <div class="plan-basics__list">
+        {newToChurch.welcome.items.map((item, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell start-sunday__grid">
+      <div>
+        <p class="eyebrow">{newToChurch.sunday.eyebrow}</p>
+        <h2>{newToChurch.sunday.title}</h2>
+        <p>{newToChurch.sunday.body}</p>
+      </div>
+
+      <div class="start-timeline">
+        {newToChurch.sunday.steps.map((step, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <CalendarActions id="new-to-church-calendar" eyebrow="Make Sunday easier" title="Save Sunday Worship before the week fills up." />
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">{newToChurch.questions.eyebrow}</p>
+        <h2>{newToChurch.questions.title}</h2>
+        <p>{newToChurch.questions.intro}</p>
+      </div>
+
+      <div class="belief-accordion">
+        {newToChurch.questions.items.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">{newToChurch.next.eyebrow}</p>
+        <h2>{newToChurch.next.title}</h2>
+        <p>{newToChurch.next.body}</p>
+      </div>
+      <div class="button-row">
+        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+        <ButtonLink href="/visitor-faq/" variant="secondary">Visitor FAQ</ButtonLink>
+        <ButtonLink href="/teaching/" variant="secondary">Watch Teaching</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

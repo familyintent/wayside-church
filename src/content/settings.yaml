@@ -152,6 +152,9 @@ home:
     - label: "Start Here"
       text: "A gentle first step for seekers, guests, and people new to faith."
       href: "/start-here/"
+    - label: "New to Church"
+      text: "A simple guide if church feels unfamiliar, intimidating, or new."
+      href: "/new-to-church/"
     - label: "Plan a Visit"
       text: "Find service time, address, and what to expect."
       href: "/plan-a-visit/"
@@ -295,6 +298,10 @@ startHere:
         body: "Check the basics: service time, address, family expectations, what to wear, and answers to common guest questions."
         cta: "Visitor FAQ"
         href: "/visitor-faq/"
+      - title: "New to church?"
+        body: "Read a simple guide for people exploring faith, returning to church, or feeling unsure about walking in."
+        cta: "New to Church"
+        href: "/new-to-church/"
   sunday:
     eyebrow: "What Sunday feels like"
     title: "Warm, simple, and centered on Jesus"
@@ -322,6 +329,61 @@ startHere:
         answer: "A good first step is to attend Sunday worship, watch a recent teaching, or ask someone to read one of the Gospels with you."
       - question: "Can someone pray with me?"
         answer: "Yes. Most people ask in person or by phone. We would be honored to pray with you when you visit or talk with someone from Wayside."
+
+# Update this page to help people who are new to church, returning to faith, or nervous about visiting.
+newToChurchPage:
+  metaTitle: "New to Church in Charlton, MA"
+  metaDescription: "New to church, returning after time away, or exploring faith near Charlton, Dudley, Oxford, Sturbridge, or Southbridge? Wayside Church welcomes honest questions and simple first steps."
+  eyebrow: "New to church?"
+  title: "You do not have to have it all figured out before you come."
+  intro: "If church feels unfamiliar, intimidating, or complicated, you are not alone. Wayside Church is a place where guests, seekers, families, and people returning to faith can take one honest step toward Jesus at a time."
+  primaryCta:
+    label: "Plan a Visit"
+    href: "/plan-a-visit/"
+  secondaryCta:
+    label: "Watch Teaching"
+    href: "/teaching/"
+  welcome:
+    eyebrow: "A gentle first step"
+    title: "Come as you are, move at a human pace."
+    body: "You are welcome to listen, observe, sing if you would like, ask questions, or simply sit quietly. We believe Jesus meets people with truth and grace, and we want your first step to feel clear rather than confusing."
+    items:
+      - title: "You can be curious"
+        body: "You do not need to know church language, Bible references, or what you believe about everything before you visit."
+      - title: "You can come with history"
+        body: "If church has been painful, confusing, or absent from your life, you are welcome to move slowly and ask careful questions."
+      - title: "You can bring your family"
+        body: "Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
+  sunday:
+    eyebrow: "What Sunday is like"
+    title: "A simple gathering centered on Jesus."
+    body: "Coffee and Discipleship begins at 9:00 AM, and Sunday Worship begins at 10:00 AM at 6 Haggerty Rd in Charlton. A Sunday includes worship, Scripture, prayer, Bible teaching, and fellowship."
+    steps:
+      - title: "Arrive at 9:00 AM or closer to 10:00 AM"
+        body: "Come early for coffee and conversation, or arrive closer to worship if that feels easier."
+      - title: "Find a place to sit"
+        body: "You will not be singled out or pressured. People will be glad to help if you need directions."
+      - title: "Take the morning in"
+        body: "Listen, pray, sing if you want, and notice whether this could become a church home for you."
+  questions:
+    eyebrow: "Common questions"
+    title: "Honest questions are welcome."
+    intro: "A good church should be able to receive real questions with patience, clarity, and care."
+    items:
+      - question: "Can I come to Wayside if I am not sure what I believe?"
+        answer: "Yes. You are welcome to attend, listen, ask questions, and take your time. Faith often begins with honest curiosity."
+      - question: "Will I be expected to know what to do?"
+        answer: "No. You can follow along at your own pace. There is no dress code, no required signup, and no expectation that you know church language."
+      - question: "What if I have not been to church in years?"
+        answer: "You are welcome. Many people take a first step after a long time away, and we want that step to feel clear and unpressured."
+      - question: "Is Wayside a church for people near Dudley, Oxford, Sturbridge, and Southbridge?"
+        answer: "Wayside gathers in Charlton and welcomes neighbors from Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities."
+      - question: "Where should I begin if I want to learn about Jesus?"
+        answer: "A simple beginning is to attend Sunday worship, watch a recent teaching, read one of the Gospels, or ask someone at Wayside to talk with you."
+  next:
+    eyebrow: "One next step"
+    title: "Start with the step that feels possible."
+    body: "Plan a visit, watch a recent teaching, read the visitor FAQ, or save directions for Sunday morning."
 
 # Update this page to help guests make a clear Sunday plan.
 planVisit:
