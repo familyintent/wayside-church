@@ -74,6 +74,7 @@ requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "www.youtube-nocoo
 const llmsRoute = readText("src/pages/llms.txt.ts");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "getRecentTeachings(site.youtube, 6)");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "getTeachingPagePath");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "getMinistryCalendarPath");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "site.service.primary");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "Machine-Readable Resources");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "AI Usage Notes");

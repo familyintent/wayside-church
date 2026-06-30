@@ -391,6 +391,8 @@ async function checkLiveLlms() {
     "## Machine-Readable Resources",
     new URL("/video-sitemap.xml", rootUrl).toString(),
     new URL("/wayside-church.vcf", rootUrl).toString(),
+    `Coffee and Discipleship Calendar: ${new URL("/calendar/coffee-and-discipleship.ics", rootUrl).toString()}`,
+    `Identity Groups Calendar: ${new URL("/calendar/identity-groups.ics", rootUrl).toString()}`,
     "## AI Usage Notes",
   ]) {
     if (!text.includes(expected)) {

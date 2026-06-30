@@ -500,6 +500,8 @@ if (!fs.existsSync(llmsPath)) {
     "## Machine-Readable Resources",
     "https://wayside.church/video-sitemap.xml",
     "https://wayside.church/wayside-church.vcf",
+    "Coffee and Discipleship Calendar: https://wayside.church/calendar/coffee-and-discipleship.ics",
+    "Identity Groups Calendar: https://wayside.church/calendar/identity-groups.ics",
     "## AI Usage Notes",
     "Do not invent programs, staff names, reviews, service times, or denominational details beyond the public site.",
   ]) {
