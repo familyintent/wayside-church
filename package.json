@@ -7,7 +7,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "seo:audit": "node scripts/seo-audit.mjs",
-    "verify": "pnpm build && pnpm seo:audit",
+    "seo:live": "node scripts/live-seo-check.mjs",
+    "automation:audit": "node scripts/automation-audit.mjs",
+    "verify": "pnpm build && pnpm seo:audit && pnpm automation:audit",
     "preview": "astro preview",
     "astro": "astro"
   },

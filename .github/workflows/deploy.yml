@@ -49,6 +49,9 @@ jobs:
       - name: Run SEO audit
         run: pnpm seo:audit
 
+      - name: Run automation audit
+        run: pnpm automation:audit
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

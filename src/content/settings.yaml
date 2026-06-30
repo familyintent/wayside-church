@@ -618,6 +618,7 @@ eventsPage:
     - question: "Are children and youth included?"
       answer: "Yes. Little Disciples and NewLife Youth Ministry are part of the life of the church, and families are welcome on Sunday mornings."
 
+# Only edit the page copy below. The actual latest and recent video cards on /teaching/ are populated from the YouTube feed above.
 teachingPage:
   metaTitle: "Teaching from Wayside Church in Charlton, MA"
   metaDescription: "Watch recent Bible teaching and sermons from Wayside Church in Charlton, MA."
@@ -625,11 +626,12 @@ teachingPage:
   title: "Recent teaching from Wayside Church"
   intro: "Hear recent messages from Wayside Church as we open Scripture, follow Jesus, and grow together as a local church in Charlton."
   latestTitle: "The latest message"
-  latestIntro: "The newest upload from the Wayside Church YouTube channel is shown here automatically."
+  latestIntro: "The newest message from the Wayside Church YouTube channel is gathered here for easy listening."
   recentTitle: "More recent teaching"
   recentIntro: "These recent uploads help you get a feel for our preaching, Scripture focus, and hope in Jesus."
   visitTitle: "Teaching is best heard in the life of the church."
 
+# Only edit the page copy below. The actual latest and recent video cards on /sermons/ are populated from the YouTube feed above.
 sermonsPage:
   metaTitle: "Sermons from Wayside Church in Charlton, MA"
   metaDescription: "Watch recent sermons and Bible messages from Wayside Church in Charlton, MA. Hear Scripture-centered teaching before you visit Sunday Worship."
@@ -637,7 +639,7 @@ sermonsPage:
   title: "Recent sermons from Wayside Church."
   intro: "If you want to hear a message before visiting, this is a good place to start. These recent sermons and Bible teachings give you a feel for how Wayside opens Scripture and points people to Jesus."
   latestTitle: "Newest sermon"
-  latestIntro: "The newest upload from the Wayside Church YouTube channel appears here automatically."
+  latestIntro: "The newest message from the Wayside Church YouTube channel is gathered here for easy listening."
   recentTitle: "More sermons and Bible teaching"
   recentIntro: "These messages are part of the ordinary life of our church family in Charlton."
   visitTitle: "Sermons are best heard with the gathered church."

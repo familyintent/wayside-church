@@ -14,7 +14,14 @@ Build for production:
 ```bash
 pnpm build
 pnpm seo:audit
+pnpm automation:audit
 pnpm preview
+```
+
+Check the deployed production site after a Pages deploy:
+
+```bash
+pnpm seo:live
 ```
 
 ## Content Updates
@@ -94,6 +101,8 @@ The site includes:
 - recurring ministry `Event` schema on the Ministries page
 - `public/llms.txt` for AI discovery summaries
 - a reusable `pnpm seo:audit` check for canonical URLs, sitemap coverage, local structured data, image alt text, and broken internal links
+- a reusable `pnpm automation:audit` check that protects the YouTube-powered latest and recent teaching sections from becoming manual content lists
+- a manual `pnpm seo:live` check for production redirects, robots, sitemaps, live canonicals, live local schema, and live recent-teaching output
 - sitemap generation through `@astrojs/sitemap`
 - a human-readable `/sitemap/` page that links every indexed page without cluttering the main footer
 - `public/robots.txt`
@@ -133,7 +142,7 @@ If Wayside changes YouTube channels, update `channelId`, `handle`, `feedUrl`, `c
 
 The site tries the YouTube feed first, then the public channel videos page, then the configured `featuredVideo`. If YouTube blocks the automatic lookup, update `featuredVideo.videoId` to keep a real teaching card on the homepage.
 
-No homepage, teaching page, sermons page, or recent-message card edit is needed when a new sermon is uploaded. The latest teaching and recent-message grids come from YouTube automatically. The GitHub Pages workflow runs on pushes, can be run manually, and also rebuilds daily so the build-time YouTube feed can refresh even when no site files change.
+No homepage, teaching page, sermons page, or recent-message card edit is needed when a new sermon is uploaded. The latest teaching and recent-message grids come from YouTube automatically. `pnpm automation:audit` verifies this wiring. The GitHub Pages workflow runs on pushes, can be run manually, and also rebuilds daily so the build-time YouTube feed can refresh even when no site files change.
 
 If the feed fails during a build, the site shows a graceful fallback message or the configured featured video and a button to visit the YouTube channel.
 
@@ -147,7 +156,10 @@ It runs:
 - manually from the GitHub Actions tab with `workflow_dispatch`
 - daily on a schedule to refresh build-time content like the latest YouTube teaching
 - `pnpm seo:audit` after the Astro build, before the Pages artifact is uploaded
+- `pnpm automation:audit` after the SEO audit, so recent teaching stays connected to the YouTube feed instead of becoming manual page content
 - after deployment, it submits sitemap URLs to IndexNow so participating search engines can discover changed pages faster
+
+After a deploy finishes, you can run `pnpm seo:live` locally to verify the public site, canonical redirects, live sitemap coverage, deployed structured data, and live recent-teaching cards.
 
 The custom domain is configured by:
 
