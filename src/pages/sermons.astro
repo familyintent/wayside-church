@@ -3,25 +3,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
-import { getTeachingVideoSchemas } from "../lib/schema";
+import { getFaqPageSchema, getTeachingVideoSchemas } from "../lib/schema";
 import { formatPublishedDate, getRecentTeachings } from "../lib/youtube";
 
+const sermons = site.sermonsPage;
 const teachings = await getRecentTeachings(site.youtube, 6);
 const latest = teachings[0];
 const recent = teachings.slice(1);
-const teachingSchemas = getTeachingVideoSchemas(teachings, "/teaching/");
-const dateLabel = (video) => (video?.published ? formatPublishedDate(video.published) : video?.publishedLabel || "Wayside teaching");
+const sermonSchemas = [...getTeachingVideoSchemas(teachings, "/sermons/"), getFaqPageSchema(sermons.faq)];
+const dateLabel = (video) => (video?.published ? formatPublishedDate(video.published) : video?.publishedLabel || "Wayside sermon");
 ---
 
-<BaseLayout title={site.teachingPage.metaTitle} description={site.teachingPage.metaDescription} extraSchemas={teachingSchemas}>
+<BaseLayout title={sermons.metaTitle} description={sermons.metaDescription} extraSchemas={sermonSchemas}>
   <section class="page-hero page-hero--center">
     <div class="shell page-hero__inner">
-      <p class="eyebrow">{site.teachingPage.eyebrow}</p>
-      <h1>{site.teachingPage.title}</h1>
-      <p>{site.teachingPage.intro}</p>
+      <p class="eyebrow">{sermons.eyebrow}</p>
+      <h1>{sermons.title}</h1>
+      <p>{sermons.intro}</p>
       <div class="page-hero__actions">
         <ButtonLink href={site.links.youtube}>YouTube Channel</ButtonLink>
-        <ButtonLink href="/plan-a-visit/" variant="secondary">Plan a Visit</ButtonLink>
+        <ButtonLink href="/sunday-worship/" variant="secondary">Sunday Worship</ButtonLink>
       </div>
     </div>
   </section>
@@ -30,8 +31,8 @@ const dateLabel = (video) => (video?.published ? formatPublishedDate(video.publi
     latest ? (
       <section class="section section--ink">
         <div class="shell">
-          <SectionIntro eyebrow="Latest teaching" title={site.teachingPage.latestTitle}>
-            <p>{site.teachingPage.latestIntro}</p>
+          <SectionIntro eyebrow="Latest sermon" title={sermons.latestTitle}>
+            <p>{sermons.latestIntro}</p>
           </SectionIntro>
 
           <article class="teaching-card teaching-card--feature">
@@ -39,12 +40,12 @@ const dateLabel = (video) => (video?.published ? formatPublishedDate(video.publi
               <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} width="1280" height="720" loading="eager" decoding="async" />
             </a>
             <div class="teaching-card__body">
-              <p class="eyebrow">{latest.source === "featured" ? "Featured teaching" : "Newest upload"}</p>
+              <p class="eyebrow">{latest.source === "featured" ? "Featured sermon" : "Newest upload"}</p>
               <h2>{latest.title}</h2>
               <p class="teaching-card__date">{dateLabel(latest)}</p>
               <div class="button-row">
                 <ButtonLink href={latest.url}>Watch on YouTube</ButtonLink>
-                <ButtonLink href="/plan-a-visit/" variant="secondary">Visit Sunday</ButtonLink>
+                <ButtonLink href="/sunday-worship/" variant="secondary">Visit Sunday</ButtonLink>
               </div>
             </div>
           </article>
@@ -65,8 +66,8 @@ const dateLabel = (video) => (video?.published ? formatPublishedDate(video.publi
     recent.length > 0 && (
       <section class="section">
         <div class="shell">
-          <SectionIntro eyebrow="Recent messages" title={site.teachingPage.recentTitle}>
-            <p>{site.teachingPage.recentIntro}</p>
+          <SectionIntro eyebrow="Recent messages" title={sermons.recentTitle}>
+            <p>{sermons.recentIntro}</p>
           </SectionIntro>
 
           <div class="teaching-grid">
@@ -88,17 +89,35 @@ const dateLabel = (video) => (video?.published ? formatPublishedDate(video.publi
     )
   }
 
+  <section class="section section--muted">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">Sermon FAQ</p>
+        <h2>Before you listen or visit</h2>
+        <p>These answers help guests understand how teaching fits into the life of Wayside Church.</p>
+      </div>
+
+      <div class="belief-accordion">
+        {sermons.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="visit-band">
     <div class="shell visit-band__inner">
       <div>
         <p class="eyebrow">Come hear Scripture with us</p>
-        <h2>{site.teachingPage.visitTitle}</h2>
+        <h2>{sermons.visitTitle}</h2>
         <p>{site.service.primary.day} at {site.service.primary.time} at {site.contact.addressLine1}, {site.contact.cityStateZip}</p>
       </div>
-      <div class="button-row">
-        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
-        <ButtonLink href="/sermons/" variant="secondary">Sermons</ButtonLink>
-      </div>
+      <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
     </div>
   </section>
 </BaseLayout>

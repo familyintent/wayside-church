@@ -34,6 +34,7 @@ That file includes comments showing where to update:
 - Sunday Worship page copy and FAQ
 - Families page copy
 - Teaching page copy
+- Sermons page copy and FAQ
 - Beliefs page copy
 - Ministries page copy, audience labels, and weekly rhythm
 - Sunday calendar event settings

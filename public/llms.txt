@@ -23,6 +23,7 @@ Mission: Wayside Church is a community dedicated to seeing individuals, families
 - Start Here: https://wayside.church/start-here/
 - Families: https://wayside.church/families/
 - Teaching: https://wayside.church/teaching/
+- Sermons: https://wayside.church/sermons/
 - About: https://wayside.church/about/
 - Beliefs: https://wayside.church/beliefs/
 - Ministries: https://wayside.church/ministries/

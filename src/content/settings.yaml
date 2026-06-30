@@ -355,6 +355,25 @@ teachingPage:
   recentIntro: "These recent uploads help you get a feel for our preaching, Scripture focus, and hope in Jesus."
   visitTitle: "Teaching is best heard in the life of the church."
 
+sermonsPage:
+  metaTitle: "Sermons from Wayside Church in Charlton, MA"
+  metaDescription: "Watch recent sermons and Bible messages from Wayside Church in Charlton, MA. Hear Scripture-centered teaching before you visit Sunday Worship."
+  eyebrow: "Sermons"
+  title: "Recent sermons from Wayside Church."
+  intro: "If you want to hear a message before visiting, this is a good place to start. These recent sermons and Bible teachings give you a feel for how Wayside opens Scripture and points people to Jesus."
+  latestTitle: "Newest sermon"
+  latestIntro: "The newest upload from the Wayside Church YouTube channel appears here automatically."
+  recentTitle: "More sermons and Bible teaching"
+  recentIntro: "These messages are part of the ordinary life of our church family in Charlton."
+  visitTitle: "Sermons are best heard with the gathered church."
+  faq:
+    - question: "Can I watch a sermon before visiting Wayside Church?"
+      answer: "Yes. Recent sermons and Bible teachings are available here and on the Wayside Church YouTube channel."
+    - question: "Are Wayside Church sermons based on the Bible?"
+      answer: "Yes. Wayside opens Scripture and seeks to point people to the Gospel, hope, and life of Jesus Christ."
+    - question: "Where can I hear teaching in person?"
+      answer: "Sunday Worship begins at 10:00 AM at 6 Haggerty Rd in Charlton, MA."
+
 familiesPage:
   metaTitle: "Families at Wayside Church in Charlton, MA"
   metaDescription: "Learn what families, children, and youth can expect at Wayside Church in Charlton, MA."
