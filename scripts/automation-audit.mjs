@@ -143,6 +143,7 @@ requireIncludes(".github/workflows/deploy.yml", workflow, "actions/setup-node@v6
 requireIncludes(".github/workflows/deploy.yml", workflow, "node-version: 24");
 requireIncludes(".github/workflows/deploy.yml", workflow, "actions/configure-pages@v6.0.0");
 requireIncludes(".github/workflows/deploy.yml", workflow, "actions/upload-pages-artifact@v5.0.0");
+requireIncludes(".github/workflows/deploy.yml", workflow, "include-hidden-files: true");
 requireIncludes(".github/workflows/deploy.yml", workflow, "actions/deploy-pages@v5.0.0");
 
 const readme = readText("README.md");
