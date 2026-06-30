@@ -31,6 +31,7 @@ That file includes comments showing where to update:
 - homepage copy
 - Start Here page copy for seekers and first-time guests
 - Plan a Visit page copy
+- Ministries page copy, audience labels, and weekly rhythm
 - Sunday calendar event settings
 - ministries
 - giving, newsletter, YouTube, and social links

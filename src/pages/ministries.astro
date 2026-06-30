@@ -1,48 +1,114 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
-import MinistryList from "../components/MinistryList.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
+import { withBase } from "../lib/paths";
+
+const ministries = site.ministries.items;
 ---
 
 <BaseLayout title="Ministries" description="Explore Wayside Church ministries for coffee and discipleship, men, children, youth, and midweek community in Charlton, MA.">
-  <section class="page-hero">
-    <div class="shell page-hero__inner">
-      <p class="eyebrow">Ministries</p>
-      <h1>{site.ministries.title}</h1>
-      <p>{site.ministries.intro}</p>
+  <section class="ministry-hero">
+    <div class="shell ministry-hero__grid">
+      <div class="ministry-hero__copy">
+        <p class="eyebrow">Ministries</p>
+        <h1>{site.ministries.title}</h1>
+        <p>{site.ministries.intro}</p>
+        <div class="button-row">
+          <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+          <ButtonLink href="/start-here/" variant="secondary">Start Here</ButtonLink>
+        </div>
+      </div>
+
+      <div class="ministry-hero__side">
+        <figure class="ministry-hero__image">
+          <img src={withBase(site.images.community)} alt="Wayside Church family sharing a meal together" loading="eager" decoding="async" />
+          <figcaption>Faith grows around Scripture, prayer, meals, service, and ordinary friendship.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="shell">
-      <SectionIntro eyebrow="Ways to connect" title="We have a place for you">
-        <p>Each ministry is designed to help people grow in faith, build meaningful relationships, and serve with humility.</p>
-      </SectionIntro>
-      <MinistryList />
+    <div class="shell ministry-welcome">
+      <div>
+        <p class="eyebrow">{site.ministries.welcome.eyebrow}</p>
+        <h2>{site.ministries.welcome.title}</h2>
+      </div>
+      <p>{site.ministries.welcome.body}</p>
     </div>
   </section>
 
   <section class="section section--muted">
-    <div class="shell ministry-detail-list">
-      {site.ministries.items.map((ministry) => (
-        <article>
-          <p class="eyebrow">{ministry.schedule}</p>
-          <h2>{ministry.name}</h2>
-          <p>{ministry.details}</p>
-        </article>
-      ))}
+    <div class="shell">
+      <SectionIntro eyebrow="Ways to connect" title="Ministries for the whole church family">
+        <p>Each gathering has a simple purpose: help people know Jesus, grow together, and practice faith in everyday life.</p>
+      </SectionIntro>
+
+      <div class="ministry-card-grid">
+        {ministries.map((ministry, index) => (
+          <article class:list={["ministry-card", index === 0 && "ministry-card--featured"]}>
+            <div class="ministry-card__meta">
+              <span>{ministry.schedule}</span>
+              <span>{ministry.audience}</span>
+            </div>
+            <h2>{ministry.name}</h2>
+            <p class="ministry-card__summary">{ministry.summary}</p>
+            <p>{ministry.details}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section ministry-pathway-section">
+    <div class="shell ministry-pathway-grid">
+      <SectionIntro eyebrow={site.ministries.pathway.eyebrow} title={site.ministries.pathway.title}>
+        <p>For most people, connection does not happen all at once. It begins with one normal, faithful step.</p>
+      </SectionIntro>
+
+      <div class="ministry-pathway-list">
+        {site.ministries.pathway.steps.map((step, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{step.title}</h2>
+            <p>{step.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell ministry-rhythm">
+      <div>
+        <p class="eyebrow">Weekly rhythm</p>
+        <h2>A simple week, not a crowded one.</h2>
+        <p>Wayside keeps ministry rhythms clear so people can worship, grow, serve, and still live faithfully in their homes and neighborhoods.</p>
+      </div>
+
+      <div class="ministry-rhythm__list">
+        {site.ministries.rhythm.map((item) => (
+          <article>
+            <h3>{item.label}</h3>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="visit-band">
     <div class="shell visit-band__inner">
       <div>
-        <p class="eyebrow">Questions about a ministry?</p>
-        <h2>We would be glad to help you find a next step.</h2>
+        <p class="eyebrow">Not sure where to begin?</p>
+        <h2>Come Sunday, meet the church, and take the next step from there.</h2>
       </div>
-      <ButtonLink href="/contact/">Contact Us</ButtonLink>
+      <div class="button-row">
+        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+        <ButtonLink href="/contact/" variant="secondary">Contact Us</ButtonLink>
+      </div>
     </div>
   </section>
 </BaseLayout>
