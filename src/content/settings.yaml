@@ -7,7 +7,7 @@ meta:
   title: "Wayside Church"
   description: "Wayside Church is a welcoming local church in Charlton, MA, gathering Sundays for worship, teaching, fellowship, and life in Jesus."
   locale: "en_US"
-  socialImage: "/images/wayside-social-card.png"
+  socialImage: "/images/wayside-social-card.jpg"
   logo: "/images/wayside-logo-mark-navy.png"
 
 church:
@@ -84,11 +84,11 @@ youtube:
   fallbackMessage: "Recent messages from Wayside Church are available on our YouTube channel."
 
 images:
-  hero: "/images/wayside-welcome-hero.png"
-  community: "/images/wayside-community.jpg"
-  chase: "/images/chase-mendoza.jpg"
-  owen: "/images/owen-rushing.jpg"
-  charlton: "/images/charlton.png"
+  hero: "/images/wayside-welcome-hero.webp"
+  community: "/images/wayside-community.webp"
+  chase: "/images/chase-mendoza.webp"
+  owen: "/images/owen-rushing.webp"
+  charlton: "/images/charlton.webp"
 
 navigation:
   - label: "Home"
@@ -381,7 +381,7 @@ beliefsPage:
 about:
   hero:
     eyebrow: "About Wayside"
-    image: "/images/wayside-community.jpg"
+    image: "/images/wayside-community.webp"
     imageAlt: "Wayside Church family sharing a meal together"
     caption: "Warm fellowship, Scripture, prayer, and practical care shape our life together."
     cards:
@@ -419,11 +419,11 @@ about:
   leaders:
     - name: "Chase Mendoza"
       role: "Pastor"
-      image: "/images/chase-mendoza.jpg"
+      image: "/images/chase-mendoza.webp"
       bio: "Chase is a West Coast native who moved East to attend the Berkshire Institute for Christian Studies in Lenox, Massachusetts. After graduating from BICS, he pursued further theological training through the Antioch School of Church Planting and Leadership Development. Pastor Chase and his family joined Wayside Church to revitalize this local community in 2019."
     - name: "Owen Rushing"
       role: "Ministry Leader"
-      image: "/images/owen-rushing.jpg"
+      image: "/images/owen-rushing.webp"
       bio: "Owen Rushing was born in Laconia, New Hampshire. In high school, he joined the U.S. Army Reserve and served for nine years. In 2022, he attended a gap-year Christian school program at Berkshire Institute for Christian Studies."
   beliefs:
     - title: "The Gospel and Teaching"

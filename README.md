@@ -60,10 +60,12 @@ public/favicon-32.png
 public/apple-touch-icon.png
 public/icon-192.png
 public/icon-512.png
-public/images/wayside-social-card.png
+public/images/wayside-social-card.jpg
 ```
 
-These were generated from the supplied Wayside logo file and are transparent PNGs for use on light and dark backgrounds. The social card is used for link previews on Facebook, Messages, and other platforms.
+The logo, favicon, and app icons were generated from the supplied Wayside logo file. The social card is used for link previews on Facebook, Messages, and other platforms.
+
+Large page photos should use the optimized `.webp` variants referenced in `src/content/settings.yaml`. Keep replacement hero, community, map, and leader images reasonably compressed so the homepage stays fast for mobile visitors.
 
 ## SEO
 
