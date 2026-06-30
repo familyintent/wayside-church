@@ -1791,6 +1791,12 @@ summary:focus-visible {
   font-size: 0.92rem;
 }
 
+.footer-bottom__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.25rem;
+}
+
 .footer-bottom a {
   font-size: 0.92rem;
   opacity: 0.82;

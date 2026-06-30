@@ -95,6 +95,13 @@ function extractUrls(html, attributeName) {
   return [...html.matchAll(new RegExp(`\\s${attributeName}=["']([^"']+)["']`, "gi"))].map((match) => match[1]);
 }
 
+function extractAnchors(html) {
+  return [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map((match) => ({
+    href: match[1],
+    text: textContent(match[2]),
+  }));
+}
+
 function extractJsonLd(html) {
   return [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].map((match) =>
     match[1].trim(),
@@ -147,6 +154,17 @@ function textIncludes(value, expected) {
   return JSON.stringify(value || "").toLowerCase().includes(expected.toLowerCase());
 }
 
+function htmlRouteFromPathname(pathname) {
+  const route = pathname === "/" ? "/" : pathname.endsWith("/") ? pathname : `${pathname}/`;
+  const filePath = route === "/" ? path.join(distDir, "index.html") : path.join(distDir, route.replace(/^\//, ""), "index.html");
+
+  return fs.existsSync(filePath) ? route : null;
+}
+
+function routeLabel(route) {
+  return route === "/" ? "/" : route.replace(/\/$/, "");
+}
+
 if (!fs.existsSync(distDir)) {
   errors.push("Missing dist directory. Run `pnpm build` before `pnpm seo:audit`.");
 }
@@ -156,6 +174,8 @@ const sitemapPath = path.join(distDir, "sitemap-0.xml");
 const sitemapUrls = fs.existsSync(sitemapPath) ? new Set(extractLocs(readText(sitemapPath))) : new Set();
 const titles = new Map();
 const descriptions = new Map();
+const indexedRoutes = new Set();
+const internalLinkEdges = [];
 const expectedImageSizes = new Map([
   ["/images/wayside-welcome-hero.webp", { width: 1717, height: 916 }],
   ["/images/wayside-community.webp", { width: 1400, height: 1855 }],
@@ -249,6 +269,7 @@ for (const filePath of htmlFiles) {
 
   const churchSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Church"));
   const webSiteSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebSite"));
+  const siteNavigationSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "SiteNavigationElement"));
   const pageSchemas = parsedSchemas.flatMap((schema) =>
     ["WebPage", "AboutPage", "ContactPage", "CollectionPage"].flatMap((type) => collectSchemasByType(schema, type)),
   );
@@ -266,8 +287,13 @@ for (const filePath of htmlFiles) {
   if (!isNoIndex && route !== "/" && !allSchemaTypes.includes("BreadcrumbList")) {
     errors.push(`${label}: missing BreadcrumbList schema.`);
   }
+  if (!isNoIndex && !allSchemaTypes.includes("SiteNavigationElement")) {
+    errors.push(`${label}: missing SiteNavigationElement schema.`);
+  }
 
   if (!isNoIndex) {
+    indexedRoutes.add(route);
+
     const churchSchema = churchSchemas[0];
     if (!churchSchema) {
       errors.push(`${label}: missing inspectable Church schema.`);
@@ -314,6 +340,20 @@ for (const filePath of htmlFiles) {
       }
     }
 
+    for (const navItem of [
+      ["Home", rootUrl],
+      ["Start Here", `${siteUrl}/start-here/`],
+      ["Plan a Visit", `${siteUrl}/plan-a-visit/`],
+      ["Teaching", `${siteUrl}/teaching/`],
+      ["Ministries", `${siteUrl}/ministries/`],
+      ["Contact", `${siteUrl}/contact/`],
+    ]) {
+      const [name, url] = navItem;
+      if (!siteNavigationSchemas.some((schema) => schema.name === name && schema.url === url)) {
+        errors.push(`${label}: SiteNavigationElement schema missing ${name}.`);
+      }
+    }
+
     const pageSchema = pageSchemas[0];
     if (!pageSchema) {
       errors.push(`${label}: missing inspectable page schema.`);
@@ -341,12 +381,21 @@ for (const filePath of htmlFiles) {
     }
   }
 
-  for (const href of extractUrls(html, "href")) {
-    if (isNoIndex && href === canonical) continue;
+  for (const anchor of extractAnchors(html)) {
+    const href = anchor.href;
 
     const target = resolveInternalTarget(href);
     if (target && !existsInDist(target)) {
       errors.push(`${label}: broken internal href ${href}.`);
+    }
+
+    const targetRoute = target ? htmlRouteFromPathname(target) : null;
+    if (!isNoIndex && targetRoute) {
+      internalLinkEdges.push({
+        from: route,
+        target: targetRoute,
+        text: anchor.text,
+      });
     }
   }
 
@@ -457,6 +506,22 @@ if (!fs.existsSync(htmlSitemapPath)) {
     if (!htmlSitemapTargets.has(sitemapUrl)) {
       errors.push(`/sitemap: missing HTML link to indexed URL ${sitemapUrl}.`);
     }
+  }
+}
+
+const inboundCounts = new Map([...indexedRoutes].map((route) => [route, 0]));
+for (const edge of internalLinkEdges) {
+  if (!indexedRoutes.has(edge.from) || !indexedRoutes.has(edge.target)) continue;
+  if (edge.from === edge.target || edge.from === "/sitemap/") continue;
+
+  inboundCounts.set(edge.target, (inboundCounts.get(edge.target) || 0) + 1);
+}
+
+for (const route of indexedRoutes) {
+  if (route === "/") continue;
+
+  if ((inboundCounts.get(route) || 0) === 0) {
+    errors.push(`${routeLabel(route)}: indexed page has no non-sitemap internal links.`);
   }
 }
 

@@ -38,6 +38,22 @@ function extractUrls(html, attributeName) {
   return [...html.matchAll(new RegExp(`\\s${attributeName}=["']([^"']+)["']`, "gi"))].map((match) => match[1]);
 }
 
+function textContent(value) {
+  return value
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractAnchors(html) {
+  return [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map((match) => ({
+    href: match[1],
+    text: textContent(match[2]),
+  }));
+}
+
 function countMatches(value, regex) {
   return [...value.matchAll(regex)].length;
 }
@@ -212,6 +228,7 @@ async function checkHomepageSchema(homeHtml) {
 
   const churchSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Church"))[0];
   const webSiteSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebSite"))[0];
+  const siteNavigationSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "SiteNavigationElement"));
   const pageSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"))[0];
 
   if (!churchSchema) {
@@ -241,6 +258,20 @@ async function checkHomepageSchema(homeHtml) {
     reportError("WebSite schema missing local church keywords.");
   }
 
+  for (const navItem of [
+    ["Home", rootUrl],
+    ["Start Here", new URL("/start-here/", rootUrl).toString()],
+    ["Plan a Visit", new URL("/plan-a-visit/", rootUrl).toString()],
+    ["Teaching", new URL("/teaching/", rootUrl).toString()],
+    ["Ministries", new URL("/ministries/", rootUrl).toString()],
+    ["Contact", new URL("/contact/", rootUrl).toString()],
+  ]) {
+    const [name, url] = navItem;
+    if (!siteNavigationSchemas.some((schema) => schema.name === name && schema.url === url)) {
+      reportError(`Homepage SiteNavigationElement schema missing ${name}.`);
+    }
+  }
+
   if (!textIncludes(pageSchema?.mainEntity, "#church")) {
     reportError("Homepage WebPage schema should point mainEntity to Church schema.");
   }
@@ -248,6 +279,8 @@ async function checkHomepageSchema(homeHtml) {
 
 async function checkLivePages(sitemapUrls) {
   const htmlSitemapUrl = new URL("/sitemap/", rootUrl).toString();
+  const sitemapUrlSet = new Set(sitemapUrls);
+  const internalLinkEdges = [];
   const htmlSitemap = await fetchText(htmlSitemapUrl);
   if (!htmlSitemap.response.ok) {
     reportError(`${htmlSitemapUrl} should be fetchable, got ${htmlSitemap.response.status}.`);
@@ -302,6 +335,39 @@ async function checkLivePages(sitemapUrls) {
     const pathname = new URL(url).pathname;
     if (!htmlSitemapTargets.has(new URL(pathname, rootUrl).toString())) {
       reportError(`/sitemap/ missing link to ${url}.`);
+    }
+
+    for (const anchor of extractAnchors(page.text)) {
+      try {
+        const targetUrl = new URL(anchor.href, rootUrl);
+        if (targetUrl.host !== siteHost) continue;
+
+        const targetPath = targetUrl.pathname === "/" ? "/" : targetUrl.pathname.endsWith("/") ? targetUrl.pathname : `${targetUrl.pathname}/`;
+        const normalizedTargetUrl = new URL(targetPath, rootUrl).toString();
+        if (!sitemapUrlSet.has(normalizedTargetUrl)) continue;
+
+        internalLinkEdges.push({
+          from: url,
+          target: normalizedTargetUrl,
+          text: anchor.text,
+        });
+      } catch {
+        // Broken internal URLs are covered by the local build audit.
+      }
+    }
+  }
+
+  const inboundCounts = new Map(sitemapUrls.map((url) => [url, 0]));
+  for (const edge of internalLinkEdges) {
+    if (edge.from === edge.target || edge.from === htmlSitemapUrl) continue;
+    inboundCounts.set(edge.target, (inboundCounts.get(edge.target) || 0) + 1);
+  }
+
+  for (const url of sitemapUrls) {
+    if (url === rootUrl) continue;
+
+    if ((inboundCounts.get(url) || 0) === 0) {
+      reportError(`${url} has no non-sitemap internal links on the live site.`);
     }
   }
 }

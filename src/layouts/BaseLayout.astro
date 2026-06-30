@@ -131,6 +131,21 @@ const webSiteSchema = {
   keywords: searchTopics,
   inLanguage: "en-US",
 };
+const siteNavigationSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${siteUrl}#site-navigation`,
+  name: `${site.church.name} primary navigation`,
+  itemListElement: site.navigation.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "SiteNavigationElement",
+      name: item.label,
+      url: absoluteUrl(item.href, site.meta.siteUrl),
+    },
+  })),
+};
 const pageSchemaType =
   normalizedPath === "/about/" || normalizedPath === "/beliefs/" || normalizedPath === "/leadership/"
     ? "AboutPage"
@@ -235,7 +250,7 @@ const contentSecurityPolicy = [
   "worker-src 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
-const schemas = [churchSchema, webSiteSchema, webPageSchema, breadcrumbSchema, ...extraSchemas].filter(Boolean);
+const schemas = [churchSchema, webSiteSchema, siteNavigationSchema, webPageSchema, breadcrumbSchema, ...extraSchemas].filter(Boolean);
 const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u003c");
 ---
 

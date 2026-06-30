@@ -107,6 +107,7 @@ The site includes:
 - a human-readable `/sitemap/` page that links every indexed page without cluttering the main footer
 - `image-sitemap.xml` for representative real Wayside images on key pages
 - page-specific social image alt text and structured-data image captions
+- visible navigation structured data and an internal-link audit so indexed pages are reachable through the real site, not only the sitemap
 - `public/robots.txt`
 - `public/site.webmanifest`
 - IndexNow key file and deploy notification for participating search engines, including page, sitemap, and image-sitemap URLs
