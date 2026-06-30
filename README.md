@@ -48,9 +48,28 @@ The logo mark lives in:
 public/images/wayside-logo-mark-navy.png
 public/images/wayside-logo-mark-white.png
 public/favicon.png
+public/favicon-32.png
+public/apple-touch-icon.png
+public/icon-192.png
+public/icon-512.png
+public/images/wayside-social-card.png
 ```
 
-These were generated from the supplied Wayside logo file and are transparent PNGs for use on light and dark backgrounds.
+These were generated from the supplied Wayside logo file and are transparent PNGs for use on light and dark backgrounds. The social card is used for link previews on Facebook, Messages, and other platforms.
+
+## SEO
+
+The site includes:
+
+- unique page titles and descriptions
+- canonical URLs
+- Open Graph and Twitter card metadata
+- local church structured data using JSON-LD
+- sitemap generation through `@astrojs/sitemap`
+- `public/robots.txt`
+- `public/site.webmanifest`
+
+Update the production URL, default description, logo, and social image in `src/content/settings.yaml` under `meta`.
 
 ## Latest YouTube Teaching
 

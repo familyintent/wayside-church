@@ -6,6 +6,9 @@ meta:
   siteUrl: "https://www.wayside.church"
   title: "Wayside Church"
   description: "Wayside Church is a welcoming local church in Charlton, MA, gathering Sundays for worship, teaching, fellowship, and life in Jesus."
+  locale: "en_US"
+  socialImage: "/images/wayside-social-card.png"
+  logo: "/images/wayside-logo-mark-navy.png"
 
 church:
   name: "Wayside Church"
@@ -30,6 +33,10 @@ service:
 
 contact:
   addressLine1: "6 Haggerty Rd"
+  addressLocality: "Charlton"
+  addressRegion: "MA"
+  postalCode: "01507"
+  addressCountry: "US"
   cityStateZip: "Charlton, MA 01507"
   phone: "(508) 434-0401"
   phoneHref: "tel:+15084340401"
