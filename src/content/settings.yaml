@@ -47,7 +47,8 @@ links:
   newsletter: "https://forms.office.com/pages/responsepage.aspx?id=yp8cZEm-Ok6njO9u5jXf8T9IbOUSJpNEoxnoOSGXWr5UOTlQWlM2STlWSzhERFlGQzhGSDhJQ0U2NS4u"
   youtube: "https://www.youtube.com/@waysidechurch864"
   facebook: "https://www.facebook.com/WaysideACC"
-  instagram: "https://www.instagram.com/"
+  # Add a real Instagram profile URL here when one is ready. Leave blank to hide it.
+  instagram: ""
   maps: "https://www.google.com/maps/place/Wayside+Church/@42.104233,-71.9553559,17z/data=!3m1!4b1!4m6!3m5!1s0x89e6a0a0a38d8579:0x109a39272ac71348!8m2!3d42.104233!4d-71.952781!16s%2Fg%2F1tfg8pyw?entry=ttu"
 
 # Update this only if the YouTube channel changes.
@@ -92,7 +93,7 @@ home:
       label: "Watch Teaching"
       href: "#latest-teaching"
   mission:
-    eyebrow: "Dream big"
+    eyebrow: "Our church family"
     headline: "A small church with a big vision for Jesus."
     body: "There is no dress code. Come in a suit or casually, whatever you prefer. Wayside is a church family that loves, encourages, and challenges each other to grow in Jesus Christ."
   nextSteps:
@@ -127,7 +128,7 @@ about:
       image: "/images/chase-mendoza.jpg"
       bio: "Chase is a West Coast native who moved East to attend the Berkshire Institute for Christian Studies in Lenox, Massachusetts. After graduating from BICS, he pursued further theological training through the Antioch School of Church Planting and Leadership Development. Pastor Chase and his family joined Wayside Church to revitalize this local community in 2019."
     - name: "Owen Rushing"
-      role: "Servant Leader"
+      role: "Ministry Leader"
       image: "/images/owen-rushing.jpg"
       bio: "Owen Rushing was born in Laconia, New Hampshire. In high school, he joined the U.S. Army Reserve and served for nine years. In 2022, he attended a gap-year Christian school program at Berkshire Institute for Christian Studies."
   beliefs:
@@ -169,7 +170,7 @@ ministries:
 
 contactPage:
   title: "Contact us"
-  intro: "We are a small church with a big vision for Jesus. Come dream big with Jesus alongside us."
+  intro: "Have a question, prayer request, or plan to visit? We would be glad to hear from you."
   visitCopy: "When you join one of our worship gatherings, you may find it a little different than a traditional worship service. You will find worship, Scripture, prayer, fellowship, and people glad to meet you."
   faq:
     - question: "What should I expect when I visit for the first time?"
@@ -186,9 +187,9 @@ contactPage:
 givingPage:
   title: "Give to Wayside Church"
   intro: "Giving is one way our church family supports worship, ministry, care, and mission in Charlton and beyond."
-  body: "Wayside uses a secure external giving platform. When you click Give Online, you will leave this site and continue through GivingTools."
+  body: "Thank you for supporting worship, care, and ministry through Wayside Church."
 
 newsletterPage:
   title: "Stay connected"
   intro: "Subscribe to receive Wayside updates, announcements, ministry rhythms, and next steps."
-  body: "Newsletter signup is managed through Microsoft Forms so staff can keep the list current without editing the website."
+  body: "Use the signup form to receive occasional church updates, ministry announcements, and next steps."

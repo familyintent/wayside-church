@@ -121,6 +121,6 @@ src/
 ## Notes
 
 - The site is mobile-first and uses semantic HTML.
-- Navigation, buttons, FAQ details, and the dark mode toggle are keyboard-friendly.
+- Navigation, buttons, and FAQ details are keyboard-friendly.
 - External GivingTools, Microsoft Forms, and social links are configurable in one settings file.
 - The custom Wayside logo is inline SVG, with a small favicon in `public/favicon.svg`.

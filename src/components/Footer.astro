@@ -3,6 +3,11 @@ import Logo from "./Logo.astro";
 import { site } from "../lib/content";
 
 const year = new Date().getFullYear();
+const socialLinks = [
+  { label: "Facebook", href: site.links.facebook },
+  { label: "Instagram", href: site.links.instagram },
+  { label: "YouTube", href: site.links.youtube },
+].filter((link) => link.href);
 ---
 
 <footer class="site-footer">
@@ -12,11 +17,17 @@ const year = new Date().getFullYear();
         <Logo compact tone="white" />
       </a>
       <p>{site.church.mission}</p>
-      <div class="social-links" aria-label="Social links">
-        <a href={site.links.facebook} target="_blank" rel="noreferrer">Facebook</a>
-        <a href={site.links.instagram} target="_blank" rel="noreferrer">Instagram</a>
-        <a href={site.links.youtube} target="_blank" rel="noreferrer">YouTube</a>
-      </div>
+      {
+        socialLinks.length > 0 && (
+          <div class="social-links" aria-label="Social links">
+            {socialLinks.map((link) => (
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
     </div>
 
     <div class="footer-contact">

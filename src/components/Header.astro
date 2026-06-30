@@ -1,6 +1,5 @@
 ---
 import Logo from "./Logo.astro";
-import ThemeToggle from "./ThemeToggle.astro";
 import ButtonLink from "./ButtonLink.astro";
 import { site } from "../lib/content";
 
@@ -30,7 +29,6 @@ const isActive = (href: string) => href === currentPath || (href === "/" && curr
     </div>
 
     <div class="nav__actions">
-      <ThemeToggle />
       <ButtonLink href="/giving/" variant="secondary">Give</ButtonLink>
     </div>
   </nav>

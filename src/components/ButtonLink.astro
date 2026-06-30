@@ -13,7 +13,7 @@ const isExternal = href.startsWith("http");
   class:list={["button", `button--${variant}`, className]}
   href={href}
   target={isExternal ? "_blank" : undefined}
-  rel={isExternal ? "noreferrer" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
 >
   <slot />
 </a>

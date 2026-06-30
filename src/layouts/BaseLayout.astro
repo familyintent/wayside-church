@@ -15,6 +15,7 @@ const pageTitle = title ? `${title} | ${site.church.name}` : `${site.church.name
 const canonicalUrl = new URL(Astro.url.pathname, site.meta.siteUrl).toString();
 const socialImageUrl = new URL(image, site.meta.siteUrl).toString();
 const logoUrl = new URL(site.meta.logo, site.meta.siteUrl).toString();
+const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube].filter(Boolean);
 const churchSchema = {
   "@context": "https://schema.org",
   "@type": "Church",
@@ -33,7 +34,7 @@ const churchSchema = {
     postalCode: site.contact.postalCode,
     addressCountry: site.contact.addressCountry,
   },
-  sameAs: [site.links.facebook, site.links.instagram, site.links.youtube],
+  sameAs,
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -85,11 +86,6 @@ const webSiteSchema = {
     <title>{pageTitle}</title>
     <script type="application/ld+json" set:html={JSON.stringify(churchSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
-    <script is:inline>
-      const savedTheme = localStorage.getItem("wayside-theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
-    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
