@@ -74,7 +74,7 @@ calendar:
     ics: "/calendar/wayside-sunday-worship.ics"
 
 # Update this only if the YouTube channel changes.
-# Staff should only need to upload sermons to YouTube; the homepage reads the newest upload from this feed at build time.
+# Staff should only need to upload sermons to YouTube; the homepage, Teaching page, and Sermons page read the newest and recent uploads from this feed at build time.
 youtube:
   channelId: "UCETcyl8b0ylPXNQtUtTZpAQ"
   handle: "@waysidechurch864"
@@ -208,7 +208,7 @@ localSeo:
 
 # Update this page to help nearby Worcester County neighbors find Wayside without creating duplicate town pages.
 nearbyCommunitiesPage:
-  metaTitle: "Church Near Dudley, Oxford, Sturbridge, and Southbridge, MA"
+  metaTitle: "Church Near Dudley, Oxford, Sturbridge, Southbridge"
   metaDescription: "Wayside Church gathers in Charlton, MA and welcomes neighbors from Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities."
   eyebrow: "Nearby communities"
   title: "A welcoming church near Dudley, Oxford, Sturbridge, and Southbridge."
@@ -333,7 +333,7 @@ startHere:
 # Update this page to help people who are new to church, returning to faith, or nervous about visiting.
 newToChurchPage:
   metaTitle: "New to Church in Charlton, MA"
-  metaDescription: "New to church, returning after time away, or exploring faith near Charlton, Dudley, Oxford, Sturbridge, or Southbridge? Wayside Church welcomes honest questions and simple first steps."
+  metaDescription: "New to church, returning after time away, or exploring faith near Charlton, Dudley, Oxford, Sturbridge, or Southbridge? Wayside welcomes honest questions."
   eyebrow: "New to church?"
   title: "You do not have to have it all figured out before you come."
   intro: "If church feels unfamiliar, intimidating, or complicated, you are not alone. Wayside Church is a place where guests, seekers, families, and people returning to faith can take one honest step toward Jesus at a time."
@@ -567,7 +567,7 @@ sundayPage:
 # Update this page when recurring gatherings, studies, or community rhythms change.
 eventsPage:
   metaTitle: "Church Events in Charlton, MA"
-  metaDescription: "See weekly gatherings and church events at Wayside Church in Charlton, MA, including Sunday Worship, Coffee and Discipleship, youth, children, men, and midweek groups."
+  metaDescription: "See weekly gatherings and church events at Wayside Church in Charlton, MA, including Sunday Worship, Coffee and Discipleship, children, youth, and midweek groups."
   eyebrow: "Events and gatherings"
   title: "Weekly church gatherings in Charlton."
   intro: "Wayside keeps church life simple, relational, and centered on Jesus. These weekly rhythms help guests and members worship, grow, pray, and build real community."
@@ -824,8 +824,8 @@ ministries:
   rhythm:
     - label: "Sunday morning"
       detail: "Coffee and Discipleship, worship, children, and youth."
-    - label: "Sunday evening"
-      detail: "Men gather for study, prayer, and encouragement."
+    - label: "Quarterly men's gatherings"
+      detail: "Men gather for Iron Sharpens Iron events, encouragement, and friendship."
     - label: "Wednesday evening"
       detail: "Identity Groups make room for midweek community and discipleship."
   items:
@@ -839,16 +839,12 @@ ministries:
         day: "Sunday"
         startTime: "09:00"
         endTime: "09:45"
-    - id: "mens-spiritual-warfare"
-      name: "Men's Spiritual Warfare"
-      schedule: "Sunday at 6:00 PM"
+    - id: "mens-iron-sharpens-iron"
+      name: "Men's Iron Sharpens Iron"
+      schedule: "Quarterly events"
       audience: "Men"
-      summary: "A gathering for men to study, pray, and stand firm in faith."
-      details: "We call men to discuss spiritual warfare, uphold the truth of God's Word, and support one another with courage and humility."
-      event:
-        day: "Sunday"
-        startTime: "18:00"
-        endTime: "19:30"
+      summary: "Quarterly gatherings for men to encourage one another and grow in faithful friendship."
+      details: "Men's Iron Sharpens Iron meets quarterly for different events. Reach out to the church for the next men's gathering."
     - id: "little-disciples"
       name: "Little Disciples"
       schedule: "Sunday at 10:00 AM"

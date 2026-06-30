@@ -9,6 +9,16 @@ const socialLinks = [
   { label: "Instagram", href: site.links.instagram },
   { label: "YouTube", href: site.links.youtube },
 ].filter((link) => link.href);
+const footerLinks = [
+  { label: "Plan a Visit", href: "/plan-a-visit/" },
+  { label: "Sunday Worship", href: "/sunday-worship/" },
+  { label: "New to Church", href: "/new-to-church/" },
+  { label: "Ministries", href: "/ministries/" },
+  { label: "Teaching", href: "/teaching/" },
+  { label: "About", href: "/about/" },
+  { label: "Contact", href: "/contact/" },
+  { label: "Give", href: "/giving/" },
+];
 ---
 
 <footer class="site-footer">
@@ -39,26 +49,8 @@ const socialLinks = [
     </div>
 
     <div class="footer-links">
-      <h2>Pages</h2>
-      <a href={withBase("/start-here/")}>Start Here</a>
-      <a href={withBase("/new-to-church/")}>New to Church</a>
-      <a href={withBase("/church-in-charlton-ma/")}>Church in Charlton</a>
-      <a href={withBase("/nearby-communities/")}>Nearby Communities</a>
-      <a href={withBase("/sunday-worship/")}>Sunday Worship</a>
-      <a href={withBase("/plan-a-visit/")}>Plan a Visit</a>
-      <a href={withBase("/visitor-faq/")}>Visitor FAQ</a>
-      <a href={withBase("/directions/")}>Directions</a>
-      <a href={withBase("/events/")}>Events</a>
-      <a href={withBase("/families/")}>Families</a>
-      <a href={withBase("/teaching/")}>Teaching</a>
-      <a href={withBase("/sermons/")}>Sermons</a>
-      <a href={withBase("/about/")}>About</a>
-      <a href={withBase("/leadership/")}>Leadership</a>
-      <a href={withBase("/beliefs/")}>Beliefs</a>
-      <a href={withBase("/ministries/")}>Ministries</a>
-      <a href={withBase("/contact/")}>Contact</a>
-      <a href={withBase("/newsletter/")}>Newsletter</a>
-      <a href={withBase("/giving/")}>Giving</a>
+      <h2>Start Here</h2>
+      {footerLinks.map((link) => <a href={withBase(link.href)}>{link.label}</a>)}
     </div>
   </div>
 
