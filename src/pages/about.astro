@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
+import { withBase } from "../lib/paths";
 ---
 
 <BaseLayout title="About" description="Learn what Wayside Church believes, meet the leaders, and discover the Gospel-centered mission shaping this local church in Charlton, MA.">
@@ -35,7 +36,7 @@ import { site } from "../lib/content";
       <div class="leader-grid">
         {site.about.leaders.map((leader) => (
           <article class="leader-card">
-            <img src={leader.image} alt={leader.name} loading="lazy" />
+            <img src={withBase(leader.image)} alt={leader.name} loading="lazy" />
             <div>
               <p class="eyebrow">{leader.role}</p>
               <h3>{leader.name}</h3>

@@ -1,6 +1,7 @@
 ---
 import Logo from "./Logo.astro";
 import { site } from "../lib/content";
+import { withBase } from "../lib/paths";
 
 const year = new Date().getFullYear();
 const socialLinks = [
@@ -13,7 +14,7 @@ const socialLinks = [
 <footer class="site-footer">
   <div class="shell footer-grid">
     <div class="footer-brand">
-      <a href="/" aria-label="Wayside Church home">
+      <a href={withBase("/")} aria-label="Wayside Church home">
         <Logo compact tone="white" />
       </a>
       <p>{site.church.mission}</p>
@@ -39,11 +40,11 @@ const socialLinks = [
 
     <div class="footer-links">
       <h2>Pages</h2>
-      <a href="/about/">About</a>
-      <a href="/ministries/">Ministries</a>
-      <a href="/contact/">Contact</a>
-      <a href="/newsletter/">Newsletter</a>
-      <a href="/giving/">Giving</a>
+      <a href={withBase("/about/")}>About</a>
+      <a href={withBase("/ministries/")}>Ministries</a>
+      <a href={withBase("/contact/")}>Contact</a>
+      <a href={withBase("/newsletter/")}>Newsletter</a>
+      <a href={withBase("/giving/")}>Giving</a>
     </div>
   </div>
 

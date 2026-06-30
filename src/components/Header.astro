@@ -2,14 +2,17 @@
 import Logo from "./Logo.astro";
 import ButtonLink from "./ButtonLink.astro";
 import { site } from "../lib/content";
+import { withBase, withoutBase } from "../lib/paths";
 
-const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
-const isActive = (href: string) => href === currentPath || (href === "/" && currentPath === "/");
+const currentPath = withoutBase(Astro.url.pathname);
+const normalizePath = (path: string) => (path.endsWith("/") ? path : `${path}/`);
+const normalizedCurrentPath = normalizePath(currentPath);
+const isActive = (href: string) => normalizePath(href.split("#")[0] || "/") === normalizedCurrentPath;
 ---
 
 <header class="site-header">
   <nav class="nav shell" aria-label="Main navigation">
-    <a class="nav__brand" href="/" aria-label="Wayside Church home">
+    <a class="nav__brand" href={withBase("/")} aria-label="Wayside Church home">
       <Logo />
     </a>
 
@@ -22,7 +25,7 @@ const isActive = (href: string) => href === currentPath || (href === "/" && curr
 
     <div class="nav__links" id="primary-navigation" data-menu>
       {site.navigation.map((item) => (
-        <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+        <a href={withBase(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>
           {item.label}
         </a>
       ))}

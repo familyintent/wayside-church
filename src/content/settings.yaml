@@ -2,8 +2,8 @@
 # This is the main file church staff can update later. Keep indentation intact.
 
 meta:
-  # Update this when the final production domain changes.
-  siteUrl: "https://www.wayside.church"
+  # Update this to "https://wayside.church" when the custom domain is connected.
+  siteUrl: "https://familyintent.github.io"
   title: "Wayside Church"
   description: "Wayside Church is a welcoming local church in Charlton, MA, gathering Sundays for worship, teaching, fellowship, and life in Jesus."
   locale: "en_US"

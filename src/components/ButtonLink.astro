@@ -5,13 +5,16 @@ type Props = {
   class?: string;
 };
 
+import { withBase } from "../lib/paths";
+
 const { href, variant = "primary", class: className = "" } = Astro.props;
 const isExternal = href.startsWith("http");
+const resolvedHref = withBase(href);
 ---
 
 <a
   class:list={["button", `button--${variant}`, className]}
-  href={href}
+  href={resolvedHref}
   target={isExternal ? "_blank" : undefined}
   rel={isExternal ? "noopener noreferrer" : undefined}
 >

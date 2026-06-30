@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../lib/content";
+import { absoluteUrl, withBase } from "../lib/paths";
 import "../styles/global.css";
 
 type Props = {
@@ -12,16 +13,19 @@ type Props = {
 
 const { title, description = site.meta.description, image = site.meta.socialImage } = Astro.props;
 const pageTitle = title ? `${title} | ${site.church.name}` : `${site.church.name} - The Church in ${site.church.city}, ${site.church.state}`;
-const canonicalUrl = new URL(Astro.url.pathname, site.meta.siteUrl).toString();
-const socialImageUrl = new URL(image, site.meta.siteUrl).toString();
-const logoUrl = new URL(site.meta.logo, site.meta.siteUrl).toString();
+const canonicalUrl = absoluteUrl(Astro.url.pathname, site.meta.siteUrl);
+const socialImageUrl = absoluteUrl(image, site.meta.siteUrl);
+const logoUrl = absoluteUrl(site.meta.logo, site.meta.siteUrl);
+const siteUrl = absoluteUrl("/", site.meta.siteUrl);
+const churchId = `${siteUrl}#church`;
+const webSiteId = `${siteUrl}#website`;
 const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube].filter(Boolean);
 const churchSchema = {
   "@context": "https://schema.org",
   "@type": "Church",
-  "@id": `${site.meta.siteUrl}/#church`,
+  "@id": churchId,
   name: site.church.name,
-  url: site.meta.siteUrl,
+  url: siteUrl,
   logo: logoUrl,
   image: socialImageUrl,
   description: site.meta.description,
@@ -48,10 +52,10 @@ const churchSchema = {
 const webSiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": `${site.meta.siteUrl}/#website`,
+  "@id": webSiteId,
   name: site.church.name,
-  url: site.meta.siteUrl,
-  publisher: { "@id": `${site.meta.siteUrl}/#church` },
+  url: siteUrl,
+  publisher: { "@id": churchId },
 };
 ---
 
@@ -64,10 +68,10 @@ const webSiteSchema = {
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#fbfaf6" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href={withBase("/favicon.png")} type="image/png" />
+    <link rel="icon" href={withBase("/favicon-32.png")} sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png")} />
+    <link rel="manifest" href={withBase("/site.webmanifest")} />
     <meta property="og:site_name" content={site.church.name} />
     <meta property="og:locale" content={site.meta.locale} />
     <meta property="og:type" content="website" />
