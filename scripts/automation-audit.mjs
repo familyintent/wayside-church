@@ -49,18 +49,32 @@ checkTeachingPage("src/pages/sermons.astro", "src/pages/sermons.astro");
 
 const videoSitemap = readText("src/pages/video-sitemap.xml.ts");
 requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "getRecentTeachings(site.youtube, 6)");
+requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "getTeachingPagePath");
 requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "xmlns:video=\"http://www.google.com/schemas/sitemap-video/1.1\"");
 requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "https://www.youtube.com/embed/");
 
 const teachingFeed = readText("src/pages/teaching-feed.xml.ts");
 requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "getRecentTeachings(site.youtube, 6)");
+requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "getTeachingPagePath");
 requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "application/atom+xml");
 requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "xmlns=\"http://www.w3.org/2005/Atom\"");
 requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "media:thumbnail");
 
+const teachingRoute = readText("src/pages/teaching/[slug].astro");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getRecentTeachings(site.youtube, 6)");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingSlug(video)");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingEmbedUrl(video)");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingVideoSchema(video");
+
+const teachingRoutes = readText("src/lib/teaching-routes.ts");
+requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "getTeachingSlug");
+requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "getTeachingPagePath");
+requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "www.youtube-nocookie.com");
+
 const baseLayout = readText("src/layouts/BaseLayout.astro");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "frame-src https://www.youtube-nocookie.com https://www.youtube.com");
 
 const contactBlock = readText("src/components/ChurchContactBlock.astro");
 requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "<address");
@@ -89,7 +103,7 @@ requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm build");
 requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm automation:audit");
 
 const readme = readText("README.md");
-requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, video-sitemap, or teaching-feed edit is needed");
+requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, individual watch page, video-sitemap, or teaching-feed edit is needed");
 requireIncludes("README.md", readme, "update `calendar.sunday` only");
 requireIncludes("README.md", readme, "daily so the build-time YouTube feed can refresh");
 

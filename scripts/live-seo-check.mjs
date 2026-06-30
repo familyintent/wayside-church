@@ -263,6 +263,17 @@ async function checkVideoSitemap(sitemapUrls) {
   if (!videoPageUrls.includes(new URL("/sermons/", rootUrl).toString())) {
     reportError("video-sitemap.xml should include /sermons/.");
   }
+  const dedicatedVideoPageUrls = videoPageUrls.filter((url) => {
+    try {
+      const pathname = new URL(url).pathname;
+      return pathname.startsWith("/teaching/") && pathname !== "/teaching/";
+    } catch {
+      return false;
+    }
+  });
+  if (dedicatedVideoPageUrls.length < 3) {
+    reportError(`video-sitemap.xml should include generated individual teaching watch pages, found ${dedicatedVideoPageUrls.length}.`);
+  }
   if (videoPlayerUrls.length < 3) {
     reportError(`video-sitemap.xml should include multiple YouTube player URLs, found ${videoPlayerUrls.length}.`);
   }
@@ -299,6 +310,27 @@ async function checkVideoSitemap(sitemapUrls) {
       if (!url.host.endsWith("ytimg.com")) reportError(`video-sitemap.xml thumbnail should use a YouTube thumbnail URL: ${thumbnailUrl}.`);
     } catch {
       reportError(`video-sitemap.xml contains invalid thumbnail URL: ${thumbnailUrl}.`);
+    }
+  }
+
+  for (const videoPageUrl of dedicatedVideoPageUrls.slice(0, 3)) {
+    const { response: watchResponse, text: watchText } = await fetchText(videoPageUrl);
+
+    if (!watchResponse.ok) {
+      reportError(`${videoPageUrl} should be fetchable, got ${watchResponse.status}.`);
+      continue;
+    }
+    if (!watchText.includes("www.youtube-nocookie.com/embed/")) {
+      reportError(`${videoPageUrl} should embed YouTube using the privacy-enhanced domain.`);
+    }
+    if (!watchText.includes('"@type":"VideoObject"')) {
+      reportError(`${videoPageUrl} should include VideoObject schema.`);
+    }
+    if (!watchText.includes("Plan a Visit")) {
+      reportError(`${videoPageUrl} should include a visitor next step.`);
+    }
+    if (!watchText.includes("frame-src https://www.youtube-nocookie.com https://www.youtube.com")) {
+      reportError(`${videoPageUrl} CSP should allow only the expected YouTube frame hosts.`);
     }
   }
 }

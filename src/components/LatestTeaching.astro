@@ -2,6 +2,7 @@
 import ButtonLink from "./ButtonLink.astro";
 import SectionIntro from "./SectionIntro.astro";
 import { site } from "../lib/content";
+import { getTeachingPagePath } from "../lib/teaching-routes";
 import { formatPublishedDate, getLatestTeaching } from "../lib/youtube";
 import type { LatestTeaching } from "../lib/youtube";
 
@@ -13,6 +14,7 @@ const { latest: providedLatest } = Astro.props;
 const latest = providedLatest === undefined ? await getLatestTeaching(site.youtube) : providedLatest;
 const latestLabel = latest?.source === "featured" ? "Featured teaching" : "Newest upload";
 const latestDate = latest?.published ? formatPublishedDate(latest.published) : latest?.publishedLabel;
+const latestPath = latest ? getTeachingPagePath(latest) : "";
 ---
 
 <section class="section section--ink" id="latest-teaching" aria-labelledby="latest-teaching-title">
@@ -24,15 +26,15 @@ const latestDate = latest?.published ? formatPublishedDate(latest.published) : l
     {
       latest ? (
         <article class="teaching-card" aria-labelledby="latest-teaching-title">
-          <div class="teaching-card__image">
+          <a class="teaching-card__image" href={latestPath} aria-label={`Watch ${latest.title}`}>
             <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} width="1280" height="720" loading="lazy" decoding="async" />
-          </div>
+          </a>
           <div class="teaching-card__body">
             <p class="eyebrow">{latestLabel}</p>
             <h3 id="latest-teaching-title">{latest.title}</h3>
             {latestDate && <p class="teaching-card__date">{latestDate}</p>}
             <div class="button-row">
-              <ButtonLink href={latest.url}>Watch on YouTube</ButtonLink>
+              <ButtonLink href={latestPath}>Watch Teaching</ButtonLink>
               <ButtonLink href="/teaching/" variant="secondary">More Teaching</ButtonLink>
             </div>
           </div>

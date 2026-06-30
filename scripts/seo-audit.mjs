@@ -182,6 +182,10 @@ function htmlRouteFromPathname(pathname) {
   return fs.existsSync(filePath) ? route : null;
 }
 
+function htmlFilePathForRoute(route) {
+  return route === "/" ? path.join(distDir, "index.html") : path.join(distDir, route.replace(/^\//, ""), "index.html");
+}
+
 function routeLabel(route) {
   return route === "/" ? "/" : route.replace(/\/$/, "");
 }
@@ -607,6 +611,17 @@ if (!fs.existsSync(videoSitemapPath)) {
   if (videoPageUrls.length < 2) {
     errors.push(`video-sitemap.xml should include teaching video pages, found ${videoPageUrls.length}.`);
   }
+  const dedicatedVideoPageUrls = videoPageUrls.filter((url) => {
+    try {
+      const pathname = new URL(url).pathname;
+      return pathname.startsWith("/teaching/") && pathname !== "/teaching/";
+    } catch {
+      return false;
+    }
+  });
+  if (dedicatedVideoPageUrls.length < 3) {
+    errors.push(`video-sitemap.xml should include generated individual teaching watch pages, found ${dedicatedVideoPageUrls.length}.`);
+  }
   if (videoPlayerUrls.length < 1) {
     errors.push("video-sitemap.xml should include at least one YouTube player URL.");
   }
@@ -651,6 +666,29 @@ if (!fs.existsSync(videoSitemapPath)) {
       }
     } catch {
       errors.push(`video-sitemap.xml contains invalid thumbnail URL: ${thumbnailUrl}.`);
+    }
+  }
+
+  for (const videoPageUrl of dedicatedVideoPageUrls) {
+    const pathname = new URL(videoPageUrl).pathname;
+    const route = htmlRouteFromPathname(pathname);
+    if (!route) {
+      errors.push(`Generated teaching watch page is missing from dist: ${videoPageUrl}.`);
+      continue;
+    }
+
+    const watchPageHtml = readText(htmlFilePathForRoute(route));
+    if (!watchPageHtml.includes("www.youtube-nocookie.com/embed/")) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should embed YouTube using the privacy-enhanced domain.`);
+    }
+    if (!watchPageHtml.includes("VideoObject")) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should include VideoObject schema.`);
+    }
+    if (!watchPageHtml.includes("Plan a Visit")) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should include a visitor next step.`);
+    }
+    if (!watchPageHtml.includes("frame-src https://www.youtube-nocookie.com https://www.youtube.com")) {
+      errors.push(`${routeLabel(route)}: CSP should allow only the expected YouTube frame hosts for embedded teaching videos.`);
     }
   }
 }

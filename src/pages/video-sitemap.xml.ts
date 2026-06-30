@@ -1,5 +1,6 @@
 import { site } from "../lib/content";
 import { absoluteUrl } from "../lib/paths";
+import { getTeachingPagePath } from "../lib/teaching-routes";
 import { getRecentTeachings } from "../lib/youtube";
 import type { LatestTeaching } from "../lib/youtube";
 
@@ -51,6 +52,7 @@ export async function GET() {
     { path: "/", videos: latest },
     { path: "/teaching/", videos: teachings },
     { path: "/sermons/", videos: teachings },
+    ...teachings.map((video) => ({ path: getTeachingPagePath(video), videos: [video] })),
   ].filter((page) => page.videos.length > 0);
 
   const xml = [

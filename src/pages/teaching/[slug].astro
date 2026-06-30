@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ButtonLink from "../../components/ButtonLink.astro";
+import SectionIntro from "../../components/SectionIntro.astro";
+import { site } from "../../lib/content";
+import { getTeachingVideoSchema } from "../../lib/schema";
+import { getTeachingEmbedUrl, getTeachingSlug } from "../../lib/teaching-routes";
+import { formatPublishedDate, getRecentTeachings } from "../../lib/youtube";
+import type { LatestTeaching } from "../../lib/youtube";
+
+export async function getStaticPaths() {
+  const teachings = await getRecentTeachings(site.youtube, 6);
+
+  return teachings.map((video) => ({
+    params: { slug: getTeachingSlug(video) },
+    props: { video },
+  }));
+}
+
+type Props = {
+  video: LatestTeaching;
+};
+
+const { video } = Astro.props;
+const publishedDate = video.published ? formatPublishedDate(video.published) : video.publishedLabel;
+const pagePath = Astro.url.pathname;
+const cleanTitle = video.title.replace(/'/g, "");
+const shortTitle = cleanTitle.length > 46 ? `${cleanTitle.slice(0, 43).trimEnd()}...` : cleanTitle;
+const descriptionTitle = cleanTitle.length > 68 ? `${cleanTitle.slice(0, 65).trimEnd()}...` : cleanTitle;
+const pageTitle = `Wayside Church Teaching: ${shortTitle}`;
+const description = `Watch ${descriptionTitle}, a recent Bible teaching from Wayside Church in Charlton, MA. Plan a Sunday visit.`;
+const videoSchema = getTeachingVideoSchema(video, pagePath);
+---
+
+<BaseLayout title={pageTitle} description={description} extraSchemas={[videoSchema]}>
+  <section class="video-watch">
+    <div class="shell video-watch__grid">
+      <div class="video-watch__copy">
+        <p class="eyebrow">Wayside teaching</p>
+        <h1>{video.title}</h1>
+        {publishedDate && <p class="video-watch__date">{publishedDate}</p>}
+        <p>{description}</p>
+        <div class="button-row">
+          <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+          <ButtonLink href={video.url} variant="secondary">Open on YouTube</ButtonLink>
+        </div>
+      </div>
+
+      <div class="video-watch__frame" aria-label={`Video player for ${video.title}`}>
+        <iframe
+          src={getTeachingEmbedUrl(video)}
+          title={`Watch ${video.title}`}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell split">
+      <SectionIntro eyebrow="Listen, then visit" title="Teaching belongs in the life of the church.">
+        <p>These messages are one way to get to know Wayside before Sunday. The best next step is still simple: come worship with us, meet a few people, and take the morning at your own pace.</p>
+      </SectionIntro>
+
+      <div class="quiet-box">
+        <h2>Sunday at Wayside</h2>
+        <p><strong>{site.service.primary.label}: {site.service.primary.time}</strong></p>
+        <p>{site.service.coffee.label} begins at {site.service.coffee.time}. Wayside gathers at {site.contact.addressLine1}, {site.contact.cityStateZip}.</p>
+        <div class="button-row">
+          <ButtonLink href="/teaching/" variant="secondary">More Teaching</ButtonLink>
+          <ButtonLink href="/sunday-worship/" variant="secondary">Sunday Details</ButtonLink>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

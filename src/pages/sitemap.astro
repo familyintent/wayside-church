@@ -3,6 +3,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { absoluteUrl, withBase } from "../lib/paths";
+import { getTeachingPagePath } from "../lib/teaching-routes";
+import { getRecentTeachings } from "../lib/youtube";
+
+const recentTeachings = await getRecentTeachings(site.youtube, 6);
+const recentTeachingLinks = recentTeachings.map((video) => ({
+  label: video.title,
+  href: getTeachingPagePath(video),
+}));
 
 const groups = [
   {
@@ -56,6 +64,15 @@ const groups = [
       { label: "Site Map", href: "/sitemap/" },
     ],
   },
+  ...(recentTeachingLinks.length > 0
+    ? [
+        {
+          title: "Recent Teaching Pages",
+          description: "Automatically generated pages for recent Wayside teaching videos.",
+          links: recentTeachingLinks,
+        },
+      ]
+    : []),
 ];
 const itemListSchema = {
   "@context": "https://schema.org",

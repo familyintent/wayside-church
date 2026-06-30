@@ -101,6 +101,7 @@ The site includes:
 - FAQ schema on visitor-focused pages
 - practical visitor detail structured data for parking and first-visit planning
 - video schema for recent teaching pages when YouTube publish dates are available
+- build-time generated watch pages for recent YouTube teachings, so each message has a local page where the video is the main content
 - leader `Person` schema on the About page
 - recurring ministry `Event` schema on the Ministries page
 - `public/llms.txt` for AI discovery summaries
@@ -135,7 +136,7 @@ docs/local-seo-backlink-kit.md
 
 ## Latest YouTube Teaching
 
-The homepage, `/teaching/` page, and `/sermons/` page automatically fetch YouTube uploads at build time from the channel feed:
+The homepage, `/teaching/` page, `/sermons/` page, and generated individual watch pages automatically fetch YouTube uploads at build time from the channel feed:
 
 ```yaml
 youtube:
@@ -151,7 +152,9 @@ If Wayside changes YouTube channels, update `channelId`, `handle`, `feedUrl`, `c
 
 The site tries the YouTube feed first, then the public channel videos page, then the configured `featuredVideo`. If YouTube blocks the automatic lookup, update `featuredVideo.videoId` to keep a real teaching card on the homepage.
 
-No homepage, teaching page, sermons page, recent-message card, video-sitemap, or teaching-feed edit is needed when a new sermon is uploaded. The latest teaching, recent-message grids, video sitemap, and teaching feed come from YouTube automatically. `pnpm automation:audit` verifies this wiring. The GitHub Pages workflow runs on pushes, can be run manually, and also rebuilds daily so the build-time YouTube feed can refresh even when no site files change.
+No homepage, teaching page, sermons page, recent-message card, individual watch page, video-sitemap, or teaching-feed edit is needed when a new sermon is uploaded. The latest teaching, recent-message grids, local watch pages, video sitemap, and teaching feed come from YouTube automatically. `pnpm automation:audit` verifies this wiring. The GitHub Pages workflow runs on pushes, can be run manually, and also rebuilds daily so the build-time YouTube feed can refresh even when no site files change.
+
+Each generated watch page lives under `/teaching/` with a title-based URL and the YouTube video ID. These pages embed the video with YouTube's privacy-enhanced domain and include VideoObject structured data.
 
 If the feed fails during a build, the site shows a graceful fallback message or the configured featured video and a button to visit the YouTube channel.
 

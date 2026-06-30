@@ -114,7 +114,7 @@ visitDetails:
 
 # Update this only if the YouTube channel changes.
 # Staff should only need to upload sermons to YouTube.
-# The homepage, Teaching page, Sermons page, recent-message cards, video sitemap, and teaching feed read the newest and recent uploads from this feed at build time.
+# The homepage, Teaching page, Sermons page, generated watch pages, recent-message cards, video sitemap, and teaching feed read the newest and recent uploads from this feed at build time.
 youtube:
   channelId: "UCETcyl8b0ylPXNQtUtTZpAQ"
   handle: "@waysidechurch864"

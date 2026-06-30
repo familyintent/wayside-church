@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { site } from "../lib/content";
 import { absoluteUrl } from "../lib/paths";
+import { getTeachingPagePath } from "../lib/teaching-routes";
 import { getRecentTeachings } from "../lib/youtube";
 
 const feedUrl = absoluteUrl("/teaching-feed.xml", site.meta.siteUrl);
@@ -39,12 +40,14 @@ export const GET: APIRoute = async () => {
   const entries = teachings
     .map((teaching) => {
       const entryUpdated = toIsoDate(teaching.published) || feedUpdated;
+      const localUrl = absoluteUrl(getTeachingPagePath(teaching), site.meta.siteUrl);
       const summary = `Recent Bible teaching from ${site.church.name} in ${site.church.city}, ${site.church.state}.`;
 
       return `  <entry>
-    <id>${escapeXml(teaching.url)}</id>
+    <id>${escapeXml(localUrl)}</id>
     <title>${escapeXml(teaching.title)}</title>
-    <link href="${escapeXml(teaching.url)}" rel="alternate" type="text/html" />
+    <link href="${escapeXml(localUrl)}" rel="alternate" type="text/html" />
+    <link href="${escapeXml(teaching.url)}" rel="related" type="text/html" />
     <published>${entryUpdated}</published>
     <updated>${entryUpdated}</updated>
     <summary>${escapeXml(summary)}</summary>

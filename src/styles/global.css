@@ -928,6 +928,48 @@ summary:focus-visible {
   text-underline-offset: 0.24em;
 }
 
+.video-watch {
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.video-watch__grid {
+  display: grid;
+  gap: clamp(1.4rem, 4vw, 2.5rem);
+  align-items: center;
+}
+
+.video-watch__copy {
+  max-width: 760px;
+}
+
+.video-watch__copy h1 {
+  margin-bottom: 1rem;
+  font-size: clamp(2.6rem, 9vw, 5.8rem);
+}
+
+.video-watch__date {
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.video-watch__frame {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.video-watch__frame iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
 .next-steps {
   display: grid;
   gap: 0.8rem;
@@ -2028,6 +2070,10 @@ summary:focus-visible {
 
   .teaching-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .video-watch__grid {
+    grid-template-columns: minmax(0, 0.72fr) minmax(420px, 1fr);
   }
 
   .teaching-card__image img {
