@@ -155,6 +155,33 @@ home:
     reference: "Psalm 23:1"
     text: "The Lord is my shepherd; I have what I need."
 
+# Update this page to help visitors and search engines understand that Wayside is a church in Charlton, MA.
+localSeo:
+  metaTitle: "Church in Charlton, MA"
+  metaDescription: "Looking for a church in Charlton, MA? Wayside Church gathers Sundays at 10:00 AM at 6 Haggerty Rd for worship, Bible teaching, prayer, and fellowship."
+  eyebrow: "Church in Charlton, MA"
+  title: "A local church in Charlton where families, guests, and neighbors can grow in Jesus."
+  intro: "Wayside Church gathers in Charlton, Massachusetts for Sunday worship, Bible teaching, prayer, and warm fellowship. If you are searching for churches in Charlton, MA, we would be glad to welcome you."
+  homeTitle: "Looking for a church in Charlton?"
+  homeBody: "Wayside Church gathers at 6 Haggerty Rd in Charlton, with Coffee and Discipleship at 9:00 AM and Sunday Worship at 10:00 AM."
+  localAreas: "Wayside Church serves Charlton and nearby neighbors across Worcester County with a simple Sunday rhythm, biblical teaching, and a welcoming church family."
+  highlights:
+    - title: "Sunday Worship at 10:00 AM"
+      body: "We gather each Sunday for worship, Scripture, prayer, and fellowship at 6 Haggerty Rd in Charlton."
+    - title: "Coffee and Discipleship at 9:00 AM"
+      body: "Come early for coffee, conversation, discipleship, and an easier first step into community."
+    - title: "A welcoming church for families and guests"
+      body: "There is no dress code, no pressure, and room for honest questions as you get to know Wayside."
+  faq:
+    - question: "Where is Wayside Church located in Charlton, MA?"
+      answer: "Wayside Church gathers at 6 Haggerty Rd, Charlton, MA 01507."
+    - question: "What time is Sunday worship at Wayside Church?"
+      answer: "Sunday Worship begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM."
+    - question: "Can I visit Wayside Church if I am new to church?"
+      answer: "Yes. Guests, families, seekers, and people returning to church are welcome to visit at their own pace."
+    - question: "What should I expect at Wayside Church?"
+      answer: "A Sunday gathering includes worship, Bible teaching, prayer, fellowship, and people glad to welcome you without pressure."
+
 # Update this page to serve seekers, first-time guests, and people new to faith.
 startHere:
   eyebrow: "Start here"

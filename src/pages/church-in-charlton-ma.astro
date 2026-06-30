@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import CalendarActions from "../components/CalendarActions.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { withBase } from "../lib/paths";
+
+const local = site.localSeo;
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: local.faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout title={local.metaTitle} description={local.metaDescription} extraSchemas={[faqSchema]}>
+  <section class="page-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{local.eyebrow}</p>
+      <h1>{local.title}</h1>
+      <p>{local.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+        <ButtonLink href={site.links.maps} variant="secondary">Get Directions</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split">
+      <div>
+        <SectionIntro eyebrow="Sunday in Charlton" title={`${site.service.primary.label} at ${site.service.primary.time}`}>
+          <p>{site.service.primary.summary}</p>
+          <p>{site.service.coffee.label} begins at {site.service.coffee.time}. {site.service.coffee.summary}</p>
+        </SectionIntro>
+        <div class="contact-list">
+          <p><strong>{site.church.name}</strong></p>
+          <p>{site.contact.addressLine1}<br />{site.contact.cityStateZip}</p>
+          <p><a href={site.contact.phoneHref}>{site.contact.phone}</a></p>
+        </div>
+        <div class="button-row">
+          <ButtonLink href={site.links.maps}>Open in Maps</ButtonLink>
+          <ButtonLink href="/contact/" variant="secondary">Contact Us</ButtonLink>
+        </div>
+      </div>
+
+      <figure class="image-panel">
+        <img src={withBase(site.images.community)} alt="Wayside Church family sharing a meal in Charlton, Massachusetts" loading="lazy" />
+        <figcaption>{local.localAreas}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell plan-basics">
+      <SectionIntro eyebrow="Why visit Wayside?" title="A simple, welcoming church rhythm">
+        <p>People looking for a church in Charlton often want the basics to be clear: when to arrive, where to go, what to expect, and whether they will be welcomed. Here is the simple version.</p>
+      </SectionIntro>
+
+      <div class="plan-basics__list">
+        {local.highlights.map((item, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <CalendarActions eyebrow="Make Sunday easier" title="Save Wayside Church to your calendar." />
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">Charlton church FAQ</p>
+        <h2>Questions people ask before visiting</h2>
+        <p>These are the practical questions many guests want answered before choosing a church to visit in Charlton.</p>
+      </div>
+
+      <div class="belief-accordion">
+        {local.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Come this Sunday</p>
+        <h2>Join Wayside Church in Charlton at 10:00 AM.</h2>
+        <p>{site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+    </div>
+  </section>
+</BaseLayout>

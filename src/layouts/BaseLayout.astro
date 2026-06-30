@@ -10,9 +10,16 @@ type Props = {
   description?: string;
   image?: string;
   robots?: string;
+  extraSchemas?: unknown[];
 };
 
-const { title, description = site.meta.description, image = site.meta.socialImage, robots = "index, follow" } = Astro.props;
+const {
+  title,
+  description = site.meta.description,
+  image = site.meta.socialImage,
+  robots = "index, follow",
+  extraSchemas = [],
+} = Astro.props;
 const pageTitle = title
   ? title.includes(site.church.name)
     ? title
@@ -125,7 +132,7 @@ const contentSecurityPolicy = [
   "worker-src 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
-const schemas = [churchSchema, webSiteSchema, breadcrumbSchema].filter(Boolean);
+const schemas = [churchSchema, webSiteSchema, breadcrumbSchema, ...extraSchemas].filter(Boolean);
 const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u003c");
 ---
 

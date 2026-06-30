@@ -36,6 +36,27 @@ import { withBase } from "../lib/paths";
     </div>
   </section>
 
+  <section class="section section--muted">
+    <div class="shell split">
+      <div>
+        <SectionIntro eyebrow={site.localSeo.eyebrow} title={site.localSeo.homeTitle}>
+          <p>{site.localSeo.homeBody}</p>
+        </SectionIntro>
+        <div class="button-row">
+          <ButtonLink href="/church-in-charlton-ma/">Church in Charlton</ButtonLink>
+          <ButtonLink href="/plan-a-visit/" variant="secondary">Plan a Visit</ButtonLink>
+        </div>
+      </div>
+
+      <div class="quiet-box">
+        <h2>Wayside Church</h2>
+        <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong></p>
+        <p>{site.contact.addressLine1}<br />{site.contact.cityStateZip}</p>
+        <p>{site.localSeo.localAreas}</p>
+      </div>
+    </div>
+  </section>
+
   <section class="section visitor-section" aria-labelledby="visitor-title">
     <div class="shell visitor-grid">
       <div class="visitor-copy">
