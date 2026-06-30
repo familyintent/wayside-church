@@ -616,6 +616,238 @@ summary:focus-visible {
   margin-top: 1.6rem;
 }
 
+.about-hero {
+  overflow: hidden;
+  background: var(--bg-soft);
+  padding-block: clamp(2.4rem, 7vw, 4.5rem);
+}
+
+.about-hero__grid {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.about-hero__copy {
+  max-width: 720px;
+}
+
+.about-hero h1 {
+  margin-bottom: 1rem;
+  font-size: 3.15rem;
+}
+
+.about-hero__copy > p:not(.eyebrow) {
+  font-size: 1.12rem;
+}
+
+.about-hero__media {
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.about-hero__image-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin: 0;
+}
+
+.about-hero__image-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 3.15;
+  object-fit: cover;
+}
+
+.about-hero__image-frame figcaption {
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.35;
+  padding: 1rem;
+}
+
+.about-hero__cards {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.about-hero__cards div {
+  display: grid;
+  gap: 0.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 1rem;
+}
+
+.about-hero__cards span,
+.about-markers article > span,
+.fivefold-list article > span {
+  color: var(--accent-strong);
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.about-hero__cards strong {
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.about-story__grid,
+.about-faith__grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.about-markers {
+  display: grid;
+  gap: 1rem;
+}
+
+.about-markers article {
+  border-top: 1px solid var(--line);
+  padding-top: 1.2rem;
+}
+
+.about-markers h2 {
+  margin: 0.45rem 0 0.7rem;
+  font-size: 1.55rem;
+}
+
+.about-markers p {
+  margin-bottom: 0;
+}
+
+.about-fivefold {
+  background: #252821;
+  color: #ffffff;
+}
+
+.about-fivefold h2,
+.about-fivefold h3,
+.about-fivefold p,
+.about-fivefold .eyebrow {
+  color: #ffffff;
+}
+
+.about-fivefold .section-intro {
+  max-width: 900px;
+}
+
+.fivefold-list {
+  display: grid;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.fivefold-list article {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.2rem 0;
+}
+
+.fivefold-list article > span {
+  color: #d8c08d;
+}
+
+.fivefold-list h3 {
+  margin: 0.45rem 0 0.65rem;
+  font-size: 1.5rem;
+}
+
+.fivefold-list p {
+  margin-bottom: 0;
+  opacity: 0.92;
+}
+
+.leader-grid--feature {
+  gap: 1.25rem;
+}
+
+.leader-card--feature {
+  overflow: hidden;
+  gap: 0;
+  padding: 0;
+}
+
+.leader-card--feature img {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+  object-position: center;
+}
+
+.leader-card__body {
+  padding: 1.25rem;
+}
+
+.leader-card__body h3 {
+  margin-bottom: 0.75rem;
+}
+
+.about-faith h2 {
+  margin-bottom: 1rem;
+}
+
+.belief-accordion {
+  border-top: 1px solid var(--line);
+}
+
+.belief-item {
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+}
+
+.belief-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.15;
+  list-style: none;
+  padding: 1.15rem 0;
+}
+
+.belief-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.belief-item summary::after {
+  content: "+";
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--accent-strong);
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+}
+
+.belief-item[open] summary::after {
+  content: "-";
+}
+
+.belief-item p {
+  max-width: 760px;
+  margin: 0 0 1.2rem;
+}
+
 .belief-callout,
 .quiet-box {
   border: 1px solid var(--line);
@@ -770,7 +1002,39 @@ summary:focus-visible {
   font-size: 0.92rem;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 600ms ease, transform 600ms ease;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal-ready [data-reveal].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (min-width: 680px) {
+  .about-hero h1 {
+    font-size: 4.35rem;
+  }
+
+  .about-hero__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fivefold-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .fivefold-list article {
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.35rem;
+  }
+
   .service-strip__grid {
     grid-template-columns: 1fr 1.2fr 1.2fr auto;
     align-items: center;
@@ -818,6 +1082,20 @@ summary:focus-visible {
     align-items: center;
   }
 
+  .about-hero__grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(390px, 0.72fr);
+  }
+
+  .about-hero__image-frame img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .about-story__grid,
+  .about-faith__grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1fr);
+    align-items: start;
+  }
+
   .teaching-card {
     grid-template-columns: 1.1fr 0.9fr;
     align-items: stretch;
@@ -839,6 +1117,29 @@ summary:focus-visible {
 }
 
 @media (min-width: 1080px) {
+  .about-hero h1 {
+    font-size: 5.2rem;
+  }
+
+  .leader-card--feature {
+    grid-template-columns: minmax(220px, 0.68fr) 1fr;
+  }
+
+  .about-hero__cards {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: min(82%, 430px);
+  }
+
+  .about-hero__image-frame figcaption {
+    max-width: 70%;
+  }
+
+  .fivefold-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
   .hero__content {
     padding-block: 8rem 5rem;
   }

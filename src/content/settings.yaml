@@ -114,14 +114,43 @@ home:
     text: "The Lord is my shepherd; I have what I need."
 
 about:
+  hero:
+    eyebrow: "About Wayside"
+    image: "/images/wayside-community.jpg"
+    imageAlt: "Wayside Church family sharing a meal together"
+    caption: "Warm fellowship, Scripture, prayer, and practical care shape our life together."
+    cards:
+      - label: "Sunday Worship"
+        value: "9:30 AM"
+      - label: "Coffee and Connections"
+        value: "9:00 AM"
   title: "We are about Jesus Christ"
   intro: "Jesus is the most significant person in history and is profoundly relevant to our lives today. His life, death, and resurrection changed the world and brought hope to the people around us."
+  markers:
+    - title: "Jesus at the center"
+      body: "Our worship, teaching, care, and mission begin with the life, death, resurrection, and return of Jesus Christ."
+    - title: "Scripture in the room"
+      body: "We open the Bible together and expect God's Word to shape how we pray, serve, repent, and grow."
+    - title: "Life together"
+      body: "Wayside is a church family where people are known, welcomed, encouraged, and challenged to follow Jesus."
   fiveFold:
     title: "We embrace the five-fold ministry established by Jesus"
     body: "We embrace the ministry of Jesus: reconciling the lost to God, healing the sick and broken, preaching and teaching the Gospel, delivering people from spiritual bondage, and embodying a life of servanthood and humility."
+    items:
+      - title: "Reconcile"
+        body: "Welcoming people into restored relationship with God through Jesus."
+      - title: "Heal"
+        body: "Praying for the sick and caring for the wounded and broken."
+      - title: "Teach"
+        body: "Proclaiming the Gospel and grounding disciples in Scripture."
+      - title: "Freedom"
+        body: "Helping people stand firm against spiritual bondage."
+      - title: "Serve"
+        body: "Practicing humility, hospitality, and everyday faithfulness."
   gospel:
     title: "We proclaim the Gospel of Jesus"
     body: "We are a community dedicated to seeing individuals, families, communities, and cities radically transformed by the Gospel of Jesus Christ through one Gospel-centered church at a time."
+  leadersIntro: "Our leaders are here to shepherd, teach, pray, and help people take their next faithful step with Jesus."
   leaders:
     - name: "Chase Mendoza"
       role: "Pastor"
@@ -140,6 +169,7 @@ about:
       body: "We affirm the five solas of the Reformation: Scripture alone, faith alone, grace alone, Christ alone, and glory to God alone."
     - title: "National Association of Evangelicals"
       body: "As members of the National Association of Evangelicals, we believe in the authority of the Bible, the Trinity, the deity and work of Jesus Christ, the necessity of the Holy Spirit for salvation and godly living, the resurrection of the saved and lost, and the spiritual unity of believers."
+  faithIntro: "These convictions keep us rooted as we worship, serve, teach, and live as a local church."
   gatheringNote: "When you join one of our worship gatherings, you may find it a little different than a traditional worship service. We model our gathering around patterns found in the Epistles and the book of Acts."
 
 # Update ministries here.
