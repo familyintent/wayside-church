@@ -26,6 +26,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
   - Advent Christian or regional church directories
   - local ministry partners
   - Charlton community calendars
+  - Dudley, Oxford, Sturbridge, and Southbridge community calendars when Wayside has a real public event that would serve those neighbors
   - Worcester County community directories
   - nonprofit or service partners
   - event listings for real public gatherings
@@ -70,6 +71,7 @@ Good review prompts:
 - A family-friendly Sunday reminder
 - A ministry rhythm reminder for men, youth, children, or Identity Groups
 - A local Charlton care story when there is a real story to tell
+- A helpful Sunday invitation for neighbors in Dudley, Oxford, Sturbridge, or Southbridge when the post is tied to a real gathering, teaching series, or event
 - A holiday service or seasonal invitation
 
 ## Search Console and Business Profile Checklist
@@ -89,7 +91,7 @@ Good review prompts:
   - `https://wayside.church/sermons/`
   - `https://wayside.church/leadership/`
 - In Google Business Profile, keep the website URL, phone, service time, address, photos, and description aligned with the website.
-- Make the Google Business Profile description natural and local, not stuffed: Wayside Church is a welcoming Christian church in Charlton, MA, gathering Sundays at 10:00 AM at 6 Haggerty Rd.
+- Make the Google Business Profile description natural and local, not stuffed: Wayside Church is a welcoming Christian church in Charlton, MA, gathering Sundays at 10:00 AM at 6 Haggerty Rd and welcoming neighbors from Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities.
 - Link real public events, seasonal gatherings, and teaching updates back to the most relevant page rather than always linking only to the homepage.
 
 ## What Not To Do
@@ -100,4 +102,4 @@ Good review prompts:
 - Do not stuff "church in Charlton" unnaturally into every sentence.
 - Do not copy generic church blog content just to publish more pages.
 
-The goal is simple: make it easy for real people in Charlton and nearby communities to find a real church family, and make every public profile tell the same true story.
+The goal is simple: make it easy for real people in Charlton, Dudley, Oxford, Sturbridge, Southbridge, and nearby communities to find a real church family, and make every public profile tell the same true story.

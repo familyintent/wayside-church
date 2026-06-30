@@ -5,7 +5,7 @@ meta:
   # Production URL for canonical links, social previews, and structured data.
   siteUrl: "https://wayside.church"
   title: "Wayside Church"
-  description: "Wayside Church is a welcoming local church in Charlton, MA, gathering Sundays for worship, teaching, fellowship, and life in Jesus."
+  description: "Wayside Church is a welcoming church in Charlton, MA near Dudley, Oxford, Sturbridge, and Southbridge, gathering Sundays at 10:00 AM."
   locale: "en_US"
   socialImage: "/images/wayside-social-card.jpg"
   logo: "/images/wayside-logo-mark-navy.png"
@@ -16,10 +16,10 @@ church:
   city: "Charlton"
   state: "MA"
   nearbyCommunities:
-    - "Southbridge, MA"
-    - "Sturbridge, MA"
     - "Dudley, MA"
     - "Oxford, MA"
+    - "Sturbridge, MA"
+    - "Southbridge, MA"
   # Update the mission statement here.
   mission: "We are a community dedicated to seeing individuals, families, communities, and cities radically transformed by the Gospel of Jesus Christ."
 
@@ -174,7 +174,7 @@ localSeo:
   intro: "Wayside Church gathers in Charlton, Massachusetts for Sunday worship, Bible teaching, prayer, and warm fellowship. If you are searching for churches in Charlton, MA, we would be glad to welcome you."
   homeTitle: "Looking for a church in Charlton?"
   homeBody: "Wayside Church gathers at 6 Haggerty Rd in Charlton, with Coffee and Discipleship at 9:00 AM and Sunday Worship at 10:00 AM."
-  localAreas: "Wayside Church serves Charlton and nearby neighbors across Worcester County with a simple Sunday rhythm, biblical teaching, and a welcoming church family."
+  localAreas: "Wayside Church serves Charlton and nearby neighbors from Dudley, Oxford, Sturbridge, Southbridge, and the surrounding Worcester County area with a simple Sunday rhythm, biblical teaching, and a welcoming church family."
   highlights:
     - title: "Sunday Worship at 10:00 AM"
       body: "We gather each Sunday for worship, Scripture, prayer, and fellowship at 6 Haggerty Rd in Charlton."
@@ -189,10 +189,10 @@ localSeo:
     items:
       - name: "Charlton"
         note: "We gather in town at 6 Haggerty Rd, close to local neighborhoods and family routines."
-      - name: "Southbridge, Sturbridge, and Dudley"
-        note: "Neighbors from nearby towns can find a simple Sunday rhythm with worship at 10:00 AM."
-      - name: "Oxford, Auburn, and Worcester County"
-        note: "Guests from the wider area are welcome to visit, ask questions, and take the morning at their own pace."
+      - name: "Dudley and Oxford"
+        note: "Neighbors west and north of Charlton can find a simple Sunday rhythm with worship at 10:00 AM."
+      - name: "Sturbridge, Southbridge, and Worcester County"
+        note: "Guests from nearby towns are welcome to visit, ask questions, and take the morning at their own pace."
   faq:
     - question: "Where is Wayside Church located in Charlton, MA?"
       answer: "Wayside Church gathers at 6 Haggerty Rd, Charlton, MA 01507."
@@ -205,11 +205,11 @@ localSeo:
 
 # Update this page to help nearby Worcester County neighbors find Wayside without creating duplicate town pages.
 nearbyCommunitiesPage:
-  metaTitle: "Church Near Southbridge, Sturbridge, Dudley, and Oxford, MA"
-  metaDescription: "Wayside Church gathers in Charlton, MA and welcomes neighbors from Southbridge, Sturbridge, Dudley, Oxford, and nearby Worcester County communities."
+  metaTitle: "Church Near Dudley, Oxford, Sturbridge, and Southbridge, MA"
+  metaDescription: "Wayside Church gathers in Charlton, MA and welcomes neighbors from Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities."
   eyebrow: "Nearby communities"
-  title: "A welcoming church near Southbridge, Sturbridge, Dudley, and Oxford."
-  intro: "Wayside Church gathers in Charlton and welcomes neighbors from nearby Worcester County towns. If you are looking for a church near Southbridge, Sturbridge, Dudley, or Oxford, we would be glad to meet you on a Sunday morning."
+  title: "A welcoming church near Dudley, Oxford, Sturbridge, and Southbridge."
+  intro: "Wayside Church gathers in Charlton and welcomes neighbors from nearby Worcester County towns. If you are looking for a church near Dudley, Oxford, Sturbridge, or Southbridge, we would be glad to meet you on a Sunday morning."
   primaryCta:
     label: "Plan a Visit"
     href: "/plan-a-visit/"
@@ -219,16 +219,32 @@ nearbyCommunitiesPage:
   sunday:
     eyebrow: "Sunday in Charlton"
     title: "One simple Sunday rhythm for nearby neighbors."
-    body: "Coffee and Discipleship begins at 9:00 AM, and Sunday Worship begins at 10:00 AM at 6 Haggerty Rd in Charlton."
+    body: "Coffee and Discipleship begins at 9:00 AM, and Sunday Worship begins at 10:00 AM at 6 Haggerty Rd in Charlton. Use the town links below to open directions from your area."
   towns:
-    - name: "Southbridge"
-      body: "Neighbors from Southbridge are welcome to visit Wayside for worship, Scripture, prayer, and fellowship in Charlton."
-    - name: "Sturbridge"
-      body: "If you are searching for a church near Sturbridge, Wayside offers a simple Sunday gathering centered on Jesus."
     - name: "Dudley"
+      label: "Church near Dudley, MA"
       body: "Families, guests, seekers, and people returning to church from Dudley are welcome to take a first step at their own pace."
+      routeNote: "Open directions from Dudley to Wayside Church before you leave."
+      directionsLabel: "Directions from Dudley"
+      directionsHref: "https://www.google.com/maps/dir/?api=1&origin=Dudley%2C%20MA&destination=Wayside%20Church%2C%206%20Haggerty%20Rd%2C%20Charlton%2C%20MA%2001507&travelmode=driving"
     - name: "Oxford"
+      label: "Church near Oxford, MA"
       body: "Wayside welcomes Oxford neighbors looking for a Gospel-centered church family in the wider Worcester County area."
+      routeNote: "Open directions from Oxford and choose the route that fits your Sunday morning."
+      directionsLabel: "Directions from Oxford"
+      directionsHref: "https://www.google.com/maps/dir/?api=1&origin=Oxford%2C%20MA&destination=Wayside%20Church%2C%206%20Haggerty%20Rd%2C%20Charlton%2C%20MA%2001507&travelmode=driving"
+    - name: "Sturbridge"
+      label: "Church near Sturbridge, MA"
+      body: "If you are searching for a church near Sturbridge, Wayside offers a simple Sunday gathering centered on Jesus."
+      routeNote: "Open directions from Sturbridge to see the best current route to Charlton."
+      directionsLabel: "Directions from Sturbridge"
+      directionsHref: "https://www.google.com/maps/dir/?api=1&origin=Sturbridge%2C%20MA&destination=Wayside%20Church%2C%206%20Haggerty%20Rd%2C%20Charlton%2C%20MA%2001507&travelmode=driving"
+    - name: "Southbridge"
+      label: "Church near Southbridge, MA"
+      body: "Neighbors from Southbridge are welcome to visit Wayside for worship, Scripture, prayer, and fellowship in Charlton."
+      routeNote: "Open directions from Southbridge and save the Sunday gathering to your calendar."
+      directionsLabel: "Directions from Southbridge"
+      directionsHref: "https://www.google.com/maps/dir/?api=1&origin=Southbridge%2C%20MA&destination=Wayside%20Church%2C%206%20Haggerty%20Rd%2C%20Charlton%2C%20MA%2001507&travelmode=driving"
   reasons:
     eyebrow: "Why visit Wayside?"
     title: "A church family with room for honest questions."
@@ -241,7 +257,9 @@ nearbyCommunitiesPage:
         body: "Wayside opens Scripture, worships Jesus, prays, and helps people grow in ordinary discipleship."
   faq:
     - question: "Is Wayside Church only for people who live in Charlton?"
-      answer: "No. Wayside gathers in Charlton and welcomes neighbors from Southbridge, Sturbridge, Dudley, Oxford, and nearby Worcester County communities."
+      answer: "No. Wayside gathers in Charlton and welcomes neighbors from Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities."
+    - question: "Is Wayside Church near Dudley, Oxford, Sturbridge, and Southbridge?"
+      answer: "Wayside Church is located in Charlton, MA, and the nearby communities page includes directions links from Dudley, Oxford, Sturbridge, and Southbridge so guests can plan a realistic Sunday morning."
     - question: "Where does Wayside Church meet?"
       answer: "Wayside Church gathers at 6 Haggerty Rd, Charlton, MA 01507."
     - question: "What time is Sunday Worship?"

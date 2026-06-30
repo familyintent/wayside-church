@@ -20,11 +20,11 @@ Coffee and Discipleship: 9:00 AM
 
 Short description:
 
-Wayside Church is a welcoming local church in Charlton, MA. We gather Sundays at 10:00 AM for worship, Bible teaching, prayer, and fellowship, with Coffee and Discipleship at 9:00 AM.
+Wayside Church is a welcoming local church in Charlton, MA near Dudley, Oxford, Sturbridge, and Southbridge. We gather Sundays at 10:00 AM for worship, Bible teaching, prayer, and fellowship, with Coffee and Discipleship at 9:00 AM.
 
 Long description:
 
-Wayside Church is a local church in Charlton, Massachusetts, dedicated to seeing individuals, families, communities, and cities transformed by the Gospel of Jesus Christ. Guests, families, seekers, and neighbors are welcome to join us Sundays at 10:00 AM for worship, Scripture, prayer, and fellowship.
+Wayside Church is a local church in Charlton, Massachusetts, dedicated to seeing individuals, families, communities, and cities transformed by the Gospel of Jesus Christ. Guests, families, seekers, and neighbors from Charlton, Dudley, Oxford, Sturbridge, Southbridge, and nearby Worcester County communities are welcome to join us Sundays at 10:00 AM for worship, Scripture, prayer, and fellowship.
 
 Family ministry description:
 
@@ -50,6 +50,7 @@ Update or create these first. Keep the name, address, phone, website, and servic
 - YouTube video descriptions: include https://wayside.church/teaching/ and the Sunday address when appropriate
 - Advent Christian denomination or regional directory
 - Local town/community directories for Charlton, MA
+- Local town/community directories for Dudley, Oxford, Sturbridge, and Southbridge when Wayside has a real local connection, public event, or appropriate regional listing
 - Local ministry partners, missions partners, and church network pages
 - Worcester County community calendars or local organization directories
 
@@ -69,7 +70,7 @@ https://wayside.church
 Sunday Worship begins at 10:00 AM, with Coffee and Discipleship at 9:00 AM.
 
 Short description:
-Wayside Church is a welcoming local church in Charlton, MA, gathering Sundays for worship, Bible teaching, prayer, and fellowship.
+Wayside Church is a welcoming local church in Charlton, MA near Dudley, Oxford, Sturbridge, and Southbridge, gathering Sundays for worship, Bible teaching, prayer, and fellowship.
 
 Thank you.
 
@@ -100,6 +101,7 @@ These are useful for Google Business Profile posts, Facebook, and the website ov
 - Photos from church meals, ministry rhythms, baptisms, outreach, and Sunday setup
 - A monthly "What to expect this Sunday at Wayside" post
 - A local service or community care story from Charlton
+- A real public event invitation for neighbors in Dudley, Oxford, Sturbridge, or Southbridge
 - A recap linking to the latest YouTube teaching
 
 ## Tracking

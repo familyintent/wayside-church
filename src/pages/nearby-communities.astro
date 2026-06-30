@@ -4,10 +4,23 @@ import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
+import { absoluteUrl } from "../lib/paths";
 import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
 
 const nearby = site.nearbyCommunitiesPage;
-const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getFaqPageSchema(nearby.faq)];
+const getTownId = (name: string) => `near-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
+const nearbyItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Nearby communities served by Wayside Church",
+  itemListElement: nearby.towns.map((town, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: `${town.name}, MA`,
+    url: absoluteUrl(`/nearby-communities/#${getTownId(town.name)}`, site.meta.siteUrl),
+  })),
+};
+const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getFaqPageSchema(nearby.faq), nearbyItemListSchema];
 ---
 
 <BaseLayout title={nearby.metaTitle} description={nearby.metaDescription} extraSchemas={nearbySchemas}>
@@ -43,9 +56,12 @@ const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getF
 
       <div class="nearby-communities__list">
         {nearby.towns.map((town) => (
-          <article>
-            <h2>{town.name}</h2>
+          <article id={getTownId(town.name)}>
+            <p class="eyebrow">{town.label}</p>
+            <h2>{town.name}, MA</h2>
             <p>{town.body}</p>
+            <p class="nearby-communities__note">{town.routeNote}</p>
+            <ButtonLink href={town.directionsHref} variant="text">{town.directionsLabel}</ButtonLink>
           </article>
         ))}
       </div>
