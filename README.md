@@ -30,6 +30,7 @@ That file includes comments showing where to update:
 - address and phone
 - homepage copy
 - Start Here page copy for seekers and first-time guests
+- Nearby Communities page copy and FAQ
 - Plan a Visit page copy
 - Directions page copy and FAQ
 - Sunday Worship page copy and FAQ

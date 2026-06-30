@@ -34,6 +34,10 @@ const webSiteId = `${siteUrl}#website`;
 const normalizedPath = withoutBase(Astro.url.pathname);
 const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube, site.links.maps].filter(Boolean);
 const phoneNumber = site.contact.phoneHref.replace(/^tel:/, "");
+const nearbyAreaServed = (site.church.nearbyCommunities || []).map((name) => ({
+  "@type": "City",
+  name,
+}));
 const churchSchema = {
   "@context": "https://schema.org",
   "@type": "Church",
@@ -69,6 +73,7 @@ const churchSchema = {
       "@type": "City",
       name: `${site.church.city}, ${site.church.state}`,
     },
+    ...nearbyAreaServed,
     {
       "@type": "AdministrativeArea",
       name: "Worcester County, MA",

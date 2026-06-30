@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import CalendarActions from "../components/CalendarActions.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
+
+const nearby = site.nearbyCommunitiesPage;
+const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getFaqPageSchema(nearby.faq)];
+---
+
+<BaseLayout title={nearby.metaTitle} description={nearby.metaDescription} extraSchemas={nearbySchemas}>
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{nearby.eyebrow}</p>
+      <h1>{nearby.title}</h1>
+      <p>{nearby.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={nearby.primaryCta.href}>{nearby.primaryCta.label}</ButtonLink>
+        <ButtonLink href={nearby.secondaryCta.href} variant="secondary">{nearby.secondaryCta.label}</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-strip" aria-label="Sunday gathering information for nearby communities">
+    <div class="shell service-strip__grid">
+      <div>
+        <p class="eyebrow">This Sunday</p>
+        <h2>{site.service.primary.label}</h2>
+      </div>
+      <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
+      <p><strong>{site.contact.addressLine1}</strong><br />{site.contact.cityStateZip}</p>
+      <ButtonLink href={site.links.maps} variant="secondary">Open in Maps</ButtonLink>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell nearby-communities">
+      <SectionIntro eyebrow={nearby.sunday.eyebrow} title={nearby.sunday.title}>
+        <p>{nearby.sunday.body}</p>
+      </SectionIntro>
+
+      <div class="nearby-communities__list">
+        {nearby.towns.map((town) => (
+          <article>
+            <h2>{town.name}</h2>
+            <p>{town.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell plan-basics">
+      <SectionIntro eyebrow={nearby.reasons.eyebrow} title={nearby.reasons.title}>
+        <p>If you are coming from a nearby town, the practical details should be easy and the invitation should feel clear.</p>
+      </SectionIntro>
+
+      <div class="plan-basics__list">
+        {nearby.reasons.items.map((item, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <CalendarActions id="nearby-calendar" eyebrow="Make Sunday simple" title="Save Wayside Church to your calendar." />
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">Nearby church FAQ</p>
+        <h2>Questions from nearby neighbors</h2>
+        <p>Wayside gathers in Charlton, but the welcome is wider than one town.</p>
+      </div>
+
+      <div class="belief-accordion">
+        {nearby.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Come and see</p>
+        <h2>Join us Sunday at {site.service.primary.time} in Charlton.</h2>
+        <p>{site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <div class="button-row">
+        <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+        <ButtonLink href="/directions/" variant="secondary">Directions</ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -47,6 +47,7 @@ Good review prompts:
 ## Page Links to Use
 
 - Main site: https://wayside.church/
+- Nearby Communities: https://wayside.church/nearby-communities/
 - Sunday Worship: https://wayside.church/sunday-worship/
 - Plan a Visit: https://wayside.church/plan-a-visit/
 - Directions: https://wayside.church/directions/
@@ -76,6 +77,7 @@ Good review prompts:
 - Use URL Inspection after major page updates for:
   - `https://wayside.church/`
   - `https://wayside.church/church-in-charlton-ma/`
+  - `https://wayside.church/nearby-communities/`
   - `https://wayside.church/sunday-worship/`
   - `https://wayside.church/plan-a-visit/`
   - `https://wayside.church/directions/`
