@@ -330,6 +330,11 @@ function checkTeachingListingPage(route, recentTitle) {
     errors.push(`${routeLabel(route)}: should include VideoObject schema for recent YouTube uploads, found ${videoObjectCount}.`);
   }
 
+  const semanticDateCount = countMatches(html, /<time\b[^>]*\sdatetime=/g);
+  if (semanticDateCount < 6) {
+    errors.push(`${routeLabel(route)}: should expose recent teaching publish dates with semantic time elements, found ${semanticDateCount}.`);
+  }
+
   const parsedSchemas = [];
   for (const block of extractJsonLd(html)) {
     try {
@@ -1290,6 +1295,9 @@ if (!fs.existsSync(videoSitemapPath)) {
       if (!isIsoDateTime(watchWebPage?.dateModified) || Date.parse(watchWebPage.dateModified) < Date.parse(watchWebPage.datePublished)) {
         errors.push(`${routeLabel(route)}: WebPage dateModified should be an ISO date from the current YouTube-powered page content.`);
       }
+      if (!watchPageHtml.includes(`<time datetime="${watchVideoObject.uploadDate}"`)) {
+        errors.push(`${routeLabel(route)}: visible teaching date should use a time element that matches the YouTube uploadDate.`);
+      }
     }
     const watchOgImage = getMetaPropertyContent(watchPageHtml, "og:image");
     const watchTwitterImage = getMetaContent(watchPageHtml, "twitter:image");
@@ -1319,6 +1327,10 @@ if (!fs.existsSync(videoSitemapPath)) {
     const relatedTeachingTileCount = countMatches(watchPageHtml, /class=["']teaching-tile["']/g);
     if (!watchPageHtml.includes("More recent teaching") || relatedTeachingTileCount < 3) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should include related recent teaching cards.`);
+    }
+    const watchPageTimeCount = countMatches(watchPageHtml, /<time\b[^>]*\sdatetime=/g);
+    if (watchPageTimeCount < 4) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should expose main and related teaching dates with semantic time elements.`);
     }
     if (!watchPageHtml.includes("frame-src https://www.youtube-nocookie.com https://www.youtube.com")) {
       errors.push(`${routeLabel(route)}: CSP should allow only the expected YouTube frame hosts for embedded teaching videos.`);

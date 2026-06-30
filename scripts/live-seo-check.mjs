@@ -656,6 +656,9 @@ async function checkVideoSitemap(sitemapUrls) {
       if (!isIsoDateTime(watchWebPage?.dateModified) || Date.parse(watchWebPage.dateModified) < Date.parse(watchWebPage.datePublished)) {
         reportError(`${videoPageUrl} WebPage dateModified should be an ISO date from the current YouTube-powered page content.`);
       }
+      if (!watchText.includes(`<time datetime="${watchVideoObject.uploadDate}"`)) {
+        reportError(`${videoPageUrl} visible teaching date should use a time element that matches the YouTube uploadDate.`);
+      }
     }
     const watchOgImage = getMetaPropertyContent(watchText, "og:image");
     const watchTwitterImage = getMetaContent(watchText, "twitter:image");
@@ -685,6 +688,10 @@ async function checkVideoSitemap(sitemapUrls) {
     const relatedTeachingTileCount = countMatches(watchText, /class=["']teaching-tile["']/g);
     if (!watchText.includes("More recent teaching") || relatedTeachingTileCount < 3) {
       reportError(`${videoPageUrl} should include related recent teaching cards.`);
+    }
+    const watchPageTimeCount = countMatches(watchText, /<time\b[^>]*\sdatetime=/g);
+    if (watchPageTimeCount < 4) {
+      reportError(`${videoPageUrl} should expose main and related teaching dates with semantic time elements.`);
     }
     if (!watchText.includes("frame-src https://www.youtube-nocookie.com https://www.youtube.com")) {
       reportError(`${videoPageUrl} CSP should allow only the expected YouTube frame hosts.`);
@@ -1162,6 +1169,11 @@ async function checkLiveTeachingPages() {
     const videoObjectCount = countMatches(text, /"@type":"VideoObject"/g);
     if (videoObjectCount < 6) {
       reportError(`${url} should include VideoObject schema for recent YouTube uploads, found ${videoObjectCount}.`);
+    }
+
+    const semanticDateCount = countMatches(text, /<time\b[^>]*\sdatetime=/g);
+    if (semanticDateCount < 6) {
+      reportError(`${url} should expose recent teaching publish dates with semantic time elements, found ${semanticDateCount}.`);
     }
   }
 }

@@ -1,0 +1,14 @@
+---
+import { formatPublishedDate } from "../lib/youtube";
+import type { LatestTeaching } from "../lib/youtube";
+
+type Props = {
+  video: LatestTeaching;
+  fallbackLabel?: string;
+};
+
+const { video, fallbackLabel = "Wayside teaching" } = Astro.props;
+const label = video.published ? formatPublishedDate(video.published) : video.publishedLabel || fallbackLabel;
+---
+
+{video.published ? <time datetime={video.published}>{label}</time> : <span>{label}</span>}

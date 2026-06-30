@@ -23,6 +23,7 @@ function requireIncludes(label, source, expected) {
 function checkTeachingPage(relativePath, label) {
   const source = readText(relativePath);
 
+  requireIncludes(label, source, "TeachingDate");
   requireIncludes(label, source, "getRecentTeachings");
   requireIncludes(label, source, "getYouTubeThumbnailSize");
   requireIncludes(label, source, "getRecentTeachings(site.youtube, 6)");
@@ -38,6 +39,8 @@ function checkTeachingPage(relativePath, label) {
   requireIncludes(label, source, "width={thumbnailSize.width}");
   requireIncludes(label, source, "height={thumbnailSize.height}");
   requireIncludes(label, source, "site.youtube.fallbackMessage");
+  requireIncludes(label, source, "<TeachingDate video={latest}");
+  requireIncludes(label, source, "<TeachingDate video={video}");
 }
 
 const youtubeHelper = readText("src/lib/youtube.ts");
@@ -70,9 +73,16 @@ requireIncludes("src/pages/index.astro", homepage, "srcset={communityImageSrcset
 const latestTeachingComponent = readText("src/components/LatestTeaching.astro");
 requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "getLatestTeaching");
 requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "getYouTubeThumbnailSize");
+requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "TeachingDate");
+requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "<TeachingDate video={latest}");
 requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "const latestThumbnailSize = latest ? getYouTubeThumbnailSize(latest.thumbnail)");
 requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "width={latestThumbnailSize.width}");
 requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "height={latestThumbnailSize.height}");
+
+const teachingDateComponent = readText("src/components/TeachingDate.astro");
+requireIncludes("src/components/TeachingDate.astro", teachingDateComponent, "formatPublishedDate(video.published)");
+requireIncludes("src/components/TeachingDate.astro", teachingDateComponent, "<time datetime={video.published}>");
+requireIncludes("src/components/TeachingDate.astro", teachingDateComponent, "video.publishedLabel || fallbackLabel");
 
 checkTeachingPage("src/pages/teaching.astro", "src/pages/teaching.astro");
 checkTeachingPage("src/pages/sermons.astro", "src/pages/sermons.astro");
@@ -104,6 +114,7 @@ requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "xmlns=\"http://
 requireIncludes("src/pages/teaching-feed.xml.ts", teachingFeed, "media:thumbnail");
 
 const teachingRoute = readText("src/pages/teaching/[slug].astro");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "TeachingDate");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getRecentTeachings(site.youtube, 6)");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingSlug(video)");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingEmbedUrl(video)");
@@ -119,6 +130,8 @@ requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "imageAlt={thu
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "breadcrumbLabel={video.title}");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "datePublished={video.published}");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "dateModified={pageDateModified}");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "<TeachingDate video={video}");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "<TeachingDate video={teaching}");
 
 const teachingRoutes = readText("src/lib/teaching-routes.ts");
 requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "getTeachingSlug");

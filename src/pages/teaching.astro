@@ -2,10 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import TeachingDate from "../components/TeachingDate.astro";
 import { site } from "../lib/content";
 import { getTeachingVideoSchemas } from "../lib/schema";
 import { getTeachingPagePath } from "../lib/teaching-routes";
-import { formatPublishedDate, getRecentTeachings, getYouTubeThumbnailSize } from "../lib/youtube";
+import { getRecentTeachings, getYouTubeThumbnailSize } from "../lib/youtube";
 
 const teachings = await getRecentTeachings(site.youtube, 6);
 const latest = teachings[0];
@@ -16,7 +17,6 @@ const recentWithThumbnailSizes = recent.map((video) => ({
   thumbnailSize: getYouTubeThumbnailSize(video.thumbnail),
 }));
 const teachingSchemas = getTeachingVideoSchemas(teachings, "/teaching/");
-const dateLabel = (video) => (video?.published ? formatPublishedDate(video.published) : video?.publishedLabel || "Wayside teaching");
 const pageDateModified = teachings.map((video) => video.published).filter(Boolean).sort().at(-1);
 ---
 
@@ -48,7 +48,7 @@ const pageDateModified = teachings.map((video) => video.published).filter(Boolea
             <div class="teaching-card__body">
               <p class="eyebrow">{latest.source === "featured" ? "Featured teaching" : "Newest upload"}</p>
               <h2>{latest.title}</h2>
-              <p class="teaching-card__date">{dateLabel(latest)}</p>
+              <p class="teaching-card__date"><TeachingDate video={latest} /></p>
               <div class="button-row">
                 <ButtonLink href={getTeachingPagePath(latest)}>Watch Teaching</ButtonLink>
                 <ButtonLink href={latest.url} variant="secondary">YouTube</ButtonLink>
@@ -84,7 +84,7 @@ const pageDateModified = teachings.map((video) => video.published).filter(Boolea
                   <img src={video.thumbnail} alt={`Thumbnail for ${video.title}`} width={thumbnailSize.width} height={thumbnailSize.height} loading="lazy" decoding="async" />
                 </a>
                 <div class="teaching-tile__body">
-                  <p>{dateLabel(video)}</p>
+                  <p><TeachingDate video={video} /></p>
                   <h2>{video.title}</h2>
                   <a href={getTeachingPagePath(video)}>Watch Teaching</a>
                 </div>

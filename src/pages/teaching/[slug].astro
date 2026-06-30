@@ -2,10 +2,11 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ButtonLink from "../../components/ButtonLink.astro";
 import SectionIntro from "../../components/SectionIntro.astro";
+import TeachingDate from "../../components/TeachingDate.astro";
 import { site } from "../../lib/content";
 import { getTeachingVideoSchema } from "../../lib/schema";
 import { getTeachingEmbedUrl, getTeachingPagePath, getTeachingSlug } from "../../lib/teaching-routes";
-import { formatPublishedDate, getRecentTeachings, getYouTubeThumbnailSize } from "../../lib/youtube";
+import { getRecentTeachings, getYouTubeThumbnailSize } from "../../lib/youtube";
 import type { LatestTeaching } from "../../lib/youtube";
 
 export async function getStaticPaths() {
@@ -26,7 +27,6 @@ type Props = {
 };
 
 const { video, relatedTeachings } = Astro.props;
-const publishedDate = video.published ? formatPublishedDate(video.published) : video.publishedLabel;
 const pagePath = Astro.url.pathname;
 const cleanTitle = video.title.replace(/\s+/g, " ").trim();
 const shortTitle = cleanTitle.length > 30 ? `${cleanTitle.slice(0, 27).trimEnd()}...` : cleanTitle;
@@ -37,7 +37,6 @@ const videoSchema = getTeachingVideoSchema(video, pagePath);
 const thumbnailSize = getYouTubeThumbnailSize(video.thumbnail);
 const thumbnailAlt = `Thumbnail for ${video.title}, a Wayside Church teaching video`;
 const watchPage = site.teachingPage.watchPage;
-const dateLabel = (teaching: LatestTeaching) => (teaching?.published ? formatPublishedDate(teaching.published) : teaching?.publishedLabel || "Wayside teaching");
 const pageDateModified = [video.published, ...relatedTeachings.map((teaching) => teaching.published)].filter(Boolean).sort().at(-1) || video.published;
 const relatedWithThumbnailSizes = relatedTeachings.map((teaching) => ({
   teaching,
@@ -51,7 +50,7 @@ const relatedWithThumbnailSizes = relatedTeachings.map((teaching) => ({
       <div class="video-watch__copy">
         <p class="eyebrow">Wayside teaching</p>
         <h1>{video.title}</h1>
-        {publishedDate && <p class="video-watch__date">{publishedDate}</p>}
+        <p class="video-watch__date"><TeachingDate video={video} /></p>
         <p>{description}</p>
         <div class="button-row">
           <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
@@ -123,7 +122,7 @@ const relatedWithThumbnailSizes = relatedTeachings.map((teaching) => ({
                   <img src={teaching.thumbnail} alt={`Thumbnail for ${teaching.title}`} width={thumbnailSize.width} height={thumbnailSize.height} loading="lazy" decoding="async" />
                 </a>
                 <div class="teaching-tile__body">
-                  <p>{dateLabel(teaching)}</p>
+                  <p><TeachingDate video={teaching} /></p>
                   <h2>{teaching.title}</h2>
                   <a href={getTeachingPagePath(teaching)}>Watch Teaching</a>
                 </div>

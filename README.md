@@ -120,6 +120,7 @@ The site includes:
 - build-time generated watch pages for recent YouTube teachings, so each message has a local page where the video is the main content
 - related recent teaching cards on generated watch pages, populated from the same YouTube feed
 - YouTube-driven `datePublished` and `dateModified` page schema on teaching pages, so freshness reflects real uploaded content
+- semantic `<time datetime>` markup for visible teaching dates, matching YouTube publish dates when available
 - page-specific social preview thumbnails for generated teaching watch pages
 - automatic YouTube thumbnail dimensions for latest and recent teaching cards, so feed-driven video images stay stable in the layout
 - responsive WebP variants with `srcset` and `sizes` for real Wayside photos, so large local images stay sharp without forcing oversized downloads

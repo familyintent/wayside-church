@@ -1,9 +1,10 @@
 ---
 import ButtonLink from "./ButtonLink.astro";
 import SectionIntro from "./SectionIntro.astro";
+import TeachingDate from "./TeachingDate.astro";
 import { site } from "../lib/content";
 import { getTeachingPagePath } from "../lib/teaching-routes";
-import { formatPublishedDate, getLatestTeaching, getYouTubeThumbnailSize } from "../lib/youtube";
+import { getLatestTeaching, getYouTubeThumbnailSize } from "../lib/youtube";
 import type { LatestTeaching } from "../lib/youtube";
 
 type Props = {
@@ -13,7 +14,6 @@ type Props = {
 const { latest: providedLatest } = Astro.props;
 const latest = providedLatest === undefined ? await getLatestTeaching(site.youtube) : providedLatest;
 const latestLabel = latest?.source === "featured" ? "Featured teaching" : "Newest upload";
-const latestDate = latest?.published ? formatPublishedDate(latest.published) : latest?.publishedLabel;
 const latestPath = latest ? getTeachingPagePath(latest) : "";
 const latestThumbnailSize = latest ? getYouTubeThumbnailSize(latest.thumbnail) : { width: 480, height: 360 };
 ---
@@ -33,7 +33,7 @@ const latestThumbnailSize = latest ? getYouTubeThumbnailSize(latest.thumbnail) :
           <div class="teaching-card__body">
             <p class="eyebrow">{latestLabel}</p>
             <h3 id="latest-teaching-title">{latest.title}</h3>
-            {latestDate && <p class="teaching-card__date">{latestDate}</p>}
+            <p class="teaching-card__date"><TeachingDate video={latest} fallbackLabel="Featured teaching" /></p>
             <div class="button-row">
               <ButtonLink href={latestPath}>Watch Teaching</ButtonLink>
               <ButtonLink href="/teaching/" variant="secondary">More Teaching</ButtonLink>
