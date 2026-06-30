@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import LatestTeaching from "../components/LatestTeaching.astro";
+import MinistryList from "../components/MinistryList.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+---
+
+<BaseLayout>
+  <section class="hero" aria-labelledby="hero-title">
+    <img class="hero__image" src={site.images.hero} alt="Open church doors on a warm Sunday morning" />
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="shell hero__content">
+      <p class="eyebrow">{site.home.hero.eyebrow}</p>
+      <h1 id="hero-title">{site.home.hero.headline}</h1>
+      <p class="hero__subheadline">{site.home.hero.subheadline}</p>
+      <p>{site.home.hero.body}</p>
+      <div class="hero__actions">
+        <ButtonLink href={site.home.hero.primaryCta.href}>{site.home.hero.primaryCta.label}</ButtonLink>
+        <ButtonLink href={site.home.hero.secondaryCta.href} variant="secondary">{site.home.hero.secondaryCta.label}</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-strip" aria-label="Sunday service information">
+    <div class="shell service-strip__grid">
+      <div>
+        <p class="eyebrow">This Sunday</p>
+        <h2>{site.service.primary.label}</h2>
+      </div>
+      <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
+      <p><strong>{site.service.coffee.label}: {site.service.coffee.time}</strong><br />{site.service.coffee.summary}</p>
+      <ButtonLink href="/contact/" variant="secondary">Plan a Visit</ButtonLink>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split">
+      <div>
+        <SectionIntro eyebrow={site.home.mission.eyebrow} title={site.home.mission.headline}>
+          <p>{site.home.mission.body}</p>
+        </SectionIntro>
+        <div class="mission-quote">
+          <p>{site.church.mission}</p>
+        </div>
+      </div>
+      <figure class="image-panel">
+        <img src={site.images.community} alt="People sharing a meal at Wayside Church" loading="lazy" />
+        <figcaption>Warm fellowship, practical care, and life together.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell">
+      <SectionIntro eyebrow="Ministries" title="Gather with us and participate with Jesus">
+        <p>Ministries at Wayside are simple on purpose: real people, shared Scripture, prayer, and room to grow.</p>
+      </SectionIntro>
+      <MinistryList limit={4} />
+    </div>
+  </section>
+
+  <LatestTeaching />
+
+  <section class="section">
+    <div class="shell">
+      <SectionIntro eyebrow="Next steps" title="A few simple ways to begin">
+        <p>Whether you are visiting for the first time or already part of Wayside, these are good places to start.</p>
+      </SectionIntro>
+      <div class="next-steps">
+        {site.home.nextSteps.map((step) => (
+          <a class="next-step" href={step.href}>
+            <span>{step.label}</span>
+            <p>{step.text}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="scripture-band" aria-label={site.home.scripture.reference}>
+    <div class="shell">
+      <p>{site.home.scripture.reference}</p>
+      <blockquote>{site.home.scripture.text}</blockquote>
+    </div>
+  </section>
+</BaseLayout>

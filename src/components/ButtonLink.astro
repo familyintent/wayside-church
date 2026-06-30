@@ -1,0 +1,19 @@
+---
+type Props = {
+  href: string;
+  variant?: "primary" | "secondary" | "text";
+  class?: string;
+};
+
+const { href, variant = "primary", class: className = "" } = Astro.props;
+const isExternal = href.startsWith("http");
+---
+
+<a
+  class:list={["button", `button--${variant}`, className]}
+  href={href}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noreferrer" : undefined}
+>
+  <slot />
+</a>

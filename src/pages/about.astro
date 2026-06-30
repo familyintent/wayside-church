@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+---
+
+<BaseLayout title="About">
+  <section class="page-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">About Wayside</p>
+      <h1>{site.about.title}</h1>
+      <p>{site.about.intro}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split">
+      <article class="belief-callout">
+        <h2>{site.about.fiveFold.title}</h2>
+        <p>{site.about.fiveFold.body}</p>
+      </article>
+      <article class="belief-callout belief-callout--quiet">
+        <h2>{site.about.gospel.title}</h2>
+        <p>{site.about.gospel.body}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell">
+      <SectionIntro eyebrow="Our leaders" title="Meet Chase and Owen">
+        <p>Do not hesitate to reach out or send an update to one of our servants at Wayside Church.</p>
+      </SectionIntro>
+      <div class="leader-grid">
+        {site.about.leaders.map((leader) => (
+          <article class="leader-card">
+            <img src={leader.image} alt={leader.name} loading="lazy" />
+            <div>
+              <p class="eyebrow">{leader.role}</p>
+              <h3>{leader.name}</h3>
+              <p>{leader.bio}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionIntro eyebrow="Statement of faith" title="Our statement of faith">
+        <p>{site.about.gatheringNote}</p>
+      </SectionIntro>
+      <div class="belief-list">
+        {site.about.beliefs.map((belief) => (
+          <article>
+            <h3>{belief.title}</h3>
+            <p>{belief.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Come visit us</p>
+        <h2>{site.service.primary.day}s at {site.service.primary.time}</h2>
+        <p>{site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <ButtonLink href="/contact/">Plan a Visit</ButtonLink>
+    </div>
+  </section>
+</BaseLayout>

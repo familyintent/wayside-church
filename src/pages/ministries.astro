@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import MinistryList from "../components/MinistryList.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+---
+
+<BaseLayout title="Ministries">
+  <section class="page-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">Ministries</p>
+      <h1>{site.ministries.title}</h1>
+      <p>{site.ministries.intro}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionIntro eyebrow="Ways to connect" title="We have a place for you">
+        <p>Each ministry is designed to help people grow in faith, build meaningful relationships, and serve with humility.</p>
+      </SectionIntro>
+      <MinistryList />
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell ministry-detail-list">
+      {site.ministries.items.map((ministry) => (
+        <article>
+          <p class="eyebrow">{ministry.schedule}</p>
+          <h2>{ministry.name}</h2>
+          <p>{ministry.details}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Questions about a ministry?</p>
+        <h2>We would be glad to help you find a next step.</h2>
+      </div>
+      <ButtonLink href="/contact/">Contact Us</ButtonLink>
+    </div>
+  </section>
+</BaseLayout>

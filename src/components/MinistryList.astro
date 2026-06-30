@@ -1,0 +1,25 @@
+---
+import ButtonLink from "./ButtonLink.astro";
+import { site } from "../lib/content";
+
+const { limit } = Astro.props;
+const ministries = typeof limit === "number" ? site.ministries.items.slice(0, limit) : site.ministries.items;
+---
+
+<div class="ministry-list">
+  {ministries.map((ministry) => (
+    <article class="ministry-row">
+      <div>
+        <p class="ministry-row__time">{ministry.schedule}</p>
+        <h3>{ministry.name}</h3>
+      </div>
+      <p>{ministry.summary}</p>
+    </article>
+  ))}
+</div>
+
+{typeof limit === "number" && site.ministries.items.length > limit && (
+  <div class="section-action">
+    <ButtonLink href="/ministries/" variant="secondary">Browse all ministries</ButtonLink>
+  </div>
+)}

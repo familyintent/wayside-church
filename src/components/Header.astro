@@ -1,0 +1,55 @@
+---
+import Logo from "./Logo.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import ButtonLink from "./ButtonLink.astro";
+import { site } from "../lib/content";
+
+const currentPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const isActive = (href: string) => href === currentPath || (href === "/" && currentPath === "/");
+---
+
+<header class="site-header">
+  <nav class="nav shell" aria-label="Main navigation">
+    <a class="nav__brand" href="/" aria-label="Wayside Church home">
+      <Logo />
+    </a>
+
+    <button class="nav__menu-button" type="button" data-menu-button aria-controls="primary-navigation" aria-expanded="false">
+      <span class="sr-only">Open navigation</span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav__links" id="primary-navigation" data-menu>
+      {site.navigation.map((item) => (
+        <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="nav__actions">
+      <ThemeToggle />
+      <ButtonLink href="/giving/" variant="secondary">Give</ButtonLink>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>("[data-menu-button]");
+  const menu = document.querySelector<HTMLElement>("[data-menu]");
+
+  menuButton?.addEventListener("click", () => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!isOpen));
+    menu?.setAttribute("data-open", String(!isOpen));
+  });
+
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menuButton?.setAttribute("aria-expanded", "false");
+      menu?.setAttribute("data-open", "false");
+    });
+  });
+</script>

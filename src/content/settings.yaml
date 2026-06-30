@@ -1,0 +1,187 @@
+# Wayside Church editable content
+# This is the main file church staff can update later. Keep indentation intact.
+
+meta:
+  # Update this when the final production domain changes.
+  siteUrl: "https://www.wayside.church"
+  title: "Wayside Church"
+  description: "Wayside Church is a welcoming local church in Charlton, MA, gathering Sundays for worship, teaching, fellowship, and life in Jesus."
+
+church:
+  name: "Wayside Church"
+  tagline: "A place to grow your faith"
+  city: "Charlton"
+  state: "MA"
+  # Update the mission statement here.
+  mission: "We are a community dedicated to seeing individuals, families, communities, and cities radically transformed by the Gospel of Jesus Christ."
+
+# Update service times, address, and phone here.
+service:
+  primary:
+    label: "Sunday Worship"
+    day: "Sunday"
+    time: "9:30 AM"
+    summary: "Worship, Bible teaching, prayer, and fellowship in a warm, friendly environment."
+  coffee:
+    label: "Coffee and Connections"
+    day: "Sunday"
+    time: "9:00 AM"
+    summary: "Come early for coffee, conversation, and a quieter first step into community."
+
+contact:
+  addressLine1: "6 Haggerty Rd"
+  cityStateZip: "Charlton, MA 01507"
+  phone: "(508) 434-0401"
+  phoneHref: "tel:+15084340401"
+
+# Keep external links for giving, newsletter signup, YouTube, and social profiles here.
+links:
+  giving: "https://givingtools.com/give/1330"
+  newsletter: "https://forms.office.com/pages/responsepage.aspx?id=yp8cZEm-Ok6njO9u5jXf8T9IbOUSJpNEoxnoOSGXWr5UOTlQWlM2STlWSzhERFlGQzhGSDhJQ0U2NS4u"
+  youtube: "https://www.youtube.com/@waysidechurch864"
+  facebook: "https://www.facebook.com/WaysideACC"
+  instagram: "https://www.instagram.com/"
+  maps: "https://www.google.com/maps/place/Wayside+Church/@42.104233,-71.9553559,17z/data=!3m1!4b1!4m6!3m5!1s0x89e6a0a0a38d8579:0x109a39272ac71348!8m2!3d42.104233!4d-71.952781!16s%2Fg%2F1tfg8pyw?entry=ttu"
+
+# Update this only if the YouTube channel changes.
+# Staff should only need to upload sermons to YouTube; the homepage reads the newest upload from this feed at build time.
+youtube:
+  channelId: "UCETcyl8b0ylPXNQtUtTZpAQ"
+  handle: "@waysidechurch864"
+  feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UCETcyl8b0ylPXNQtUtTZpAQ"
+  fallbackTitle: "Latest teaching"
+  fallbackMessage: "We could not load the latest teaching right now, but the full video library is available on YouTube."
+
+images:
+  hero: "/images/wayside-hero.png"
+  community: "/images/wayside-community.jpg"
+  chase: "/images/chase-mendoza.jpg"
+  owen: "/images/owen-rushing.jpg"
+  charlton: "/images/charlton.png"
+
+navigation:
+  - label: "Home"
+    href: "/"
+  - label: "About"
+    href: "/about/"
+  - label: "Ministries"
+    href: "/ministries/"
+  - label: "Contact"
+    href: "/contact/"
+  - label: "Newsletter"
+    href: "/newsletter/"
+
+home:
+  # Update homepage hero copy here.
+  hero:
+    eyebrow: "The church in Charlton, MA"
+    headline: "Wayside Church"
+    subheadline: "A place to grow your faith."
+    body: "Join us Sunday mornings as we worship Jesus, open Scripture, share life, and make room for families, guests, and neighbors."
+    primaryCta:
+      label: "Plan a Visit"
+      href: "/contact/"
+    secondaryCta:
+      label: "Watch Teaching"
+      href: "#latest-teaching"
+  mission:
+    eyebrow: "Dream big"
+    headline: "A small church with a big vision for Jesus."
+    body: "There is no dress code. Come in a suit or casually, whatever you prefer. Wayside is a church family that loves, encourages, and challenges each other to grow in Jesus Christ."
+  nextSteps:
+    - label: "Plan a Visit"
+      text: "Find service time, address, and what to expect."
+      href: "/contact/"
+    - label: "Contact Us"
+      text: "Reach out with a question, prayer need, or next step."
+      href: "/contact/"
+    - label: "Watch Teaching"
+      text: "Catch up on the newest sermon from Wayside."
+      href: "#latest-teaching"
+    - label: "Give"
+      text: "Support the work of Wayside Church."
+      href: "/giving/"
+  scripture:
+    reference: "Psalm 23:1"
+    text: "The Lord is my shepherd; I have what I need."
+
+about:
+  title: "We are about Jesus Christ"
+  intro: "Jesus is the most significant person in history and is profoundly relevant to our lives today. His life, death, and resurrection changed the world and brought hope to the people around us."
+  fiveFold:
+    title: "We embrace the five-fold ministry established by Jesus"
+    body: "We embrace the ministry of Jesus: reconciling the lost to God, healing the sick and broken, preaching and teaching the Gospel, delivering people from spiritual bondage, and embodying a life of servanthood and humility."
+  gospel:
+    title: "We proclaim the Gospel of Jesus"
+    body: "We are a community dedicated to seeing individuals, families, communities, and cities radically transformed by the Gospel of Jesus Christ through one Gospel-centered church at a time."
+  leaders:
+    - name: "Chase Mendoza"
+      role: "Pastor"
+      image: "/images/chase-mendoza.jpg"
+      bio: "Chase is a West Coast native who moved East to attend the Berkshire Institute for Christian Studies in Lenox, Massachusetts. After graduating from BICS, he pursued further theological training through the Antioch School of Church Planting and Leadership Development. Pastor Chase and his family joined Wayside Church to revitalize this local community in 2019."
+    - name: "Owen Rushing"
+      role: "Servant Leader"
+      image: "/images/owen-rushing.jpg"
+      bio: "Owen Rushing was born in Laconia, New Hampshire. In high school, he joined the U.S. Army Reserve and served for nine years. In 2022, he attended a gap-year Christian school program at Berkshire Institute for Christian Studies."
+  beliefs:
+    - title: "The Gospel and Teaching"
+      body: "We hold firm to the Gospel and teachings proclaimed by the Apostles: the Kerygma, meaning proclamation, and the Apostles' Teaching, also called Didache."
+    - title: "Advent Christian Declaration of Principles"
+      body: "We are part of the Advent Christian denomination and hold to its declaration of principles, including the hope of the return of Jesus Christ."
+    - title: "Reformed Emphasis"
+      body: "We affirm the five solas of the Reformation: Scripture alone, faith alone, grace alone, Christ alone, and glory to God alone."
+    - title: "National Association of Evangelicals"
+      body: "As members of the National Association of Evangelicals, we believe in the authority of the Bible, the Trinity, the deity and work of Jesus Christ, the necessity of the Holy Spirit for salvation and godly living, the resurrection of the saved and lost, and the spiritual unity of believers."
+  gatheringNote: "When you join one of our worship gatherings, you may find it a little different than a traditional worship service. We model our gathering around patterns found in the Epistles and the book of Acts."
+
+# Update ministries here.
+ministries:
+  title: "Explore our Ministries"
+  intro: "At Wayside Church, we foster a vibrant community where faith is deepened, lives are transformed, and the love of Christ is shared."
+  items:
+    - name: "Coffee and Connections"
+      schedule: "Sunday at 9:00 AM"
+      summary: "Warm conversations, laughter, and meaningful connections before the main gathering."
+      details: "Join us Sunday mornings for coffee and connection. It is a simple, welcoming way to deepen fellowship and build lasting bonds."
+    - name: "Men's Spiritual Warfare"
+      schedule: "Sunday at 6:00 PM"
+      summary: "A gathering for men to study, pray, and stand firm in faith."
+      details: "We call men to discuss spiritual warfare, uphold the truth of God's Word, and support one another with courage and humility."
+    - name: "Little Disciples"
+      schedule: "Sunday at 9:30 AM"
+      summary: "Children are welcomed and integrated into the life of the church."
+      details: "Little Disciples nurtures faith in children while keeping families connected to the whole congregation."
+    - name: "NewLife Youth Ministry"
+      schedule: "Sunday at 9:30 AM"
+      summary: "Youth are invited to engage, grow, and serve alongside the church family."
+      details: "NewLife is dedicated to creating a supportive environment where young people can grow in faith, build meaningful relationships, and discover their place in the church."
+    - name: "Identity Groups"
+      schedule: "Wednesday at 6:00 PM"
+      summary: "Midweek community for discipleship, prayer, and life together."
+      details: "Identity Groups create space to grow in our relationship with God, support one another, and practice Gospel-centered community."
+
+contactPage:
+  title: "Contact us"
+  intro: "We are a small church with a big vision for Jesus. Come dream big with Jesus alongside us."
+  visitCopy: "When you join one of our worship gatherings, you may find it a little different than a traditional worship service. You will find worship, Scripture, prayer, fellowship, and people glad to meet you."
+  faq:
+    - question: "What should I expect when I visit for the first time?"
+      answer: "You will find a warm and welcoming community, worship, Bible teaching, and an atmosphere where you can connect with others. There is usually time for fellowship before and after the gathering."
+    - question: "Do I need to dress a certain way?"
+      answer: "Come as you are. Some people dress casually, some dress more formally, and our focus is worshiping Jesus together."
+    - question: "Can I attend if I am not a Christian?"
+      answer: "Absolutely. Wayside welcomes everyone regardless of faith background, and we are glad to answer honest questions."
+    - question: "What is the church schedule?"
+      answer: "Coffee and Connections begins Sundays at 9:00 AM, and Sunday worship begins at 9:30 AM."
+    - question: "Can I share a prayer request?"
+      answer: "Yes. Call us or talk with one of our leaders on Sunday. We would be honored to pray with you."
+
+givingPage:
+  title: "Give to Wayside Church"
+  intro: "Giving is one way our church family supports worship, ministry, care, and mission in Charlton and beyond."
+  body: "Wayside uses a secure external giving platform. When you click Give Online, you will leave this site and continue through GivingTools."
+
+newsletterPage:
+  title: "Stay connected"
+  intro: "Subscribe to receive Wayside updates, announcements, ministry rhythms, and next steps."
+  body: "Newsletter signup is managed through Microsoft Forms so staff can keep the list current without editing the website."

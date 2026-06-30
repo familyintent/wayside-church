@@ -1,0 +1,19 @@
+{
+  "name": "wayside-church-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.3.0",
+    "astro": "^5.13.0",
+    "fast-xml-parser": "^5.2.5",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {}
+}

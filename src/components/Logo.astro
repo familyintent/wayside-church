@@ -1,0 +1,19 @@
+---
+type Props = {
+  compact?: boolean;
+  tone?: "auto" | "navy" | "white";
+};
+
+const { compact = false, tone = "auto" } = Astro.props;
+---
+
+<span class:list={["logo", `logo--${tone}`, { "logo--compact": compact }]} aria-label="Wayside Church">
+  <span class="logo__mark" aria-hidden="true">
+    <img class="logo__image logo__image--navy" src="/images/wayside-logo-mark-navy.png" alt="" loading="eager" />
+    <img class="logo__image logo__image--white" src="/images/wayside-logo-mark-white.png" alt="" loading="eager" />
+  </span>
+  <span class="logo__text">
+    <span>Wayside</span>
+    <span>Church</span>
+  </span>
+</span>

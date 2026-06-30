@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import { site } from "../lib/content";
+---
+
+<BaseLayout title="Newsletter">
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">Newsletter</p>
+      <h1>{site.newsletterPage.title}</h1>
+      <p>{site.newsletterPage.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={site.links.newsletter}>Sign Up</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell narrow">
+      <p class="lead">{site.newsletterPage.body}</p>
+      <div class="quiet-box">
+        <h2>Staff-friendly updates</h2>
+        <p>The signup URL is configured in <code>src/content/settings.yaml</code> with the other external links.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

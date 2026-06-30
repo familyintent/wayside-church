@@ -1,0 +1,42 @@
+---
+import Logo from "./Logo.astro";
+import { site } from "../lib/content";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-brand">
+      <a href="/" aria-label="Wayside Church home">
+        <Logo compact tone="white" />
+      </a>
+      <p>{site.church.mission}</p>
+      <div class="social-links" aria-label="Social links">
+        <a href={site.links.facebook} target="_blank" rel="noreferrer">Facebook</a>
+        <a href={site.links.instagram} target="_blank" rel="noreferrer">Instagram</a>
+        <a href={site.links.youtube} target="_blank" rel="noreferrer">YouTube</a>
+      </div>
+    </div>
+
+    <div class="footer-contact">
+      <h2>Gather With Us</h2>
+      <p><strong>{site.service.primary.day}s at {site.service.primary.time}</strong></p>
+      <p>{site.contact.addressLine1}<br />{site.contact.cityStateZip}</p>
+      <p><a href={site.contact.phoneHref}>{site.contact.phone}</a></p>
+    </div>
+
+    <div class="footer-links">
+      <h2>Pages</h2>
+      <a href="/about/">About</a>
+      <a href="/ministries/">Ministries</a>
+      <a href="/contact/">Contact</a>
+      <a href="/newsletter/">Newsletter</a>
+      <a href="/giving/">Giving</a>
+    </div>
+  </div>
+
+  <div class="shell footer-bottom">
+    <p>Copyright {year} Wayside Church</p>
+  </div>
+</footer>

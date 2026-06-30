@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import { site } from "../lib/content";
+---
+
+<BaseLayout title="Giving">
+  <section class="page-hero page-hero--center">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">Giving</p>
+      <h1>{site.givingPage.title}</h1>
+      <p>{site.givingPage.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={site.links.giving}>Give Online</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell narrow">
+      <p class="lead">{site.givingPage.body}</p>
+      <div class="quiet-box">
+        <h2>Secure external giving</h2>
+        <p>The giving link is configured in <code>src/content/settings.yaml</code>. Update that one value if Wayside changes giving providers later.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

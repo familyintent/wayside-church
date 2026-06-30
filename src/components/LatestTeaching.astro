@@ -1,0 +1,38 @@
+---
+import ButtonLink from "./ButtonLink.astro";
+import SectionIntro from "./SectionIntro.astro";
+import { site } from "../lib/content";
+import { formatPublishedDate, getLatestTeaching } from "../lib/youtube";
+
+const latest = await getLatestTeaching(site.youtube);
+---
+
+<section class="section section--ink" id="latest-teaching" aria-labelledby="latest-teaching-title">
+  <div class="shell">
+    <SectionIntro eyebrow="Latest teaching" title="Watch and experience our latest teaching" align="center">
+      <p>New uploads are pulled from Wayside's YouTube channel automatically at build time.</p>
+    </SectionIntro>
+
+    {
+      latest ? (
+        <article class="teaching-card" aria-labelledby="latest-teaching-title">
+          <div class="teaching-card__image">
+            <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} loading="lazy" />
+          </div>
+          <div class="teaching-card__body">
+            <p class="eyebrow">Newest upload</p>
+            <h3 id="latest-teaching-title">{latest.title}</h3>
+            {latest.published && <p class="teaching-card__date">{formatPublishedDate(latest.published)}</p>}
+            <ButtonLink href={latest.url}>Watch on YouTube</ButtonLink>
+          </div>
+        </article>
+      ) : (
+        <div class="teaching-fallback">
+          <h3 id="latest-teaching-title">{site.youtube.fallbackTitle}</h3>
+          <p>{site.youtube.fallbackMessage}</p>
+          <ButtonLink href={site.links.youtube}>Visit YouTube Channel</ButtonLink>
+        </div>
+      )
+    }
+  </div>
+</section>
