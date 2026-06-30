@@ -76,7 +76,7 @@ links:
   connectCard: "/contact/"
 
 # Update the Sunday calendar event here if the gathering time or address changes.
-# The .ics file in public/calendar should match these values so Apple, iPhone, and Outlook stay current.
+# Apple, iPhone, and Outlook use a generated .ics route, so staff should only need to edit these values.
 calendar:
   sunday:
     title: "Wayside Church Sunday Worship"

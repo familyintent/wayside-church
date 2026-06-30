@@ -67,19 +67,60 @@ const dayIndexes: Record<string, number> = {
   Saturday: 6,
 };
 
-function toDatePart(date: Date) {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+function getZonedDateParts(date: Date, timeZone: string) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    weekday: "long",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(date);
+  const value = (type: string) => parts.find((part) => part.type === type)?.value || "";
+
+  return {
+    weekday: value("weekday"),
+    year: Number(value("year")),
+    month: Number(value("month")),
+    day: Number(value("day")),
+    hour: Number(value("hour")),
+    minute: Number(value("minute")),
+  };
+}
+
+function addDaysToDateParts(year: number, month: number, day: number, days: number) {
+  const date = new Date(Date.UTC(year, month - 1, day + days));
+  return {
+    year: date.getUTCFullYear(),
+    month: date.getUTCMonth() + 1,
+    day: date.getUTCDate(),
+  };
+}
+
+function datePartFromParts(parts: { year: number; month: number; day: number }) {
+  return `${parts.year}-${String(parts.month).padStart(2, "0")}-${String(parts.day).padStart(2, "0")}`;
+}
+
+function timeToMinutes(value: string) {
+  const [hours, minutes] = value.split(":").map(Number);
+  return (hours || 0) * 60 + (minutes || 0);
 }
 
 function getNextOccurrence(day: string, startTime: string, endTime: string) {
   const now = new Date();
+  const timeZone = site.calendar.sunday.timezone || "America/New_York";
+  const nowParts = getZonedDateParts(now, timeZone);
   const targetDay = dayIndexes[day] ?? 0;
-  const next = new Date(now);
-  const daysUntil = (targetDay - now.getDay() + 7) % 7;
+  const today = dayIndexes[nowParts.weekday] ?? 0;
+  let daysUntil = (targetDay - today + 7) % 7;
 
-  next.setDate(now.getDate() + daysUntil);
+  if (daysUntil === 0 && nowParts.hour * 60 + nowParts.minute >= timeToMinutes(endTime)) {
+    daysUntil = 7;
+  }
 
-  const datePart = toDatePart(next);
+  const datePart = datePartFromParts(addDaysToDateParts(nowParts.year, nowParts.month, nowParts.day, daysUntil));
   return {
     startDate: `${datePart}T${startTime}:00`,
     endDate: `${datePart}T${endTime}:00`,

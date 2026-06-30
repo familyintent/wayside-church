@@ -477,6 +477,26 @@ if (!fs.existsSync(llmsPath)) {
   errors.push("Missing llms.txt.");
 }
 
+const calendarPath = path.join(distDir, "calendar", "wayside-sunday-worship.ics");
+if (!fs.existsSync(calendarPath)) {
+  errors.push("Missing generated Sunday Worship calendar .ics file.");
+} else {
+  const calendar = readText(calendarPath);
+  for (const expected of [
+    "BEGIN:VCALENDAR",
+    "SUMMARY:Wayside Church Sunday Worship",
+    "DTSTART;TZID=America/New_York:20260705T100000",
+    "DTEND;TZID=America/New_York:20260705T113000",
+    "RRULE:FREQ=WEEKLY;BYDAY=SU",
+    "LOCATION:6 Haggerty Rd\\, Charlton\\, MA 01507",
+    "URL:https://wayside.church/",
+  ]) {
+    if (!calendar.includes(expected)) {
+      errors.push(`Generated Sunday Worship calendar is missing ${expected}.`);
+    }
+  }
+}
+
 const imageSitemapPath = path.join(distDir, "image-sitemap.xml");
 if (!fs.existsSync(imageSitemapPath)) {
   errors.push("Missing image-sitemap.xml.");

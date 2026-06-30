@@ -62,10 +62,16 @@ const baseLayout = readText("src/layouts/BaseLayout.astro");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
 
+const schemaHelper = readText("src/lib/schema.ts");
+requireIncludes("src/lib/schema.ts", schemaHelper, "getZonedDateParts");
+requireIncludes("src/lib/schema.ts", schemaHelper, "site.calendar.sunday.timezone");
+requireIncludes("src/lib/schema.ts", schemaHelper, "daysUntil = 7");
+
 const settings = readText("src/content/settings.yaml");
 requireIncludes("src/content/settings.yaml", settings, "Staff should only need to upload sermons to YouTube");
 requireIncludes("src/content/settings.yaml", settings, "visitDetails:");
 requireIncludes("src/content/settings.yaml", settings, "Parking is available near the building");
+requireIncludes("src/content/settings.yaml", settings, "generated .ics route");
 requireIncludes("src/content/settings.yaml", settings, "feedUrl: \"https://www.youtube.com/feeds/videos.xml");
 requireIncludes("src/content/settings.yaml", settings, "channelVideosUrl:");
 requireIncludes("src/content/settings.yaml", settings, "featuredVideo:");
@@ -79,7 +85,17 @@ requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm automation:audit
 
 const readme = readText("README.md");
 requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, video-sitemap, or teaching-feed edit is needed");
+requireIncludes("README.md", readme, "update `calendar.sunday` only");
 requireIncludes("README.md", readme, "daily so the build-time YouTube feed can refresh");
+
+const generatedCalendar = readText("src/pages/calendar/wayside-sunday-worship.ics.ts");
+requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "site.calendar.sunday");
+requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "text/calendar");
+requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "BEGIN:VCALENDAR");
+
+if (fs.existsSync(path.join(rootDir, "public", "calendar", "wayside-sunday-worship.ics"))) {
+  errors.push("Calendar .ics should be generated from settings, not manually maintained in public/calendar.");
+}
 
 if (errors.length > 0) {
   console.error("Automation audit failed:");

@@ -52,7 +52,7 @@ That file includes comments showing where to update:
 - Sermons page copy and FAQ
 - Beliefs page copy
 - Ministries page copy, audience labels, and weekly rhythm
-- Sunday calendar event settings
+- Sunday calendar event settings for Google, Apple/iPhone, and Outlook
 - ministries
 - giving, newsletter, YouTube, and social links
 - optional connect card / follow-up link
@@ -241,13 +241,13 @@ src/content/settings.yaml
 
 under `calendar.sunday`.
 
-Apple/iPhone and Outlook use this standards-based recurring calendar file:
+Apple/iPhone and Outlook use this standards-based recurring calendar route:
 
 ```text
-public/calendar/wayside-sunday-worship.ics
+src/pages/calendar/wayside-sunday-worship.ics.ts
 ```
 
-If the worship time, address, or event description changes, update both `calendar.sunday` and the `.ics` file so all calendar options stay aligned.
+If the worship time, address, or event description changes, update `calendar.sunday` only. The `.ics` file is generated during the Astro build so all calendar options stay aligned.
 
 ## Notes
 

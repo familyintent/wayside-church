@@ -338,6 +338,32 @@ async function checkTeachingFeed() {
   }
 }
 
+async function checkSundayCalendarFile() {
+  const calendarUrl = new URL("/calendar/wayside-sunday-worship.ics", rootUrl).toString();
+  const { response, text } = await fetchText(calendarUrl, {
+    accept: "text/calendar,text/plain;q=0.9,*/*;q=0.8",
+  });
+
+  if (!response.ok) {
+    reportError(`${calendarUrl} should be fetchable, got ${response.status}.`);
+    return;
+  }
+
+  for (const expected of [
+    "BEGIN:VCALENDAR",
+    "SUMMARY:Wayside Church Sunday Worship",
+    "DTSTART;TZID=America/New_York:20260705T100000",
+    "DTEND;TZID=America/New_York:20260705T113000",
+    "RRULE:FREQ=WEEKLY;BYDAY=SU",
+    "LOCATION:6 Haggerty Rd\\, Charlton\\, MA 01507",
+    "URL:https://wayside.church/",
+  ]) {
+    if (!text.includes(expected)) {
+      reportError(`Generated Sunday Worship calendar is missing ${expected}.`);
+    }
+  }
+}
+
 async function checkHomepageSchema(homeHtml) {
   const jsonLdBlocks = extractJsonLd(homeHtml);
   const parsedSchemas = [];
@@ -574,6 +600,7 @@ async function main() {
   await checkImageSitemap(sitemapUrls);
   await checkVideoSitemap(sitemapUrls);
   await checkTeachingFeed();
+  await checkSundayCalendarFile();
   await checkLivePages(sitemapUrls);
   await checkLiveTeachingPages();
   await checkLiveVisitorDetails();
