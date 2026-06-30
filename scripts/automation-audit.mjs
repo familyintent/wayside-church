@@ -107,6 +107,10 @@ requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingSl
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingEmbedUrl(video)");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingVideoSchema(video");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getYouTubeThumbnailSize(video.thumbnail)");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "relatedTeachings: teachings.filter");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "relatedWithThumbnailSizes");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "watchPage.relatedTitle");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingPagePath(teaching)");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "image={video.thumbnail}");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "imageAlt={thumbnailAlt}");
 
@@ -184,6 +188,9 @@ requireIncludes("src/lib/schema.ts", schemaHelper, "site.calendar.sunday.timezon
 requireIncludes("src/lib/schema.ts", schemaHelper, "daysUntil = 7");
 requireIncludes("src/lib/schema.ts", schemaHelper, "isAccessibleForFree: true");
 requireIncludes("src/lib/schema.ts", schemaHelper, "inLanguage: \"en-US\"");
+requireIncludes("src/lib/schema.ts", schemaHelper, "mainEntityOfPage");
+requireIncludes("src/lib/schema.ts", schemaHelper, "isFamilyFriendly: true");
+requireIncludes("src/lib/schema.ts", schemaHelper, "\"@type\": \"WatchAction\"");
 
 const settings = readText("src/content/settings.yaml");
 requireIncludes("src/content/settings.yaml", settings, "Staff should only need to upload sermons to YouTube");
@@ -199,6 +206,8 @@ requireIncludes("src/content/settings.yaml", settings, "feedUrl: \"https://www.y
 requireIncludes("src/content/settings.yaml", settings, "channelVideosUrl:");
 requireIncludes("src/content/settings.yaml", settings, "featuredVideo:");
 requireIncludes("src/content/settings.yaml", settings, "Only edit the page copy below");
+requireIncludes("src/content/settings.yaml", settings, "watchPage:");
+requireIncludes("src/content/settings.yaml", settings, "The video, title, publish date, thumbnail, and related teaching cards still come from YouTube");
 requireIncludes("src/content/settings.yaml", settings, "localEntity:");
 requireIncludes("src/content/settings.yaml", settings, "wayside-local-1x1.webp");
 requireIncludes("src/content/settings.yaml", settings, "wayside-local-4x3.webp");
@@ -227,7 +236,7 @@ requireIncludes("astro.config.mjs", astroConfig, "lastmod: newestIsoDate");
 requireIncludes("astro.config.mjs", astroConfig, "XMLParser");
 
 const readme = readText("README.md");
-requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, individual watch page, video-sitemap, or teaching-feed edit is needed");
+requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, individual watch page, related-teaching card, video-sitemap, or teaching-feed edit is needed");
 requireIncludes("README.md", readme, "update `calendar.sunday` only");
 requireIncludes("README.md", readme, "daily so the build-time YouTube feed can refresh");
 requireIncludes("README.md", readme, "pnpm performance:audit");

@@ -279,6 +279,8 @@ export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/min
 }
 
 export function getTeachingVideoSchema(video: TeachingVideo, pagePath = "/teaching/") {
+  const pageUrl = absoluteUrl(pagePath, site.meta.siteUrl);
+
   return {
     "@context": "https://schema.org",
     "@type": "VideoObject",
@@ -288,8 +290,20 @@ export function getTeachingVideoSchema(video: TeachingVideo, pagePath = "/teachi
     uploadDate: video.published || undefined,
     contentUrl: video.url,
     embedUrl: `https://www.youtube.com/embed/${video.videoId}`,
-    url: absoluteUrl(pagePath, site.meta.siteUrl),
+    url: pageUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+    },
+    about: { "@id": churchId },
     publisher: { "@id": churchId },
+    isFamilyFriendly: true,
+    inLanguage: "en-US",
+    potentialAction: {
+      "@type": "WatchAction",
+      target: [pageUrl, video.url],
+    },
   };
 }
 

@@ -683,6 +683,25 @@ teachingPage:
   recentTitle: "More recent teaching"
   recentIntro: "These recent uploads help you get a feel for our preaching, Scripture focus, and hope in Jesus."
   visitTitle: "Teaching is best heard in the life of the church."
+  # Update this copy for the automatically generated individual teaching watch pages.
+  # The video, title, publish date, thumbnail, and related teaching cards still come from YouTube.
+  watchPage:
+    contextEyebrow: "Listen, then visit"
+    contextTitle: "Teaching belongs in the life of the church."
+    contextBody: "These messages are one way to get to know Wayside before Sunday. The best next step is still simple: come worship with us, meet a few people, and take the morning at your own pace."
+    nextEyebrow: "After you watch"
+    nextTitle: "Take one simple next step."
+    nextBody: "A sermon can help you hear what we value, but following Jesus happens with people. These next steps keep the path clear and unpressured."
+    steps:
+      - title: "Plan a Sunday visit"
+        body: "Find the service time, address, parking notes, family details, and calendar links before you drive over."
+      - title: "Learn what shapes us"
+        body: "Read about our beliefs, mission, and leadership so you can understand the church behind the teaching."
+      - title: "Start with a conversation"
+        body: "Call the church or talk with someone after worship if you have a question, need prayer, or want help finding a next step."
+    relatedEyebrow: "More recent teaching"
+    relatedTitle: "Keep listening before Sunday."
+    relatedBody: "These related messages are pulled from the same YouTube feed, so this page stays current as new teaching is uploaded."
 
 # Only edit the page copy below. The actual latest and recent video cards on /sermons/ are populated from the YouTube feed above.
 sermonsPage:

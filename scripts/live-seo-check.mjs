@@ -544,6 +544,35 @@ async function checkVideoSitemap(sitemapUrls) {
     if (!watchText.includes('"@type":"VideoObject"')) {
       reportError(`${videoPageUrl} should include VideoObject schema.`);
     }
+    const watchSchemas = [];
+    for (const block of extractJsonLd(watchText)) {
+      try {
+        watchSchemas.push(JSON.parse(block));
+      } catch (error) {
+        reportError(`${videoPageUrl} has invalid watch page JSON-LD: ${error.message}`);
+      }
+    }
+    const watchVideoObjects = watchSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
+    const watchVideoObject = watchVideoObjects[0];
+    if (!watchVideoObject) {
+      reportError(`${videoPageUrl} should include inspectable VideoObject schema.`);
+    } else {
+      if (watchVideoObject.mainEntityOfPage?.["@id"] !== `${videoPageUrl}#webpage`) {
+        reportError(`${videoPageUrl} VideoObject should point mainEntityOfPage to the local teaching page.`);
+      }
+      if (watchVideoObject.about?.["@id"] !== `${rootUrl}#church`) {
+        reportError(`${videoPageUrl} VideoObject should identify Wayside Church as the subject.`);
+      }
+      if (watchVideoObject.isFamilyFriendly !== true) {
+        reportError(`${videoPageUrl} VideoObject should mark teaching as family-friendly.`);
+      }
+      if (watchVideoObject.inLanguage !== "en-US") {
+        reportError(`${videoPageUrl} VideoObject should include inLanguage en-US.`);
+      }
+      if (watchVideoObject.potentialAction?.["@type"] !== "WatchAction" || !textIncludes(watchVideoObject.potentialAction?.target, videoPageUrl)) {
+        reportError(`${videoPageUrl} VideoObject should include a WatchAction for the local teaching page.`);
+      }
+    }
     const watchOgImage = getMetaPropertyContent(watchText, "og:image");
     const watchTwitterImage = getMetaContent(watchText, "twitter:image");
     const watchOgImageAlt = getMetaPropertyContent(watchText, "og:image:alt");
@@ -568,6 +597,10 @@ async function checkVideoSitemap(sitemapUrls) {
     }
     if (!watchText.includes("Plan a Visit")) {
       reportError(`${videoPageUrl} should include a visitor next step.`);
+    }
+    const relatedTeachingTileCount = countMatches(watchText, /class=["']teaching-tile["']/g);
+    if (!watchText.includes("More recent teaching") || relatedTeachingTileCount < 3) {
+      reportError(`${videoPageUrl} should include related recent teaching cards.`);
     }
     if (!watchText.includes("frame-src https://www.youtube-nocookie.com https://www.youtube.com")) {
       reportError(`${videoPageUrl} CSP should allow only the expected YouTube frame hosts.`);

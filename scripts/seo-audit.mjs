@@ -96,6 +96,10 @@ function extractUrls(html, attributeName) {
   return [...html.matchAll(new RegExp(`\\s${attributeName}=["']([^"']+)["']`, "gi"))].map((match) => match[1]);
 }
 
+function countMatches(value, regex) {
+  return [...value.matchAll(regex)].length;
+}
+
 function extractAnchors(html) {
   return [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map((match) => ({
     href: match[1],
@@ -1080,6 +1084,35 @@ if (!fs.existsSync(videoSitemapPath)) {
     if (!watchPageHtml.includes("VideoObject")) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should include VideoObject schema.`);
     }
+    const watchPageSchemas = [];
+    for (const block of extractJsonLd(watchPageHtml)) {
+      try {
+        watchPageSchemas.push(JSON.parse(block));
+      } catch (error) {
+        errors.push(`${routeLabel(route)}: invalid watch page JSON-LD (${error.message}).`);
+      }
+    }
+    const watchVideoObjects = watchPageSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
+    const watchVideoObject = watchVideoObjects[0];
+    if (!watchVideoObject) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should include inspectable VideoObject schema.`);
+    } else {
+      if (watchVideoObject.mainEntityOfPage?.["@id"] !== `${videoPageUrl}#webpage`) {
+        errors.push(`${routeLabel(route)}: VideoObject should point mainEntityOfPage to the local teaching page.`);
+      }
+      if (watchVideoObject.about?.["@id"] !== `${siteUrl}/#church`) {
+        errors.push(`${routeLabel(route)}: VideoObject should identify Wayside Church as the subject.`);
+      }
+      if (watchVideoObject.isFamilyFriendly !== true) {
+        errors.push(`${routeLabel(route)}: VideoObject should mark teaching as family-friendly.`);
+      }
+      if (watchVideoObject.inLanguage !== "en-US") {
+        errors.push(`${routeLabel(route)}: VideoObject should include inLanguage en-US.`);
+      }
+      if (watchVideoObject.potentialAction?.["@type"] !== "WatchAction" || !textIncludes(watchVideoObject.potentialAction?.target, videoPageUrl)) {
+        errors.push(`${routeLabel(route)}: VideoObject should include a WatchAction for the local teaching page.`);
+      }
+    }
     const watchOgImage = getMetaPropertyContent(watchPageHtml, "og:image");
     const watchTwitterImage = getMetaContent(watchPageHtml, "twitter:image");
     const watchOgImageAlt = getMetaPropertyContent(watchPageHtml, "og:image:alt");
@@ -1104,6 +1137,10 @@ if (!fs.existsSync(videoSitemapPath)) {
     }
     if (!watchPageHtml.includes("Plan a Visit")) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should include a visitor next step.`);
+    }
+    const relatedTeachingTileCount = countMatches(watchPageHtml, /class=["']teaching-tile["']/g);
+    if (!watchPageHtml.includes("More recent teaching") || relatedTeachingTileCount < 3) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should include related recent teaching cards.`);
     }
     if (!watchPageHtml.includes("frame-src https://www.youtube-nocookie.com https://www.youtube.com")) {
       errors.push(`${routeLabel(route)}: CSP should allow only the expected YouTube frame hosts for embedded teaching videos.`);
