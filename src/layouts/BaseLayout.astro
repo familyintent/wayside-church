@@ -6,6 +6,13 @@ import { imageSize } from "../lib/images";
 import { absoluteUrl, withBase, withoutBase } from "../lib/paths";
 import "../styles/global.css";
 
+type PreloadImage = {
+  href: string;
+  srcset?: string;
+  sizes?: string;
+  type?: string;
+};
+
 type Props = {
   title?: string;
   description?: string;
@@ -15,6 +22,7 @@ type Props = {
   imageHeight?: number;
   robots?: string;
   extraSchemas?: unknown[];
+  preloadImages?: PreloadImage[];
 };
 
 const {
@@ -26,6 +34,7 @@ const {
   imageHeight,
   robots = "index, follow",
   extraSchemas = [],
+  preloadImages = [],
 } = Astro.props;
 const pageTitle = title
   ? title.includes(site.church.name)
@@ -324,6 +333,18 @@ const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u0
     <link rel="icon" href={withBase("/favicon-32.png")} sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png")} />
     <link rel="manifest" href={withBase("/site.webmanifest")} />
+    {
+      preloadImages.map((preload) => (
+        <link
+          rel="preload"
+          as="image"
+          href={withBase(preload.href)}
+          imagesrcset={preload.srcset}
+          imagesizes={preload.sizes}
+          type={preload.type || "image/webp"}
+        />
+      ))
+    }
     <meta property="og:site_name" content={site.church.name} />
     <meta property="og:locale" content={site.meta.locale} />
     <meta property="og:type" content="website" />

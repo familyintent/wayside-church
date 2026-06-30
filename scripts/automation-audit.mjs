@@ -59,8 +59,10 @@ requireIncludes("src/lib/images.ts", imageHelper, "wayside-local-16x9.webp");
 const homepage = readText("src/pages/index.astro");
 requireIncludes("src/pages/index.astro", homepage, "getLatestTeaching(site.youtube)");
 requireIncludes("src/pages/index.astro", homepage, "<LatestTeaching latest={latestTeaching}");
+requireIncludes("src/pages/index.astro", homepage, "const heroPreload =");
+requireIncludes("src/pages/index.astro", homepage, "preloadImages={[heroPreload]}");
 requireIncludes("src/pages/index.astro", homepage, "srcset={heroImageSrcset}");
-requireIncludes("src/pages/index.astro", homepage, "sizes={imageSizesFor(\"hero\")}");
+requireIncludes("src/pages/index.astro", homepage, "sizes={heroImageSizes}");
 requireIncludes("src/pages/index.astro", homepage, "srcset={communityImageSrcset}");
 
 const latestTeachingComponent = readText("src/components/LatestTeaching.astro");
@@ -127,6 +129,9 @@ requireIncludes("src/pages/llms.txt.ts", llmsRoute, "text/plain");
 const baseLayout = readText("src/layouts/BaseLayout.astro");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "preloadImages.map");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imagesrcset={preload.srcset}");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imagesizes={preload.sizes}");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "frame-src https://www.youtube-nocookie.com https://www.youtube.com");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageWidth");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageHeight");
@@ -221,6 +226,7 @@ requireIncludes("package.json", packageJson, "\"performance:audit\": \"node scri
 requireIncludes("package.json", packageJson, "pnpm performance:audit");
 
 const performanceAudit = readText("scripts/performance-audit.mjs");
+requireIncludes("scripts/performance-audit.mjs", performanceAudit, "Homepage should preload the hero image");
 requireIncludes("scripts/performance-audit.mjs", performanceAudit, "fetchpriority=\"high\"");
 requireIncludes("scripts/performance-audit.mjs", performanceAudit, "wayside-welcome-hero-640.webp 640w");
 requireIncludes("scripts/performance-audit.mjs", performanceAudit, "Content-Security-Policy");

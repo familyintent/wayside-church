@@ -119,6 +119,7 @@ The site includes:
 - page-specific social preview thumbnails for generated teaching watch pages
 - automatic YouTube thumbnail dimensions for latest and recent teaching cards, so feed-driven video images stay stable in the layout
 - responsive WebP variants with `srcset` and `sizes` for real Wayside photos, so large local images stay sharp without forcing oversized downloads
+- homepage hero image preloading with responsive candidates, so the first visual moment is discovered early by the browser
 - search-friendly 1:1, 4:3, and 16:9 real Wayside image crops for local entity schema and image discovery
 - a reusable `pnpm performance:audit` check for deployed HTML, CSS, JS, image weight, homepage hero priority, responsive hero candidates, and unexpected third-party asset loads
 - leader `Person` schema on the About page

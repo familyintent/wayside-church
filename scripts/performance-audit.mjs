@@ -211,6 +211,18 @@ if (!fs.existsSync(distDir)) {
 
   if (fs.existsSync(homepagePath)) {
     const homepage = readText(homepagePath);
+    if (!homepage.includes('rel="preload"') || !homepage.includes('as="image"')) {
+      fail("Homepage should preload the hero image for faster LCP discovery.");
+    }
+
+    if (!homepage.includes('imagesrcset="/images/wayside-welcome-hero-640.webp 640w')) {
+      fail("Homepage hero preload should keep responsive WebP candidates.");
+    }
+
+    if (!homepage.includes('imagesizes="100vw"')) {
+      fail("Homepage hero preload should keep the mobile-first imagesizes attribute.");
+    }
+
     if (!homepage.includes('fetchpriority="high"')) {
       fail("Homepage hero image should keep fetchpriority=\"high\" for LCP.");
     }

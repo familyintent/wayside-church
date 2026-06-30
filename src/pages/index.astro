@@ -17,11 +17,18 @@ const heroImageSize = imageSize(site.images.hero);
 const communityImageSize = imageSize(site.images.community);
 const heroImageSrcset = imageSrcset(site.images.hero);
 const communityImageSrcset = imageSrcset(site.images.community);
+const heroImageSizes = imageSizesFor("hero");
+const heroPreload = {
+  href: site.images.hero,
+  srcset: heroImageSrcset,
+  sizes: heroImageSizes,
+  type: "image/webp",
+};
 ---
 
-<BaseLayout image={site.images.hero} imageAlt={site.home.hero.imageAlt} extraSchemas={homeSchemas}>
+<BaseLayout image={site.images.hero} imageAlt={site.home.hero.imageAlt} extraSchemas={homeSchemas} preloadImages={[heroPreload]}>
   <section class="hero" aria-labelledby="hero-title">
-    <img class="hero__image" src={withBase(site.images.hero)} srcset={heroImageSrcset} sizes={imageSizesFor("hero")} alt={site.home.hero.imageAlt} width={heroImageSize?.width} height={heroImageSize?.height} loading="eager" decoding="async" fetchpriority="high" />
+    <img class="hero__image" src={withBase(site.images.hero)} srcset={heroImageSrcset} sizes={heroImageSizes} alt={site.home.hero.imageAlt} width={heroImageSize?.width} height={heroImageSize?.height} loading="eager" decoding="async" fetchpriority="high" />
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="shell hero__content">
       <p class="eyebrow">{site.home.hero.eyebrow}</p>
