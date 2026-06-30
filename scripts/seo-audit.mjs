@@ -448,6 +448,7 @@ for (const filePath of htmlFiles) {
   const siteNavigationSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "SiteNavigationElement"));
   const eventSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Event"));
   const videoSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
+  const donateActionSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "DonateAction"));
   const pageSchemas = parsedSchemas.flatMap((schema) =>
     ["WebPage", "AboutPage", "ContactPage", "CollectionPage"].flatMap((type) => collectSchemasByType(schema, type)),
   );
@@ -606,6 +607,23 @@ for (const filePath of htmlFiles) {
       }
       if (!textIncludes(eventSchema.eventSchedule, "America/New_York")) {
         errors.push(`${label}: Event schema schedule should include the local timezone.`);
+      }
+    }
+
+    if (route === "/giving/") {
+      const donateAction = donateActionSchemas[0];
+      if (!donateAction) {
+        errors.push(`${label}: missing DonateAction schema for the giving page.`);
+      } else {
+        if (donateAction.actionStatus !== "https://schema.org/PotentialActionStatus") {
+          errors.push(`${label}: DonateAction should be marked as a potential action.`);
+        }
+        if (!textIncludes(donateAction.target, "givingtools.com/give/1330")) {
+          errors.push(`${label}: DonateAction should point to the configured GivingTools URL.`);
+        }
+        if (!textIncludes(donateAction.recipient, "#church") || !textIncludes(donateAction.recipient, "Wayside Church")) {
+          errors.push(`${label}: DonateAction should identify Wayside Church as the recipient.`);
+        }
       }
     }
 

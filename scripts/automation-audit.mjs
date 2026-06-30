@@ -214,6 +214,13 @@ requireIncludes("src/lib/schema.ts", schemaHelper, "inLanguage: \"en-US\"");
 requireIncludes("src/lib/schema.ts", schemaHelper, "mainEntityOfPage");
 requireIncludes("src/lib/schema.ts", schemaHelper, "isFamilyFriendly: true");
 requireIncludes("src/lib/schema.ts", schemaHelper, "\"@type\": \"WatchAction\"");
+requireIncludes("src/lib/schema.ts", schemaHelper, "getDonateActionSchema");
+requireIncludes("src/lib/schema.ts", schemaHelper, "\"@type\": \"DonateAction\"");
+requireIncludes("src/lib/schema.ts", schemaHelper, "site.links.giving");
+
+const givingPage = readText("src/pages/giving.astro");
+requireIncludes("src/pages/giving.astro", givingPage, "getDonateActionSchema");
+requireIncludes("src/pages/giving.astro", givingPage, "extraSchemas={givingSchemas}");
 
 const settings = readText("src/content/settings.yaml");
 requireIncludes("src/content/settings.yaml", settings, "Staff should only need to upload sermons to YouTube");

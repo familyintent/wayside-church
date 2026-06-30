@@ -1021,6 +1021,31 @@ async function checkLivePages(sitemapUrls) {
     }
 
     const pathname = new URL(url).pathname;
+    if (pathname === "/giving/") {
+      const parsedSchemas = [];
+      for (const block of extractJsonLd(page.text)) {
+        try {
+          parsedSchemas.push(JSON.parse(block));
+        } catch (error) {
+          reportError(`${url} has invalid JSON-LD: ${error.message}`);
+        }
+      }
+      const donateAction = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "DonateAction"))[0];
+      if (!donateAction) {
+        reportError(`${url} should include DonateAction schema for the giving page.`);
+      } else {
+        if (donateAction.actionStatus !== "https://schema.org/PotentialActionStatus") {
+          reportError(`${url} DonateAction should be marked as a potential action.`);
+        }
+        if (!textIncludes(donateAction.target, "givingtools.com/give/1330")) {
+          reportError(`${url} DonateAction should point to the configured GivingTools URL.`);
+        }
+        if (!textIncludes(donateAction.recipient, "#church") || !textIncludes(donateAction.recipient, "Wayside Church")) {
+          reportError(`${url} DonateAction should identify Wayside Church as the recipient.`);
+        }
+      }
+    }
+
     if (!htmlSitemapTargets.has(new URL(pathname, rootUrl).toString())) {
       reportError(`/sitemap/ missing link to ${url}.`);
     }

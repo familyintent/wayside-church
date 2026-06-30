@@ -278,6 +278,26 @@ export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/min
     });
 }
 
+export function getDonateActionSchema(pagePath = "/giving/") {
+  const pageUrl = absoluteUrl(pagePath, site.meta.siteUrl);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "DonateAction",
+    name: `Give to ${site.church.name}`,
+    description: site.givingPage?.body || `Support worship, care, and local ministry at ${site.church.name}.`,
+    url: pageUrl,
+    target: site.links.giving,
+    actionStatus: "https://schema.org/PotentialActionStatus",
+    recipient: {
+      "@type": "Church",
+      "@id": churchId,
+      name: site.church.name,
+      url: churchUrl,
+    },
+  };
+}
+
 export function getTeachingVideoSchema(video: TeachingVideo, pagePath = "/teaching/") {
   const pageUrl = absoluteUrl(pagePath, site.meta.siteUrl);
 

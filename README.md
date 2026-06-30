@@ -128,6 +128,7 @@ The site includes:
 - a reusable `pnpm performance:audit` check for deployed HTML, CSS, JS, image weight, homepage hero priority, responsive hero candidates, and unexpected third-party asset loads
 - leader `Person` schema on the About page
 - recurring ministry `Event` schema on the Ministries page
+- truthful `DonateAction` schema on the Giving page that points to the configured GivingTools URL
 - generated `llms.txt` for AI discovery summaries, current visitor facts, machine-readable resources, and recent teaching links
 - a reusable `pnpm seo:audit` check for canonical URLs, sitemap coverage, local structured data, image alt text, and broken internal links
 - a reusable `pnpm automation:audit` check that protects the YouTube-powered latest and recent teaching sections from becoming manual content lists

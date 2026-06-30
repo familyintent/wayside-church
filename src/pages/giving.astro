@@ -2,9 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import { site } from "../lib/content";
+import { getDonateActionSchema } from "../lib/schema";
+
+const givingSchemas = [getDonateActionSchema("/giving/")];
 ---
 
-<BaseLayout title="Give to Wayside Church" description="Give securely to Wayside Church and support worship, care, and local ministry in Charlton, MA.">
+<BaseLayout title="Give to Wayside Church" description="Give securely to Wayside Church and support worship, care, and local ministry in Charlton, MA." extraSchemas={givingSchemas}>
   <section class="page-hero page-hero--center">
     <div class="shell page-hero__inner">
       <p class="eyebrow">Giving</p>
