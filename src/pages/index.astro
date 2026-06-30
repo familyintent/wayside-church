@@ -40,7 +40,10 @@ const communityImageSize = imageSize(site.images.community);
       </div>
       <p><strong>{site.service.primary.day} at {site.service.primary.time}</strong><br />{site.service.primary.summary}</p>
       <p><strong>{site.service.coffee.label}: {site.service.coffee.time}</strong><br />{site.service.coffee.summary}</p>
-      <ButtonLink href="/plan-a-visit/" variant="secondary">Plan a Visit</ButtonLink>
+      <div class="service-strip__actions">
+        <ButtonLink href="/sunday-worship/" variant="secondary">Sunday Details</ButtonLink>
+        <ButtonLink href="/plan-a-visit/" variant="text">Plan a Visit</ButtonLink>
+      </div>
     </div>
   </section>
 

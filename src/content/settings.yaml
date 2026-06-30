@@ -291,6 +291,58 @@ planVisit:
     - question: "Can my children or teens come with me?"
       answer: "Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
 
+# Update this page when the Sunday worship rhythm changes.
+sundayPage:
+  metaTitle: "Sunday Worship at Wayside Church in Charlton, MA"
+  metaDescription: "Join Sunday Worship at Wayside Church in Charlton, MA at 10:00 AM, with Coffee and Discipleship at 9:00 AM. Find the address, what to expect, family details, and calendar links."
+  eyebrow: "Sunday worship"
+  title: "Gather with us Sunday at 10:00 AM."
+  intro: "Wayside Church gathers each Sunday in Charlton for worship, Scripture, prayer, fellowship, and life together in Jesus. Coffee and Discipleship begins at 9:00 AM, and Sunday Worship begins at 10:00 AM."
+  primaryCta:
+    label: "Plan a Visit"
+    href: "/plan-a-visit/"
+  secondaryCta:
+    label: "Save to Calendar"
+    href: "#sunday-calendar"
+  rhythm:
+    eyebrow: "Sunday morning rhythm"
+    title: "Simple, warm, and easy to follow."
+    body: "You can come for worship at 10:00 AM, arrive early for Coffee and Discipleship at 9:00 AM, or simply take the morning at your own pace."
+    items:
+      - time: "9:00 AM"
+        title: "Coffee and Discipleship"
+        body: "A quieter first step into conversation, Scripture, and community before worship."
+      - time: "10:00 AM"
+        title: "Sunday Worship"
+        body: "We worship Jesus, open the Bible, pray, and make room for families, guests, and neighbors."
+      - time: "After Worship"
+        title: "Fellowship"
+        body: "Stay for conversation if you would like, meet someone new, or head home quietly. There is no pressure."
+  expect:
+    eyebrow: "What happens"
+    title: "A worship gathering centered on Jesus."
+    body: "Sunday Worship is not a performance. It is a gathered church family opening Scripture, praying, singing, listening, encouraging one another, and learning to follow Jesus together."
+    items:
+      - title: "Bible teaching"
+        body: "We open Scripture and seek to hear God's Word with honesty, humility, and hope."
+      - title: "Prayer and worship"
+        body: "We sing, pray, and make room for people to respond to Jesus in a simple and reverent way."
+      - title: "Real fellowship"
+        body: "A smaller church means guests can be noticed without being overwhelmed."
+  guest:
+    eyebrow: "For guests"
+    title: "You are welcome to visit without signing up first."
+    body: "Come as you are. Some people dress casually and some dress more formally. Children and youth are welcomed into the life of the church, and people will be glad to help you find where to go."
+  faq:
+    - question: "What time is Sunday Worship at Wayside Church?"
+      answer: "Sunday Worship begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM."
+    - question: "Where does Wayside Church gather?"
+      answer: "Wayside Church gathers at 6 Haggerty Rd, Charlton, MA 01507."
+    - question: "Do I need to sign up before I visit?"
+      answer: "No. You can simply come on Sunday morning. If you want to talk with someone first, you are welcome to call the church."
+    - question: "Are families welcome during Sunday Worship?"
+      answer: "Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together."
+
 teachingPage:
   metaTitle: "Teaching from Wayside Church in Charlton, MA"
   metaDescription: "Watch recent Bible teaching and sermons from Wayside Church in Charlton, MA."

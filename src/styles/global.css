@@ -408,6 +408,13 @@ summary:focus-visible {
   margin-bottom: 0;
 }
 
+.service-strip__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
 .visitor-section {
   background: var(--bg);
 }

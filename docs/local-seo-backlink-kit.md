@@ -78,6 +78,7 @@ Thank you.
 Use these when a partner, directory, or social profile has a relevant place for a specific link.
 
 - Main website: https://wayside.church/
+- Sunday Worship: https://wayside.church/sunday-worship/
 - Plan a Visit: https://wayside.church/plan-a-visit/
 - Families: https://wayside.church/families/
 - Teaching: https://wayside.church/teaching/
