@@ -139,6 +139,8 @@ requireIncludes("src/pages/llms.txt.ts", llmsRoute, "text/plain");
 const baseLayout = readText("src/layouts/BaseLayout.astro");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "type=\"text/vcard\"");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/wayside-church.vcf");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "preloadImages.map");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imagesrcset={preload.srcset}");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imagesizes={preload.sizes}");
@@ -177,6 +179,13 @@ requireIncludes("src/lib/calendar.ts", calendarHelper, "getMinistryCalendarPath"
 requireIncludes("src/lib/calendar.ts", calendarHelper, "getGoogleCalendarUrl");
 requireIncludes("src/lib/calendar.ts", calendarHelper, "buildIcsCalendar");
 requireIncludes("src/lib/calendar.ts", calendarHelper, "RRULE:FREQ=WEEKLY;BYDAY=");
+
+const calendarActionsComponent = readText("src/components/CalendarActions.astro");
+requireIncludes("src/components/CalendarActions.astro", calendarActionsComponent, "Google / Gmail");
+requireIncludes("src/components/CalendarActions.astro", calendarActionsComponent, "Apple / iPhone");
+requireIncludes("src/components/CalendarActions.astro", calendarActionsComponent, "Outlook");
+requireIncludes("src/components/CalendarActions.astro", calendarActionsComponent, "/wayside-church.vcf");
+requireIncludes("src/components/CalendarActions.astro", calendarActionsComponent, "Save Contact");
 
 const ministryCalendarComponent = readText("src/components/MinistryCalendarLinks.astro");
 requireIncludes("src/components/MinistryCalendarLinks.astro", ministryCalendarComponent, "getGoogleCalendarUrl");

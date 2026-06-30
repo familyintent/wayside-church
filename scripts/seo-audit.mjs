@@ -379,6 +379,15 @@ for (const filePath of htmlFiles) {
   ) {
     errors.push(`${label}: missing teaching-feed alternate link.`);
   }
+  if (
+    !isNoIndex &&
+    (!html.includes('type="text/vcard"') || !html.includes(`${siteUrl}/wayside-church.vcf`))
+  ) {
+    errors.push(`${label}: missing alternate link to the generated church contact card.`);
+  }
+  if (html.includes('class="calendar-actions"') && !html.includes("/wayside-church.vcf")) {
+    errors.push(`${label}: Sunday calendar action block should include the generated church contact card.`);
+  }
   if (!isNoIndex && h1Count !== 1) errors.push(`${label}: expected exactly one H1, found ${h1Count}.`);
 
   if (!isNoIndex && ogImage) {

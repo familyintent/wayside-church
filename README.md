@@ -108,7 +108,7 @@ The site includes:
 - local entity checks for address, phone, map link, social profiles, service hours, and nearby communities
 - a nearby-neighbor page with real town direction links and structured direction actions, without creating thin duplicate town pages
 - semantic church address blocks for consistent name, address, phone, and map details
-- generated `wayside-church.vcf` contact card from the same editable church settings
+- generated `wayside-church.vcf` contact card from the same editable church settings, advertised in page metadata and surfaced beside Sunday calendar actions
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data
 - hierarchical breadcrumbs for generated teaching watch pages, so visitors and search engines see `Home > Teaching > message`
 - recurring Sunday worship event schema

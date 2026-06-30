@@ -74,6 +74,7 @@ const churchPhotoObjects = churchImageSources.map((imagePath) => {
 const logoUrl = absoluteUrl(site.meta.logo, site.meta.siteUrl);
 const siteUrl = absoluteUrl("/", site.meta.siteUrl);
 const teachingFeedUrl = absoluteUrl("/teaching-feed.xml", site.meta.siteUrl);
+const contactCardUrl = absoluteUrl("/wayside-church.vcf", site.meta.siteUrl);
 const churchId = `${siteUrl}#church`;
 const webSiteId = `${siteUrl}#website`;
 const normalizedPath = withoutBase(Astro.url.pathname);
@@ -348,6 +349,7 @@ const toJsonLd = (schema: unknown) => JSON.stringify(schema).replace(/</g, "\\u0
     <meta http-equiv="Content-Security-Policy" content={contentSecurityPolicy} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" type="application/atom+xml" title={`${site.church.name} Teaching Feed`} href={teachingFeedUrl} />
+    <link rel="alternate" type="text/vcard" title={`${site.church.name} Contact Card`} href={contactCardUrl} />
     <link rel="icon" href={withBase("/favicon.png")} type="image/png" />
     <link rel="icon" href={withBase("/favicon-32.png")} sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png")} />

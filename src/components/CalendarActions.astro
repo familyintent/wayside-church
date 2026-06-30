@@ -28,7 +28,7 @@ const icsUrl = withBase(event.ics);
     <p>{event.description} The address is included so Sunday is easy to find when the morning comes.</p>
   </div>
 
-  <div class="calendar-actions__links" aria-label="Calendar and direction links">
+  <div class="calendar-actions__links" aria-label="Calendar, contact, and direction links">
     <a class="button button--primary" href={googleCalendarUrl} target="_blank" rel="noopener noreferrer">
       Google / Gmail
     </a>
@@ -37,6 +37,9 @@ const icsUrl = withBase(event.ics);
     </a>
     <a class="button button--secondary" href={icsUrl} download="wayside-sunday-worship.ics">
       Outlook
+    </a>
+    <a class="button button--secondary" href={withBase("/wayside-church.vcf")} download="wayside-church.vcf">
+      Save Contact
     </a>
     <a class="button button--text" href={site.links.maps} target="_blank" rel="noopener noreferrer">
       Open in Maps

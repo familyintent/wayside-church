@@ -1000,6 +1000,13 @@ async function checkLivePages(sitemapUrls) {
     const robots = getMetaContent(page.text, "robots");
     if (!robots.includes("index")) reportError(`${url} should be indexable, robots=${robots || "(missing)"}.`);
 
+    if (!page.text.includes('type="text/vcard"') || !page.text.includes(new URL("/wayside-church.vcf", rootUrl).toString())) {
+      reportError(`${url} should advertise the generated church contact card in the page head.`);
+    }
+    if (page.text.includes('class="calendar-actions"') && !page.text.includes("/wayside-church.vcf")) {
+      reportError(`${url} Sunday calendar action block should include the generated church contact card.`);
+    }
+
     const ogImage = getMetaPropertyContent(page.text, "og:image");
     const ogImageWidth = Number(getMetaPropertyContent(page.text, "og:image:width") || 0);
     const ogImageHeight = Number(getMetaPropertyContent(page.text, "og:image:height") || 0);
