@@ -89,6 +89,14 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xm
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "frame-src https://www.youtube-nocookie.com https://www.youtube.com");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageWidth");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageHeight");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "photo: churchPhotoObjects");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "keywords: searchTopics");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "isAccessibleForFree: true");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "publicAccess: true");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "availableLanguage: \"English\"");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "openingHours: \"Su 09:00-11:30\"");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "about: { \"@id\": churchId }");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "mainEntity: { \"@id\": churchId }");
 
 requireIncludes("src/lib/youtube.ts", youtubeHelper, "getYouTubeThumbnailSize");
 

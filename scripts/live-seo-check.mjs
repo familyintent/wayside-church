@@ -606,6 +606,13 @@ async function checkHomepageSchema(homeHtml) {
   if (!textIncludes(churchSchema.address, "Charlton")) reportError("Church schema missing Charlton locality.");
   if (!textIncludes(churchSchema.telephone, "+15084340401")) reportError("Church schema missing canonical phone number.");
   if (!textIncludes(churchSchema.hasMap, "google.com/maps")) reportError("Church schema missing Google Maps profile.");
+  if (!textIncludes(churchSchema.keywords, "Church in Charlton, MA")) reportError("Church schema missing local church keywords.");
+  if (churchSchema.isAccessibleForFree !== true) reportError("Church schema should mark gatherings as accessible for free.");
+  if (churchSchema.publicAccess !== true) reportError("Church schema should mark public access for visitors.");
+  if (!textIncludes(churchSchema.photo, "ImageObject") || !textIncludes(churchSchema.photo, "wayside-community.webp")) {
+    reportError("Church schema missing real local photo objects.");
+  }
+  if (!textIncludes(churchSchema.contactPoint, "English")) reportError("Church schema contact point missing available language.");
 
   for (const profile of ["facebook.com", "youtube.com", "google.com/maps"]) {
     if (!textIncludes(churchSchema.sameAs, profile)) reportError(`Church schema sameAs missing ${profile}.`);
@@ -618,6 +625,9 @@ async function checkHomepageSchema(homeHtml) {
   if (!textIncludes(churchSchema.openingHoursSpecification, "09:00") || !textIncludes(churchSchema.openingHoursSpecification, "11:30")) {
     reportError("Church schema opening hours should cover Coffee and Discipleship through worship.");
   }
+  if (churchSchema.openingHours !== "Su 09:00-11:30") {
+    reportError("Church schema should include compact Sunday openingHours.");
+  }
   if (!textIncludes(churchSchema.amenityFeature, "Parking available")) {
     reportError("Church schema missing visitor parking amenity feature.");
   }
@@ -627,6 +637,9 @@ async function checkHomepageSchema(homeHtml) {
 
   if (!webSiteSchema?.keywords || !textIncludes(webSiteSchema.keywords, "Church in Charlton, MA")) {
     reportError("WebSite schema missing local church keywords.");
+  }
+  if (!textIncludes(webSiteSchema?.about, "#church") || !textIncludes(webSiteSchema?.mainEntity, "#church")) {
+    reportError("WebSite schema should point about/mainEntity to Church schema.");
   }
 
   for (const navItem of [

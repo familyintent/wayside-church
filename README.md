@@ -93,6 +93,7 @@ The site includes:
 - canonical URLs
 - Open Graph and Twitter card metadata
 - local church structured data using JSON-LD
+- enhanced local `Church` schema for public access, free access, Sunday hours, real photo objects, and local keywords
 - page-level `WebPage`, `AboutPage`, `ContactPage`, and `CollectionPage` structured data
 - local entity checks for address, phone, map link, social profiles, service hours, and nearby communities
 - semantic church address blocks for consistent name, address, phone, and map details

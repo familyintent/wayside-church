@@ -355,11 +355,26 @@ for (const filePath of htmlFiles) {
       }
       if (!churchSchema.telephone) errors.push(`${label}: Church schema missing telephone.`);
       if (!textIncludes(churchSchema.hasMap, "google.com/maps")) errors.push(`${label}: Church schema missing Google Maps link.`);
+      if (!textIncludes(churchSchema.keywords, "Church in Charlton, MA")) {
+        errors.push(`${label}: Church schema missing local church keywords.`);
+      }
+      if (churchSchema.isAccessibleForFree !== true) {
+        errors.push(`${label}: Church schema should mark Sunday gatherings as accessible for free.`);
+      }
+      if (churchSchema.publicAccess !== true) {
+        errors.push(`${label}: Church schema should mark public access for visitor clarity.`);
+      }
       if (!textIncludes(churchSchema.address, "6 Haggerty Rd")) errors.push(`${label}: Church schema missing street address.`);
       if (!textIncludes(churchSchema.address, "Charlton")) errors.push(`${label}: Church schema missing address locality.`);
       if (!textIncludes(churchSchema.address, "01507")) errors.push(`${label}: Church schema missing postal code.`);
       if (!textIncludes(churchSchema.geo, "42.104233") || !textIncludes(churchSchema.geo, "-71.952781")) {
         errors.push(`${label}: Church schema missing expected geographic coordinates.`);
+      }
+      if (!textIncludes(churchSchema.photo, "ImageObject") || !textIncludes(churchSchema.photo, "wayside-community.webp")) {
+        errors.push(`${label}: Church schema missing real local photo objects.`);
+      }
+      if (!textIncludes(churchSchema.contactPoint, "English")) {
+        errors.push(`${label}: Church schema contact point missing available language.`);
       }
       for (const profile of ["facebook.com", "youtube.com", "google.com/maps"]) {
         if (!textIncludes(churchSchema.sameAs, profile)) errors.push(`${label}: Church schema sameAs missing ${profile}.`);
@@ -372,6 +387,9 @@ for (const filePath of htmlFiles) {
       }
       if (!textIncludes(churchSchema.openingHoursSpecification, "09:00") || !textIncludes(churchSchema.openingHoursSpecification, "11:30")) {
         errors.push(`${label}: Church schema opening hours should cover Coffee and Discipleship through worship.`);
+      }
+      if (churchSchema.openingHours !== "Su 09:00-11:30") {
+        errors.push(`${label}: Church schema should include compact Sunday openingHours.`);
       }
       if (!textIncludes(churchSchema.additionalProperty, "Sunday Worship") || !textIncludes(churchSchema.additionalProperty, "Coffee and Discipleship")) {
         errors.push(`${label}: Church schema missing service-time additional properties.`);
@@ -390,6 +408,9 @@ for (const filePath of htmlFiles) {
     } else {
       if (webSiteSchema.url !== rootUrl) errors.push(`${label}: WebSite schema url should be ${rootUrl}.`);
       if (!textIncludes(webSiteSchema.publisher, "#church")) errors.push(`${label}: WebSite schema publisher should reference Church schema.`);
+      if (!textIncludes(webSiteSchema.about, "#church") || !textIncludes(webSiteSchema.mainEntity, "#church")) {
+        errors.push(`${label}: WebSite schema should point about/mainEntity to Church schema.`);
+      }
       if (!textIncludes(webSiteSchema.keywords, "Church in Charlton, MA")) {
         errors.push(`${label}: WebSite schema missing local church keywords.`);
       }

@@ -39,7 +39,20 @@ const socialImageSize =
   imageWidth && imageHeight
     ? { width: imageWidth, height: imageHeight }
     : imageSize(image) || imageSize(site.meta.socialImage) || { width: 1200, height: 630 };
-const churchImageUrls = Array.from(new Set([absoluteUrl(site.meta.socialImage, site.meta.siteUrl), absoluteUrl(site.images.community, site.meta.siteUrl)]));
+const churchImageSources = [site.meta.socialImage, site.images.community];
+const churchImageUrls = Array.from(new Set(churchImageSources.map((imagePath) => absoluteUrl(imagePath, site.meta.siteUrl))));
+const churchPhotoObjects = churchImageSources.map((imagePath) => {
+  const dimensions = imageSize(imagePath);
+  return {
+    "@type": "ImageObject",
+    url: absoluteUrl(imagePath, site.meta.siteUrl),
+    caption:
+      imagePath === site.meta.socialImage
+        ? site.meta.socialImageAlt
+        : "Wayside Church family sharing fellowship in Charlton, Massachusetts",
+    ...(dimensions ? { width: dimensions.width, height: dimensions.height } : {}),
+  };
+});
 const logoUrl = absoluteUrl(site.meta.logo, site.meta.siteUrl);
 const siteUrl = absoluteUrl("/", site.meta.siteUrl);
 const teachingFeedUrl = absoluteUrl("/teaching-feed.xml", site.meta.siteUrl);
@@ -77,10 +90,14 @@ const churchSchema = {
   slogan: site.church.tagline,
   logo: logoUrl,
   image: churchImageUrls,
+  photo: churchPhotoObjects,
   description: churchDescription,
   disambiguatingDescription: `${site.church.name} is a local church at ${site.contact.addressLine1} in ${site.contact.cityStateZip}.`,
+  keywords: searchTopics,
   telephone: phoneNumber,
   hasMap: site.links.maps,
+  isAccessibleForFree: true,
+  publicAccess: true,
   address: {
     "@type": "PostalAddress",
     streetAddress: site.contact.addressLine1,
@@ -100,6 +117,7 @@ const churchSchema = {
     telephone: phoneNumber,
     contactType: "church office",
     areaServed: `${site.church.city}, ${site.church.state}`,
+    availableLanguage: "English",
   },
   areaServed: [
     {
@@ -122,6 +140,7 @@ const churchSchema = {
       description: `${site.service.coffee.label} and ${site.service.primary.label}`,
     },
   ],
+  openingHours: "Su 09:00-11:30",
   additionalProperty: [
     {
       "@type": "PropertyValue",
@@ -148,6 +167,8 @@ const webSiteSchema = {
   name: site.church.name,
   url: siteUrl,
   publisher: { "@id": churchId },
+  about: { "@id": churchId },
+  mainEntity: { "@id": churchId },
   keywords: searchTopics,
   inLanguage: "en-US",
 };
