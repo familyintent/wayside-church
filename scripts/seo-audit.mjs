@@ -271,6 +271,51 @@ function routeLabel(route) {
   return route === "/" ? "/" : route.replace(/\/$/, "");
 }
 
+function checkTeachingListingPage(route, recentTitle) {
+  const htmlPath = htmlFilePathForRoute(route);
+  if (!fs.existsSync(htmlPath)) {
+    errors.push(`${routeLabel(route)}: missing generated teaching listing page.`);
+    return;
+  }
+
+  const html = readText(htmlPath);
+  if (!html.includes("Recent messages") || !html.includes(recentTitle)) {
+    errors.push(`${routeLabel(route)}: should show the YouTube-powered recent-message section.`);
+  }
+  if (!html.includes('type="application/atom+xml"') || !html.includes(`href="${teachingFeedUrl}"`)) {
+    errors.push(`${routeLabel(route)}: should advertise the automated teaching feed in the page head.`);
+  }
+
+  const recentTileCount = countMatches(html, /class=["']teaching-tile["']/g);
+  if (recentTileCount < 3) {
+    errors.push(`${routeLabel(route)}: should include multiple recent teaching cards from YouTube, found ${recentTileCount}.`);
+  }
+
+  const localWatchLinkCount = countMatches(html, /href=["']\/teaching\/[^"']+-[A-Za-z0-9_-]{11}\/["']/g);
+  if (localWatchLinkCount < 4) {
+    errors.push(`${routeLabel(route)}: should link recent teaching cards to generated local watch pages, found ${localWatchLinkCount}.`);
+  }
+
+  const videoObjectCount = countMatches(html, /"@type":"VideoObject"/g);
+  if (videoObjectCount < 6) {
+    errors.push(`${routeLabel(route)}: should include VideoObject schema for recent YouTube uploads, found ${videoObjectCount}.`);
+  }
+
+  const parsedSchemas = [];
+  for (const block of extractJsonLd(html)) {
+    try {
+      parsedSchemas.push(JSON.parse(block));
+    } catch (error) {
+      errors.push(`${routeLabel(route)}: invalid teaching listing JSON-LD (${error.message}).`);
+    }
+  }
+
+  const collectionPageSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "CollectionPage"))[0];
+  if (!isIsoDateTime(collectionPageSchema?.dateModified)) {
+    errors.push(`${routeLabel(route)}: CollectionPage schema should include an ISO dateModified from the YouTube feed.`);
+  }
+}
+
 if (!fs.existsSync(distDir)) {
   errors.push("Missing dist directory. Run `pnpm build` before `pnpm seo:audit`.");
 }
@@ -783,6 +828,9 @@ for (const filePath of htmlFiles) {
     }
   }
 }
+
+checkTeachingListingPage("/teaching/", "More recent teaching");
+checkTeachingListingPage("/sermons/", "More sermons and Bible teaching");
 
 const robotsPath = path.join(distDir, "robots.txt");
 if (!fs.existsSync(robotsPath)) {
