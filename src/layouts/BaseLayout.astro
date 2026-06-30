@@ -11,6 +11,8 @@ type Props = {
   description?: string;
   image?: string;
   imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   robots?: string;
   extraSchemas?: unknown[];
 };
@@ -20,6 +22,8 @@ const {
   description = site.meta.description,
   image = site.meta.socialImage,
   imageAlt,
+  imageWidth,
+  imageHeight,
   robots = "index, follow",
   extraSchemas = [],
 } = Astro.props;
@@ -31,8 +35,11 @@ const pageTitle = title
 const canonicalUrl = absoluteUrl(Astro.url.pathname, site.meta.siteUrl);
 const socialImageUrl = absoluteUrl(image, site.meta.siteUrl);
 const socialImageAlt = imageAlt || site.meta.socialImageAlt || `${site.church.name} in ${site.church.city}, ${site.church.state}`;
-const socialImageSize = imageSize(image) || imageSize(site.meta.socialImage) || { width: 1200, height: 630 };
-const churchImageUrls = Array.from(new Set([socialImageUrl, absoluteUrl(site.images.community, site.meta.siteUrl)]));
+const socialImageSize =
+  imageWidth && imageHeight
+    ? { width: imageWidth, height: imageHeight }
+    : imageSize(image) || imageSize(site.meta.socialImage) || { width: 1200, height: 630 };
+const churchImageUrls = Array.from(new Set([absoluteUrl(site.meta.socialImage, site.meta.siteUrl), absoluteUrl(site.images.community, site.meta.siteUrl)]));
 const logoUrl = absoluteUrl(site.meta.logo, site.meta.siteUrl);
 const siteUrl = absoluteUrl("/", site.meta.siteUrl);
 const teachingFeedUrl = absoluteUrl("/teaching-feed.xml", site.meta.siteUrl);

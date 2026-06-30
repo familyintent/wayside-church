@@ -65,6 +65,9 @@ requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getRecentTeac
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingSlug(video)");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingEmbedUrl(video)");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingVideoSchema(video");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getYouTubeThumbnailSize(video.thumbnail)");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "image={video.thumbnail}");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "imageAlt={thumbnailAlt}");
 
 const teachingRoutes = readText("src/lib/teaching-routes.ts");
 requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "getTeachingSlug");
@@ -84,6 +87,10 @@ const baseLayout = readText("src/layouts/BaseLayout.astro");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "frame-src https://www.youtube-nocookie.com https://www.youtube.com");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageWidth");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageHeight");
+
+requireIncludes("src/lib/youtube.ts", youtubeHelper, "getYouTubeThumbnailSize");
 
 const calendarHelper = readText("src/lib/calendar.ts");
 requireIncludes("src/lib/calendar.ts", calendarHelper, "getSundayCalendarEvent");

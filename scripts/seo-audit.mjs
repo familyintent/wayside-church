@@ -36,13 +36,13 @@ function routeFromHtmlPath(filePath) {
 }
 
 function getMetaContent(html, name) {
-  const regex = new RegExp(`<meta[^>]+name=["']${name}["'][^>]+content=["']([^"']*)["'][^>]*>`, "i");
-  return html.match(regex)?.[1] || "";
+  const regex = new RegExp(`<meta[^>]+name=["']${name}["'][^>]+content=(["'])(.*?)\\1[^>]*>`, "i");
+  return html.match(regex)?.[2] || "";
 }
 
 function getMetaPropertyContent(html, property) {
-  const regex = new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=["']([^"']*)["'][^>]*>`, "i");
-  return html.match(regex)?.[1] || "";
+  const regex = new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=(["'])(.*?)\\1[^>]*>`, "i");
+  return html.match(regex)?.[2] || "";
 }
 
 function getLinkHref(html, rel) {
@@ -157,6 +157,24 @@ function extractVideoPlayerLocs(xml) {
 
 function extractVideoThumbnailLocs(xml) {
   return [...xml.matchAll(/<video:thumbnail_loc>(.*?)<\/video:thumbnail_loc>/g)].map((match) => match[1].trim());
+}
+
+function isYouTubeThumbnailUrl(value) {
+  try {
+    return new URL(value).host.endsWith("ytimg.com");
+  } catch {
+    return false;
+  }
+}
+
+function isKnownYouTubeThumbnailSize(width, height) {
+  return [
+    [1280, 720],
+    [640, 480],
+    [480, 360],
+    [320, 180],
+    [120, 90],
+  ].some(([expectedWidth, expectedHeight]) => width === expectedWidth && height === expectedHeight);
 }
 
 function extractVideoTitles(xml) {
@@ -788,6 +806,23 @@ if (!fs.existsSync(videoSitemapPath)) {
     }
     if (!watchPageHtml.includes("VideoObject")) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should include VideoObject schema.`);
+    }
+    const watchOgImage = getMetaPropertyContent(watchPageHtml, "og:image");
+    const watchTwitterImage = getMetaContent(watchPageHtml, "twitter:image");
+    const watchOgImageAlt = getMetaPropertyContent(watchPageHtml, "og:image:alt");
+    const watchOgImageWidth = Number(getMetaPropertyContent(watchPageHtml, "og:image:width") || 0);
+    const watchOgImageHeight = Number(getMetaPropertyContent(watchPageHtml, "og:image:height") || 0);
+    if (!isYouTubeThumbnailUrl(watchOgImage)) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should use the YouTube thumbnail as og:image.`);
+    }
+    if (watchTwitterImage !== watchOgImage) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page twitter:image should match og:image.`);
+    }
+    if (!watchOgImageAlt.includes("Wayside Church teaching video")) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should describe the video thumbnail in social alt text.`);
+    }
+    if (!isKnownYouTubeThumbnailSize(watchOgImageWidth, watchOgImageHeight)) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should publish accurate YouTube thumbnail dimensions.`);
     }
     if (!watchPageHtml.includes("Plan a Visit")) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should include a visitor next step.`);

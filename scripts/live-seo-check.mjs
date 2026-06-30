@@ -79,9 +79,27 @@ function countMatches(value, regex) {
   return [...value.matchAll(regex)].length;
 }
 
+function isYouTubeThumbnailUrl(value) {
+  try {
+    return new URL(value).host.endsWith("ytimg.com");
+  } catch {
+    return false;
+  }
+}
+
+function isKnownYouTubeThumbnailSize(width, height) {
+  return [
+    [1280, 720],
+    [640, 480],
+    [480, 360],
+    [320, 180],
+    [120, 90],
+  ].some(([expectedWidth, expectedHeight]) => width === expectedWidth && height === expectedHeight);
+}
+
 function getMetaContent(html, name) {
-  const regex = new RegExp(`<meta[^>]+name=["']${name}["'][^>]+content=["']([^"']*)["'][^>]*>`, "i");
-  return html.match(regex)?.[1] || "";
+  const regex = new RegExp(`<meta[^>]+name=["']${name}["'][^>]+content=(["'])(.*?)\\1[^>]*>`, "i");
+  return html.match(regex)?.[2] || "";
 }
 
 function getLinkHref(html, rel) {
@@ -90,8 +108,8 @@ function getLinkHref(html, rel) {
 }
 
 function getMetaPropertyContent(html, property) {
-  const regex = new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=["']([^"']*)["'][^>]*>`, "i");
-  return html.match(regex)?.[1] || "";
+  const regex = new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=(["'])(.*?)\\1[^>]*>`, "i");
+  return html.match(regex)?.[2] || "";
 }
 
 function textIncludes(value, expected) {
@@ -325,6 +343,23 @@ async function checkVideoSitemap(sitemapUrls) {
     }
     if (!watchText.includes('"@type":"VideoObject"')) {
       reportError(`${videoPageUrl} should include VideoObject schema.`);
+    }
+    const watchOgImage = getMetaPropertyContent(watchText, "og:image");
+    const watchTwitterImage = getMetaContent(watchText, "twitter:image");
+    const watchOgImageAlt = getMetaPropertyContent(watchText, "og:image:alt");
+    const watchOgImageWidth = Number(getMetaPropertyContent(watchText, "og:image:width") || 0);
+    const watchOgImageHeight = Number(getMetaPropertyContent(watchText, "og:image:height") || 0);
+    if (!isYouTubeThumbnailUrl(watchOgImage)) {
+      reportError(`${videoPageUrl} should use the YouTube thumbnail as og:image.`);
+    }
+    if (watchTwitterImage !== watchOgImage) {
+      reportError(`${videoPageUrl} twitter:image should match og:image.`);
+    }
+    if (!watchOgImageAlt.includes("Wayside Church teaching video")) {
+      reportError(`${videoPageUrl} should describe the video thumbnail in social alt text.`);
+    }
+    if (!isKnownYouTubeThumbnailSize(watchOgImageWidth, watchOgImageHeight)) {
+      reportError(`${videoPageUrl} should publish accurate YouTube thumbnail dimensions.`);
     }
     if (!watchText.includes("Plan a Visit")) {
       reportError(`${videoPageUrl} should include a visitor next step.`);

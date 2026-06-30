@@ -5,7 +5,7 @@ import SectionIntro from "../../components/SectionIntro.astro";
 import { site } from "../../lib/content";
 import { getTeachingVideoSchema } from "../../lib/schema";
 import { getTeachingEmbedUrl, getTeachingSlug } from "../../lib/teaching-routes";
-import { formatPublishedDate, getRecentTeachings } from "../../lib/youtube";
+import { formatPublishedDate, getRecentTeachings, getYouTubeThumbnailSize } from "../../lib/youtube";
 import type { LatestTeaching } from "../../lib/youtube";
 
 export async function getStaticPaths() {
@@ -30,9 +30,11 @@ const descriptionTitle = cleanTitle.length > 68 ? `${cleanTitle.slice(0, 65).tri
 const pageTitle = `Wayside Church Teaching: ${shortTitle}`;
 const description = `Watch ${descriptionTitle}, a recent Bible teaching from Wayside Church in Charlton, MA. Plan a Sunday visit.`;
 const videoSchema = getTeachingVideoSchema(video, pagePath);
+const thumbnailSize = getYouTubeThumbnailSize(video.thumbnail);
+const thumbnailAlt = `Thumbnail for ${video.title}, a Wayside Church teaching video`;
 ---
 
-<BaseLayout title={pageTitle} description={description} extraSchemas={[videoSchema]}>
+<BaseLayout title={pageTitle} description={description} image={video.thumbnail} imageAlt={thumbnailAlt} imageWidth={thumbnailSize.width} imageHeight={thumbnailSize.height} extraSchemas={[videoSchema]}>
   <section class="video-watch">
     <div class="shell video-watch__grid">
       <div class="video-watch__copy">

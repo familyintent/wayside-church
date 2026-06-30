@@ -104,6 +104,7 @@ The site includes:
 - practical visitor detail structured data for parking and first-visit planning
 - video schema for recent teaching pages when YouTube publish dates are available
 - build-time generated watch pages for recent YouTube teachings, so each message has a local page where the video is the main content
+- page-specific social preview thumbnails for generated teaching watch pages
 - leader `Person` schema on the About page
 - recurring ministry `Event` schema on the Ministries page
 - generated `llms.txt` for AI discovery summaries, current visitor facts, machine-readable resources, and recent teaching links

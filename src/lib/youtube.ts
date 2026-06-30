@@ -22,6 +22,11 @@ export type LatestTeaching = {
   source: "feed" | "channel" | "featured";
 };
 
+type ThumbnailSize = {
+  width: number;
+  height: number;
+};
+
 const parser = new XMLParser({
   ignoreAttributes: false,
   removeNSPrefix: true,
@@ -197,4 +202,23 @@ export function formatPublishedDate(value: string): string {
     day: "numeric",
     year: "numeric",
   }).format(new Date(value));
+}
+
+export function getYouTubeThumbnailSize(thumbnailUrl: string): ThumbnailSize {
+  const fallback = { width: 480, height: 360 };
+
+  try {
+    const filename = new URL(thumbnailUrl).pathname.split("/").pop() || "";
+    const knownSizes: Record<string, ThumbnailSize> = {
+      "maxresdefault.jpg": { width: 1280, height: 720 },
+      "sddefault.jpg": { width: 640, height: 480 },
+      "hqdefault.jpg": { width: 480, height: 360 },
+      "mqdefault.jpg": { width: 320, height: 180 },
+      "default.jpg": { width: 120, height: 90 },
+    };
+
+    return knownSizes[filename] || fallback;
+  } catch {
+    return fallback;
+  }
 }
