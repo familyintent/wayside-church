@@ -13,6 +13,10 @@ meta:
 
 church:
   name: "Wayside Church"
+  # Common local names or search aliases people may use. Keep this short and accurate.
+  alternateNames:
+    - "Wayside"
+    - "Wayside Church Charlton"
   tagline: "A place to grow your faith"
   description: "Wayside Church is a Gospel-centered Christian church in Charlton, MA, welcoming families, guests, seekers, and neighbors from nearby Worcester County communities."
   faithTradition: "Advent Christian"

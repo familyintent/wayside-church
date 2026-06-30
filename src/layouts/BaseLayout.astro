@@ -62,6 +62,7 @@ const normalizedPath = withoutBase(Astro.url.pathname);
 const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube, site.links.maps].filter(Boolean);
 const phoneNumber = site.contact.phoneHref.replace(/^tel:/, "");
 const churchDescription = site.church.description || site.meta.description;
+const alternateNames = site.church.alternateNames || [];
 const searchTopics = site.church.searchTopics || [
   site.church.name,
   `Church in ${site.church.city}, ${site.church.state}`,
@@ -86,6 +87,7 @@ const churchSchema = {
   "@type": "Church",
   "@id": churchId,
   name: site.church.name,
+  alternateName: alternateNames,
   url: siteUrl,
   slogan: site.church.tagline,
   logo: logoUrl,
@@ -94,6 +96,8 @@ const churchSchema = {
   description: churchDescription,
   disambiguatingDescription: `${site.church.name} is a local church at ${site.contact.addressLine1} in ${site.contact.cityStateZip}.`,
   keywords: searchTopics,
+  knowsAbout: searchTopics,
+  mainEntityOfPage: siteUrl,
   telephone: phoneNumber,
   hasMap: site.links.maps,
   isAccessibleForFree: true,
@@ -157,6 +161,11 @@ const churchSchema = {
       name: "Faith tradition",
       value: site.church.faithTradition,
     },
+    {
+      "@type": "PropertyValue",
+      name: "Mission",
+      value: site.church.mission,
+    },
     ...visitorSearchDetails,
   ].filter(Boolean),
 };
@@ -165,7 +174,9 @@ const webSiteSchema = {
   "@type": "WebSite",
   "@id": webSiteId,
   name: site.church.name,
+  alternateName: alternateNames,
   url: siteUrl,
+  description: site.meta.description,
   publisher: { "@id": churchId },
   about: { "@id": churchId },
   mainEntity: { "@id": churchId },

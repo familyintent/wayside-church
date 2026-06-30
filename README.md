@@ -94,6 +94,7 @@ The site includes:
 - Open Graph and Twitter card metadata
 - local church structured data using JSON-LD
 - enhanced local `Church` schema for public access, free access, Sunday hours, real photo objects, and local keywords
+- entity-focused `Church` and `WebSite` schema with common local names, mission, topical focus, and the official site relationship
 - page-level `WebPage`, `AboutPage`, `ContactPage`, and `CollectionPage` structured data
 - local entity checks for address, phone, map link, social profiles, service hours, and nearby communities
 - a nearby-neighbor page with real town direction links and structured direction actions, without creating thin duplicate town pages
