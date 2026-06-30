@@ -4,6 +4,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 
 ## Weekly Rhythm
 
+- After a sermon is uploaded to YouTube, either wait for the daily GitHub Pages rebuild or manually run the deploy workflow from GitHub Actions to refresh the homepage and teaching page.
 - Add one fresh photo to Google Business Profile when there is a real church moment worth sharing: Sunday setup, fellowship, meals, ministry rhythms, baptisms, outreach, or building updates.
 - Add one short Google Business Profile post when there is a real next step: Sunday worship, holiday gatherings, community care, teaching series, or ministry updates.
 - Update the YouTube description for new teachings with:
@@ -19,7 +20,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 - Check Google Business Profile hours, service time, website URL, phone, address, photos, and categories.
 - Check Apple Maps and Bing Places for the same name, address, phone, and website.
 - Add one local or ministry update to Facebook that points to a relevant site page.
-- Review Google Search Console for indexing, sitemap, query, and page performance issues.
+- Review Google Search Console for indexing, sitemap, query, and page performance issues. Keep `https://wayside.church/sitemap-index.xml` submitted.
 - Look for one legitimate local mention or backlink opportunity from:
   - Advent Christian or regional church directories
   - local ministry partners
@@ -62,6 +63,19 @@ Good review prompts:
 - A ministry rhythm reminder for men, youth, children, or Identity Groups
 - A local Charlton care story when there is a real story to tell
 - A holiday service or seasonal invitation
+
+## Search Console and Business Profile Checklist
+
+- Verify `wayside.church` as a Google Search Console domain property.
+- Submit `https://wayside.church/sitemap-index.xml`.
+- Use URL Inspection after major page updates for:
+  - `https://wayside.church/`
+  - `https://wayside.church/church-in-charlton-ma/`
+  - `https://wayside.church/plan-a-visit/`
+  - `https://wayside.church/teaching/`
+- In Google Business Profile, keep the website URL, phone, service time, address, photos, and description aligned with the website.
+- Make the Google Business Profile description natural and local, not stuffed: Wayside Church is a welcoming Christian church in Charlton, MA, gathering Sundays at 10:00 AM at 6 Haggerty Rd.
+- Link real public events, seasonal gatherings, and teaching updates back to the most relevant page rather than always linking only to the homepage.
 
 ## What Not To Do
 

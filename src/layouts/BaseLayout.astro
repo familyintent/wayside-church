@@ -32,7 +32,7 @@ const siteUrl = absoluteUrl("/", site.meta.siteUrl);
 const churchId = `${siteUrl}#church`;
 const webSiteId = `${siteUrl}#website`;
 const normalizedPath = withoutBase(Astro.url.pathname);
-const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube].filter(Boolean);
+const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube, site.links.maps].filter(Boolean);
 const phoneNumber = site.contact.phoneHref.replace(/^tel:/, "");
 const churchSchema = {
   "@context": "https://schema.org",

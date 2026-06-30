@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  # Refreshes build-time content like the latest YouTube teaching even when no site files change.
+  schedule:
+    - cron: "17 11 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read

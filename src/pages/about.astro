@@ -3,11 +3,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
+import { imageSize } from "../lib/images";
 import { withBase } from "../lib/paths";
 import { getLeaderPersonSchemas } from "../lib/schema";
 
 const aboutHero = site.about.hero;
 const aboutSchemas = getLeaderPersonSchemas(site.about.leaders);
+const aboutHeroImageSize = imageSize(aboutHero.image);
+const leaders = site.about.leaders.map((leader) => ({
+  ...leader,
+  imageSize: imageSize(leader.image),
+}));
 ---
 
 <BaseLayout title="About Wayside Church in Charlton, MA" description="Learn what Wayside Church believes, meet the leaders, and discover the Gospel-centered mission shaping this local church in Charlton, MA." extraSchemas={aboutSchemas}>
@@ -25,7 +31,7 @@ const aboutSchemas = getLeaderPersonSchemas(site.about.leaders);
 
       <div class="about-hero__media">
         <figure class="about-hero__image-frame">
-          <img src={withBase(aboutHero.image)} alt={aboutHero.imageAlt} loading="eager" />
+          <img src={withBase(aboutHero.image)} alt={aboutHero.imageAlt} width={aboutHeroImageSize?.width} height={aboutHeroImageSize?.height} loading="eager" decoding="async" />
           <figcaption>{aboutHero.caption}</figcaption>
         </figure>
         <div class="about-hero__cards" aria-label="Sunday gathering times">
@@ -87,9 +93,9 @@ const aboutSchemas = getLeaderPersonSchemas(site.about.leaders);
         <p>{site.about.leadersIntro}</p>
       </SectionIntro>
       <div class="leader-grid leader-grid--feature">
-        {site.about.leaders.map((leader, index) => (
+        {leaders.map((leader) => (
           <article class="leader-card leader-card--feature">
-            <img src={withBase(leader.image)} alt={leader.name} loading="lazy" />
+            <img src={withBase(leader.image)} alt={leader.name} width={leader.imageSize?.width} height={leader.imageSize?.height} loading="lazy" decoding="async" />
             <div class="leader-card__body">
               <p class="eyebrow">{leader.role}</p>
               <h3>{leader.name}</h3>

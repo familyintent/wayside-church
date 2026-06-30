@@ -36,7 +36,7 @@ const dateLabel = (video) => (video?.published ? formatPublishedDate(video.publi
 
           <article class="teaching-card teaching-card--feature">
             <a class="teaching-card__image" href={latest.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch ${latest.title} on YouTube`}>
-              <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} loading="eager" decoding="async" />
+              <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} width="1280" height="720" loading="eager" decoding="async" />
             </a>
             <div class="teaching-card__body">
               <p class="eyebrow">{latest.source === "featured" ? "Featured teaching" : "Newest upload"}</p>
@@ -73,7 +73,7 @@ const dateLabel = (video) => (video?.published ? formatPublishedDate(video.publi
             {recent.map((video) => (
               <article class="teaching-tile">
                 <a class="teaching-tile__image" href={video.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch ${video.title} on YouTube`}>
-                  <img src={video.thumbnail} alt={`Thumbnail for ${video.title}`} loading="lazy" />
+                  <img src={video.thumbnail} alt={`Thumbnail for ${video.title}`} width="1280" height="720" loading="lazy" decoding="async" />
                 </a>
                 <div class="teaching-tile__body">
                   <p>{dateLabel(video)}</p>

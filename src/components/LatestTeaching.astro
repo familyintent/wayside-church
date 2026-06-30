@@ -25,7 +25,7 @@ const latestDate = latest?.published ? formatPublishedDate(latest.published) : l
       latest ? (
         <article class="teaching-card" aria-labelledby="latest-teaching-title">
           <div class="teaching-card__image">
-            <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} loading="lazy" />
+            <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} width="1280" height="720" loading="lazy" decoding="async" />
           </div>
           <div class="teaching-card__body">
             <p class="eyebrow">{latestLabel}</p>

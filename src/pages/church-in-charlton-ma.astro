@@ -4,11 +4,13 @@ import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
+import { imageSize } from "../lib/images";
 import { withBase } from "../lib/paths";
 import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
 
 const local = site.localSeo;
 const localSchemas = [getFaqPageSchema(local.faq), getSundayWorshipEventSchema("/church-in-charlton-ma/")];
+const communityImageSize = imageSize(site.images.community);
 ---
 
 <BaseLayout title={local.metaTitle} description={local.metaDescription} extraSchemas={localSchemas}>
@@ -43,7 +45,7 @@ const localSchemas = [getFaqPageSchema(local.faq), getSundayWorshipEventSchema("
       </div>
 
       <figure class="image-panel">
-        <img src={withBase(site.images.community)} alt="Wayside Church family sharing a meal in Charlton, Massachusetts" loading="lazy" />
+        <img src={withBase(site.images.community)} alt="Wayside Church family sharing a meal in Charlton, Massachusetts" width={communityImageSize?.width} height={communityImageSize?.height} loading="lazy" decoding="async" />
         <figcaption>{local.localAreas}</figcaption>
       </figure>
     </div>
