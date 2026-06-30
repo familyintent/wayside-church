@@ -763,6 +763,26 @@ summary:focus-visible {
   color: #ffffff;
 }
 
+.ministry-card__actions,
+.ministry-calendar-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ministry-card__actions {
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.ministry-calendar-links {
+  align-items: center;
+}
+
+.ministry-calendar-links .button--text {
+  font-size: 0.93rem;
+}
+
 .ministry-pathway-grid {
   display: grid;
   gap: 2rem;

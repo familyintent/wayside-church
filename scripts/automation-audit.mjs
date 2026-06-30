@@ -84,6 +84,25 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml")
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "frame-src https://www.youtube-nocookie.com https://www.youtube.com");
 
+const calendarHelper = readText("src/lib/calendar.ts");
+requireIncludes("src/lib/calendar.ts", calendarHelper, "getSundayCalendarEvent");
+requireIncludes("src/lib/calendar.ts", calendarHelper, "getMinistryCalendarEvent");
+requireIncludes("src/lib/calendar.ts", calendarHelper, "getMinistryCalendarPath");
+requireIncludes("src/lib/calendar.ts", calendarHelper, "getGoogleCalendarUrl");
+requireIncludes("src/lib/calendar.ts", calendarHelper, "buildIcsCalendar");
+requireIncludes("src/lib/calendar.ts", calendarHelper, "RRULE:FREQ=WEEKLY;BYDAY=");
+
+const ministryCalendarComponent = readText("src/components/MinistryCalendarLinks.astro");
+requireIncludes("src/components/MinistryCalendarLinks.astro", ministryCalendarComponent, "getGoogleCalendarUrl");
+requireIncludes("src/components/MinistryCalendarLinks.astro", ministryCalendarComponent, "getMinistryCalendarPath");
+requireIncludes("src/components/MinistryCalendarLinks.astro", ministryCalendarComponent, "Apple / Outlook");
+
+const ministryCalendarRoute = readText("src/pages/calendar/[slug].ics.ts");
+requireIncludes("src/pages/calendar/[slug].ics.ts", ministryCalendarRoute, "site.ministries.items");
+requireIncludes("src/pages/calendar/[slug].ics.ts", ministryCalendarRoute, "getMinistryCalendarEvent");
+requireIncludes("src/pages/calendar/[slug].ics.ts", ministryCalendarRoute, "buildIcsCalendar");
+requireIncludes("src/pages/calendar/[slug].ics.ts", ministryCalendarRoute, "text/calendar");
+
 const contactBlock = readText("src/components/ChurchContactBlock.astro");
 requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "<address");
 requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "itemprop=\"streetAddress\"");
@@ -99,6 +118,7 @@ requireIncludes("src/content/settings.yaml", settings, "Staff should only need t
 requireIncludes("src/content/settings.yaml", settings, "visitDetails:");
 requireIncludes("src/content/settings.yaml", settings, "Parking is available near the building");
 requireIncludes("src/content/settings.yaml", settings, "generated .ics route");
+requireIncludes("src/content/settings.yaml", settings, "Ministries with an event block automatically get structured-data event signals and generated .ics calendar files");
 requireIncludes("src/content/settings.yaml", settings, "feedUrl: \"https://www.youtube.com/feeds/videos.xml");
 requireIncludes("src/content/settings.yaml", settings, "channelVideosUrl:");
 requireIncludes("src/content/settings.yaml", settings, "featuredVideo:");
@@ -116,9 +136,15 @@ requireIncludes("README.md", readme, "update `calendar.sunday` only");
 requireIncludes("README.md", readme, "daily so the build-time YouTube feed can refresh");
 
 const generatedCalendar = readText("src/pages/calendar/wayside-sunday-worship.ics.ts");
-requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "site.calendar.sunday");
 requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "text/calendar");
-requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "BEGIN:VCALENDAR");
+requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "getSundayCalendarEvent");
+requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "buildIcsCalendar");
+
+const ministriesPage = readText("src/pages/ministries.astro");
+requireIncludes("src/pages/ministries.astro", ministriesPage, "MinistryCalendarLinks");
+
+const eventsPage = readText("src/pages/events.astro");
+requireIncludes("src/pages/events.astro", eventsPage, "MinistryCalendarLinks");
 
 const generatedContactCard = readText("src/pages/wayside-church.vcf.ts");
 requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.contact.addressLine1");

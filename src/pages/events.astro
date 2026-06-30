@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
+import MinistryCalendarLinks from "../components/MinistryCalendarLinks.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { getFaqPageSchema, getMinistryEventSchemas, getSundayWorshipEventSchema } from "../lib/schema";
@@ -78,7 +79,10 @@ const eventSchemas = [
             <h2>{gathering.name}</h2>
             <p class="ministry-card__summary">{gathering.summary}</p>
             <p>{gathering.details}</p>
-            <ButtonLink href={`/ministries/#${gathering.id}`} variant="text">Ministry Details</ButtonLink>
+            <div class="ministry-card__actions">
+              <ButtonLink href={`/ministries/#${gathering.id}`} variant="text">Ministry Details</ButtonLink>
+              <MinistryCalendarLinks ministry={gathering} pagePath="/ministries/" />
+            </div>
           </article>
         ))}
       </div>

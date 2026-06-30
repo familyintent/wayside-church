@@ -428,6 +428,69 @@ async function checkSundayCalendarFile() {
   }
 }
 
+async function checkMinistryCalendarFiles() {
+  const expectedCalendars = [
+    {
+      path: "/calendar/coffee-and-discipleship.ics",
+      summary: "SUMMARY:Coffee and Discipleship at Wayside Church",
+      start: "DTSTART;TZID=America/New_York:20260705T090000",
+      end: "DTEND;TZID=America/New_York:20260705T094500",
+      recurrence: "RRULE:FREQ=WEEKLY;BYDAY=SU",
+      url: `${rootUrl}ministries/#coffee-and-discipleship`,
+    },
+    {
+      path: "/calendar/little-disciples.ics",
+      summary: "SUMMARY:Little Disciples at Wayside Church",
+      start: "DTSTART;TZID=America/New_York:20260705T100000",
+      end: "DTEND;TZID=America/New_York:20260705T113000",
+      recurrence: "RRULE:FREQ=WEEKLY;BYDAY=SU",
+      url: `${rootUrl}ministries/#little-disciples`,
+    },
+    {
+      path: "/calendar/newlife-youth-ministry.ics",
+      summary: "SUMMARY:NewLife Youth Ministry at Wayside Church",
+      start: "DTSTART;TZID=America/New_York:20260705T100000",
+      end: "DTEND;TZID=America/New_York:20260705T113000",
+      recurrence: "RRULE:FREQ=WEEKLY;BYDAY=SU",
+      url: `${rootUrl}ministries/#newlife-youth-ministry`,
+    },
+    {
+      path: "/calendar/identity-groups.ics",
+      summary: "SUMMARY:Identity Groups at Wayside Church",
+      start: "DTSTART;TZID=America/New_York:20260708T180000",
+      end: "DTEND;TZID=America/New_York:20260708T193000",
+      recurrence: "RRULE:FREQ=WEEKLY;BYDAY=WE",
+      url: `${rootUrl}ministries/#identity-groups`,
+    },
+  ];
+
+  for (const expectedCalendar of expectedCalendars) {
+    const calendarUrl = new URL(expectedCalendar.path, rootUrl).toString();
+    const { response, text } = await fetchText(calendarUrl, {
+      accept: "text/calendar,text/plain;q=0.9,*/*;q=0.8",
+    });
+
+    if (!response.ok) {
+      reportError(`${calendarUrl} should be fetchable, got ${response.status}.`);
+      continue;
+    }
+
+    for (const expected of [
+      "BEGIN:VCALENDAR",
+      expectedCalendar.summary,
+      expectedCalendar.start,
+      expectedCalendar.end,
+      expectedCalendar.recurrence,
+      "LOCATION:6 Haggerty Rd\\, Charlton\\, MA 01507",
+      `URL:${expectedCalendar.url}`,
+    ]) {
+      if (!text.includes(expected)) {
+        reportError(`Generated ministry calendar ${expectedCalendar.path} is missing ${expected}.`);
+      }
+    }
+  }
+}
+
 async function checkChurchContactCard() {
   const contactCardUrl = new URL("/wayside-church.vcf", rootUrl).toString();
   const { response, text } = await fetchText(contactCardUrl, {
@@ -721,6 +784,7 @@ async function main() {
   await checkTeachingFeed();
   await checkLiveLlms();
   await checkSundayCalendarFile();
+  await checkMinistryCalendarFiles();
   await checkChurchContactCard();
   await checkLivePages(sitemapUrls);
   await checkLiveTeachingPages();

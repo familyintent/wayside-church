@@ -1,0 +1,35 @@
+---
+import { getGoogleCalendarUrl, getMinistryCalendarEvent, getMinistryCalendarPath } from "../lib/calendar";
+import { withBase } from "../lib/paths";
+
+type Props = {
+  ministry: {
+    id?: string;
+    name: string;
+    summary: string;
+    details: string;
+    event?: {
+      day: string;
+      startTime: string;
+      endTime: string;
+    };
+  };
+  pagePath?: string;
+};
+
+const { ministry, pagePath = "/ministries/" } = Astro.props;
+const event = getMinistryCalendarEvent(ministry, pagePath);
+---
+
+{
+  event && (
+    <div class="ministry-calendar-links" aria-label={`Calendar links for ${ministry.name}`}>
+      <a class="button button--text" href={getGoogleCalendarUrl(event)} target="_blank" rel="noopener noreferrer">
+        Add to Google
+      </a>
+      <a class="button button--text" href={withBase(getMinistryCalendarPath(ministry))} download={`${ministry.id}.ics`}>
+        Apple / Outlook
+      </a>
+    </div>
+  )
+}

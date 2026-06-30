@@ -854,6 +854,8 @@ leadershipPage:
       answer: "Yes. You are welcome to call the church if you have a question before coming on Sunday."
 
 # Update ministries here.
+# Ministries with an event block automatically get structured-data event signals and generated .ics calendar files.
+# Leave event off for gatherings that do not have a stable recurring day and time.
 ministries:
   title: "Life together at Wayside"
   intro: "Ministries at Wayside are simple, relational, and centered on Jesus. They are places to open Scripture, build friendship, pray, serve, and grow at a pace that fits real life."

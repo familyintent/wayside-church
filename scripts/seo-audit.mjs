@@ -532,6 +532,81 @@ if (!fs.existsSync(calendarPath)) {
   }
 }
 
+const ministryCalendarExpectations = [
+  {
+    file: "coffee-and-discipleship.ics",
+    summary: "SUMMARY:Coffee and Discipleship at Wayside Church",
+    start: "DTSTART;TZID=America/New_York:20260705T090000",
+    end: "DTEND;TZID=America/New_York:20260705T094500",
+    recurrence: "RRULE:FREQ=WEEKLY;BYDAY=SU",
+    url: "URL:https://wayside.church/ministries/#coffee-and-discipleship",
+  },
+  {
+    file: "little-disciples.ics",
+    summary: "SUMMARY:Little Disciples at Wayside Church",
+    start: "DTSTART;TZID=America/New_York:20260705T100000",
+    end: "DTEND;TZID=America/New_York:20260705T113000",
+    recurrence: "RRULE:FREQ=WEEKLY;BYDAY=SU",
+    url: "URL:https://wayside.church/ministries/#little-disciples",
+  },
+  {
+    file: "newlife-youth-ministry.ics",
+    summary: "SUMMARY:NewLife Youth Ministry at Wayside Church",
+    start: "DTSTART;TZID=America/New_York:20260705T100000",
+    end: "DTEND;TZID=America/New_York:20260705T113000",
+    recurrence: "RRULE:FREQ=WEEKLY;BYDAY=SU",
+    url: "URL:https://wayside.church/ministries/#newlife-youth-ministry",
+  },
+  {
+    file: "identity-groups.ics",
+    summary: "SUMMARY:Identity Groups at Wayside Church",
+    start: "DTSTART;TZID=America/New_York:20260708T180000",
+    end: "DTEND;TZID=America/New_York:20260708T193000",
+    recurrence: "RRULE:FREQ=WEEKLY;BYDAY=WE",
+    url: "URL:https://wayside.church/ministries/#identity-groups",
+  },
+];
+
+for (const expectedCalendar of ministryCalendarExpectations) {
+  const ministryCalendarPath = path.join(distDir, "calendar", expectedCalendar.file);
+  if (!fs.existsSync(ministryCalendarPath)) {
+    errors.push(`Missing generated ministry calendar file: ${expectedCalendar.file}.`);
+    continue;
+  }
+
+  const ministryCalendar = readText(ministryCalendarPath);
+  for (const expected of [
+    "BEGIN:VCALENDAR",
+    expectedCalendar.summary,
+    expectedCalendar.start,
+    expectedCalendar.end,
+    expectedCalendar.recurrence,
+    "LOCATION:6 Haggerty Rd\\, Charlton\\, MA 01507",
+    expectedCalendar.url,
+  ]) {
+    if (!ministryCalendar.includes(expected)) {
+      errors.push(`Generated ministry calendar ${expectedCalendar.file} is missing ${expected}.`);
+    }
+  }
+}
+
+for (const route of ["/events/", "/ministries/"]) {
+  const htmlPath = htmlRouteFromPathname(route);
+  if (!fs.existsSync(htmlPath)) continue;
+
+  const html = readText(htmlPath);
+  for (const expectedCalendar of ministryCalendarExpectations) {
+    const calendarHref = `/calendar/${expectedCalendar.file}`;
+    if (!html.includes(calendarHref)) {
+      errors.push(`${routeLabel(route)}: missing generated ministry calendar link ${calendarHref}.`);
+    }
+  }
+
+  if (!html.includes("calendar.google.com/calendar/render")) {
+    errors.push(`${routeLabel(route)}: missing Google Calendar links for recurring ministry events.`);
+  }
+}
+
 const contactCardPath = path.join(distDir, "wayside-church.vcf");
 if (!fs.existsSync(contactCardPath)) {
   errors.push("Missing generated Wayside Church contact card.");
@@ -613,6 +688,9 @@ if (!fs.existsSync(indexNowScriptPath)) {
   }
   if (!indexNowScript.includes("llms.txt")) {
     errors.push("IndexNow submission should include llms.txt for AI-facing site summary discovery.");
+  }
+  if (!indexNowScript.includes("coffee-and-discipleship.ics") || !indexNowScript.includes("identity-groups.ics")) {
+    errors.push("IndexNow submission should include generated ministry calendar files.");
   }
   if (!indexNowScript.includes("INDEXNOW_DRY_RUN")) {
     errors.push("IndexNow submission should keep a dry-run mode for safe verification.");

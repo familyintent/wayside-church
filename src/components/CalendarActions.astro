@@ -1,5 +1,6 @@
 ---
 import { site } from "../lib/content";
+import { getGoogleCalendarUrl, getSundayCalendarEvent } from "../lib/calendar";
 import { withBase } from "../lib/paths";
 
 type Props = {
@@ -14,19 +15,9 @@ const {
   title = "Put Wayside on your calendar.",
 } = Astro.props;
 
+const sundayEvent = getSundayCalendarEvent();
 const event = site.calendar.sunday;
-const address = `${site.contact.addressLine1}, ${site.contact.cityStateZip}`;
-const details = `${event.description}\n\n${address}`;
-const googleDates = `${event.startLocal}/${event.endLocal}`;
-const googleCalendarUrl = `https://calendar.google.com/calendar/render?${new URLSearchParams({
-  action: "TEMPLATE",
-  text: event.title,
-  dates: googleDates,
-  details,
-  location: address,
-  ctz: event.timezone,
-  recur: event.recurrenceRule,
-}).toString()}`;
+const googleCalendarUrl = getGoogleCalendarUrl(sundayEvent);
 const icsUrl = withBase(event.ics);
 ---
 

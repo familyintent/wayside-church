@@ -53,6 +53,7 @@ That file includes comments showing where to update:
 - Beliefs page copy
 - Ministries page copy, audience labels, and weekly rhythm
 - Sunday calendar event settings for Google, Apple/iPhone, and Outlook
+- generated recurring ministry calendars for gatherings that have a stable event day and time
 - ministries
 - giving, newsletter, YouTube, and social links
 - optional connect card / follow-up link
@@ -98,6 +99,7 @@ The site includes:
 - generated `wayside-church.vcf` contact card from the same editable church settings
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data
 - recurring Sunday worship event schema
+- generated recurring calendar files for Sunday Worship and ministry gatherings
 - FAQ schema on visitor-focused pages
 - practical visitor detail structured data for parking and first-visit planning
 - video schema for recent teaching pages when YouTube publish dates are available
@@ -118,7 +120,7 @@ The site includes:
 - visible navigation structured data and an internal-link audit so indexed pages are reachable through the real site, not only the sitemap
 - `public/robots.txt`
 - `public/site.webmanifest`
-- IndexNow key file and deploy notification for participating search engines, including page, sitemap, image-sitemap, video-sitemap, and teaching-feed URLs
+- IndexNow key file and deploy notification for participating search engines, including page, sitemap, image-sitemap, video-sitemap, teaching-feed, llms.txt, and generated calendar URLs
 
 The production URL is configured as `https://wayside.church` in `astro.config.mjs` and `src/content/settings.yaml` under `meta`. Update the default description, logo, and social image in `src/content/settings.yaml` under `meta`.
 
@@ -262,6 +264,22 @@ src/pages/calendar/wayside-sunday-worship.ics.ts
 ```
 
 If the worship time, address, or event description changes, update `calendar.sunday` only. The `.ics` file is generated during the Astro build so all calendar options stay aligned.
+
+## Ministry Calendars
+
+Ministry cards on `/ministries/` and `/events/` include Google Calendar and Apple/Outlook links when a ministry has an `event` block in:
+
+```text
+src/content/settings.yaml
+```
+
+Generated ministry calendar files live at:
+
+```text
+src/pages/calendar/[slug].ics.ts
+```
+
+Only add an `event` block for gatherings with a stable recurring day and time. Leave it off for quarterly or irregular gatherings, such as men's events, so the site does not publish misleading calendar details.
 
 ## Notes
 

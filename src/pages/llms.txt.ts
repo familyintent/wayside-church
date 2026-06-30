@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { site } from "../lib/content";
+import { getMinistryCalendarPath } from "../lib/calendar";
 import { absoluteUrl } from "../lib/paths";
 import { getTeachingPagePath } from "../lib/teaching-routes";
 import { formatPublishedDate, getRecentTeachings } from "../lib/youtube";
@@ -52,6 +53,12 @@ export const GET: APIRoute = async () => {
     { label: "Video Sitemap", href: "/video-sitemap.xml" },
     { label: "Automated Teaching Feed", href: "/teaching-feed.xml" },
     { label: "Sunday Worship Calendar", href: site.calendar.sunday.ics },
+    ...site.ministries.items
+      .filter((ministry) => ministry.id && ministry.event)
+      .map((ministry) => ({
+        label: `${ministry.name} Calendar`,
+        href: getMinistryCalendarPath(ministry),
+      })),
     { label: "Wayside Church Contact Card", href: "/wayside-church.vcf" },
   ];
   const officialProfiles = [
