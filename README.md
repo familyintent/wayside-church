@@ -86,6 +86,7 @@ The site includes:
 - sitemap generation through `@astrojs/sitemap`
 - `public/robots.txt`
 - `public/site.webmanifest`
+- IndexNow key file and deploy notification for participating search engines
 
 The production URL is configured as `https://wayside.church` in `astro.config.mjs` and `src/content/settings.yaml` under `meta`. Update the default description, logo, and social image in `src/content/settings.yaml` under `meta`.
 
@@ -133,6 +134,7 @@ It runs:
 - on every push to `main`
 - manually from the GitHub Actions tab with `workflow_dispatch`
 - daily on a schedule to refresh build-time content like the latest YouTube teaching
+- after deployment, it submits sitemap URLs to IndexNow so participating search engines can discover changed pages faster
 
 The custom domain is configured by:
 
@@ -140,6 +142,14 @@ The custom domain is configured by:
 public/CNAME
 CNAME
 ```
+
+The IndexNow verification key is hosted at:
+
+```text
+public/5ea8c2e9256b462dbad69ce5b252e339.txt
+```
+
+If the key is rotated later, update the file name, file contents, and `INDEXNOW_KEY` in `.github/workflows/deploy.yml`.
 
 ## Deploy to Vercel
 

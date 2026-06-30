@@ -62,3 +62,18 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  notify-indexnow:
+    name: Notify IndexNow
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Submit sitemap URLs to IndexNow
+        run: node scripts/submit-indexnow.mjs
+        env:
+          INDEXNOW_SITE_URL: https://wayside.church
+          INDEXNOW_KEY: 5ea8c2e9256b462dbad69ce5b252e339
+          INDEXNOW_ENDPOINT: https://api.indexnow.org/indexnow

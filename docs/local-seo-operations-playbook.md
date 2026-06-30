@@ -21,6 +21,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 - Check Apple Maps and Bing Places for the same name, address, phone, and website.
 - Add one local or ministry update to Facebook that points to a relevant site page.
 - Review Google Search Console for indexing, sitemap, query, and page performance issues. Keep `https://wayside.church/sitemap-index.xml` submitted.
+- Check Bing Webmaster Tools after major launches or page additions. The deploy workflow also submits sitemap URLs through IndexNow for participating search engines.
 - Look for one legitimate local mention or backlink opportunity from:
   - Advent Christian or regional church directories
   - local ministry partners
