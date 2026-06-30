@@ -121,6 +121,7 @@ The site includes:
 - visible navigation structured data and an internal-link audit so indexed pages are reachable through the real site, not only the sitemap
 - `public/robots.txt`
 - generated `/.well-known/security.txt` with the current contact URL, canonical URL, and expiration date
+- `public/.nojekyll` so GitHub Pages serves dot-prefixed paths such as `/.well-known/security.txt`
 - `public/site.webmanifest`
 - IndexNow key file and deploy notification for participating search engines, including page, sitemap, image-sitemap, video-sitemap, teaching-feed, llms.txt, and generated calendar URLs
 

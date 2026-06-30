@@ -174,6 +174,9 @@ requireIncludes("src/pages/.well-known/security.txt.ts", securityContact, "Canon
 requireIncludes("src/pages/.well-known/security.txt.ts", securityContact, "Expires:");
 requireIncludes("src/pages/.well-known/security.txt.ts", securityContact, "text/plain");
 
+const noJekyll = readText("public/.nojekyll");
+requireIncludes("public/.nojekyll", noJekyll, ".well-known/security.txt");
+
 if (fs.existsSync(path.join(rootDir, "public", "calendar", "wayside-sunday-worship.ics"))) {
   errors.push("Calendar .ics should be generated from settings, not manually maintained in public/calendar.");
 }

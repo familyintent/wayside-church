@@ -525,6 +525,11 @@ if (!fs.existsSync(securityTxtPath)) {
   }
 }
 
+const noJekyllPath = path.join(distDir, ".nojekyll");
+if (!fs.existsSync(noJekyllPath)) {
+  errors.push("Missing .nojekyll marker needed for GitHub Pages to serve .well-known routes.");
+}
+
 const llmsPath = path.join(distDir, "llms.txt");
 if (!fs.existsSync(llmsPath)) {
   errors.push("Missing llms.txt.");
