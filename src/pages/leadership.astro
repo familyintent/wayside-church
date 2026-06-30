@@ -18,7 +18,7 @@ const leadershipSchemas = [
 ];
 ---
 
-<BaseLayout title={leadership.metaTitle} description={leadership.metaDescription} image={site.about.leaders[0].image} extraSchemas={leadershipSchemas}>
+<BaseLayout title={leadership.metaTitle} description={leadership.metaDescription} image={site.about.leaders[0].image} imageAlt={`${site.about.leaders[0].role} ${site.about.leaders[0].name} of ${site.church.name}`} extraSchemas={leadershipSchemas}>
   <section class="page-hero page-hero--center">
     <div class="shell page-hero__inner">
       <p class="eyebrow">{leadership.eyebrow}</p>

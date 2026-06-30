@@ -106,9 +106,10 @@ The site includes:
 - sitemap generation through `@astrojs/sitemap`
 - a human-readable `/sitemap/` page that links every indexed page without cluttering the main footer
 - `image-sitemap.xml` for representative real Wayside images on key pages
+- page-specific social image alt text and structured-data image captions
 - `public/robots.txt`
 - `public/site.webmanifest`
-- IndexNow key file and deploy notification for participating search engines
+- IndexNow key file and deploy notification for participating search engines, including page, sitemap, and image-sitemap URLs
 
 The production URL is configured as `https://wayside.church` in `astro.config.mjs` and `src/content/settings.yaml` under `meta`. Update the default description, logo, and social image in `src/content/settings.yaml` under `meta`.
 
@@ -158,7 +159,7 @@ It runs:
 - daily on a schedule to refresh build-time content like the latest YouTube teaching
 - `pnpm seo:audit` after the Astro build, before the Pages artifact is uploaded
 - `pnpm automation:audit` after the SEO audit, so recent teaching stays connected to the YouTube feed instead of becoming manual page content
-- after deployment, it submits sitemap URLs to IndexNow so participating search engines can discover changed pages faster
+- after deployment, it submits page, sitemap, and image-sitemap URLs to IndexNow so participating search engines can discover changed pages and visual assets faster
 
 After a deploy finishes, you can run `pnpm seo:live` locally to verify the public site, canonical redirects, live sitemap coverage, deployed structured data, and live recent-teaching cards.
 
@@ -176,6 +177,13 @@ public/5ea8c2e9256b462dbad69ce5b252e339.txt
 ```
 
 If the key is rotated later, update the file name, file contents, and `INDEXNOW_KEY` in `.github/workflows/deploy.yml`.
+
+To verify the IndexNow URL list without submitting it:
+
+```powershell
+$env:INDEXNOW_DRY_RUN = "true"
+node scripts/submit-indexnow.mjs
+```
 
 ## Deploy to Vercel
 

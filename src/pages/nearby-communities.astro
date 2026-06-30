@@ -23,7 +23,7 @@ const nearbyItemListSchema = {
 const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getFaqPageSchema(nearby.faq), nearbyItemListSchema];
 ---
 
-<BaseLayout title={nearby.metaTitle} description={nearby.metaDescription} image={site.images.community} extraSchemas={nearbySchemas}>
+<BaseLayout title={nearby.metaTitle} description={nearby.metaDescription} image={site.images.community} imageAlt="Wayside Church family sharing a meal together in Charlton, Massachusetts" extraSchemas={nearbySchemas}>
   <section class="page-hero page-hero--center">
     <div class="shell page-hero__inner">
       <p class="eyebrow">{nearby.eyebrow}</p>

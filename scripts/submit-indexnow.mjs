@@ -1,9 +1,12 @@
 const siteUrl = process.env.INDEXNOW_SITE_URL || "https://wayside.church";
 const endpoint = process.env.INDEXNOW_ENDPOINT || "https://api.indexnow.org/indexnow";
 const key = process.env.INDEXNOW_KEY || "5ea8c2e9256b462dbad69ce5b252e339";
-const isDryRun = process.env.INDEXNOW_DRY_RUN === "true";
+const isDryRun = ["1", "true", "yes"].includes((process.env.INDEXNOW_DRY_RUN || "").toLowerCase());
+const rootUrl = siteUrl.replace(/\/$/, "");
 const host = new URL(siteUrl).host;
-const keyLocation = `${siteUrl.replace(/\/$/, "")}/${key}.txt`;
+const keyLocation = `${rootUrl}/${key}.txt`;
+const sitemapIndexUrl = `${rootUrl}/sitemap-index.xml`;
+const imageSitemapUrl = `${rootUrl}/image-sitemap.xml`;
 
 function extractLocs(xml) {
   return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1].trim());
@@ -25,19 +28,19 @@ async function fetchText(url) {
 }
 
 async function getSitemapUrls() {
-  const sitemapIndexUrl = `${siteUrl.replace(/\/$/, "")}/sitemap-index.xml`;
   const sitemapIndex = await fetchText(sitemapIndexUrl);
   const sitemapUrls = extractLocs(sitemapIndex).filter((url) => url.endsWith(".xml"));
+  const discoveryUrls = [sitemapIndexUrl, ...sitemapUrls, imageSitemapUrl];
 
   if (sitemapUrls.length === 0) {
-    return extractLocs(sitemapIndex);
+    return [...discoveryUrls, ...extractLocs(sitemapIndex)];
   }
 
   const pageUrlSets = await Promise.all(
     sitemapUrls.map(async (sitemapUrl) => extractLocs(await fetchText(sitemapUrl))),
   );
 
-  return pageUrlSets.flat();
+  return [...discoveryUrls, ...pageUrlSets.flat()];
 }
 
 function dedupeValidUrls(urls) {

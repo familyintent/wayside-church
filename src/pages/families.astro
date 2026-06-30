@@ -9,7 +9,7 @@ const families = site.familiesPage;
 const familyMinistries = site.ministries.items.filter((item) => item.audience === "Children" || item.audience === "Youth");
 ---
 
-<BaseLayout title={families.metaTitle} description={families.metaDescription} image={site.images.community} extraSchemas={[getFaqPageSchema(families.faq)]}>
+<BaseLayout title={families.metaTitle} description={families.metaDescription} image={site.images.community} imageAlt="Wayside Church family sharing a meal together in Charlton, Massachusetts" extraSchemas={[getFaqPageSchema(families.faq)]}>
   <section class="family-hero">
     <div class="shell family-hero__grid">
       <div class="family-hero__copy">

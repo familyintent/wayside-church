@@ -13,7 +13,7 @@ const charltonImageSize = imageSize(site.images.charlton);
 const directionsSchemas = [getSundayWorshipEventSchema("/directions/"), getFaqPageSchema(directions.faq)];
 ---
 
-<BaseLayout title={directions.metaTitle} description={directions.metaDescription} image={site.images.charlton} extraSchemas={directionsSchemas}>
+<BaseLayout title={directions.metaTitle} description={directions.metaDescription} image={site.images.charlton} imageAlt="Map of Charlton, Massachusetts near Wayside Church" extraSchemas={directionsSchemas}>
   <section class="page-hero">
     <div class="shell page-hero__inner">
       <p class="eyebrow">{directions.eyebrow}</p>

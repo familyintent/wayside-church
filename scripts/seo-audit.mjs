@@ -39,6 +39,11 @@ function getMetaContent(html, name) {
   return html.match(regex)?.[1] || "";
 }
 
+function getMetaPropertyContent(html, property) {
+  const regex = new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=["']([^"']*)["'][^>]*>`, "i");
+  return html.match(regex)?.[1] || "";
+}
+
 function getLinkHref(html, rel) {
   const regex = new RegExp(`<link[^>]+rel=["']${rel}["'][^>]+href=["']([^"']+)["'][^>]*>`, "i");
   return html.match(regex)?.[1] || "";
@@ -171,9 +176,11 @@ for (const filePath of htmlFiles) {
   const canonical = getLinkHref(html, "canonical");
   const h1Count = [...html.matchAll(/<h1[\s>]/gi)].length;
   const expectedCanonical = new URL(route, siteUrl).toString();
-  const ogImage = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i)?.[1] || "";
-  const ogImageWidth = Number(html.match(/<meta[^>]+property=["']og:image:width["'][^>]+content=["']([^"']+)["'][^>]*>/i)?.[1] || 0);
-  const ogImageHeight = Number(html.match(/<meta[^>]+property=["']og:image:height["'][^>]+content=["']([^"']+)["'][^>]*>/i)?.[1] || 0);
+  const ogImage = getMetaPropertyContent(html, "og:image");
+  const ogImageAlt = getMetaPropertyContent(html, "og:image:alt");
+  const twitterImageAlt = getMetaContent(html, "twitter:image:alt");
+  const ogImageWidth = Number(getMetaPropertyContent(html, "og:image:width") || 0);
+  const ogImageHeight = Number(getMetaPropertyContent(html, "og:image:height") || 0);
 
   if (!title) errors.push(`${label}: missing <title>.`);
   if (!isNoIndex && title && title.length > 75) warnings.push(`${label}: title is ${title.length} characters.`);
@@ -188,6 +195,16 @@ for (const filePath of htmlFiles) {
   if (!isNoIndex && h1Count !== 1) errors.push(`${label}: expected exactly one H1, found ${h1Count}.`);
 
   if (!isNoIndex && ogImage) {
+    if (!ogImageAlt || ogImageAlt.length < 20) {
+      errors.push(`${label}: og:image:alt should describe the page image.`);
+    }
+    if (!twitterImageAlt || twitterImageAlt.length < 20) {
+      errors.push(`${label}: twitter:image:alt should describe the page image.`);
+    }
+    if (ogImageAlt && twitterImageAlt && ogImageAlt !== twitterImageAlt) {
+      errors.push(`${label}: og:image:alt and twitter:image:alt should match.`);
+    }
+
     const ogImagePath = new URL(ogImage, siteUrl).pathname;
     const expectedImageSize = expectedImageSizes.get(ogImagePath);
     if (expectedImageSize) {
@@ -308,6 +325,9 @@ for (const filePath of htmlFiles) {
       const primaryImageUrl = pageSchema.primaryImageOfPage?.url || "";
       const primaryImagePath = primaryImageUrl ? new URL(primaryImageUrl, siteUrl).pathname : "";
       const expectedImageSize = expectedImageSizes.get(primaryImagePath);
+      if (!pageSchema.primaryImageOfPage?.caption || pageSchema.primaryImageOfPage.caption !== ogImageAlt) {
+        errors.push(`${label}: primaryImageOfPage caption should match og:image:alt.`);
+      }
       if (expectedImageSize) {
         if (
           pageSchema.primaryImageOfPage?.width !== expectedImageSize.width ||
@@ -405,6 +425,19 @@ if (!fs.existsSync(imageSitemapPath)) {
     if (!fs.existsSync(imagePath)) {
       errors.push(`image-sitemap.xml image does not exist in dist: ${imageUrl}.`);
     }
+  }
+}
+
+const indexNowScriptPath = path.join(rootDir, "scripts", "submit-indexnow.mjs");
+if (!fs.existsSync(indexNowScriptPath)) {
+  errors.push("Missing scripts/submit-indexnow.mjs.");
+} else {
+  const indexNowScript = readText(indexNowScriptPath);
+  if (!indexNowScript.includes("image-sitemap.xml")) {
+    errors.push("IndexNow submission should include image-sitemap.xml for image discovery.");
+  }
+  if (!indexNowScript.includes("INDEXNOW_DRY_RUN")) {
+    errors.push("IndexNow submission should keep a dry-run mode for safe verification.");
   }
 }
 

@@ -8,6 +8,7 @@ meta:
   description: "Wayside Church is a welcoming church in Charlton, MA near Dudley, Oxford, Sturbridge, and Southbridge, gathering Sundays at 10:00 AM."
   locale: "en_US"
   socialImage: "/images/wayside-social-card.jpg"
+  socialImageAlt: "Wayside Church welcome card for the local church in Charlton, Massachusetts"
   logo: "/images/wayside-logo-mark-navy.png"
 
 church:
