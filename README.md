@@ -33,6 +33,7 @@ That file includes comments showing where to update:
 - Plan a Visit page copy
 - Families page copy
 - Teaching page copy
+- Beliefs page copy
 - Ministries page copy, audience labels, and weekly rhythm
 - Sunday calendar event settings
 - ministries

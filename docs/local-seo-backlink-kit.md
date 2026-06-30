@@ -32,6 +32,10 @@ Teaching description:
 
 Wayside Church posts recent Bible teaching and sermons from the Charlton, MA church family on YouTube and at https://wayside.church/teaching/.
 
+Beliefs description:
+
+Wayside Church is a Gospel-centered Christian church in Charlton, MA, shaped by Scripture, the hope of Jesus Christ's return, and historic evangelical faith. Learn more at https://wayside.church/beliefs/.
+
 ## Highest Priority Citations
 
 Update or create these first. Keep the name, address, phone, website, and service time exactly consistent.
@@ -75,6 +79,7 @@ Use these when a partner, directory, or social profile has a relevant place for 
 - Plan a Visit: https://wayside.church/plan-a-visit/
 - Families: https://wayside.church/families/
 - Teaching: https://wayside.church/teaching/
+- Beliefs: https://wayside.church/beliefs/
 - Ministries: https://wayside.church/ministries/
 - Church in Charlton, MA: https://wayside.church/church-in-charlton-ma/
 

@@ -341,6 +341,43 @@ familiesPage:
     - question: "What should my family wear?"
       answer: "Come in what feels normal for you. Some people dress casually and some dress more formally."
 
+beliefsPage:
+  metaTitle: "What We Believe at Wayside Church in Charlton, MA"
+  metaDescription: "Learn the Gospel-centered beliefs, Advent Christian roots, Scripture focus, and hope in Jesus Christ that shape Wayside Church in Charlton, MA."
+  eyebrow: "What we believe"
+  title: "Rooted in the Gospel of Jesus Christ."
+  intro: "Beliefs are not abstract ideas for us. They shape how we worship, teach, pray, care for one another, and welcome people into the hope of Jesus."
+  primaryCta:
+    label: "Plan a Visit"
+    href: "/plan-a-visit/"
+  secondaryCta:
+    label: "Meet the Church"
+    href: "/about/"
+  pillars:
+    eyebrow: "Our foundation"
+    title: "Clear convictions, lived with humility"
+    body: "Wayside is a Gospel-centered church in Charlton shaped by Scripture, the hope of Christ's return, and the ordinary life of discipleship together."
+    items:
+      - title: "Jesus at the center"
+        body: "The life, death, resurrection, and return of Jesus Christ are the center of our worship, teaching, mission, and hope."
+      - title: "Scripture shapes us"
+        body: "We open the Bible together and expect God's Word to form how we believe, pray, repent, serve, and grow."
+      - title: "Faith lived together"
+        body: "Doctrine is meant to become worship, love, hospitality, holiness, courage, and everyday faithfulness."
+  identity:
+    eyebrow: "Church identity"
+    title: "Advent Christian, Gospel-centered, and rooted in historic Christian faith"
+    body: "Wayside Church is part of the Advent Christian denomination and holds to the hope of Jesus Christ's return. We also affirm the central truths of historic evangelical faith and the authority of Scripture."
+  faq:
+    - question: "What kind of church is Wayside Church?"
+      answer: "Wayside Church is a Gospel-centered Christian church in Charlton, MA, connected with the Advent Christian tradition and committed to Scripture, worship, prayer, discipleship, and life together."
+    - question: "Is Wayside Church centered on the Bible?"
+      answer: "Yes. We open Scripture together and believe God's Word should shape our worship, teaching, prayer, service, repentance, and growth."
+    - question: "What does Advent Christian mean?"
+      answer: "Advent Christian churches hold to historic Christian faith with a strong hope in the return of Jesus Christ and the life to come in Him."
+    - question: "Can I visit if I am still exploring Christian faith?"
+      answer: "Yes. You are welcome to attend, listen, ask questions, and take your time. We believe Jesus meets people with truth and grace."
+
 about:
   hero:
     eyebrow: "About Wayside"

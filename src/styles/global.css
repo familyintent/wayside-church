@@ -1149,6 +1149,42 @@ summary:focus-visible {
   font-weight: 750;
 }
 
+.beliefs-hero {
+  background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+}
+
+.beliefs-foundation__grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.beliefs-pillar-list {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.beliefs-pillar-list article {
+  border-bottom: 1px solid var(--line);
+  padding: 1.2rem 0;
+}
+
+.beliefs-pillar-list span {
+  color: var(--accent-strong);
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.beliefs-pillar-list h2 {
+  margin: 0.45rem 0 0.65rem;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+}
+
+.beliefs-pillar-list p {
+  margin-bottom: 0;
+}
+
 .start-hero {
   background: var(--bg-soft);
 }
@@ -1778,7 +1814,8 @@ summary:focus-visible {
   .about-story__grid,
   .about-faith__grid,
   .start-sunday__grid,
-  .start-questions__grid {
+  .start-questions__grid,
+  .beliefs-foundation__grid {
     grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1fr);
     align-items: start;
   }

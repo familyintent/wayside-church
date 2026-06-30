@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { getFaqPageSchema } from "../lib/schema";
+
+const beliefs = site.beliefsPage;
+---
+
+<BaseLayout title={beliefs.metaTitle} description={beliefs.metaDescription} extraSchemas={[getFaqPageSchema(beliefs.faq)]}>
+  <section class="page-hero beliefs-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">{beliefs.eyebrow}</p>
+      <h1>{beliefs.title}</h1>
+      <p>{beliefs.intro}</p>
+      <div class="page-hero__actions">
+        <ButtonLink href={beliefs.primaryCta.href}>{beliefs.primaryCta.label}</ButtonLink>
+        <ButtonLink href={beliefs.secondaryCta.href} variant="secondary">{beliefs.secondaryCta.label}</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section beliefs-foundation">
+    <div class="shell beliefs-foundation__grid">
+      <SectionIntro eyebrow={beliefs.pillars.eyebrow} title={beliefs.pillars.title}>
+        <p>{beliefs.pillars.body}</p>
+      </SectionIntro>
+
+      <div class="beliefs-pillar-list">
+        {beliefs.pillars.items.map((item, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-fivefold">
+    <div class="shell">
+      <SectionIntro eyebrow={beliefs.identity.eyebrow} title={beliefs.identity.title}>
+        <p>{beliefs.identity.body}</p>
+      </SectionIntro>
+
+      <div class="fivefold-list">
+        {site.about.beliefs.map((belief, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{belief.title}</h3>
+            <p>{belief.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section beliefs-faq">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">Beliefs FAQ</p>
+        <h2>Questions people ask before visiting</h2>
+        <p>These answers are meant to help guests, seekers, and families understand what shapes Wayside Church.</p>
+      </div>
+
+      <div class="belief-accordion">
+        {beliefs.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Come worship with us</p>
+        <h2>See these convictions lived out on Sunday.</h2>
+        <p>{site.service.primary.day} at {site.service.primary.time} at {site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+    </div>
+  </section>
+</BaseLayout>
