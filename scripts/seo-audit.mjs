@@ -1092,6 +1092,23 @@ if (!fs.existsSync(videoSitemapPath)) {
         errors.push(`${routeLabel(route)}: invalid watch page JSON-LD (${error.message}).`);
       }
     }
+    const watchBreadcrumb = watchPageSchemas.flatMap((schema) => collectSchemasByType(schema, "BreadcrumbList"))[0];
+    const watchBreadcrumbItems = watchBreadcrumb?.itemListElement || [];
+    if (watchBreadcrumbItems.length < 3) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should breadcrumb Home > Teaching > video title.`);
+    } else {
+      const parentCrumb = watchBreadcrumbItems[1];
+      const currentCrumb = watchBreadcrumbItems[2];
+      if (parentCrumb?.name !== "Teaching" || parentCrumb?.item !== `${siteUrl}/teaching/`) {
+        errors.push(`${routeLabel(route)}: generated teaching watch page should include Teaching as the parent breadcrumb.`);
+      }
+      if (currentCrumb?.item !== videoPageUrl) {
+        errors.push(`${routeLabel(route)}: generated teaching watch page final breadcrumb should point to the local teaching page.`);
+      }
+    }
+    if (!watchPageHtml.includes('href="/teaching/"')) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should visibly link back to the Teaching parent page.`);
+    }
     const watchVideoObjects = watchPageSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
     const watchVideoObject = watchVideoObjects[0];
     if (!watchVideoObject) {

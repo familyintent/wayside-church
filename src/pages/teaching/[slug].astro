@@ -44,7 +44,7 @@ const relatedWithThumbnailSizes = relatedTeachings.map((teaching) => ({
 }));
 ---
 
-<BaseLayout title={pageTitle} description={description} image={video.thumbnail} imageAlt={thumbnailAlt} imageWidth={thumbnailSize.width} imageHeight={thumbnailSize.height} extraSchemas={[videoSchema]}>
+<BaseLayout title={pageTitle} description={description} image={video.thumbnail} imageAlt={thumbnailAlt} imageWidth={thumbnailSize.width} imageHeight={thumbnailSize.height} breadcrumbLabel={video.title} extraSchemas={[videoSchema]}>
   <section class="video-watch">
     <div class="shell video-watch__grid">
       <div class="video-watch__copy">

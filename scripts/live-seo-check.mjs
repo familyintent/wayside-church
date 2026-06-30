@@ -552,6 +552,23 @@ async function checkVideoSitemap(sitemapUrls) {
         reportError(`${videoPageUrl} has invalid watch page JSON-LD: ${error.message}`);
       }
     }
+    const watchBreadcrumb = watchSchemas.flatMap((schema) => collectSchemasByType(schema, "BreadcrumbList"))[0];
+    const watchBreadcrumbItems = watchBreadcrumb?.itemListElement || [];
+    if (watchBreadcrumbItems.length < 3) {
+      reportError(`${videoPageUrl} should breadcrumb Home > Teaching > video title.`);
+    } else {
+      const parentCrumb = watchBreadcrumbItems[1];
+      const currentCrumb = watchBreadcrumbItems[2];
+      if (parentCrumb?.name !== "Teaching" || parentCrumb?.item !== new URL("/teaching/", rootUrl).toString()) {
+        reportError(`${videoPageUrl} should include Teaching as the parent breadcrumb.`);
+      }
+      if (currentCrumb?.item !== videoPageUrl) {
+        reportError(`${videoPageUrl} final breadcrumb should point to the local teaching page.`);
+      }
+    }
+    if (!watchText.includes('href="/teaching/"')) {
+      reportError(`${videoPageUrl} should visibly link back to the Teaching parent page.`);
+    }
     const watchVideoObjects = watchSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
     const watchVideoObject = watchVideoObjects[0];
     if (!watchVideoObject) {

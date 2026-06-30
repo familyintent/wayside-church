@@ -110,6 +110,7 @@ The site includes:
 - semantic church address blocks for consistent name, address, phone, and map details
 - generated `wayside-church.vcf` contact card from the same editable church settings
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data
+- hierarchical breadcrumbs for generated teaching watch pages, so visitors and search engines see `Home > Teaching > message`
 - recurring Sunday worship event schema
 - local Event schema dates with explicit Eastern timezone offsets and free in-person gathering signals
 - generated recurring calendar files for Sunday Worship and ministry gatherings

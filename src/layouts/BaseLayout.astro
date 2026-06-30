@@ -23,6 +23,7 @@ type Props = {
   robots?: string;
   extraSchemas?: unknown[];
   preloadImages?: PreloadImage[];
+  breadcrumbLabel?: string;
 };
 
 const {
@@ -35,6 +36,7 @@ const {
   robots = "index, follow",
   extraSchemas = [],
   preloadImages = [],
+  breadcrumbLabel: breadcrumbLabelOverride,
 } = Astro.props;
 const pageTitle = title
   ? title.includes(site.church.name)
@@ -269,8 +271,18 @@ const pageLabels: Record<string, string> = {
   "/teaching/": "Teaching",
   "/visitor-faq/": "Visitor FAQ",
 };
-const fallbackBreadcrumbLabel = (title || pageTitle).replace(` | ${site.church.name}`, "");
-const breadcrumbLabel = currentNavItem?.label || pageLabels[normalizedPathKey] || fallbackBreadcrumbLabel;
+const fallbackBreadcrumbLabel = (title || pageTitle).replace(` | ${site.church.name}`, "").replace(/^Teaching:\s*/, "");
+const breadcrumbLabel = breadcrumbLabelOverride || currentNavItem?.label || pageLabels[normalizedPathKey] || fallbackBreadcrumbLabel;
+const parentBreadcrumbItems =
+  normalizedPathKey.startsWith("/teaching/") && normalizedPathKey !== "/teaching/"
+    ? [
+        {
+          name: "Teaching",
+          href: "/teaching/",
+          item: absoluteUrl("/teaching/", site.meta.siteUrl),
+        },
+      ]
+    : [];
 const breadcrumbItems =
   normalizedPath === "/" || robots.includes("noindex")
     ? []
@@ -280,6 +292,7 @@ const breadcrumbItems =
           href: "/",
           item: siteUrl,
         },
+        ...parentBreadcrumbItems,
         {
           name: breadcrumbLabel,
           href: normalizedPathKey,

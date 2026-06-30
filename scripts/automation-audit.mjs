@@ -113,6 +113,7 @@ requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "watchPage.rel
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingPagePath(teaching)");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "image={video.thumbnail}");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "imageAlt={thumbnailAlt}");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "breadcrumbLabel={video.title}");
 
 const teachingRoutes = readText("src/lib/teaching-routes.ts");
 requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "getTeachingSlug");
@@ -136,6 +137,10 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xm
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "preloadImages.map");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imagesrcset={preload.srcset}");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imagesizes={preload.sizes}");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "breadcrumbLabel?: string");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "breadcrumbLabelOverride");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "parentBreadcrumbItems");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "normalizedPathKey.startsWith(\"/teaching/\")");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "frame-src https://www.youtube-nocookie.com https://www.youtube.com");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageWidth");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imageHeight");
