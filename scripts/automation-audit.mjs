@@ -169,6 +169,9 @@ requireIncludes("src/pages/llms.txt.ts", llmsRoute, "getLeaderId");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "Public Leadership");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "site.about.leaders.map(leaderLine)");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "/leadership/#");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "Visitor Questions");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "site.visitorFaqPage.sections.flatMap");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "visitorQuestions.map(visitorQuestionLine)");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "AI Usage Notes");
 requireIncludes("src/pages/llms.txt.ts", llmsRoute, "text/plain");
 

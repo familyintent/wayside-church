@@ -11,6 +11,11 @@ type LinkItem = {
   href: string;
 };
 
+type VisitorQuestion = {
+  question: string;
+  answer: string;
+};
+
 function pageLine(item: LinkItem) {
   return `- ${item.label}: ${absoluteUrl(item.href, site.meta.siteUrl)}`;
 }
@@ -28,8 +33,13 @@ function leaderLine(leader: (typeof site.about.leaders)[number]) {
   return `- ${leader.name}, ${leader.role}: ${absoluteUrl(`/leadership/#${getLeaderId(leader)}`, site.meta.siteUrl)}`;
 }
 
+function visitorQuestionLine(item: VisitorQuestion) {
+  return `- ${item.question} ${item.answer}`;
+}
+
 export const GET: APIRoute = async () => {
   const recentTeachings = await getRecentTeachings(site.youtube, 6);
+  const visitorQuestions = site.visitorFaqPage.sections.flatMap((section: { questions: VisitorQuestion[] }) => section.questions);
   const keyPages: LinkItem[] = [
     { label: "Home", href: "/" },
     { label: "Start Here", href: "/start-here/" },
@@ -114,6 +124,10 @@ export const GET: APIRoute = async () => {
     "- Parking is available near the building.",
     "- Children and youth are welcomed into the life of the church.",
     "- Guests can call before Sunday with mobility, seating, accessibility, or practical questions.",
+    "",
+    "## Visitor Questions",
+    "",
+    ...visitorQuestions.map(visitorQuestionLine),
     "",
     "## Key Pages",
     "",
