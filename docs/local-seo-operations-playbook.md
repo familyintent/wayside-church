@@ -32,6 +32,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 - Run `pnpm seo:live` after major deploys or DNS changes. It verifies production redirects, robots, sitemap coverage, live canonicals, live local schema, and live recent-teaching cards.
 - Keep real Wayside photos in `public/images/` and listed in `image-sitemap.xml` through `src/pages/image-sitemap.xml.ts` so search engines can discover actual church imagery, not just a generic preview card.
 - Keep recent teaching discoverable through generated `/teaching/.../` watch pages, `video-sitemap.xml`, and `teaching-feed.xml`, all generated from the same YouTube feed used by the Teaching and Sermons pages. Staff should only need to upload the sermon to YouTube.
+- Keep `/llms.txt` generated from site settings and the YouTube feed so AI tools see current service times, contact details, official pages, machine-readable resources, and recent teaching pages.
 - Keep the human-readable site map at `https://wayside.church/sitemap/` current. It should link every indexed page while the footer stays simple for visitors.
 - Look for one legitimate local mention or backlink opportunity from:
   - Advent Christian or regional church directories

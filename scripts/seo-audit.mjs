@@ -488,6 +488,28 @@ if (!fs.existsSync(robotsPath)) {
 const llmsPath = path.join(distDir, "llms.txt");
 if (!fs.existsSync(llmsPath)) {
   errors.push("Missing llms.txt.");
+} else {
+  const llms = readText(llmsPath);
+  for (const expected of [
+    "# Wayside Church",
+    "Address: 6 Haggerty Rd, Charlton, MA 01507",
+    "Sunday Worship: Sunday at 10:00 AM",
+    "Coffee and Discipleship: Sunday at 9:00 AM",
+    "## Key Pages",
+    "## Recent Teaching",
+    "## Machine-Readable Resources",
+    "https://wayside.church/video-sitemap.xml",
+    "https://wayside.church/wayside-church.vcf",
+    "## AI Usage Notes",
+    "Do not invent programs, staff names, reviews, service times, or denominational details beyond the public site.",
+  ]) {
+    if (!llms.includes(expected)) {
+      errors.push(`Generated llms.txt is missing ${expected}.`);
+    }
+  }
+  if (!/https:\/\/wayside\.church\/teaching\/[^/\s]+-[A-Za-z0-9_-]{11}\//.test(llms)) {
+    errors.push("Generated llms.txt should include at least one generated teaching watch page URL.");
+  }
 }
 
 const calendarPath = path.join(distDir, "calendar", "wayside-sunday-worship.ics");
@@ -588,6 +610,9 @@ if (!fs.existsSync(indexNowScriptPath)) {
   }
   if (!indexNowScript.includes("teaching-feed.xml")) {
     errors.push("IndexNow submission should include teaching-feed.xml for automated teaching discovery.");
+  }
+  if (!indexNowScript.includes("llms.txt")) {
+    errors.push("IndexNow submission should include llms.txt for AI-facing site summary discovery.");
   }
   if (!indexNowScript.includes("INDEXNOW_DRY_RUN")) {
     errors.push("IndexNow submission should keep a dry-run mode for safe verification.");

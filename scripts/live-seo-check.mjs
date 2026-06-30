@@ -370,6 +370,38 @@ async function checkTeachingFeed() {
   }
 }
 
+async function checkLiveLlms() {
+  const llmsUrl = new URL("/llms.txt", rootUrl).toString();
+  const { response, text } = await fetchText(llmsUrl, {
+    accept: "text/plain,*/*;q=0.8",
+  });
+
+  if (!response.ok) {
+    reportError(`${llmsUrl} should be fetchable, got ${response.status}.`);
+    return;
+  }
+
+  for (const expected of [
+    "# Wayside Church",
+    "Address: 6 Haggerty Rd, Charlton, MA 01507",
+    "Sunday Worship: Sunday at 10:00 AM",
+    "Coffee and Discipleship: Sunday at 9:00 AM",
+    "## Key Pages",
+    "## Recent Teaching",
+    "## Machine-Readable Resources",
+    new URL("/video-sitemap.xml", rootUrl).toString(),
+    new URL("/wayside-church.vcf", rootUrl).toString(),
+    "## AI Usage Notes",
+  ]) {
+    if (!text.includes(expected)) {
+      reportError(`Generated llms.txt is missing ${expected}.`);
+    }
+  }
+  if (!/https:\/\/wayside\.church\/teaching\/[^/\s]+-[A-Za-z0-9_-]{11}\//.test(text)) {
+    reportError("Generated llms.txt should include at least one generated teaching watch page URL.");
+  }
+}
+
 async function checkSundayCalendarFile() {
   const calendarUrl = new URL("/calendar/wayside-sunday-worship.ics", rootUrl).toString();
   const { response, text } = await fetchText(calendarUrl, {
@@ -687,6 +719,7 @@ async function main() {
   await checkImageSitemap(sitemapUrls);
   await checkVideoSitemap(sitemapUrls);
   await checkTeachingFeed();
+  await checkLiveLlms();
   await checkSundayCalendarFile();
   await checkChurchContactCard();
   await checkLivePages(sitemapUrls);

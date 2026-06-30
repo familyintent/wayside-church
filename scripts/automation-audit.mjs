@@ -71,6 +71,14 @@ requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "getTeachingSlug")
 requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "getTeachingPagePath");
 requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "www.youtube-nocookie.com");
 
+const llmsRoute = readText("src/pages/llms.txt.ts");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "getRecentTeachings(site.youtube, 6)");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "getTeachingPagePath");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "site.service.primary");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "Machine-Readable Resources");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "AI Usage Notes");
+requireIncludes("src/pages/llms.txt.ts", llmsRoute, "text/plain");
+
 const baseLayout = readText("src/layouts/BaseLayout.astro");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "teaching-feed.xml");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "application/atom+xml");
@@ -120,6 +128,10 @@ requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "BEGIN:
 
 if (fs.existsSync(path.join(rootDir, "public", "calendar", "wayside-sunday-worship.ics"))) {
   errors.push("Calendar .ics should be generated from settings, not manually maintained in public/calendar.");
+}
+
+if (fs.existsSync(path.join(rootDir, "public", "llms.txt"))) {
+  errors.push("llms.txt should be generated from settings and YouTube, not manually maintained in public/.");
 }
 
 if (errors.length > 0) {
