@@ -1157,6 +1157,41 @@ summary:focus-visible {
   margin-bottom: 0;
 }
 
+.site-map-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.site-map-group {
+  border-top: 1px solid var(--line);
+  padding-top: 1.15rem;
+}
+
+.site-map-group h2 {
+  margin-bottom: 0.55rem;
+  font-size: clamp(1.6rem, 5vw, 2.35rem);
+}
+
+.site-map-group p {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.site-map-group ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-map-group a {
+  color: var(--ink);
+  font-weight: 850;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
 .family-hero {
   overflow: hidden;
   background: var(--bg-soft);
@@ -1741,6 +1776,11 @@ summary:focus-visible {
 }
 
 .footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
   margin-top: 2.5rem;
   padding-block: 1.2rem;
@@ -1749,6 +1789,11 @@ summary:focus-visible {
 .footer-bottom p {
   margin: 0;
   font-size: 0.92rem;
+}
+
+.footer-bottom a {
+  font-size: 0.92rem;
+  opacity: 0.82;
 }
 
 @media (min-width: 680px) {
@@ -1955,6 +2000,10 @@ summary:focus-visible {
   }
 
   .nearby-communities__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-map-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 

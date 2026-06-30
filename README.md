@@ -95,6 +95,7 @@ The site includes:
 - `public/llms.txt` for AI discovery summaries
 - a reusable `pnpm seo:audit` check for canonical URLs, sitemap coverage, local structured data, image alt text, and broken internal links
 - sitemap generation through `@astrojs/sitemap`
+- a human-readable `/sitemap/` page that links every indexed page without cluttering the main footer
 - `public/robots.txt`
 - `public/site.webmanifest`
 - IndexNow key file and deploy notification for participating search engines

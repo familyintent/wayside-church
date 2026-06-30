@@ -28,6 +28,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 - Review Google Search Console for indexing, sitemap, query, and page performance issues. Keep `https://wayside.church/sitemap-index.xml` submitted.
 - Check Bing Webmaster Tools after major launches or page additions. The deploy workflow also submits sitemap URLs through IndexNow for participating search engines.
 - Run `pnpm build` and `pnpm seo:audit` before major SEO edits. The audit checks canonical URLs, sitemap coverage, structured data, local church entity fields, image alt text, and internal links.
+- Keep the human-readable site map at `https://wayside.church/sitemap/` current. It should link every indexed page while the footer stays simple for visitors.
 - Look for one legitimate local mention or backlink opportunity from:
   - Advent Christian or regional church directories
   - local ministry partners

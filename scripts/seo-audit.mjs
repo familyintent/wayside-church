@@ -320,6 +320,25 @@ if (!fs.existsSync(llmsPath)) {
   errors.push("Missing llms.txt.");
 }
 
+const htmlSitemapPath = path.join(distDir, "sitemap", "index.html");
+if (!fs.existsSync(htmlSitemapPath)) {
+  errors.push("Missing HTML sitemap page at /sitemap/.");
+} else {
+  const sitemapHtml = readText(htmlSitemapPath);
+  const htmlSitemapTargets = new Set(
+    extractUrls(sitemapHtml, "href")
+      .map(resolveInternalTarget)
+      .filter(Boolean)
+      .map((pathname) => new URL(pathname, siteUrl).toString()),
+  );
+
+  for (const sitemapUrl of sitemapUrls) {
+    if (!htmlSitemapTargets.has(sitemapUrl)) {
+      errors.push(`/sitemap: missing HTML link to indexed URL ${sitemapUrl}.`);
+    }
+  }
+}
+
 if (warnings.length > 0) {
   console.warn("SEO audit warnings:");
   warnings.forEach((warning) => console.warn(`- ${warning}`));
