@@ -17,9 +17,10 @@ const recentWithThumbnailSizes = recent.map((video) => ({
 }));
 const teachingSchemas = getTeachingVideoSchemas(teachings, "/teaching/");
 const dateLabel = (video) => (video?.published ? formatPublishedDate(video.published) : video?.publishedLabel || "Wayside teaching");
+const pageDateModified = teachings.map((video) => video.published).filter(Boolean).sort().at(-1);
 ---
 
-<BaseLayout title={site.teachingPage.metaTitle} description={site.teachingPage.metaDescription} extraSchemas={teachingSchemas}>
+<BaseLayout title={site.teachingPage.metaTitle} description={site.teachingPage.metaDescription} dateModified={pageDateModified} extraSchemas={teachingSchemas}>
   <section class="page-hero page-hero--center">
     <div class="shell page-hero__inner">
       <p class="eyebrow">{site.teachingPage.eyebrow}</p>

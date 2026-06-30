@@ -18,9 +18,10 @@ const recentWithThumbnailSizes = recent.map((video) => ({
 }));
 const sermonSchemas = [...getTeachingVideoSchemas(teachings, "/sermons/"), getFaqPageSchema(sermons.faq)];
 const dateLabel = (video) => (video?.published ? formatPublishedDate(video.published) : video?.publishedLabel || "Wayside sermon");
+const pageDateModified = teachings.map((video) => video.published).filter(Boolean).sort().at(-1);
 ---
 
-<BaseLayout title={sermons.metaTitle} description={sermons.metaDescription} extraSchemas={sermonSchemas}>
+<BaseLayout title={sermons.metaTitle} description={sermons.metaDescription} dateModified={pageDateModified} extraSchemas={sermonSchemas}>
   <section class="page-hero page-hero--center">
     <div class="shell page-hero__inner">
       <p class="eyebrow">{sermons.eyebrow}</p>

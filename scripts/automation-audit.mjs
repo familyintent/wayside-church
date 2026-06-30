@@ -30,8 +30,10 @@ function checkTeachingPage(relativePath, label) {
   requireIncludes(label, source, "const recent = teachings.slice(1)");
   requireIncludes(label, source, "const latestThumbnailSize = latest ? getYouTubeThumbnailSize(latest.thumbnail)");
   requireIncludes(label, source, "const recentWithThumbnailSizes = recent.map((video)");
+  requireIncludes(label, source, "const pageDateModified = teachings.map((video) => video.published)");
   requireIncludes(label, source, "width={latestThumbnailSize.width}");
   requireIncludes(label, source, "height={latestThumbnailSize.height}");
+  requireIncludes(label, source, "dateModified={pageDateModified}");
   requireIncludes(label, source, "recentWithThumbnailSizes.map(({ video, thumbnailSize })");
   requireIncludes(label, source, "width={thumbnailSize.width}");
   requireIncludes(label, source, "height={thumbnailSize.height}");
@@ -111,9 +113,12 @@ requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "relatedTeachi
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "relatedWithThumbnailSizes");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "watchPage.relatedTitle");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "getTeachingPagePath(teaching)");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "const pageDateModified = [video.published");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "image={video.thumbnail}");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "imageAlt={thumbnailAlt}");
 requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "breadcrumbLabel={video.title}");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "datePublished={video.published}");
+requireIncludes("src/pages/teaching/[slug].astro", teachingRoute, "dateModified={pageDateModified}");
 
 const teachingRoutes = readText("src/lib/teaching-routes.ts");
 requireIncludes("src/lib/teaching-routes.ts", teachingRoutes, "getTeachingSlug");
@@ -138,6 +143,8 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "preloadImages.map")
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imagesrcset={preload.srcset}");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "imagesizes={preload.sizes}");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "breadcrumbLabel?: string");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "datePublished?: string");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "dateModified?: string");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "breadcrumbLabelOverride");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "parentBreadcrumbItems");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "normalizedPathKey.startsWith(\"/teaching/\")");
@@ -158,6 +165,8 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "availableLanguage: 
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "openingHours: \"Su 09:00-11:30\"");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "about: { \"@id\": churchId }");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "mainEntity: { \"@id\": churchId }");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "...(datePublished ? { datePublished } : {})");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "...(dateModified || datePublished ? { dateModified: dateModified || datePublished } : {})");
 
 requireIncludes("src/lib/youtube.ts", youtubeHelper, "getYouTubeThumbnailSize");
 

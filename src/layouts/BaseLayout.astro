@@ -24,6 +24,8 @@ type Props = {
   extraSchemas?: unknown[];
   preloadImages?: PreloadImage[];
   breadcrumbLabel?: string;
+  datePublished?: string;
+  dateModified?: string;
 };
 
 const {
@@ -37,6 +39,8 @@ const {
   extraSchemas = [],
   preloadImages = [],
   breadcrumbLabel: breadcrumbLabelOverride,
+  datePublished,
+  dateModified,
 } = Astro.props;
 const pageTitle = title
   ? title.includes(site.church.name)
@@ -246,6 +250,8 @@ const webPageSchema =
           height: socialImageSize.height,
         },
         inLanguage: "en-US",
+        ...(datePublished ? { datePublished } : {}),
+        ...(dateModified || datePublished ? { dateModified: dateModified || datePublished } : {}),
       };
 const currentNavItem = site.navigation.find((item) => item.href === normalizedPath || item.href === `${normalizedPath}/`);
 const normalizedPathKey = normalizedPath.endsWith("/") ? normalizedPath : `${normalizedPath}/`;

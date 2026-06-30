@@ -221,6 +221,10 @@ function hasTimeZoneOffset(value) {
   return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/.test(value || "");
 }
 
+function isIsoDateTime(value) {
+  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T/.test(value) && !Number.isNaN(Date.parse(value));
+}
+
 function collectSchemasByType(schema, type, acc = []) {
   const visit = (node) => {
     if (!node || typeof node !== "object") return;
@@ -571,6 +575,7 @@ async function checkVideoSitemap(sitemapUrls) {
     }
     const watchVideoObjects = watchSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
     const watchVideoObject = watchVideoObjects[0];
+    const watchWebPage = watchSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"))[0];
     if (!watchVideoObject) {
       reportError(`${videoPageUrl} should include inspectable VideoObject schema.`);
     } else {
@@ -588,6 +593,12 @@ async function checkVideoSitemap(sitemapUrls) {
       }
       if (watchVideoObject.potentialAction?.["@type"] !== "WatchAction" || !textIncludes(watchVideoObject.potentialAction?.target, videoPageUrl)) {
         reportError(`${videoPageUrl} VideoObject should include a WatchAction for the local teaching page.`);
+      }
+      if (!watchWebPage?.datePublished || watchWebPage.datePublished !== watchVideoObject.uploadDate) {
+        reportError(`${videoPageUrl} WebPage datePublished should match the YouTube VideoObject uploadDate.`);
+      }
+      if (!isIsoDateTime(watchWebPage?.dateModified) || Date.parse(watchWebPage.dateModified) < Date.parse(watchWebPage.datePublished)) {
+        reportError(`${videoPageUrl} WebPage dateModified should be an ISO date from the current YouTube-powered page content.`);
       }
     }
     const watchOgImage = getMetaPropertyContent(watchText, "og:image");
@@ -1027,6 +1038,18 @@ async function checkLiveTeachingPages() {
 
     if (!text.includes("Recent messages")) {
       reportError(`${url} should show the recent-message section populated from YouTube.`);
+    }
+    const parsedSchemas = [];
+    for (const block of extractJsonLd(text)) {
+      try {
+        parsedSchemas.push(JSON.parse(block));
+      } catch (error) {
+        reportError(`${url} has invalid JSON-LD: ${error.message}`);
+      }
+    }
+    const collectionPageSchema = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "CollectionPage"))[0];
+    if (!isIsoDateTime(collectionPageSchema?.dateModified)) {
+      reportError(`${url} CollectionPage schema should include an ISO dateModified from the YouTube feed.`);
     }
     if (!text.includes('type="application/atom+xml"') || !text.includes(`href="${teachingFeedUrl}"`)) {
       reportError(`${url} should advertise the automated teaching feed in the page head.`);

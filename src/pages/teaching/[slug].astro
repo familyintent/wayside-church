@@ -38,13 +38,14 @@ const thumbnailSize = getYouTubeThumbnailSize(video.thumbnail);
 const thumbnailAlt = `Thumbnail for ${video.title}, a Wayside Church teaching video`;
 const watchPage = site.teachingPage.watchPage;
 const dateLabel = (teaching: LatestTeaching) => (teaching?.published ? formatPublishedDate(teaching.published) : teaching?.publishedLabel || "Wayside teaching");
+const pageDateModified = [video.published, ...relatedTeachings.map((teaching) => teaching.published)].filter(Boolean).sort().at(-1) || video.published;
 const relatedWithThumbnailSizes = relatedTeachings.map((teaching) => ({
   teaching,
   thumbnailSize: getYouTubeThumbnailSize(teaching.thumbnail),
 }));
 ---
 
-<BaseLayout title={pageTitle} description={description} image={video.thumbnail} imageAlt={thumbnailAlt} imageWidth={thumbnailSize.width} imageHeight={thumbnailSize.height} breadcrumbLabel={video.title} extraSchemas={[videoSchema]}>
+<BaseLayout title={pageTitle} description={description} image={video.thumbnail} imageAlt={thumbnailAlt} imageWidth={thumbnailSize.width} imageHeight={thumbnailSize.height} breadcrumbLabel={video.title} datePublished={video.published} dateModified={pageDateModified} extraSchemas={[videoSchema]}>
   <section class="video-watch">
     <div class="shell video-watch__grid">
       <div class="video-watch__copy">

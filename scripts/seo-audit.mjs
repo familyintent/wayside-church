@@ -240,6 +240,10 @@ function hasTimeZoneOffset(value) {
   return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/.test(value || "");
 }
 
+function isIsoDateTime(value) {
+  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T/.test(value) && !Number.isNaN(Date.parse(value));
+}
+
 function htmlRouteFromPathname(pathname) {
   const route = pathname === "/" ? "/" : pathname.endsWith("/") ? pathname : `${pathname}/`;
   const filePath = route === "/" ? path.join(distDir, "index.html") : path.join(distDir, route.replace(/^\//, ""), "index.html");
@@ -422,6 +426,7 @@ for (const filePath of htmlFiles) {
   const webSiteSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebSite"));
   const siteNavigationSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "SiteNavigationElement"));
   const eventSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Event"));
+  const videoSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
   const pageSchemas = parsedSchemas.flatMap((schema) =>
     ["WebPage", "AboutPage", "ContactPage", "CollectionPage"].flatMap((type) => collectSchemasByType(schema, type)),
   );
@@ -590,6 +595,18 @@ for (const filePath of htmlFiles) {
       if (!textIncludes(pageSchema.mainEntity, "#church")) errors.push(`${label}: page schema mainEntity should reference Church schema.`);
       if (!textIncludes(pageSchema.keywords, "Church in Charlton, MA")) {
         errors.push(`${label}: page schema missing local church keywords.`);
+      }
+      if ((route === "/teaching/" || route === "/sermons/" || (route.startsWith("/teaching/") && route !== "/teaching/")) && !isIsoDateTime(pageSchema.dateModified)) {
+        errors.push(`${label}: teaching-related page schema should include an ISO dateModified from the YouTube feed.`);
+      }
+      if (route.startsWith("/teaching/") && route !== "/teaching/") {
+        const videoUploadDate = videoSchemas[0]?.uploadDate;
+        if (!isIsoDateTime(pageSchema.datePublished)) {
+          errors.push(`${label}: generated teaching watch page schema should include an ISO datePublished from YouTube.`);
+        }
+        if (videoUploadDate && pageSchema.datePublished !== videoUploadDate) {
+          errors.push(`${label}: generated teaching watch page datePublished should match the YouTube uploadDate.`);
+        }
       }
       const primaryImageUrl = pageSchema.primaryImageOfPage?.url || "";
       const primaryImagePath = primaryImageUrl ? new URL(primaryImageUrl, siteUrl).pathname : "";
@@ -1111,6 +1128,7 @@ if (!fs.existsSync(videoSitemapPath)) {
     }
     const watchVideoObjects = watchPageSchemas.flatMap((schema) => collectSchemasByType(schema, "VideoObject"));
     const watchVideoObject = watchVideoObjects[0];
+    const watchWebPage = watchPageSchemas.flatMap((schema) => collectSchemasByType(schema, "WebPage"))[0];
     if (!watchVideoObject) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should include inspectable VideoObject schema.`);
     } else {
@@ -1128,6 +1146,12 @@ if (!fs.existsSync(videoSitemapPath)) {
       }
       if (watchVideoObject.potentialAction?.["@type"] !== "WatchAction" || !textIncludes(watchVideoObject.potentialAction?.target, videoPageUrl)) {
         errors.push(`${routeLabel(route)}: VideoObject should include a WatchAction for the local teaching page.`);
+      }
+      if (!watchWebPage?.datePublished || watchWebPage.datePublished !== watchVideoObject.uploadDate) {
+        errors.push(`${routeLabel(route)}: WebPage datePublished should match the YouTube VideoObject uploadDate.`);
+      }
+      if (!isIsoDateTime(watchWebPage?.dateModified) || Date.parse(watchWebPage.dateModified) < Date.parse(watchWebPage.datePublished)) {
+        errors.push(`${routeLabel(route)}: WebPage dateModified should be an ISO date from the current YouTube-powered page content.`);
       }
     }
     const watchOgImage = getMetaPropertyContent(watchPageHtml, "og:image");
