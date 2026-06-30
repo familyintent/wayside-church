@@ -5,12 +5,17 @@ import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { getFaqPageSchema, getTeachingVideoSchemas } from "../lib/schema";
 import { getTeachingPagePath } from "../lib/teaching-routes";
-import { formatPublishedDate, getRecentTeachings } from "../lib/youtube";
+import { formatPublishedDate, getRecentTeachings, getYouTubeThumbnailSize } from "../lib/youtube";
 
 const sermons = site.sermonsPage;
 const teachings = await getRecentTeachings(site.youtube, 6);
 const latest = teachings[0];
 const recent = teachings.slice(1);
+const latestThumbnailSize = latest ? getYouTubeThumbnailSize(latest.thumbnail) : { width: 480, height: 360 };
+const recentWithThumbnailSizes = recent.map((video) => ({
+  video,
+  thumbnailSize: getYouTubeThumbnailSize(video.thumbnail),
+}));
 const sermonSchemas = [...getTeachingVideoSchemas(teachings, "/sermons/"), getFaqPageSchema(sermons.faq)];
 const dateLabel = (video) => (video?.published ? formatPublishedDate(video.published) : video?.publishedLabel || "Wayside sermon");
 ---
@@ -38,7 +43,7 @@ const dateLabel = (video) => (video?.published ? formatPublishedDate(video.publi
 
           <article class="teaching-card teaching-card--feature">
             <a class="teaching-card__image" href={getTeachingPagePath(latest)} aria-label={`Watch ${latest.title}`}>
-              <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} width="1280" height="720" loading="eager" decoding="async" />
+              <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} width={latestThumbnailSize.width} height={latestThumbnailSize.height} loading="eager" decoding="async" />
             </a>
             <div class="teaching-card__body">
               <p class="eyebrow">{latest.source === "featured" ? "Featured sermon" : "Newest upload"}</p>
@@ -73,10 +78,10 @@ const dateLabel = (video) => (video?.published ? formatPublishedDate(video.publi
           </SectionIntro>
 
           <div class="teaching-grid">
-            {recent.map((video) => (
+            {recentWithThumbnailSizes.map(({ video, thumbnailSize }) => (
               <article class="teaching-tile">
                 <a class="teaching-tile__image" href={getTeachingPagePath(video)} aria-label={`Watch ${video.title}`}>
-                  <img src={video.thumbnail} alt={`Thumbnail for ${video.title}`} width="1280" height="720" loading="lazy" decoding="async" />
+                  <img src={video.thumbnail} alt={`Thumbnail for ${video.title}`} width={thumbnailSize.width} height={thumbnailSize.height} loading="lazy" decoding="async" />
                 </a>
                 <div class="teaching-tile__body">
                   <p>{dateLabel(video)}</p>

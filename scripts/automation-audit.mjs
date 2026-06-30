@@ -24,10 +24,17 @@ function checkTeachingPage(relativePath, label) {
   const source = readText(relativePath);
 
   requireIncludes(label, source, "getRecentTeachings");
+  requireIncludes(label, source, "getYouTubeThumbnailSize");
   requireIncludes(label, source, "getRecentTeachings(site.youtube, 6)");
   requireIncludes(label, source, "const latest = teachings[0]");
   requireIncludes(label, source, "const recent = teachings.slice(1)");
-  requireIncludes(label, source, "recent.map((video)");
+  requireIncludes(label, source, "const latestThumbnailSize = latest ? getYouTubeThumbnailSize(latest.thumbnail)");
+  requireIncludes(label, source, "const recentWithThumbnailSizes = recent.map((video)");
+  requireIncludes(label, source, "width={latestThumbnailSize.width}");
+  requireIncludes(label, source, "height={latestThumbnailSize.height}");
+  requireIncludes(label, source, "recentWithThumbnailSizes.map(({ video, thumbnailSize })");
+  requireIncludes(label, source, "width={thumbnailSize.width}");
+  requireIncludes(label, source, "height={thumbnailSize.height}");
   requireIncludes(label, source, "site.youtube.fallbackMessage");
 }
 
@@ -43,6 +50,13 @@ requireIncludes("src/lib/youtube.ts", youtubeHelper, "getFeaturedVideo(settings)
 const homepage = readText("src/pages/index.astro");
 requireIncludes("src/pages/index.astro", homepage, "getLatestTeaching(site.youtube)");
 requireIncludes("src/pages/index.astro", homepage, "<LatestTeaching latest={latestTeaching}");
+
+const latestTeachingComponent = readText("src/components/LatestTeaching.astro");
+requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "getLatestTeaching");
+requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "getYouTubeThumbnailSize");
+requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "const latestThumbnailSize = latest ? getYouTubeThumbnailSize(latest.thumbnail)");
+requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "width={latestThumbnailSize.width}");
+requireIncludes("src/components/LatestTeaching.astro", latestTeachingComponent, "height={latestThumbnailSize.height}");
 
 checkTeachingPage("src/pages/teaching.astro", "src/pages/teaching.astro");
 checkTeachingPage("src/pages/sermons.astro", "src/pages/sermons.astro");

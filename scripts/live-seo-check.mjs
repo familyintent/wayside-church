@@ -97,6 +97,53 @@ function isKnownYouTubeThumbnailSize(width, height) {
   ].some(([expectedWidth, expectedHeight]) => width === expectedWidth && height === expectedHeight);
 }
 
+function getYouTubeThumbnailExpectedSize(value) {
+  try {
+    const url = new URL(value, rootUrl);
+    if (!url.host.endsWith("ytimg.com")) return null;
+
+    const filename = url.pathname.split("/").pop() || "";
+    return (
+      {
+        "maxresdefault.jpg": { width: 1280, height: 720 },
+        "sddefault.jpg": { width: 640, height: 480 },
+        "hqdefault.jpg": { width: 480, height: 360 },
+        "mqdefault.jpg": { width: 320, height: 180 },
+        "default.jpg": { width: 120, height: 90 },
+      }[filename] || null
+    );
+  } catch {
+    return null;
+  }
+}
+
+function getTagAttribute(tag, name) {
+  const match = tag.match(new RegExp(`\\s${name}=(["'])(.*?)\\1`, "i"));
+  return match?.[2] || "";
+}
+
+function checkHtmlYouTubeThumbnailImages(html, context) {
+  for (const img of html.matchAll(/<img\b[^>]*>/gi)) {
+    const tag = img[0];
+    const src = getTagAttribute(tag, "src");
+    if (!isYouTubeThumbnailUrl(src)) continue;
+
+    const expectedThumbnailSize = getYouTubeThumbnailExpectedSize(src);
+    if (!expectedThumbnailSize) {
+      reportError(`${context} YouTube thumbnail should use a recognized thumbnail filename: ${src}.`);
+      continue;
+    }
+
+    const width = Number(getTagAttribute(tag, "width") || 0);
+    const height = Number(getTagAttribute(tag, "height") || 0);
+    if (width !== expectedThumbnailSize.width || height !== expectedThumbnailSize.height) {
+      reportError(
+        `${context} YouTube thumbnail ${src} should use intrinsic dimensions ${expectedThumbnailSize.width}x${expectedThumbnailSize.height}, found ${width}x${height}.`,
+      );
+    }
+  }
+}
+
 function getMetaContent(html, name) {
   const regex = new RegExp(`<meta[^>]+name=["']${name}["'][^>]+content=(["'])(.*?)\\1[^>]*>`, "i");
   return html.match(regex)?.[2] || "";
@@ -383,8 +430,13 @@ async function checkVideoSitemap(sitemapUrls) {
     if (!watchOgImageAlt.includes("Wayside Church teaching video")) {
       reportError(`${videoPageUrl} should describe the video thumbnail in social alt text.`);
     }
-    if (!isKnownYouTubeThumbnailSize(watchOgImageWidth, watchOgImageHeight)) {
-      reportError(`${videoPageUrl} should publish accurate YouTube thumbnail dimensions.`);
+    const expectedWatchThumbnailSize = getYouTubeThumbnailExpectedSize(watchOgImage);
+    if (!expectedWatchThumbnailSize) {
+      reportError(`${videoPageUrl} should use a recognized YouTube thumbnail filename.`);
+    } else if (watchOgImageWidth !== expectedWatchThumbnailSize.width || watchOgImageHeight !== expectedWatchThumbnailSize.height) {
+      reportError(
+        `${videoPageUrl} should publish YouTube thumbnail dimensions ${expectedWatchThumbnailSize.width}x${expectedWatchThumbnailSize.height}, found ${watchOgImageWidth}x${watchOgImageHeight}.`,
+      );
     }
     if (!watchText.includes("Plan a Visit")) {
       reportError(`${videoPageUrl} should include a visitor next step.`);
@@ -696,6 +748,8 @@ async function checkLivePages(sitemapUrls) {
       reportError(`${url} should be fetchable, got ${page.response.status}.`);
       continue;
     }
+
+    checkHtmlYouTubeThumbnailImages(page.text, url);
 
     const canonical = getLinkHref(page.text, "canonical");
     if (canonical !== url) reportError(`${url} canonical is ${canonical || "(missing)"}.`);

@@ -177,6 +177,31 @@ function isKnownYouTubeThumbnailSize(width, height) {
   ].some(([expectedWidth, expectedHeight]) => width === expectedWidth && height === expectedHeight);
 }
 
+function getYouTubeThumbnailExpectedSize(value) {
+  try {
+    const url = new URL(value, siteUrl);
+    if (!url.host.endsWith("ytimg.com")) return null;
+
+    const filename = url.pathname.split("/").pop() || "";
+    return (
+      {
+        "maxresdefault.jpg": { width: 1280, height: 720 },
+        "sddefault.jpg": { width: 640, height: 480 },
+        "hqdefault.jpg": { width: 480, height: 360 },
+        "mqdefault.jpg": { width: 320, height: 180 },
+        "default.jpg": { width: 120, height: 90 },
+      }[filename] || null
+    );
+  } catch {
+    return null;
+  }
+}
+
+function getTagAttribute(tag, name) {
+  const match = tag.match(new RegExp(`\\s${name}=(["'])(.*?)\\1`, "i"));
+  return match?.[2] || "";
+}
+
 function extractVideoTitles(xml) {
   return [...xml.matchAll(/<video:title>([\s\S]*?)<\/video:title>/g)].map((match) => match[1].trim());
 }
@@ -486,6 +511,21 @@ for (const filePath of htmlFiles) {
     const tag = img[0];
     if (!/\salt=["'][^"']*["']/i.test(tag)) {
       errors.push(`${label}: image missing alt attribute: ${tag.slice(0, 120)}.`);
+    }
+
+    const src = getTagAttribute(tag, "src");
+    const expectedThumbnailSize = getYouTubeThumbnailExpectedSize(src);
+    if (isYouTubeThumbnailUrl(src) && !expectedThumbnailSize) {
+      errors.push(`${label}: YouTube thumbnail should use a recognized thumbnail filename: ${src}.`);
+    }
+    if (expectedThumbnailSize) {
+      const width = Number(getTagAttribute(tag, "width") || 0);
+      const height = Number(getTagAttribute(tag, "height") || 0);
+      if (width !== expectedThumbnailSize.width || height !== expectedThumbnailSize.height) {
+        errors.push(
+          `${label}: YouTube thumbnail ${src} should use intrinsic dimensions ${expectedThumbnailSize.width}x${expectedThumbnailSize.height}, found ${width}x${height}.`,
+        );
+      }
     }
   }
 
@@ -869,8 +909,13 @@ if (!fs.existsSync(videoSitemapPath)) {
     if (!watchOgImageAlt.includes("Wayside Church teaching video")) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should describe the video thumbnail in social alt text.`);
     }
-    if (!isKnownYouTubeThumbnailSize(watchOgImageWidth, watchOgImageHeight)) {
-      errors.push(`${routeLabel(route)}: generated teaching watch page should publish accurate YouTube thumbnail dimensions.`);
+    const expectedWatchThumbnailSize = getYouTubeThumbnailExpectedSize(watchOgImage);
+    if (!expectedWatchThumbnailSize) {
+      errors.push(`${routeLabel(route)}: generated teaching watch page should use a recognized YouTube thumbnail filename.`);
+    } else if (watchOgImageWidth !== expectedWatchThumbnailSize.width || watchOgImageHeight !== expectedWatchThumbnailSize.height) {
+      errors.push(
+        `${routeLabel(route)}: generated teaching watch page should publish YouTube thumbnail dimensions ${expectedWatchThumbnailSize.width}x${expectedWatchThumbnailSize.height}, found ${watchOgImageWidth}x${watchOgImageHeight}.`,
+      );
     }
     if (!watchPageHtml.includes("Plan a Visit")) {
       errors.push(`${routeLabel(route)}: generated teaching watch page should include a visitor next step.`);

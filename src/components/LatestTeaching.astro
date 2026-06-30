@@ -3,7 +3,7 @@ import ButtonLink from "./ButtonLink.astro";
 import SectionIntro from "./SectionIntro.astro";
 import { site } from "../lib/content";
 import { getTeachingPagePath } from "../lib/teaching-routes";
-import { formatPublishedDate, getLatestTeaching } from "../lib/youtube";
+import { formatPublishedDate, getLatestTeaching, getYouTubeThumbnailSize } from "../lib/youtube";
 import type { LatestTeaching } from "../lib/youtube";
 
 type Props = {
@@ -15,6 +15,7 @@ const latest = providedLatest === undefined ? await getLatestTeaching(site.youtu
 const latestLabel = latest?.source === "featured" ? "Featured teaching" : "Newest upload";
 const latestDate = latest?.published ? formatPublishedDate(latest.published) : latest?.publishedLabel;
 const latestPath = latest ? getTeachingPagePath(latest) : "";
+const latestThumbnailSize = latest ? getYouTubeThumbnailSize(latest.thumbnail) : { width: 480, height: 360 };
 ---
 
 <section class="section section--ink" id="latest-teaching" aria-labelledby="latest-teaching-title">
@@ -27,7 +28,7 @@ const latestPath = latest ? getTeachingPagePath(latest) : "";
       latest ? (
         <article class="teaching-card" aria-labelledby="latest-teaching-title">
           <a class="teaching-card__image" href={latestPath} aria-label={`Watch ${latest.title}`}>
-            <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} width="1280" height="720" loading="lazy" decoding="async" />
+            <img src={latest.thumbnail} alt={`Thumbnail for ${latest.title}`} width={latestThumbnailSize.width} height={latestThumbnailSize.height} loading="lazy" decoding="async" />
           </a>
           <div class="teaching-card__body">
             <p class="eyebrow">{latestLabel}</p>
