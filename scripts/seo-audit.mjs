@@ -150,6 +150,22 @@ function extractImageLocs(xml) {
   return [...xml.matchAll(/<image:loc>(.*?)<\/image:loc>/g)].map((match) => match[1].trim());
 }
 
+function extractVideoPlayerLocs(xml) {
+  return [...xml.matchAll(/<video:player_loc(?:\s[^>]*)?>(.*?)<\/video:player_loc>/g)].map((match) => match[1].trim());
+}
+
+function extractVideoThumbnailLocs(xml) {
+  return [...xml.matchAll(/<video:thumbnail_loc>(.*?)<\/video:thumbnail_loc>/g)].map((match) => match[1].trim());
+}
+
+function extractVideoTitles(xml) {
+  return [...xml.matchAll(/<video:title>([\s\S]*?)<\/video:title>/g)].map((match) => match[1].trim());
+}
+
+function extractVideoDescriptions(xml) {
+  return [...xml.matchAll(/<video:description>([\s\S]*?)<\/video:description>/g)].map((match) => match[1].trim());
+}
+
 function textIncludes(value, expected) {
   return JSON.stringify(value || "").toLowerCase().includes(expected.toLowerCase());
 }
@@ -425,6 +441,9 @@ if (!fs.existsSync(robotsPath)) {
   if (!robots.includes(`${siteUrl}/image-sitemap.xml`)) {
     errors.push("robots.txt does not reference the production image-sitemap.xml.");
   }
+  if (!robots.includes(`${siteUrl}/video-sitemap.xml`)) {
+    errors.push("robots.txt does not reference the production video-sitemap.xml.");
+  }
 }
 
 const llmsPath = path.join(distDir, "llms.txt");
@@ -485,8 +504,76 @@ if (!fs.existsSync(indexNowScriptPath)) {
   if (!indexNowScript.includes("image-sitemap.xml")) {
     errors.push("IndexNow submission should include image-sitemap.xml for image discovery.");
   }
+  if (!indexNowScript.includes("video-sitemap.xml")) {
+    errors.push("IndexNow submission should include video-sitemap.xml for teaching video discovery.");
+  }
   if (!indexNowScript.includes("INDEXNOW_DRY_RUN")) {
     errors.push("IndexNow submission should keep a dry-run mode for safe verification.");
+  }
+}
+
+const videoSitemapPath = path.join(distDir, "video-sitemap.xml");
+if (!fs.existsSync(videoSitemapPath)) {
+  errors.push("Missing video-sitemap.xml.");
+} else {
+  const videoSitemap = readText(videoSitemapPath);
+  const videoPageUrls = extractLocs(videoSitemap);
+  const videoPlayerUrls = extractVideoPlayerLocs(videoSitemap);
+  const videoThumbnailUrls = extractVideoThumbnailLocs(videoSitemap);
+  const videoTitles = extractVideoTitles(videoSitemap);
+  const videoDescriptions = extractVideoDescriptions(videoSitemap);
+
+  if (!videoSitemap.includes('xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"')) {
+    errors.push("video-sitemap.xml is missing the Google video sitemap namespace.");
+  }
+  if (videoPageUrls.length < 2) {
+    errors.push(`video-sitemap.xml should include teaching video pages, found ${videoPageUrls.length}.`);
+  }
+  if (videoPlayerUrls.length < 1) {
+    errors.push("video-sitemap.xml should include at least one YouTube player URL.");
+  }
+  if (videoThumbnailUrls.length < 1) {
+    errors.push("video-sitemap.xml should include at least one video thumbnail URL.");
+  }
+  if (videoTitles.some((title) => title.length === 0 || title.length > 100)) {
+    errors.push("video-sitemap.xml video titles should be present and 100 characters or fewer.");
+  }
+  if (videoDescriptions.some((description) => description.length === 0 || description.length > 2048)) {
+    errors.push("video-sitemap.xml video descriptions should be present and 2048 characters or fewer.");
+  }
+
+  for (const expectedPageUrl of [`${siteUrl}/teaching/`, `${siteUrl}/sermons/`]) {
+    if (!videoPageUrls.includes(expectedPageUrl)) {
+      errors.push(`video-sitemap.xml missing ${expectedPageUrl}.`);
+    }
+  }
+
+  for (const videoPageUrl of videoPageUrls) {
+    if (!sitemapUrls.has(videoPageUrl)) {
+      errors.push(`video-sitemap.xml page URL is missing from sitemap-0.xml: ${videoPageUrl}.`);
+    }
+  }
+
+  for (const playerUrl of videoPlayerUrls) {
+    try {
+      const parsedUrl = new URL(playerUrl);
+      if (parsedUrl.host !== "www.youtube.com" || !parsedUrl.pathname.startsWith("/embed/")) {
+        errors.push(`video-sitemap.xml player should use a YouTube embed URL: ${playerUrl}.`);
+      }
+    } catch {
+      errors.push(`video-sitemap.xml contains invalid player URL: ${playerUrl}.`);
+    }
+  }
+
+  for (const thumbnailUrl of videoThumbnailUrls) {
+    try {
+      const parsedUrl = new URL(thumbnailUrl);
+      if (!parsedUrl.host.endsWith("ytimg.com")) {
+        errors.push(`video-sitemap.xml thumbnail should use a YouTube thumbnail URL: ${thumbnailUrl}.`);
+      }
+    } catch {
+      errors.push(`video-sitemap.xml contains invalid thumbnail URL: ${thumbnailUrl}.`);
+    }
   }
 }
 

@@ -7,6 +7,7 @@ const host = new URL(siteUrl).host;
 const keyLocation = `${rootUrl}/${key}.txt`;
 const sitemapIndexUrl = `${rootUrl}/sitemap-index.xml`;
 const imageSitemapUrl = `${rootUrl}/image-sitemap.xml`;
+const videoSitemapUrl = `${rootUrl}/video-sitemap.xml`;
 
 function extractLocs(xml) {
   return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1].trim());
@@ -30,7 +31,7 @@ async function fetchText(url) {
 async function getSitemapUrls() {
   const sitemapIndex = await fetchText(sitemapIndexUrl);
   const sitemapUrls = extractLocs(sitemapIndex).filter((url) => url.endsWith(".xml"));
-  const discoveryUrls = [sitemapIndexUrl, ...sitemapUrls, imageSitemapUrl];
+  const discoveryUrls = [sitemapIndexUrl, ...sitemapUrls, imageSitemapUrl, videoSitemapUrl];
 
   if (sitemapUrls.length === 0) {
     return [...discoveryUrls, ...extractLocs(sitemapIndex)];

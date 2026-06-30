@@ -3,3 +3,4 @@ Allow: /
 
 Sitemap: https://wayside.church/sitemap-index.xml
 Sitemap: https://wayside.church/image-sitemap.xml
+Sitemap: https://wayside.church/video-sitemap.xml

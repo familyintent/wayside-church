@@ -47,6 +47,11 @@ requireIncludes("src/pages/index.astro", homepage, "<LatestTeaching latest={late
 checkTeachingPage("src/pages/teaching.astro", "src/pages/teaching.astro");
 checkTeachingPage("src/pages/sermons.astro", "src/pages/sermons.astro");
 
+const videoSitemap = readText("src/pages/video-sitemap.xml.ts");
+requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "getRecentTeachings(site.youtube, 6)");
+requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "xmlns:video=\"http://www.google.com/schemas/sitemap-video/1.1\"");
+requireIncludes("src/pages/video-sitemap.xml.ts", videoSitemap, "https://www.youtube.com/embed/");
+
 const settings = readText("src/content/settings.yaml");
 requireIncludes("src/content/settings.yaml", settings, "Staff should only need to upload sermons to YouTube");
 requireIncludes("src/content/settings.yaml", settings, "feedUrl: \"https://www.youtube.com/feeds/videos.xml");
@@ -61,7 +66,7 @@ requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm build");
 requireIncludes(".github/workflows/deploy.yml", workflow, "pnpm automation:audit");
 
 const readme = readText("README.md");
-requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, or recent-message card edit is needed");
+requireIncludes("README.md", readme, "No homepage, teaching page, sermons page, recent-message card, or video-sitemap edit is needed");
 requireIncludes("README.md", readme, "daily so the build-time YouTube feed can refresh");
 
 if (errors.length > 0) {
