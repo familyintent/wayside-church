@@ -125,6 +125,9 @@ home:
     eyebrow: "New here?"
     headline: "You can take the first step at your own pace."
     body: "Whether you grew up in church, have been away for a while, or are exploring faith for the first time, you are welcome at Wayside."
+    familyCta:
+      label: "For Families"
+      href: "/families/"
     notes:
       - title: "Come as you are"
         body: "There is no dress code. You will find people dressed casually and people dressed more formally."
@@ -300,6 +303,44 @@ teachingPage:
   recentIntro: "These recent uploads help you get a feel for our preaching, Scripture focus, and hope in Jesus."
   visitTitle: "Teaching is best heard in the life of the church."
 
+familiesPage:
+  metaTitle: "Families at Wayside Church in Charlton, MA"
+  metaDescription: "Learn what families, children, and youth can expect at Wayside Church in Charlton, MA."
+  eyebrow: "Families"
+  title: "A church family where children and youth are welcome."
+  intro: "Finding a church for your family is a real decision. At Wayside, children, youth, parents, grandparents, and guests are welcomed into a simple Sunday rhythm centered on Jesus."
+  cards:
+    - label: "Children"
+      value: "Welcomed into worship and learning"
+    - label: "Youth"
+      value: "Room to grow, ask questions, and serve"
+    - label: "Parents"
+      value: "A pace that respects real life"
+  values:
+    eyebrow: "What families can expect"
+    title: "A warm place to grow together"
+    body: "Wayside is not trying to impress families with a crowded calendar. We want to help households know Jesus, open Scripture, pray, serve, and belong to the life of the church."
+    items:
+      - title: "Known by name"
+        body: "A smaller church makes room for people to be noticed, welcomed, and cared for."
+      - title: "Faith in ordinary life"
+        body: "Children and youth are invited to see faith practiced through worship, teaching, prayer, service, and fellowship."
+      - title: "No performance pressure"
+        body: "Families can arrive as they are, settle in at their own pace, and ask honest questions."
+  next:
+    eyebrow: "First Sunday"
+    title: "Start with one Sunday morning."
+    body: "Coffee and Discipleship begins at 9:00 AM, and Sunday Worship begins at 10:00 AM. If you are bringing children or teens, come a few minutes early and someone can help you get oriented."
+  faq:
+    - question: "Are children welcome at Wayside Church?"
+      answer: "Yes. Children are welcomed into the life of the church as we worship, learn, and grow together."
+    - question: "Is there a youth ministry?"
+      answer: "Yes. NewLife Youth Ministry invites youth to grow in faith, build meaningful relationships, and discover their place in the church."
+    - question: "What if my family is new to church?"
+      answer: "You are welcome to move slowly. You can visit, listen, ask questions, and take the morning at your own pace."
+    - question: "What should my family wear?"
+      answer: "Come in what feels normal for you. Some people dress casually and some dress more formally."
+
 about:
   hero:
     eyebrow: "About Wayside"
@@ -385,31 +426,56 @@ ministries:
     - label: "Wednesday evening"
       detail: "Identity Groups make room for midweek community and discipleship."
   items:
-    - name: "Coffee and Discipleship"
+    - id: "coffee-and-discipleship"
+      name: "Coffee and Discipleship"
       schedule: "Sunday at 9:00 AM"
       audience: "Adults and guests"
       summary: "Coffee, discipleship, warm conversations, and meaningful connections before the main gathering."
       details: "Join us Sunday mornings for coffee and discipleship. It is a simple, welcoming way to deepen fellowship, open Scripture, and build lasting bonds."
-    - name: "Men's Spiritual Warfare"
+      event:
+        day: "Sunday"
+        startTime: "09:00"
+        endTime: "09:45"
+    - id: "mens-spiritual-warfare"
+      name: "Men's Spiritual Warfare"
       schedule: "Sunday at 6:00 PM"
       audience: "Men"
       summary: "A gathering for men to study, pray, and stand firm in faith."
       details: "We call men to discuss spiritual warfare, uphold the truth of God's Word, and support one another with courage and humility."
-    - name: "Little Disciples"
+      event:
+        day: "Sunday"
+        startTime: "18:00"
+        endTime: "19:30"
+    - id: "little-disciples"
+      name: "Little Disciples"
       schedule: "Sunday at 10:00 AM"
       audience: "Children"
       summary: "Children are welcomed and integrated into the life of the church."
       details: "Little Disciples nurtures faith in children while keeping families connected to the whole congregation."
-    - name: "NewLife Youth Ministry"
+      event:
+        day: "Sunday"
+        startTime: "10:00"
+        endTime: "11:30"
+    - id: "newlife-youth-ministry"
+      name: "NewLife Youth Ministry"
       schedule: "Sunday at 10:00 AM"
       audience: "Youth"
       summary: "Youth are invited to engage, grow, and serve alongside the church family."
       details: "NewLife is dedicated to creating a supportive environment where young people can grow in faith, build meaningful relationships, and discover their place in the church."
-    - name: "Identity Groups"
+      event:
+        day: "Sunday"
+        startTime: "10:00"
+        endTime: "11:30"
+    - id: "identity-groups"
+      name: "Identity Groups"
       schedule: "Wednesday at 6:00 PM"
       audience: "Church family"
       summary: "Midweek community for discipleship, prayer, and life together."
       details: "Identity Groups create space to grow in our relationship with God, support one another, and practice Gospel-centered community."
+      event:
+        day: "Wednesday"
+        startTime: "18:00"
+        endTime: "19:30"
 
 contactPage:
   title: "Contact us"

@@ -31,6 +31,7 @@ That file includes comments showing where to update:
 - homepage copy
 - Start Here page copy for seekers and first-time guests
 - Plan a Visit page copy
+- Families page copy
 - Teaching page copy
 - Ministries page copy, audience labels, and weekly rhythm
 - Sunday calendar event settings
@@ -74,6 +75,8 @@ The site includes:
 - recurring Sunday worship event schema
 - FAQ schema on visitor-focused pages
 - video schema for recent teaching pages when YouTube publish dates are available
+- leader `Person` schema on the About page
+- recurring ministry `Event` schema on the Ministries page
 - `public/llms.txt` for AI discovery summaries
 - sitemap generation through `@astrojs/sitemap`
 - `public/robots.txt`

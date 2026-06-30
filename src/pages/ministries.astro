@@ -4,11 +4,13 @@ import ButtonLink from "../components/ButtonLink.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { withBase } from "../lib/paths";
+import { getMinistryEventSchemas } from "../lib/schema";
 
 const ministries = site.ministries.items;
+const ministrySchemas = getMinistryEventSchemas(ministries);
 ---
 
-<BaseLayout title="Ministries at Wayside Church in Charlton, MA" description="Explore Wayside Church ministries for coffee and discipleship, men, children, youth, and midweek community in Charlton, MA.">
+<BaseLayout title="Ministries at Wayside Church in Charlton, MA" description="Explore Wayside Church ministries for coffee and discipleship, men, children, youth, and midweek community in Charlton, MA." extraSchemas={ministrySchemas}>
   <section class="ministry-hero">
     <div class="shell ministry-hero__grid">
       <div class="ministry-hero__copy">
@@ -36,7 +38,10 @@ const ministries = site.ministries.items;
         <p class="eyebrow">{site.ministries.welcome.eyebrow}</p>
         <h2>{site.ministries.welcome.title}</h2>
       </div>
-      <p>{site.ministries.welcome.body}</p>
+      <div>
+        <p>{site.ministries.welcome.body}</p>
+        <ButtonLink href="/families/" variant="text">Families at Wayside</ButtonLink>
+      </div>
     </div>
   </section>
 
@@ -48,7 +53,7 @@ const ministries = site.ministries.items;
 
       <div class="ministry-card-grid">
         {ministries.map((ministry, index) => (
-          <article class:list={["ministry-card", index === 0 && "ministry-card--featured"]}>
+          <article id={ministry.id} class:list={["ministry-card", index === 0 && "ministry-card--featured"]}>
             <div class="ministry-card__meta">
               <span>{ministry.schedule}</span>
               <span>{ministry.audience}</span>

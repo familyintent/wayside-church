@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { site } from "../lib/content";
+import { getFaqPageSchema } from "../lib/schema";
+
+const families = site.familiesPage;
+const familyMinistries = site.ministries.items.filter((item) => item.audience === "Children" || item.audience === "Youth");
+---
+
+<BaseLayout title={families.metaTitle} description={families.metaDescription} extraSchemas={[getFaqPageSchema(families.faq)]}>
+  <section class="family-hero">
+    <div class="shell family-hero__grid">
+      <div class="family-hero__copy">
+        <p class="eyebrow">{families.eyebrow}</p>
+        <h1>{families.title}</h1>
+        <p>{families.intro}</p>
+        <div class="button-row">
+          <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+          <ButtonLink href="/ministries/" variant="secondary">Explore Ministries</ButtonLink>
+        </div>
+      </div>
+
+      <div class="family-hero__cards" aria-label="Family welcome notes">
+        {families.cards.map((card) => (
+          <article>
+            <span>{card.label}</span>
+            <strong>{card.value}</strong>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell family-values">
+      <SectionIntro eyebrow={families.values.eyebrow} title={families.values.title}>
+        <p>{families.values.body}</p>
+      </SectionIntro>
+
+      <div class="family-values__list">
+        {families.values.items.map((item, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell">
+      <SectionIntro eyebrow="Children and youth" title="Simple ministry rhythms for growing faith">
+        <p>These ministries help children and youth participate in the life of Wayside Church.</p>
+      </SectionIntro>
+
+      <div class="family-ministry-grid">
+        {familyMinistries.map((ministry) => (
+          <article class="family-ministry-card">
+            <p class="eyebrow">{ministry.schedule}</p>
+            <h2>{ministry.name}</h2>
+            <p class="family-ministry-card__summary">{ministry.summary}</p>
+            <p>{ministry.details}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell start-questions__grid">
+      <div>
+        <p class="eyebrow">{families.next.eyebrow}</p>
+        <h2>{families.next.title}</h2>
+        <p>{families.next.body}</p>
+      </div>
+
+      <div class="belief-accordion">
+        {families.faq.map((item, index) => (
+          <details class="belief-item" open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="visit-band">
+    <div class="shell visit-band__inner">
+      <div>
+        <p class="eyebrow">Bring the family</p>
+        <h2>Visit Wayside this Sunday at 10:00 AM.</h2>
+        <p>{site.contact.addressLine1}, {site.contact.cityStateZip}</p>
+      </div>
+      <ButtonLink href="/plan-a-visit/">Plan a Visit</ButtonLink>
+    </div>
+  </section>
+</BaseLayout>
