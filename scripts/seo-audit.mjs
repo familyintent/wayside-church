@@ -232,6 +232,10 @@ function textIncludes(value, expected) {
   return JSON.stringify(value || "").toLowerCase().includes(expected.toLowerCase());
 }
 
+function hasTimeZoneOffset(value) {
+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/.test(value || "");
+}
+
 function htmlRouteFromPathname(pathname) {
   const route = pathname === "/" ? "/" : pathname.endsWith("/") ? pathname : `${pathname}/`;
   const filePath = route === "/" ? path.join(distDir, "index.html") : path.join(distDir, route.replace(/^\//, ""), "index.html");
@@ -413,6 +417,7 @@ for (const filePath of htmlFiles) {
   const churchSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Church"));
   const webSiteSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "WebSite"));
   const siteNavigationSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "SiteNavigationElement"));
+  const eventSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Event"));
   const pageSchemas = parsedSchemas.flatMap((schema) =>
     ["WebPage", "AboutPage", "ContactPage", "CollectionPage"].flatMap((type) => collectSchemasByType(schema, type)),
   );
@@ -544,6 +549,33 @@ for (const filePath of htmlFiles) {
       const [name, url] = navItem;
       if (!siteNavigationSchemas.some((schema) => schema.name === name && schema.url === url)) {
         errors.push(`${label}: SiteNavigationElement schema missing ${name}.`);
+      }
+    }
+
+    for (const eventSchema of eventSchemas) {
+      if (!hasTimeZoneOffset(eventSchema.startDate)) {
+        errors.push(`${label}: Event schema startDate should include an explicit timezone offset.`);
+      }
+      if (!hasTimeZoneOffset(eventSchema.endDate)) {
+        errors.push(`${label}: Event schema endDate should include an explicit timezone offset.`);
+      }
+      if (eventSchema.eventAttendanceMode !== "https://schema.org/OfflineEventAttendanceMode") {
+        errors.push(`${label}: Event schema should mark gatherings as in-person/offline.`);
+      }
+      if (eventSchema.eventStatus !== "https://schema.org/EventScheduled") {
+        errors.push(`${label}: Event schema should use EventScheduled.`);
+      }
+      if (eventSchema.isAccessibleForFree !== true) {
+        errors.push(`${label}: Event schema should mark church gatherings as accessible for free.`);
+      }
+      if (eventSchema.inLanguage !== "en-US") {
+        errors.push(`${label}: Event schema should include inLanguage en-US.`);
+      }
+      if (!textIncludes(eventSchema.location, "6 Haggerty Rd") || !textIncludes(eventSchema.location, "Charlton")) {
+        errors.push(`${label}: Event schema should include the Wayside Church location.`);
+      }
+      if (!textIncludes(eventSchema.eventSchedule, "America/New_York")) {
+        errors.push(`${label}: Event schema schedule should include the local timezone.`);
       }
     }
 

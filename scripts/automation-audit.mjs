@@ -178,8 +178,12 @@ requireIncludes("src/components/ChurchContactBlock.astro", contactBlock, "itempr
 
 const schemaHelper = readText("src/lib/schema.ts");
 requireIncludes("src/lib/schema.ts", schemaHelper, "getZonedDateParts");
+requireIncludes("src/lib/schema.ts", schemaHelper, "dateTimeWithOffset");
+requireIncludes("src/lib/schema.ts", schemaHelper, "timeZoneName: \"longOffset\"");
 requireIncludes("src/lib/schema.ts", schemaHelper, "site.calendar.sunday.timezone");
 requireIncludes("src/lib/schema.ts", schemaHelper, "daysUntil = 7");
+requireIncludes("src/lib/schema.ts", schemaHelper, "isAccessibleForFree: true");
+requireIncludes("src/lib/schema.ts", schemaHelper, "inLanguage: \"en-US\"");
 
 const settings = readText("src/content/settings.yaml");
 requireIncludes("src/content/settings.yaml", settings, "Staff should only need to upload sermons to YouTube");
@@ -240,6 +244,11 @@ requireIncludes("scripts/performance-audit.mjs", performanceAudit, "wayside-welc
 requireIncludes("scripts/performance-audit.mjs", performanceAudit, "Content-Security-Policy");
 requireIncludes("scripts/performance-audit.mjs", performanceAudit, "unexpected external script");
 requireIncludes("scripts/performance-audit.mjs", performanceAudit, "Total deployed image assets");
+
+const liveSeoCheck = readText("scripts/live-seo-check.mjs");
+requireIncludes("scripts/live-seo-check.mjs", liveSeoCheck, "checkLiveEventSchemas");
+requireIncludes("scripts/live-seo-check.mjs", liveSeoCheck, "hasTimeZoneOffset");
+requireIncludes("scripts/live-seo-check.mjs", liveSeoCheck, "Event schema should mark church gatherings as accessible for free");
 
 const generatedCalendar = readText("src/pages/calendar/wayside-sunday-worship.ics.ts");
 requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "text/calendar");

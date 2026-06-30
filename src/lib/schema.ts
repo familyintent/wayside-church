@@ -107,6 +107,30 @@ function datePartFromParts(parts: { year: number; month: number; day: number }) 
   return `${parts.year}-${String(parts.month).padStart(2, "0")}-${String(parts.day).padStart(2, "0")}`;
 }
 
+function getTimeZoneOffset(parts: { year: number; month: number; day: number }, time: string, timeZone: string) {
+  const [hours, minutes] = time.split(":").map(Number);
+  const date = new Date(Date.UTC(parts.year, parts.month - 1, parts.day, hours || 0, minutes || 0));
+  const offsetName =
+    new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      timeZoneName: "longOffset",
+      hour: "2-digit",
+      hourCycle: "h23",
+    })
+      .formatToParts(date)
+      .find((part) => part.type === "timeZoneName")?.value || "";
+  const match = offsetName.match(/^GMT([+-])(\d{1,2})(?::?(\d{2}))?$/);
+
+  if (!match) return "";
+
+  const [, sign, offsetHours, offsetMinutes = "00"] = match;
+  return `${sign}${offsetHours.padStart(2, "0")}:${offsetMinutes.padStart(2, "0")}`;
+}
+
+function dateTimeWithOffset(parts: { year: number; month: number; day: number }, time: string, timeZone: string) {
+  return `${datePartFromParts(parts)}T${time}:00${getTimeZoneOffset(parts, time, timeZone)}`;
+}
+
 function timeToMinutes(value: string) {
   const [hours, minutes] = value.split(":").map(Number);
   return (hours || 0) * 60 + (minutes || 0);
@@ -124,10 +148,10 @@ function getNextOccurrence(day: string, startTime: string, endTime: string) {
     daysUntil = 7;
   }
 
-  const datePart = datePartFromParts(addDaysToDateParts(nowParts.year, nowParts.month, nowParts.day, daysUntil));
+  const dateParts = addDaysToDateParts(nowParts.year, nowParts.month, nowParts.day, daysUntil);
   return {
-    startDate: `${datePart}T${startTime}:00`,
-    endDate: `${datePart}T${endTime}:00`,
+    startDate: dateTimeWithOffset(dateParts, startTime, timeZone),
+    endDate: dateTimeWithOffset(dateParts, endTime, timeZone),
   };
 }
 
@@ -158,6 +182,8 @@ export function getSundayWorshipEventSchema(pagePath = "/plan-a-visit/") {
     endDate: occurrence.endDate,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
+    isAccessibleForFree: true,
+    inLanguage: "en-US",
     url: absoluteUrl(pagePath, site.meta.siteUrl),
     image: churchEventImageUrls,
     organizer: {
@@ -218,6 +244,8 @@ export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/min
         endDate: occurrence.endDate,
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
         eventStatus: "https://schema.org/EventScheduled",
+        isAccessibleForFree: true,
+        inLanguage: "en-US",
         url: absoluteUrl(ministry.id ? `${pagePath}#${ministry.id}` : pagePath, site.meta.siteUrl),
         image: churchEventImageUrls,
         organizer: {

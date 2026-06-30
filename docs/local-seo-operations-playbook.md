@@ -39,6 +39,7 @@ Use this as the ongoing, legitimate SEO rhythm for Wayside Church. The website n
 - Keep `/llms.txt` generated from site settings and the YouTube feed so AI tools see current service times, contact details, official pages, machine-readable resources, and recent teaching pages.
 - Keep `church.alternateNames` in `src/content/settings.yaml` limited to names people actually use for Wayside. Do not add keyword phrases just to rank.
 - Keep generated calendar links aligned with real ministry rhythms. Only ministries with a stable weekly day and time should have an `event` block in `src/content/settings.yaml`; irregular or quarterly gatherings should invite people to reach out for the next date.
+- Keep Event schema times precise. Sunday Worship and recurring ministry events should publish local start and end dates with explicit Eastern timezone offsets and `isAccessibleForFree: true`.
 - Keep the human-readable site map at `https://wayside.church/sitemap/` current. It should link every indexed page while the footer stays simple for visitors.
 - Keep nearby-town content on the single `https://wayside.church/nearby-communities/` page unless there is truly unique, substantial content for a town. The goal is helpful directions and honest local context, not thin duplicate pages.
 - Look for one legitimate local mention or backlink opportunity from:

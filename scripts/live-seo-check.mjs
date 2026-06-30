@@ -217,6 +217,10 @@ function textIncludes(value, expected) {
   return JSON.stringify(value || "").toLowerCase().includes(expected.toLowerCase());
 }
 
+function hasTimeZoneOffset(value) {
+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/.test(value || "");
+}
+
 function collectSchemasByType(schema, type, acc = []) {
   const visit = (node) => {
     if (!node || typeof node !== "object") return;
@@ -233,6 +237,46 @@ function collectSchemasByType(schema, type, acc = []) {
 
   visit(schema);
   return acc;
+}
+
+function checkLiveEventSchemas(html, context) {
+  const parsedSchemas = [];
+
+  for (const block of extractJsonLd(html)) {
+    try {
+      parsedSchemas.push(JSON.parse(block));
+    } catch (error) {
+      reportError(`${context} has invalid JSON-LD: ${error.message}`);
+    }
+  }
+
+  const eventSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Event"));
+  for (const eventSchema of eventSchemas) {
+    if (!hasTimeZoneOffset(eventSchema.startDate)) {
+      reportError(`${context} Event schema startDate should include an explicit timezone offset.`);
+    }
+    if (!hasTimeZoneOffset(eventSchema.endDate)) {
+      reportError(`${context} Event schema endDate should include an explicit timezone offset.`);
+    }
+    if (eventSchema.eventAttendanceMode !== "https://schema.org/OfflineEventAttendanceMode") {
+      reportError(`${context} Event schema should mark gatherings as in-person/offline.`);
+    }
+    if (eventSchema.eventStatus !== "https://schema.org/EventScheduled") {
+      reportError(`${context} Event schema should use EventScheduled.`);
+    }
+    if (eventSchema.isAccessibleForFree !== true) {
+      reportError(`${context} Event schema should mark church gatherings as accessible for free.`);
+    }
+    if (eventSchema.inLanguage !== "en-US") {
+      reportError(`${context} Event schema should include inLanguage en-US.`);
+    }
+    if (!textIncludes(eventSchema.location, "6 Haggerty Rd") || !textIncludes(eventSchema.location, "Charlton")) {
+      reportError(`${context} Event schema should include the Wayside Church location.`);
+    }
+    if (!textIncludes(eventSchema.eventSchedule, "America/New_York")) {
+      reportError(`${context} Event schema schedule should include the local timezone.`);
+    }
+  }
 }
 
 async function fetchText(url, options = {}) {
@@ -860,6 +904,7 @@ async function checkLivePages(sitemapUrls) {
 
     checkHtmlYouTubeThumbnailImages(page.text, url);
     checkHtmlResponsiveImages(page.text, url);
+    checkLiveEventSchemas(page.text, url);
 
     const canonical = getLinkHref(page.text, "canonical");
     if (canonical !== url) reportError(`${url} canonical is ${canonical || "(missing)"}.`);
