@@ -364,6 +364,32 @@ async function checkSundayCalendarFile() {
   }
 }
 
+async function checkChurchContactCard() {
+  const contactCardUrl = new URL("/wayside-church.vcf", rootUrl).toString();
+  const { response, text } = await fetchText(contactCardUrl, {
+    accept: "text/vcard,text/plain;q=0.9,*/*;q=0.8",
+  });
+
+  if (!response.ok) {
+    reportError(`${contactCardUrl} should be fetchable, got ${response.status}.`);
+    return;
+  }
+
+  for (const expected of [
+    "BEGIN:VCARD",
+    "FN:Wayside Church",
+    "TEL;TYPE=WORK,VOICE:+15084340401",
+    "ADR;TYPE=WORK:;;6 Haggerty Rd;Charlton;MA;01507;US",
+    "URL:https://wayside.church/",
+    "Sunday Worship: Sunday at 10:00 AM",
+    "Coffee and Discipleship: Sunday at 9:00 AM",
+  ]) {
+    if (!text.includes(expected)) {
+      reportError(`Generated contact card is missing ${expected}.`);
+    }
+  }
+}
+
 async function checkHomepageSchema(homeHtml) {
   const jsonLdBlocks = extractJsonLd(homeHtml);
   const parsedSchemas = [];
@@ -601,6 +627,16 @@ async function checkLiveSemanticContactBlocks() {
       reportError(`${url} church address block should expose street address and phone microdata.`);
     }
   }
+
+  for (const pathname of ["/contact/", "/directions/"]) {
+    const url = new URL(pathname, rootUrl).toString();
+    const { response, text } = await fetchText(url);
+
+    if (!response.ok) continue;
+    if (!text.includes("/wayside-church.vcf")) {
+      reportError(`${url} should link to the generated church contact card.`);
+    }
+  }
 }
 
 async function main() {
@@ -620,6 +656,7 @@ async function main() {
   await checkVideoSitemap(sitemapUrls);
   await checkTeachingFeed();
   await checkSundayCalendarFile();
+  await checkChurchContactCard();
   await checkLivePages(sitemapUrls);
   await checkLiveTeachingPages();
   await checkLiveVisitorDetails();

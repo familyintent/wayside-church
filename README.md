@@ -95,6 +95,7 @@ The site includes:
 - page-level `WebPage`, `AboutPage`, `ContactPage`, and `CollectionPage` structured data
 - local entity checks for address, phone, map link, social profiles, service hours, and nearby communities
 - semantic church address blocks for consistent name, address, phone, and map details
+- generated `wayside-church.vcf` contact card from the same editable church settings
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data
 - recurring Sunday worship event schema
 - FAQ schema on visitor-focused pages

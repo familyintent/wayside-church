@@ -506,6 +506,26 @@ if (!fs.existsSync(calendarPath)) {
   }
 }
 
+const contactCardPath = path.join(distDir, "wayside-church.vcf");
+if (!fs.existsSync(contactCardPath)) {
+  errors.push("Missing generated Wayside Church contact card.");
+} else {
+  const contactCard = readText(contactCardPath);
+  for (const expected of [
+    "BEGIN:VCARD",
+    "FN:Wayside Church",
+    "TEL;TYPE=WORK,VOICE:+15084340401",
+    "ADR;TYPE=WORK:;;6 Haggerty Rd;Charlton;MA;01507;US",
+    "URL:https://wayside.church/",
+    "Sunday Worship: Sunday at 10:00 AM",
+    "Coffee and Discipleship: Sunday at 9:00 AM",
+  ]) {
+    if (!contactCard.includes(expected)) {
+      errors.push(`Generated contact card is missing ${expected}.`);
+    }
+  }
+}
+
 const imageSitemapPath = path.join(distDir, "image-sitemap.xml");
 if (!fs.existsSync(imageSitemapPath)) {
   errors.push("Missing image-sitemap.xml.");

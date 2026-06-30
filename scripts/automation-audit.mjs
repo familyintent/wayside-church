@@ -98,6 +98,12 @@ requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCal
 requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "text/calendar");
 requireIncludes("src/pages/calendar/wayside-sunday-worship.ics.ts", generatedCalendar, "BEGIN:VCALENDAR");
 
+const generatedContactCard = readText("src/pages/wayside-church.vcf.ts");
+requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.contact.addressLine1");
+requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "site.service.primary");
+requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "text/vcard");
+requireIncludes("src/pages/wayside-church.vcf.ts", generatedContactCard, "BEGIN:VCARD");
+
 if (fs.existsSync(path.join(rootDir, "public", "calendar", "wayside-sunday-worship.ics"))) {
   errors.push("Calendar .ics should be generated from settings, not manually maintained in public/calendar.");
 }
