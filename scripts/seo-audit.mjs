@@ -747,9 +747,23 @@ for (const filePath of htmlFiles) {
       if (!textIncludes(eventSchema.eventSchedule, "America/New_York")) {
         errors.push(`${label}: Event schema schedule should include the local timezone.`);
       }
+      if (!eventSchema.offers || Number(eventSchema.offers.price) !== 0 || eventSchema.offers.priceCurrency !== "USD") {
+        errors.push(`${label}: Event schema should include a free Offer with price 0 USD.`);
+      }
+      if (!textIncludes(eventSchema.offers, eventSchema.url || "")) {
+        errors.push(`${label}: Event schema free Offer should point to the event URL.`);
+      }
     }
-    if (route === "/" && eventSchemas.length === 0) {
-      errors.push("/: homepage should expose Sunday Worship Event schema.");
+    if (route === "/sunday-worship/") {
+      if (eventSchemas.length === 0) {
+        errors.push("/sunday-worship: dedicated Sunday Worship page should expose Sunday Worship Event schema.");
+      }
+      const sundayEvent = eventSchemas[0];
+      if (sundayEvent?.url !== `${siteUrl}/sunday-worship/`) {
+        errors.push("/sunday-worship: Sunday Worship Event schema should use the dedicated Sunday Worship URL.");
+      }
+    } else if (eventSchemas.length > 0) {
+      errors.push(`${label}: Event schema should stay on the dedicated Sunday Worship page, not broad visitor or listing pages.`);
     }
 
     if (route === "/giving/") {

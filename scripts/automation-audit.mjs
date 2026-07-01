@@ -64,13 +64,26 @@ requireIncludes("src/lib/images.ts", imageHelper, "wayside-local-16x9.webp");
 const homepage = readText("src/pages/index.astro");
 requireIncludes("src/pages/index.astro", homepage, "getLatestTeaching(site.youtube)");
 requireIncludes("src/pages/index.astro", homepage, "<LatestTeaching latest={latestTeaching}");
-requireIncludes("src/pages/index.astro", homepage, "getSundayWorshipEventSchema(\"/\")");
 requireIncludes("src/pages/index.astro", homepage, "SundayDate");
 requireIncludes("src/pages/index.astro", homepage, "const heroPreload =");
 requireIncludes("src/pages/index.astro", homepage, "preloadImages={[heroPreload]}");
 requireIncludes("src/pages/index.astro", homepage, "srcset={heroImageSrcset}");
 requireIncludes("src/pages/index.astro", homepage, "sizes={heroImageSizes}");
 requireIncludes("src/pages/index.astro", homepage, "srcset={communityImageSrcset}");
+
+const eventSchemaHelper = readText("src/lib/schema.ts");
+requireIncludes("src/lib/schema.ts", eventSchemaHelper, "getSundayWorshipEventSchema(pagePath = \"/sunday-worship/\")");
+requireIncludes("src/lib/schema.ts", eventSchemaHelper, "getFreeEventOffer(eventUrl)");
+requireIncludes("src/lib/schema.ts", eventSchemaHelper, "price: 0");
+requireIncludes("src/lib/schema.ts", eventSchemaHelper, "priceCurrency: \"USD\"");
+requireIncludes("src/lib/schema.ts", eventSchemaHelper, "getMinistryItemListSchema");
+
+const sundayWorshipPage = readText("src/pages/sunday-worship.astro");
+requireIncludes("src/pages/sunday-worship.astro", sundayWorshipPage, "getSundayWorshipEventSchema(\"/sunday-worship/\")");
+const ministrySchemaPage = readText("src/pages/ministries.astro");
+requireIncludes("src/pages/ministries.astro", ministrySchemaPage, "getMinistryItemListSchema(ministries)");
+const eventsSchemaPage = readText("src/pages/events.astro");
+requireIncludes("src/pages/events.astro", eventsSchemaPage, "getMinistryItemListSchema(weeklyGatherings");
 
 for (const visitorPath of [
   "src/pages/plan-a-visit.astro",

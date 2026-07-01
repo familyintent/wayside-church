@@ -6,7 +6,7 @@ import SectionIntro from "../components/SectionIntro.astro";
 import SundayDate from "../components/SundayDate.astro";
 import { site } from "../lib/content";
 import { absoluteUrl } from "../lib/paths";
-import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
+import { getFaqPageSchema } from "../lib/schema";
 
 const nearby = site.nearbyCommunitiesPage;
 const getTownId = (name: string) => `near-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
@@ -30,7 +30,7 @@ const nearbyItemListSchema = {
     },
   })),
 };
-const nearbySchemas = [getSundayWorshipEventSchema("/nearby-communities/"), getFaqPageSchema(nearby.faq), nearbyItemListSchema];
+const nearbySchemas = [getFaqPageSchema(nearby.faq), nearbyItemListSchema];
 ---
 
 <BaseLayout title={nearby.metaTitle} description={nearby.metaDescription} image={site.images.community} imageAlt="Wayside Church family sharing a meal together in Charlton, Massachusetts" extraSchemas={nearbySchemas}>

@@ -5,10 +5,10 @@ import CalendarActions from "../components/CalendarActions.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import SundayDate from "../components/SundayDate.astro";
 import { site } from "../lib/content";
-import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
+import { getFaqPageSchema } from "../lib/schema";
 
 const newToChurch = site.newToChurchPage;
-const schemas = [getSundayWorshipEventSchema("/new-to-church/"), getFaqPageSchema(newToChurch.questions.items)];
+const schemas = [getFaqPageSchema(newToChurch.questions.items)];
 ---
 
 <BaseLayout title={newToChurch.metaTitle} description={newToChurch.metaDescription} extraSchemas={schemas}>

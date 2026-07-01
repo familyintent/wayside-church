@@ -9,12 +9,12 @@ import VisitorDetails from "../components/VisitorDetails.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
-import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
+import { getFaqPageSchema } from "../lib/schema";
 
 const directions = site.directionsPage;
 const charltonImageSize = imageSize(site.images.charlton);
 const charltonImageSrcset = imageSrcset(site.images.charlton);
-const directionsSchemas = [getSundayWorshipEventSchema("/directions/"), getFaqPageSchema(directions.faq)];
+const directionsSchemas = [getFaqPageSchema(directions.faq)];
 ---
 
 <BaseLayout title={directions.metaTitle} description={directions.metaDescription} image={site.images.charlton} imageAlt="Map of Charlton, Massachusetts near Wayside Church" extraSchemas={directionsSchemas}>

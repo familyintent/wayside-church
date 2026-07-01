@@ -114,7 +114,7 @@ The site includes:
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data
 - hierarchical breadcrumbs for generated teaching watch pages, so visitors and search engines see `Home > Teaching > message`
 - recurring Sunday worship event schema
-- local Event schema dates with explicit Eastern timezone offsets and free in-person gathering signals
+- dedicated Sunday Worship `Event` schema with explicit Eastern timezone offsets, free-offer metadata, and a single event-focused URL
 - generated recurring calendar files for Sunday Worship and ministry gatherings
 - FAQ schema on visitor-focused pages
 - practical visitor detail structured data for parking and first-visit planning

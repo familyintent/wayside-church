@@ -6,10 +6,10 @@ import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
-import { getMinistryEventSchemas } from "../lib/schema";
+import { getMinistryItemListSchema } from "../lib/schema";
 
 const ministries = site.ministries.items;
-const ministrySchemas = getMinistryEventSchemas(ministries);
+const ministrySchemas = [getMinistryItemListSchema(ministries)];
 const communityImageSize = imageSize(site.images.community);
 const communityImageSrcset = imageSrcset(site.images.community);
 ---

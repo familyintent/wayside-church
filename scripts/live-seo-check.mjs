@@ -300,7 +300,25 @@ function checkLiveEventSchemas(html, context) {
   }
 
   const eventSchemas = parsedSchemas.flatMap((schema) => collectSchemasByType(schema, "Event"));
+  let contextPath = "";
+
+  try {
+    contextPath = new URL(context).pathname;
+  } catch {
+    contextPath = "";
+  }
+
+  if (contextPath === "/sunday-worship/" && eventSchemas.length === 0) {
+    reportError(`${context} dedicated Sunday Worship page should expose Sunday Worship Event schema.`);
+  }
+  if (contextPath && contextPath !== "/sunday-worship/" && eventSchemas.length > 0) {
+    reportError(`${context} Event schema should stay on the dedicated Sunday Worship page, not broad visitor or listing pages.`);
+  }
+
   for (const eventSchema of eventSchemas) {
+    if (contextPath === "/sunday-worship/" && eventSchema.url !== new URL("/sunday-worship/", rootUrl).toString()) {
+      reportError(`${context} Sunday Worship Event schema should use the dedicated Sunday Worship URL.`);
+    }
     if (!hasTimeZoneOffset(eventSchema.startDate)) {
       reportError(`${context} Event schema startDate should include an explicit timezone offset.`);
     }
@@ -324,6 +342,12 @@ function checkLiveEventSchemas(html, context) {
     }
     if (!textIncludes(eventSchema.eventSchedule, "America/New_York")) {
       reportError(`${context} Event schema schedule should include the local timezone.`);
+    }
+    if (!eventSchema.offers || Number(eventSchema.offers.price) !== 0 || eventSchema.offers.priceCurrency !== "USD") {
+      reportError(`${context} Event schema should include a free Offer with price 0 USD.`);
+    }
+    if (!textIncludes(eventSchema.offers, eventSchema.url || "")) {
+      reportError(`${context} Event schema free Offer should point to the event URL.`);
     }
   }
 }
@@ -941,8 +965,8 @@ async function checkHomepageSchema(homeHtml) {
     reportError("Homepage missing Church schema.");
     return;
   }
-  if (eventSchemas.length === 0) {
-    reportError("Homepage should expose Sunday Worship Event schema.");
+  if (eventSchemas.length > 0) {
+    reportError("Homepage should leave Event schema to the dedicated Sunday Worship page.");
   }
   if (!hasUpcomingSundayDate(homeHtml)) {
     reportError("Homepage should show the automated upcoming Sunday date with semantic time markup.");

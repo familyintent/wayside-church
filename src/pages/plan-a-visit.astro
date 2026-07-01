@@ -8,10 +8,10 @@ import VisitorDetails from "../components/VisitorDetails.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
-import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
+import { getFaqPageSchema } from "../lib/schema";
 
 const visit = site.planVisit;
-const visitSchemas = [getSundayWorshipEventSchema("/plan-a-visit/"), getFaqPageSchema(visit.faq)];
+const visitSchemas = [getFaqPageSchema(visit.faq)];
 const charltonImageSize = imageSize(site.images.charlton);
 const charltonImageSrcset = imageSrcset(site.images.charlton);
 ---

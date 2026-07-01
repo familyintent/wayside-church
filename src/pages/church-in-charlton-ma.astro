@@ -7,10 +7,10 @@ import SectionIntro from "../components/SectionIntro.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
-import { getFaqPageSchema, getSundayWorshipEventSchema } from "../lib/schema";
+import { getFaqPageSchema } from "../lib/schema";
 
 const local = site.localSeo;
-const localSchemas = [getFaqPageSchema(local.faq), getSundayWorshipEventSchema("/church-in-charlton-ma/")];
+const localSchemas = [getFaqPageSchema(local.faq)];
 const communityImageSize = imageSize(site.images.community);
 const communityImageSrcset = imageSrcset(site.images.community);
 ---

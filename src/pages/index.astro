@@ -9,11 +9,11 @@ import SundayDate from "../components/SundayDate.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
-import { getSundayWorshipEventSchema, getTeachingVideoSchemas } from "../lib/schema";
+import { getTeachingVideoSchemas } from "../lib/schema";
 import { getLatestTeaching } from "../lib/youtube";
 
 const latestTeaching = await getLatestTeaching(site.youtube);
-const homeSchemas = [getSundayWorshipEventSchema("/"), ...(latestTeaching ? getTeachingVideoSchemas([latestTeaching], "/") : [])];
+const homeSchemas = latestTeaching ? getTeachingVideoSchemas([latestTeaching], "/") : [];
 const heroImageSize = imageSize(site.images.hero);
 const communityImageSize = imageSize(site.images.community);
 const heroImageSrcset = imageSrcset(site.images.hero);

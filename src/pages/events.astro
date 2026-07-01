@@ -6,13 +6,12 @@ import MinistryCalendarLinks from "../components/MinistryCalendarLinks.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import SundayDate from "../components/SundayDate.astro";
 import { site } from "../lib/content";
-import { getFaqPageSchema, getMinistryEventSchemas, getSundayWorshipEventSchema } from "../lib/schema";
+import { getFaqPageSchema, getMinistryItemListSchema } from "../lib/schema";
 
 const events = site.eventsPage;
 const weeklyGatherings = site.ministries.items.filter((ministry) => ministry.event);
 const eventSchemas = [
-  getSundayWorshipEventSchema("/events/"),
-  ...getMinistryEventSchemas(weeklyGatherings, "/events/"),
+  getMinistryItemListSchema(weeklyGatherings, "/events/", "Wayside Church weekly gatherings"),
   getFaqPageSchema(events.faq),
 ];
 ---

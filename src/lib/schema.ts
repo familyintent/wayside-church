@@ -26,6 +26,8 @@ type Ministry = {
   name: string;
   audience: string;
   summary: string;
+  details?: string;
+  schedule?: string;
   event?: {
     day: string;
     startTime: string;
@@ -155,6 +157,17 @@ function getNextOccurrence(day: string, startTime: string, endTime: string) {
   };
 }
 
+function getFreeEventOffer(url: string) {
+  return {
+    "@type": "Offer",
+    name: "Free admission",
+    url,
+    price: 0,
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+  };
+}
+
 export function getFaqPageSchema(items: FaqItem[]) {
   return {
     "@context": "https://schema.org",
@@ -170,13 +183,14 @@ export function getFaqPageSchema(items: FaqItem[]) {
   };
 }
 
-export function getSundayWorshipEventSchema(pagePath = "/plan-a-visit/") {
+export function getSundayWorshipEventSchema(pagePath = "/sunday-worship/") {
   const occurrence = getNextOccurrence("Sunday", "10:00", "11:30");
+  const eventUrl = absoluteUrl(pagePath, site.meta.siteUrl);
 
   return {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: `${site.church.name} ${site.service.primary.label}`,
+    name: `${site.service.primary.label} at ${site.church.name}`,
     description: `${site.service.primary.summary} ${site.service.coffee.label} begins at ${site.service.coffee.time}.`,
     startDate: occurrence.startDate,
     endDate: occurrence.endDate,
@@ -184,8 +198,9 @@ export function getSundayWorshipEventSchema(pagePath = "/plan-a-visit/") {
     eventStatus: "https://schema.org/EventScheduled",
     isAccessibleForFree: true,
     inLanguage: "en-US",
-    url: absoluteUrl(pagePath, site.meta.siteUrl),
+    url: eventUrl,
     image: churchEventImageUrls,
+    offers: getFreeEventOffer(eventUrl),
     organizer: {
       "@type": "Church",
       "@id": churchId,
@@ -249,6 +264,7 @@ export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/min
   return ministries
     .filter((ministry) => Boolean(ministry.event))
     .map((ministry) => {
+      const eventUrl = absoluteUrl(ministry.id ? `${pagePath}#${ministry.id}` : pagePath, site.meta.siteUrl);
       const occurrence = getNextOccurrence(
         ministry.event?.day || "Sunday",
         ministry.event?.startTime || "10:00",
@@ -266,8 +282,9 @@ export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/min
         eventStatus: "https://schema.org/EventScheduled",
         isAccessibleForFree: true,
         inLanguage: "en-US",
-        url: absoluteUrl(ministry.id ? `${pagePath}#${ministry.id}` : pagePath, site.meta.siteUrl),
+        url: eventUrl,
         image: churchEventImageUrls,
+        offers: getFreeEventOffer(eventUrl),
         organizer: {
           "@type": "Church",
           "@id": churchId,
@@ -296,6 +313,35 @@ export function getMinistryEventSchemas(ministries: Ministry[], pagePath = "/min
         },
       };
     });
+}
+
+export function getMinistryItemListSchema(ministries: Ministry[], pagePath = "/ministries/", name = "Wayside Church ministries") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    itemListElement: ministries.map((ministry, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Thing",
+        name: ministry.name,
+        description: ministry.details || ministry.summary,
+        audience: {
+          "@type": "Audience",
+          audienceType: ministry.audience,
+        },
+        additionalProperty: [
+          ministry.schedule && {
+            "@type": "PropertyValue",
+            name: "Schedule",
+            value: ministry.schedule,
+          },
+        ].filter(Boolean),
+        url: absoluteUrl(ministry.id ? `${pagePath}#${ministry.id}` : pagePath, site.meta.siteUrl),
+      },
+    })),
+  };
 }
 
 export function getDonateActionSchema(pagePath = "/giving/") {
