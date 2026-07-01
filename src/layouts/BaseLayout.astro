@@ -82,6 +82,7 @@ const sameAs = [site.links.facebook, site.links.instagram, site.links.youtube, s
 const phoneNumber = site.contact.phoneHref.replace(/^tel:/, "");
 const churchDescription = site.church.description || site.meta.description;
 const alternateNames = site.church.alternateNames || [];
+const churchAffiliations = site.church.affiliations || [];
 const searchTopics = site.church.searchTopics || [
   site.church.name,
   `Church in ${site.church.city}, ${site.church.state}`,
@@ -119,6 +120,21 @@ const structuredSiteParts = [
     description: "Answers for first-time guests, families, seekers, and people returning to church.",
   },
   {
+    name: "About",
+    href: "/about/",
+    description: "The story, mission, leadership, and life together that shape Wayside Church.",
+  },
+  {
+    name: "Beliefs",
+    href: "/beliefs/",
+    description: "Gospel-centered beliefs, Advent Christian roots, Scripture focus, and hope in Jesus Christ.",
+  },
+  {
+    name: "Leadership",
+    href: "/leadership/",
+    description: "Pastor and leadership information for Wayside Church in Charlton, Massachusetts.",
+  },
+  {
     name: "Church in Charlton, MA",
     href: "/church-in-charlton-ma/",
     description: "Local church information for neighbors searching for a church in Charlton, Massachusetts.",
@@ -134,6 +150,16 @@ const structuredSiteParts = [
     description: "Recent Bible teaching from the Wayside Church YouTube channel.",
   },
   {
+    name: "Sermons",
+    href: "/sermons/",
+    description: "Recent sermons and Bible messages from Wayside Church in Charlton, Massachusetts.",
+  },
+  {
+    name: "Events",
+    href: "/events/",
+    description: "Weekly gatherings and church events at Wayside Church in Charlton, Massachusetts.",
+  },
+  {
     name: "Ministries",
     href: "/ministries/",
     description: "Wayside Church ministries for discipleship, families, youth, men, and community life.",
@@ -147,6 +173,11 @@ const structuredSiteParts = [
     name: "Contact",
     href: "/contact/",
     description: "Address, phone, directions, calendar links, and contact details for Wayside Church.",
+  },
+  {
+    name: "Giving",
+    href: "/giving/",
+    description: "Secure giving information for supporting worship, care, and local ministry through Wayside Church.",
   },
 ].map((part) => {
   const partUrl = absoluteUrl(part.href, site.meta.siteUrl);
@@ -212,6 +243,11 @@ const churchSchema = {
   keywords: searchTopics,
   knowsAbout: searchTopics,
   mainEntityOfPage: siteUrl,
+  memberOf: churchAffiliations.map((affiliation) => ({
+    "@type": "Organization",
+    name: affiliation.name,
+    description: affiliation.description,
+  })),
   telephone: phoneNumber,
   hasMap: site.links.maps,
   potentialAction: churchPotentialActions,

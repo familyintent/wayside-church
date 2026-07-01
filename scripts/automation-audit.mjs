@@ -233,8 +233,10 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "photo: churchPhotoO
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "localEntityImageSources");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "keywords: searchTopics");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "alternateName: alternateNames");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "churchAffiliations");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "knowsAbout: searchTopics");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "mainEntityOfPage: siteUrl");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "memberOf: churchAffiliations.map");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "structuredSiteParts");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "hasPart: structuredSiteParts");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "churchPotentialActions");
@@ -247,6 +249,11 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/nearby-communities
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/sunday-worship/");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/directions/");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/families/");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/beliefs/");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/leadership/");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/sermons/");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/events/");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/giving/");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "name: \"Mission\"");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "description: site.meta.description");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "isAccessibleForFree: true");

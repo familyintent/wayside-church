@@ -600,6 +600,12 @@ for (const filePath of htmlFiles) {
       if (!textIncludes(churchSchema.knowsAbout, "Church in Charlton, MA") || !textIncludes(churchSchema.knowsAbout, "Bible teaching in Charlton, MA")) {
         errors.push(`${label}: Church schema missing local topic knowsAbout fields.`);
       }
+      if (!textIncludes(churchSchema.knowsAbout, "Gospel-centered church in Charlton, MA") || !textIncludes(churchSchema.knowsAbout, "Advent Christian church in Charlton, MA")) {
+        errors.push(`${label}: Church schema missing truthful church identity topics.`);
+      }
+      if (!textIncludes(churchSchema.memberOf, "Advent Christian") || !textIncludes(churchSchema.memberOf, "National Association of Evangelicals")) {
+        errors.push(`${label}: Church schema should expose public church affiliation facts.`);
+      }
       if (churchSchema.isAccessibleForFree !== true) {
         errors.push(`${label}: Church schema should mark Sunday gatherings as accessible for free.`);
       }
@@ -687,12 +693,18 @@ for (const filePath of htmlFiles) {
         "/sunday-worship/",
         "/directions/",
         "/visitor-faq/",
+        "/about/",
+        "/beliefs/",
+        "/leadership/",
         "/church-in-charlton-ma/",
         "/nearby-communities/",
         "/families/",
         "/teaching/",
+        "/sermons/",
+        "/events/",
         "/ministries/",
         "/contact/",
+        "/giving/",
       ]) {
         if (!textIncludes(webSiteSchema.hasPart, keyPage)) {
           errors.push(`${label}: WebSite schema hasPart missing ${keyPage}.`);
@@ -702,9 +714,11 @@ for (const filePath of htmlFiles) {
         !textIncludes(webSiteSchema.hasPart, "A gentle first step for seekers") ||
         !textIncludes(webSiteSchema.hasPart, "Answers for first-time guests") ||
         !textIncludes(webSiteSchema.hasPart, "neighbors from Dudley") ||
-        !textIncludes(webSiteSchema.hasPart, "Family, children, and youth information")
+        !textIncludes(webSiteSchema.hasPart, "Family, children, and youth information") ||
+        !textIncludes(webSiteSchema.hasPart, "Gospel-centered beliefs") ||
+        !textIncludes(webSiteSchema.hasPart, "Pastor and leadership information")
       ) {
-        errors.push(`${label}: WebSite schema hasPart should summarize seeker, visitor, nearby-community, and family pages.`);
+        errors.push(`${label}: WebSite schema hasPart should summarize seeker, visitor, nearby-community, family, belief, and leadership pages.`);
       }
     }
 

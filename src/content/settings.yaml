@@ -34,12 +34,21 @@ church:
     - "Wayside Church"
     - "Christian church in Charlton, MA"
     - "Church in Charlton, MA"
+    - "Gospel-centered church in Charlton, MA"
+    - "Advent Christian church in Charlton, MA"
     - "Sunday worship in Charlton, MA"
     - "Bible teaching in Charlton, MA"
     - "Church near Dudley, MA"
     - "Church near Oxford, MA"
     - "Church near Sturbridge, MA"
     - "Church near Southbridge, MA"
+  # Public church identity connections shown on the About and Beliefs pages.
+  # Keep these factual; do not add organizations unless Wayside publicly identifies with them.
+  affiliations:
+    - name: "Advent Christian"
+      description: "Wayside Church is part of the Advent Christian denomination and holds to the hope of Jesus Christ's return."
+    - name: "National Association of Evangelicals"
+      description: "Wayside Church identifies with the central truths of historic evangelical faith reflected in the National Association of Evangelicals statement of faith."
 
 # Update service times, address, and phone here.
 service:
