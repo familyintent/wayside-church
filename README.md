@@ -45,7 +45,7 @@ That file includes comments showing where to update:
 - practical visitor details such as parking, children and youth, coffee, and accessibility questions
 - Visitor FAQ page copy
 - Directions page copy and FAQ
-- Sunday Worship page copy and FAQ
+- Sunday Worship Gathering page copy and FAQ
 - Events page copy and FAQ
 - Families page copy
 - Leadership page copy and FAQ
@@ -104,8 +104,8 @@ The site includes:
 - local church structured data using JSON-LD
 - enhanced local `Church` schema for public access, free access, Sunday hours, real photo objects, and local keywords
 - entity-focused `Church` and `WebSite` schema with common local names, mission, topical focus, and the official site relationship
-- richer site-level `hasPart` schema for the full visitor path and trust pages, including Start Here, New to Church, Plan a Visit, Sunday Worship, Directions, Families, Teaching, Sermons, Ministries, Events, About, Beliefs, Leadership, Contact, Giving, and local church pages
-- honest `Church` next-action schema for planning a visit, opening directions, watching teaching, and saving Sunday Worship
+- richer site-level `hasPart` schema for the full visitor path and trust pages, including Start Here, New to Church, Plan a Visit, Sunday Worship Gathering, Directions, Families, Teaching, Sermons, Ministries, Events, About, Beliefs, Leadership, Contact, Giving, and local church pages
+- honest `Church` next-action schema for planning a visit, opening directions, watching teaching, and saving the Sunday Worship Gathering
 - page-level `WebPage`, `AboutPage`, `ContactPage`, and `CollectionPage` structured data
 - local entity checks for address, phone, map link, social profiles, service hours, and nearby communities
 - a nearby-neighbor page with real town direction links and structured direction actions, without creating thin duplicate town pages
@@ -113,9 +113,9 @@ The site includes:
 - generated `wayside-church.vcf` contact card from the same editable church settings, advertised in page metadata and surfaced beside Sunday calendar actions
 - visible breadcrumb navigation with matching `BreadcrumbList` structured data
 - hierarchical breadcrumbs for generated teaching watch pages, so visitors and search engines see `Home > Teaching > message`
-- recurring Sunday worship event schema
-- dedicated Sunday Worship `Event` schema with explicit Eastern timezone offsets, free-offer metadata, and a single event-focused URL
-- generated recurring calendar files for Sunday Worship and ministry gatherings
+- recurring Sunday worship gathering event schema
+- dedicated Sunday Worship Gathering `Event` schema with explicit Eastern timezone offsets, free-offer metadata, and a single event-focused URL
+- generated recurring calendar files for the Sunday Worship Gathering and ministry gatherings
 - FAQ schema on visitor-focused pages
 - practical visitor detail structured data for parking and first-visit planning
 - video schema for recent teaching pages when YouTube publish dates are available

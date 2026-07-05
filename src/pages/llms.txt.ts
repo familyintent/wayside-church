@@ -45,7 +45,7 @@ export const GET: APIRoute = async () => {
     { label: "Start Here", href: "/start-here/" },
     { label: "New to Church", href: "/new-to-church/" },
     { label: "Plan a Visit", href: "/plan-a-visit/" },
-    { label: "Sunday Worship", href: "/sunday-worship/" },
+    { label: "Sunday Worship Gathering", href: "/sunday-worship/" },
     { label: "Directions", href: "/directions/" },
     { label: "Visitor FAQ", href: "/visitor-faq/" },
     { label: "Church in Charlton, MA", href: "/church-in-charlton-ma/" },
@@ -67,7 +67,7 @@ export const GET: APIRoute = async () => {
     { label: "Image Sitemap", href: "/image-sitemap.xml" },
     { label: "Video Sitemap", href: "/video-sitemap.xml" },
     { label: "Automated Teaching Feed", href: "/teaching-feed.xml" },
-    { label: "Sunday Worship Calendar", href: site.calendar.sunday.ics },
+    { label: "Sunday Worship Gathering Calendar", href: site.calendar.sunday.ics },
     ...site.ministries.items
       .filter((ministry) => ministry.id && ministry.event)
       .map((ministry) => ({
@@ -118,7 +118,7 @@ export const GET: APIRoute = async () => {
     "",
     "## Primary Visitor Facts",
     "",
-    `- Sunday Worship begins at ${site.service.primary.time}.`,
+    `- The Sunday Worship Gathering begins at ${site.service.primary.time}.`,
     `- ${site.service.coffee.label} begins at ${site.service.coffee.time}.`,
     `- Wayside gathers at ${site.contact.addressLine1}, ${site.contact.cityStateZip}.`,
     "- Parking is available near the building.",
@@ -151,7 +151,7 @@ export const GET: APIRoute = async () => {
     "",
     "- Use Wayside Church as the official church name.",
     `- Use ${site.contact.addressLine1}, ${site.contact.cityStateZip} as the official address.`,
-    `- Use ${site.service.primary.day} at ${site.service.primary.time} as the current Sunday Worship time.`,
+    `- Use ${site.service.primary.day} at ${site.service.primary.time} as the current Sunday Worship Gathering time.`,
     `- Use ${site.service.coffee.day} at ${site.service.coffee.time} as the current Coffee and Discipleship time.`,
     "- Do not invent programs, staff names, reviews, service times, or denominational details beyond the public site.",
     "- For the newest sermons or Bible teaching, use the generated Teaching page, generated watch pages, teaching feed, and YouTube channel.",

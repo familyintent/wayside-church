@@ -243,7 +243,7 @@ requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "churchPotentialActi
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "potentialAction: churchPotentialActions");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/start-here/");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/new-to-church/");
-requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "Save Sunday Worship Calendar");
+requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "Save Sunday Worship Gathering Calendar");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "Watch Recent Teaching");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/nearby-communities/");
 requireIncludes("src/layouts/BaseLayout.astro", baseLayout, "/sunday-worship/");

@@ -309,15 +309,15 @@ function checkLiveEventSchemas(html, context) {
   }
 
   if (contextPath === "/sunday-worship/" && eventSchemas.length === 0) {
-    reportError(`${context} dedicated Sunday Worship page should expose Sunday Worship Event schema.`);
+    reportError(`${context} dedicated Sunday Worship Gathering page should expose Sunday Worship Gathering Event schema.`);
   }
   if (contextPath && contextPath !== "/sunday-worship/" && eventSchemas.length > 0) {
-    reportError(`${context} Event schema should stay on the dedicated Sunday Worship page, not broad visitor or listing pages.`);
+    reportError(`${context} Event schema should stay on the dedicated Sunday Worship Gathering page, not broad visitor or listing pages.`);
   }
 
   for (const eventSchema of eventSchemas) {
     if (contextPath === "/sunday-worship/" && eventSchema.url !== new URL("/sunday-worship/", rootUrl).toString()) {
-      reportError(`${context} Sunday Worship Event schema should use the dedicated Sunday Worship URL.`);
+      reportError(`${context} Sunday Worship Gathering Event schema should use the dedicated Sunday worship URL.`);
     }
     if (!hasTimeZoneOffset(eventSchema.startDate)) {
       reportError(`${context} Event schema startDate should include an explicit timezone offset.`);
@@ -789,7 +789,7 @@ async function checkLiveLlms() {
   for (const expected of [
     "# Wayside Church",
     "Address: 6 Haggerty Rd, Charlton, MA 01507",
-    "Sunday Worship: Sunday at 10:00 AM",
+    "Sunday Worship Gathering: Sunday at 10:00 AM",
     "Coffee and Discipleship: Sunday at 9:00 AM",
     "## Key Pages",
     "## Entity Facts",
@@ -800,7 +800,7 @@ async function checkLiveLlms() {
     "Chase Mendoza, Pastor: https://wayside.church/leadership/#chase-mendoza",
     "Owen Rushing, Ministry Leader: https://wayside.church/leadership/#owen-rushing",
     "## Visitor Questions",
-    "What time is Sunday Worship at Wayside Church? Sunday Worship begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM.",
+    "What time is the Sunday Worship Gathering at Wayside Church? Our Sunday Worship Gathering begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM.",
     "Can my children or teens come with me? Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together.",
     "Can I attend if I am not a Christian? Yes. You are welcome to attend, listen, ask questions, and take your time. We believe Jesus meets people with truth and grace.",
     "## Recent Teaching",
@@ -833,7 +833,7 @@ async function checkSundayCalendarFile() {
 
   for (const expected of [
     "BEGIN:VCALENDAR",
-    "SUMMARY:Wayside Church Sunday Worship",
+    "SUMMARY:Wayside Church Sunday Worship Gathering",
     "DTSTART;TZID=America/New_York:20260705T100000",
     "DTEND;TZID=America/New_York:20260705T113000",
     "RRULE:FREQ=WEEKLY;BYDAY=SU",
@@ -841,7 +841,7 @@ async function checkSundayCalendarFile() {
     "URL:https://wayside.church/",
   ]) {
     if (!text.includes(expected)) {
-      reportError(`Generated Sunday Worship calendar is missing ${expected}.`);
+      reportError(`Generated Sunday Worship Gathering calendar is missing ${expected}.`);
     }
   }
 }
@@ -926,7 +926,7 @@ async function checkChurchContactCard() {
     "TEL;TYPE=WORK,VOICE:+15084340401",
     "ADR;TYPE=WORK:;;6 Haggerty Rd;Charlton;MA;01507;US",
     "URL:https://wayside.church/",
-    "Sunday Worship: Sunday at 10:00 AM",
+    "Sunday Worship Gathering: Sunday at 10:00 AM",
     "Coffee and Discipleship: Sunday at 9:00 AM",
   ]) {
     if (!text.includes(expected)) {
@@ -966,7 +966,7 @@ async function checkHomepageSchema(homeHtml) {
     return;
   }
   if (eventSchemas.length > 0) {
-    reportError("Homepage should leave Event schema to the dedicated Sunday Worship page.");
+    reportError("Homepage should leave Event schema to the dedicated Sunday Worship Gathering page.");
   }
   if (!hasUpcomingSundayDate(homeHtml)) {
     reportError("Homepage should show the automated upcoming Sunday date with semantic time markup.");
@@ -1027,7 +1027,7 @@ async function checkHomepageSchema(homeHtml) {
   if (!textIncludes(churchSchema.additionalProperty, "Mission") || !textIncludes(churchSchema.additionalProperty, "radically transformed by the Gospel")) {
     reportError("Church schema missing mission additional property.");
   }
-  for (const actionTarget of ["Plan a Visit", "Get Directions", "Watch Recent Teaching", "Save Sunday Worship Calendar"]) {
+  for (const actionTarget of ["Plan a Visit", "Get Directions", "Watch Recent Teaching", "Save Sunday Worship Gathering Calendar"]) {
     if (!textIncludes(churchSchema.potentialAction, actionTarget)) {
       reportError(`Church schema missing potential action ${actionTarget}.`);
     }

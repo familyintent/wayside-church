@@ -644,7 +644,7 @@ for (const filePath of htmlFiles) {
       if (churchSchema.openingHours !== "Su 09:00-11:30") {
         errors.push(`${label}: Church schema should include compact Sunday openingHours.`);
       }
-      if (!textIncludes(churchSchema.additionalProperty, "Sunday Worship") || !textIncludes(churchSchema.additionalProperty, "Coffee and Discipleship")) {
+      if (!textIncludes(churchSchema.additionalProperty, "Sunday Worship Gathering") || !textIncludes(churchSchema.additionalProperty, "Coffee and Discipleship")) {
         errors.push(`${label}: Church schema missing service-time additional properties.`);
       }
       if (!textIncludes(churchSchema.additionalProperty, "Mission") || !textIncludes(churchSchema.additionalProperty, "radically transformed by the Gospel")) {
@@ -656,7 +656,7 @@ for (const filePath of htmlFiles) {
       if (!textIncludes(churchSchema.additionalProperty, "Accessibility questions")) {
         errors.push(`${label}: Church schema missing practical visitor details.`);
       }
-      for (const actionTarget of ["Plan a Visit", "Get Directions", "Watch Recent Teaching", "Save Sunday Worship Calendar"]) {
+      for (const actionTarget of ["Plan a Visit", "Get Directions", "Watch Recent Teaching", "Save Sunday Worship Gathering Calendar"]) {
         if (!textIncludes(churchSchema.potentialAction, actionTarget)) {
           errors.push(`${label}: Church schema missing potential action ${actionTarget}.`);
         }
@@ -770,14 +770,14 @@ for (const filePath of htmlFiles) {
     }
     if (route === "/sunday-worship/") {
       if (eventSchemas.length === 0) {
-        errors.push("/sunday-worship: dedicated Sunday Worship page should expose Sunday Worship Event schema.");
+        errors.push("/sunday-worship: dedicated Sunday Worship Gathering page should expose Sunday Worship Gathering Event schema.");
       }
       const sundayEvent = eventSchemas[0];
       if (sundayEvent?.url !== `${siteUrl}/sunday-worship/`) {
-        errors.push("/sunday-worship: Sunday Worship Event schema should use the dedicated Sunday Worship URL.");
+        errors.push("/sunday-worship: Sunday Worship Gathering Event schema should use the dedicated Sunday worship URL.");
       }
     } else if (eventSchemas.length > 0) {
-      errors.push(`${label}: Event schema should stay on the dedicated Sunday Worship page, not broad visitor or listing pages.`);
+      errors.push(`${label}: Event schema should stay on the dedicated Sunday Worship Gathering page, not broad visitor or listing pages.`);
     }
 
     if (route === "/giving/") {
@@ -1063,7 +1063,7 @@ if (!fs.existsSync(llmsPath)) {
   for (const expected of [
     "# Wayside Church",
     "Address: 6 Haggerty Rd, Charlton, MA 01507",
-    "Sunday Worship: Sunday at 10:00 AM",
+    "Sunday Worship Gathering: Sunday at 10:00 AM",
     "Coffee and Discipleship: Sunday at 9:00 AM",
     "## Key Pages",
     "## Entity Facts",
@@ -1074,7 +1074,7 @@ if (!fs.existsSync(llmsPath)) {
     "Chase Mendoza, Pastor: https://wayside.church/leadership/#chase-mendoza",
     "Owen Rushing, Ministry Leader: https://wayside.church/leadership/#owen-rushing",
     "## Visitor Questions",
-    "What time is Sunday Worship at Wayside Church? Sunday Worship begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM.",
+    "What time is the Sunday Worship Gathering at Wayside Church? Our Sunday Worship Gathering begins at 10:00 AM. Coffee and Discipleship begins at 9:00 AM.",
     "Can my children or teens come with me? Yes. Children and youth are welcomed into the life of the church as we worship, learn, and grow together.",
     "Can I attend if I am not a Christian? Yes. You are welcome to attend, listen, ask questions, and take your time. We believe Jesus meets people with truth and grace.",
     "## Recent Teaching",
@@ -1097,12 +1097,12 @@ if (!fs.existsSync(llmsPath)) {
 
 const calendarPath = path.join(distDir, "calendar", "wayside-sunday-worship.ics");
 if (!fs.existsSync(calendarPath)) {
-  errors.push("Missing generated Sunday Worship calendar .ics file.");
+  errors.push("Missing generated Sunday Worship Gathering calendar .ics file.");
 } else {
   const calendar = readText(calendarPath);
   for (const expected of [
     "BEGIN:VCALENDAR",
-    "SUMMARY:Wayside Church Sunday Worship",
+    "SUMMARY:Wayside Church Sunday Worship Gathering",
     "DTSTART;TZID=America/New_York:20260705T100000",
     "DTEND;TZID=America/New_York:20260705T113000",
     "RRULE:FREQ=WEEKLY;BYDAY=SU",
@@ -1110,7 +1110,7 @@ if (!fs.existsSync(calendarPath)) {
     "URL:https://wayside.church/",
   ]) {
     if (!calendar.includes(expected)) {
-      errors.push(`Generated Sunday Worship calendar is missing ${expected}.`);
+      errors.push(`Generated Sunday Worship Gathering calendar is missing ${expected}.`);
     }
   }
 }
@@ -1201,7 +1201,7 @@ if (!fs.existsSync(contactCardPath)) {
     "TEL;TYPE=WORK,VOICE:+15084340401",
     "ADR;TYPE=WORK:;;6 Haggerty Rd;Charlton;MA;01507;US",
     "URL:https://wayside.church/",
-    "Sunday Worship: Sunday at 10:00 AM",
+    "Sunday Worship Gathering: Sunday at 10:00 AM",
     "Coffee and Discipleship: Sunday at 9:00 AM",
   ]) {
     if (!contactCard.includes(expected)) {

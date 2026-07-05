@@ -8,9 +8,12 @@ import { withBase } from "../lib/paths";
 import { getLeaderId, getLeaderPersonSchemas } from "../lib/schema";
 
 const aboutHero = site.about.hero;
+const aboutHistory = site.about.history;
 const aboutSchemas = getLeaderPersonSchemas(site.about.leaders);
 const aboutHeroImageSize = imageSize(aboutHero.image);
 const aboutHeroImageSrcset = imageSrcset(aboutHero.image);
+const aboutHistoryImageSize = imageSize(aboutHistory.image);
+const aboutHistoryImageSrcset = imageSrcset(aboutHistory.image);
 const leaders = site.about.leaders.map((leader) => ({
   ...leader,
   id: getLeaderId(leader),
@@ -19,7 +22,7 @@ const leaders = site.about.leaders.map((leader) => ({
 }));
 ---
 
-<BaseLayout title="About Wayside Church in Charlton, MA" description="Learn what Wayside Church believes, meet the leaders, and discover the Gospel-centered mission shaping this local church in Charlton, MA." image={aboutHero.image} imageAlt={aboutHero.imageAlt} extraSchemas={aboutSchemas}>
+<BaseLayout title="About Wayside Church in Charlton, MA" description="Learn Wayside Church's Gospel-centered mission, historic Charlton roots, beliefs, and leaders serving this local church family." image={aboutHero.image} imageAlt={aboutHero.imageAlt} extraSchemas={aboutSchemas}>
   <section class="about-hero" aria-labelledby="about-title">
     <div class="shell about-hero__grid">
       <div class="about-hero__copy">
@@ -66,6 +69,37 @@ const leaders = site.about.leaders.map((leader) => ({
             <span>{String(index + 1).padStart(2, "0")}</span>
             <h2>{marker.title}</h2>
             <p>{marker.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-history">
+    <div class="shell about-history__intro">
+      <SectionIntro eyebrow={aboutHistory.eyebrow} title={aboutHistory.title}>
+        <p>{aboutHistory.intro}</p>
+      </SectionIntro>
+    </div>
+
+    <div class="shell about-history__grid">
+      <figure class="about-history__media">
+        <img src={withBase(aboutHistory.image)} srcset={aboutHistoryImageSrcset} sizes={imageSizesFor("panel")} alt={aboutHistory.imageAlt} width={aboutHistoryImageSize?.width} height={aboutHistoryImageSize?.height} loading="lazy" decoding="async" />
+        <figcaption>
+          <span>Heritage note</span>
+          <strong>{aboutHistory.noteTitle}</strong>
+          <p>{aboutHistory.noteBody}</p>
+        </figcaption>
+      </figure>
+
+      <div class="history-timeline" aria-label="Wayside Church history timeline">
+        {aboutHistory.timeline.map((item) => (
+          <article>
+            <time>{item.year}</time>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
           </article>
         ))}
       </div>

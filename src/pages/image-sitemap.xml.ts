@@ -80,7 +80,7 @@ const entries: ImageSitemapEntry[] = [
     images: [
       {
         path: site.images.community,
-        title: "Sunday Worship at Wayside Church",
+        title: "Sunday Worship Gathering at Wayside Church",
         caption: "Wayside Church gathers Sunday at 10:00 AM for worship, Scripture, prayer, and fellowship.",
       },
     ],
