@@ -849,8 +849,21 @@ about:
     eyebrow: "Our history"
     title: "A small church with deep roots in South Charlton."
     intro: "Wayside's story reaches back to the Second Advent Christian Society of Charlton, organized before the church building was raised on what is now Haggerty Road. The historic record describes this as the first church building in this part of town, while also noting that other Charlton churches began earlier elsewhere."
-    image: "/images/wayside-local-4x3.webp"
-    imageAlt: "Wayside Church building in Charlton, Massachusetts"
+    # Update these archive images with verified, permission-safe historical photos.
+    # Prefer building, document, or group-context images over identifiable people.
+    archiveImages:
+      - image: "/images/wayside-history-past-present.webp"
+        alt: "Historic Wayside Advent Christian Church image comparing the past chapel and later church building"
+        label: "Archive image"
+        caption: "A historic Wayside Advent Christian Church image comparing the earlier chapel and later building."
+      - image: "/images/wayside-history-repair-exterior.webp"
+        alt: "Archival photo of repair work on the Wayside Church building"
+        label: "Building care"
+        caption: "Archival repair photos show the congregation caring for the chapel through changing seasons."
+      - image: "/images/wayside-history-repair-work.webp"
+        alt: "Archival photo of workers repairing the Wayside Church building"
+        label: "Faithful work"
+        caption: "A small church building has been sustained by ordinary faithfulness, work, and prayer."
     noteTitle: "A chapel that became Wayside"
     noteBody: "For many years the congregation was known simply as the chapel. In the 1920s and 1930s, the church was reorganized, repaired, expanded, and came to be known as Wayside Church, a name that still carries the spirit of a faithful local church by the road."
     timeline:
