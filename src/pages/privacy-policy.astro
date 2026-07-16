@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import SmsKeywordGuide from "../components/SmsKeywordGuide.astro";
+import { site } from "../lib/content";
+
+const policy = site.privacyPolicy;
+const sms = policy.sms;
+const smsNumber = sms.smsNumberDisplay || sms.smsNumber;
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Read the Wayside Church privacy policy and SMS terms, including consent, message frequency, carrier rates, START, STOP, HELP, data use, and support."
+  breadcrumbLabel="Privacy Policy"
+>
+  <section class="page-hero policy-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">Privacy at Wayside</p>
+      <h1>{policy.title}</h1>
+      <p>{policy.intro}</p>
+      <p class="policy-updated">Last updated {policy.lastUpdated}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell policy-layout">
+      <nav class="policy-nav" aria-label="Privacy policy sections">
+        <p class="eyebrow">On this page</p>
+        <a href="#information-we-use">Information we use</a>
+        <a href="#how-we-use-information">How we use it</a>
+        <a href="#sms-privacy">SMS privacy</a>
+        <a href="#sms-terms">SMS terms</a>
+        <a href="#sms-keywords">SMS keywords</a>
+        <a href="#sharing-and-providers">Sharing and providers</a>
+        <a href="#retention-and-security">Retention and security</a>
+        <a href="#your-choices">Your choices</a>
+        <a href="#contact-privacy">Contact us</a>
+      </nav>
+
+      <article class="policy-content">
+        <section id="information-we-use">
+          <p class="eyebrow">What we receive</p>
+          <h2>Information you choose to share with Wayside</h2>
+          <p>We may receive your name, email address, telephone number, household or ministry connection, communication preferences, and the content of messages you send us. This can happen when you contact the church, subscribe through a linked form, register for a ministry activity, give through an external provider, or expressly consent to receive text messages.</p>
+          <p>Providing a telephone number by itself does not enroll you in recurring text messages. SMS consent must be clear, specific, and recorded for the number that will receive messages.</p>
+        </section>
+
+        <section id="how-we-use-information">
+          <p class="eyebrow">Why we use it</p>
+          <h2>Church communication, care, and responsible administration</h2>
+          <p>Wayside uses information to respond to questions, share church and ministry updates you requested, coordinate gatherings or volunteer service, provide pastoral follow-up, maintain communication preferences, document consent, prevent unwanted messages, and protect the security and integrity of our systems.</p>
+          <p>We do not sell personal information. We do not use mobile information or SMS consent records for third-party advertising.</p>
+        </section>
+
+        <section id="sms-privacy" class="policy-emphasis">
+          <p class="eyebrow">Mobile information promise</p>
+          <h2>Your SMS consent stays with Wayside Church.</h2>
+          <p>Mobile information will not be shared with third parties or affiliates for marketing or promotional purposes. Text messaging originator opt-in data and consent will not be sold, rented, transferred, or shared with third parties for their own marketing.</p>
+          <p>We may provide only the information necessary to {sms.provider}, telecommunications carriers, and service providers that help us deliver and safeguard messages. Those providers may use the information only to perform services for Wayside Church, meet carrier requirements, prevent abuse, or comply with law.</p>
+        </section>
+
+        <section id="sms-terms">
+          <p class="eyebrow">SMS terms and conditions</p>
+          <h2>{sms.programName}</h2>
+          <p>{sms.programName} is an optional, recurring text messaging program from {site.church.name}, {site.contact.addressLine1}, {site.contact.cityStateZip}. The program may use SMS, MMS, or successor messaging technologies to communicate with people who have expressly chosen to receive messages.</p>
+          <p>The current verified number for this Wayside Church program is <a href={`sms:${sms.smsNumber}`}>{smsNumber}</a>. If Wayside introduces another messaging number or program, its opt-in invitation will identify the sender, program, and number before consent is requested.</p>
+          <p>Participation is voluntary. Consent to receive texts is not a condition of attending Wayside Church, giving, receiving ministry care, or participating in church life.</p>
+
+          <h3>How consent works</h3>
+          <p>You may opt in by completing a form with a clear SMS consent statement, providing documented written consent, or sending {sms.optInKeyword} to <a href={`sms:${sms.smsNumber}`}>{smsNumber}</a>. Your consent applies only to the Wayside Church sender and messaging program described when you opt in. It does not transfer to another church, organization, or unrelated program.</p>
+          <p>If your primary mobile number changes, Wayside requires consent to be recorded again for the new number. If you previously opted out, a new opt-in is accepted only after you renew your consent.</p>
+
+          <div class="policy-disclosure" aria-label="Wayside Church SMS consent disclosure">
+            <p class="eyebrow">Consent disclosure</p>
+            <p>{policy.consentDisclosure}</p>
+            <p><a href="/privacy-policy/">Privacy Policy and SMS Terms</a></p>
+          </div>
+
+          <h3>Message frequency and costs</h3>
+          <p>{sms.messageFrequency} <strong>Message and data rates may apply.</strong> Wayside Church does not charge you for sending or receiving these messages, but your wireless carrier may charge according to your mobile plan.</p>
+
+          <h3>Types of messages</h3>
+          <ul class="policy-list">
+            {sms.messageTypes.map((messageType) => <li>{messageType}</li>)}
+          </ul>
+
+          <h3>Delivery and support</h3>
+          <p>Wayside uses {sms.provider} and telecommunications carriers to transmit messages. Delivery may be delayed or unavailable because of carrier coverage, device settings, network conditions, provider maintenance, or other circumstances outside our control.</p>
+          <p>Text messaging is not an emergency service and should not be used for urgent safety, medical, mental-health, or pastoral emergencies. Call 911 when immediate emergency assistance is needed.</p>
+          <p>Reply {sms.helpKeyword} for help or call <a href={site.contact.phoneHref}>{site.contact.phone}</a>. Reply {sms.optOutKeyword} to opt out at any time. We also honor reasonable opt-out requests made by telephone or in direct conversation with a Wayside representative.</p>
+        </section>
+
+        <div id="sms-keywords">
+          <SmsKeywordGuide />
+        </div>
+
+        <section id="sharing-and-providers">
+          <p class="eyebrow">Limited sharing</p>
+          <h2>Service providers and legal obligations</h2>
+          <p>Wayside may use trusted providers for website hosting, forms, email, online giving, and communications. These providers process information under their own service terms and privacy commitments. When you follow an external link, such as the newsletter or giving link, that provider's privacy policy also applies.</p>
+          <p>We may disclose information when reasonably necessary to comply with law, respond to a lawful request, protect a person from harm, investigate abuse, or protect the rights and security of Wayside Church and others.</p>
+        </section>
+
+        <section id="retention-and-security">
+          <p class="eyebrow">Stewardship</p>
+          <h2>Retention and security</h2>
+          <p>We keep personal information only as long as reasonably needed for the purpose for which it was collected, church administration, legal obligations, dispute resolution, and security. SMS consent and opt-out records may be retained for at least four years so we can document authorization and continue honoring your choices.</p>
+          <p>We use reasonable administrative and technical safeguards, but no website, mobile network, or electronic storage system can be guaranteed completely secure. Please do not send highly sensitive or emergency information by text message.</p>
+        </section>
+
+        <section id="your-choices">
+          <p class="eyebrow">Your choices</p>
+          <h2>Access, correction, deletion, and communication preferences</h2>
+          <p>You may contact Wayside to ask what information we have about you, request a correction or deletion, or change your communication preferences. We may retain limited records when needed to document consent, honor an opt-out, meet legal obligations, or protect the service.</p>
+          <p>We do not knowingly enroll children under 13 in text messaging without the involvement and consent of a parent or legal guardian.</p>
+        </section>
+
+        <section id="contact-privacy">
+          <p class="eyebrow">Questions</p>
+          <h2>Contact Wayside Church</h2>
+          <address>
+            <strong>{site.church.name}</strong><br />
+            {site.contact.addressLine1}<br />
+            {site.contact.cityStateZip}<br />
+            <a href={site.contact.phoneHref}>{site.contact.phone}</a>
+          </address>
+          <p>We may update this policy as our communication practices or legal obligations change. The date at the top identifies the latest published version.</p>
+          <div class="button-row">
+            <ButtonLink href="/contact/">Contact Wayside</ButtonLink>
+          </div>
+        </section>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

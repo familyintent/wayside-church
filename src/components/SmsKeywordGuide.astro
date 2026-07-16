@@ -1,0 +1,37 @@
+---
+import { site } from "../lib/content";
+
+const sms = site.privacyPolicy.sms;
+const messagingDestination = sms.smsNumberDisplay || sms.smsNumber || "the Wayside Church messaging number shown in your invitation";
+const messagingHref = sms.smsNumber ? `sms:${sms.smsNumber}` : "";
+---
+
+<section class="sms-keyword-guide" aria-labelledby="sms-keyword-title">
+  <div class="sms-keyword-guide__intro">
+    <p class="eyebrow">Text message keywords</p>
+    <h2 id="sms-keyword-title">Simple words put you in control.</h2>
+    <p class="sms-keyword-guide__cta">
+      To opt in, text <strong>{sms.optInKeyword}</strong> to {messagingHref ? <a href={messagingHref}>{messagingDestination}</a> : messagingDestination}.
+    </p>
+    <p>Keywords are not case-sensitive. Send the word by itself.</p>
+  </div>
+
+  <dl class="sms-keyword-list">
+    <div>
+      <dt><code>{sms.optInKeyword}</code></dt>
+      <dd>Opt in or resume messages after giving or renewing your consent.</dd>
+    </div>
+    <div>
+      <dt><code>{sms.optOutKeyword}</code></dt>
+      <dd>Opt out of future Wayside Church text messages. We may send one confirmation that your request was completed.</dd>
+    </div>
+    <div>
+      <dt><code>{sms.helpKeyword}</code></dt>
+      <dd>Receive help and church contact information.</dd>
+    </div>
+  </dl>
+
+  <p class="sms-keyword-guide__note">
+    We also honor {sms.optOutKeywords.slice(1).join(", ")} as opt-out requests and {sms.optInKeywords.slice(1).join(", ")} as renewed opt-in requests. You can also call <a href={site.contact.phoneHref}>{site.contact.phone}</a> to ask for help or stop messages.
+  </p>
+</section>

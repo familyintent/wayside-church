@@ -371,6 +371,34 @@ requireIncludes("README.md", readme, "daily so the build-time YouTube feed can r
 requireIncludes("README.md", readme, "pnpm performance:audit");
 requireIncludes("README.md", readme, "XML sitemap `lastmod`");
 
+const privacySettingsSource = readText("src/content/settings.yaml");
+requireIncludes("src/content/settings.yaml", privacySettingsSource, "privacyPolicy:");
+if (!/smsNumber:\s*"\+\d{10,15}"/.test(privacySettingsSource)) {
+  errors.push("src/content/settings.yaml should include a valid E.164 SMS sending number.");
+}
+requireIncludes("src/content/settings.yaml", privacySettingsSource, "optInKeyword: \"START\"");
+requireIncludes("src/content/settings.yaml", privacySettingsSource, "optOutKeyword: \"STOP\"");
+requireIncludes("src/content/settings.yaml", privacySettingsSource, "helpKeyword: \"HELP\"");
+requireIncludes("src/content/settings.yaml", privacySettingsSource, "Message and data rates may apply");
+
+const privacyPolicyPage = readText("src/pages/privacy-policy.astro");
+requireIncludes("src/pages/privacy-policy.astro", privacyPolicyPage, 'id="sms-terms"');
+requireIncludes("src/pages/privacy-policy.astro", privacyPolicyPage, 'id="sms-keywords"');
+requireIncludes("src/pages/privacy-policy.astro", privacyPolicyPage, "sms.smsNumber");
+requireIncludes("src/pages/privacy-policy.astro", privacyPolicyPage, "another church, organization, or unrelated program");
+
+const smsKeywordGuide = readText("src/components/SmsKeywordGuide.astro");
+requireIncludes("src/components/SmsKeywordGuide.astro", smsKeywordGuide, "sms.optInKeyword");
+requireIncludes("src/components/SmsKeywordGuide.astro", smsKeywordGuide, "sms.optOutKeyword");
+requireIncludes("src/components/SmsKeywordGuide.astro", smsKeywordGuide, "sms.helpKeyword");
+
+const footer = readText("src/components/Footer.astro");
+requireIncludes("src/components/Footer.astro", footer, "/privacy-policy/");
+
+const publicSitemap = readText("src/pages/sitemap.astro");
+requireIncludes("src/pages/sitemap.astro", publicSitemap, "Privacy Policy and SMS Terms");
+requireIncludes("src/pages/llms.txt.ts", readText("src/pages/llms.txt.ts"), "## Text Messaging");
+
 const packageJson = readText("package.json");
 requireIncludes("package.json", packageJson, "\"performance:audit\": \"node scripts/performance-audit.mjs\"");
 requireIncludes("package.json", packageJson, "pnpm performance:audit");
@@ -453,4 +481,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log("Automation audit passed: teaching pages are wired to the YouTube feed, responsive images, and daily rebuild workflow.");
+console.log("Automation audit passed: teaching, responsive images, daily rebuilds, and the public SMS policy are wired correctly.");

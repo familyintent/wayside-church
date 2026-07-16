@@ -60,6 +60,7 @@ That file includes comments showing where to update:
 - optional connect card / follow-up link
 - leader bios
 - contact page FAQ
+- Privacy Policy and SMS Terms copy, keywords, message types, and the verified Azure SMS number
 
 Images live in:
 
@@ -93,6 +94,24 @@ source-assets/original-images/
 ```
 
 Keep public images web-ready before putting them in `public/images/`; files in `public/` are copied directly to the deployed site.
+
+## Privacy and SMS Compliance
+
+The public privacy policy, SMS terms, consent disclosure, keyword instructions, message types, and Azure provider name are configured under `privacyPolicy` in:
+
+```text
+src/content/settings.yaml
+```
+
+The single public policy URL is `https://wayside.church/privacy-policy/`. Azure application fields can link directly to its sections:
+
+- SMS / keyword opt-in: `https://wayside.church/privacy-policy/#sms-keywords`
+- Privacy policy: `https://wayside.church/privacy-policy/`
+- SMS terms and conditions: `https://wayside.church/privacy-policy/#sms-terms`
+
+Keep `privacyPolicy.sms.smsNumber` synchronized with Wayside's current verified Azure number. Keep the public keywords aligned with the Rule of Life Communications app. The current app handles `START` for opt-in or resubscription, `STOP` for opt-out, and `HELP` for support.
+
+This page documents Wayside Church's program only. If the Rule of Life Communications platform serves another church, that church needs its own public, branded privacy and messaging terms; a sender-specific call to action; and separate consent, opt-out, and audit records. Do not treat consent to Wayside messages as consent to another church or transfer it between customer accounts.
 
 ## SEO
 

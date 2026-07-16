@@ -179,6 +179,11 @@ const structuredSiteParts = [
     href: "/giving/",
     description: "Secure giving information for supporting worship, care, and local ministry through Wayside Church.",
   },
+  {
+    name: "Privacy Policy",
+    href: "/privacy-policy/",
+    description: "Wayside Church privacy practices and SMS terms, including personal information, consent, message frequency, carrier costs, START, STOP, HELP, providers, and individual choices.",
+  },
 ].map((part) => {
   const partUrl = absoluteUrl(part.href, site.meta.siteUrl);
   return {
@@ -404,6 +409,7 @@ const pageLabels: Record<string, string> = {
   "/new-to-church/": "New to Church",
   "/newsletter/": "Newsletter",
   "/plan-a-visit/": "Plan a Visit",
+  "/privacy-policy/": "Privacy Policy",
   "/sermons/": "Sermons",
   "/sitemap/": "Site Map",
   "/start-here/": "Start Here",

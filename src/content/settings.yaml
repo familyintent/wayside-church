@@ -89,6 +89,45 @@ links:
   # Replace this with Planning Center, Church Center, Fillout, Microsoft Forms, or another follow-up form when ready.
   connectCard: "/contact/"
 
+# Public privacy and SMS policy details.
+# Keep these aligned with the consent and keyword behavior in the Rule of Life Communications app.
+# This page covers Wayside Church's messaging program. Other churches using the communications
+# platform need their own branded policy, sending-number disclosure, and consent records.
+privacyPolicy:
+  lastUpdated: "July 16, 2026"
+  title: "Privacy and text messaging policy"
+  intro: "Wayside Church respects the trust people place in us when they visit, contact the church, or choose to receive ministry communications. This page explains what information we use, why we use it, and the choices available to you."
+  sms:
+    programName: "Wayside Church Text Messages"
+    provider: "Azure Communication Services"
+    # Keep this synchronized with Wayside's current verified Azure toll-free SMS number.
+    # Additional Wayside numbers must be identified in their own opt-in disclosure.
+    smsNumber: "+18778260218"
+    smsNumberDisplay: "(877) 826-0218"
+    optInKeyword: "START"
+    optOutKeyword: "STOP"
+    helpKeyword: "HELP"
+    messageFrequency: "Message frequency varies based on the updates and ministry conversations you choose to receive."
+    messageTypes:
+      - "Sunday gathering, event, and schedule updates"
+      - "Ministry and discipleship reminders"
+      - "Volunteer coordination and church announcements"
+      - "Responses to questions and pastoral-care follow-up"
+      - "Occasional giving and ministry-support opportunities"
+    optOutKeywords:
+      - "STOP"
+      - "QUIT"
+      - "END"
+      - "CANCEL"
+      - "UNSUBSCRIBE"
+      - "REMOVE"
+    optInKeywords:
+      - "START"
+      - "UNSTOP"
+      - "SUBSCRIBE"
+      - "RESUME"
+  consentDisclosure: "By providing your mobile number and expressly agreeing to receive texts, you consent to recurring Wayside Church messages about gatherings, ministries, care, and church life. Message frequency varies. Message and data rates may apply. Reply HELP for help or STOP to opt out. Consent is not a condition of attending Wayside Church, giving, or receiving ministry care."
+
 # Update the Sunday calendar event here if the gathering time or address changes.
 # Apple, iPhone, and Outlook use a generated .ics route, so staff should only need to edit these values.
 calendar:

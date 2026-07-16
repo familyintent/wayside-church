@@ -1326,6 +1326,174 @@ summary:focus-visible {
   text-underline-offset: 0.25em;
 }
 
+.policy-hero {
+  padding-block: clamp(3.75rem, 10vw, 6.5rem);
+}
+
+.policy-updated {
+  margin-top: 1.25rem;
+  color: var(--accent-strong);
+  font-size: 0.88rem !important;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.policy-layout {
+  display: grid;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.policy-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  border-block: 1px solid var(--line);
+  padding-block: 1.1rem;
+}
+
+.policy-nav .eyebrow {
+  flex-basis: 100%;
+  margin-bottom: 0.15rem;
+}
+
+.policy-nav a {
+  color: var(--ink);
+  font-size: 0.94rem;
+  font-weight: 750;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 0.25em;
+}
+
+.policy-content {
+  min-width: 0;
+  max-width: 820px;
+}
+
+.policy-content > section,
+.policy-content > div {
+  scroll-margin-top: 6rem;
+}
+
+.policy-content > section {
+  border-top: 1px solid var(--line);
+  padding-block: clamp(2rem, 6vw, 3.25rem);
+}
+
+.policy-content > section:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.policy-content h2,
+.sms-keyword-guide h2 {
+  max-width: 720px;
+  margin-bottom: 1rem;
+  font-size: clamp(1.9rem, 6vw, 3.15rem);
+}
+
+.policy-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.7rem;
+  font-size: clamp(1.3rem, 4vw, 1.75rem);
+}
+
+.policy-content p,
+.policy-content li,
+.policy-content address,
+.sms-keyword-guide p,
+.sms-keyword-guide dd {
+  line-height: 1.75;
+}
+
+.policy-content address {
+  margin-block: 1.25rem;
+  color: var(--muted);
+  font-style: normal;
+}
+
+.policy-content address strong {
+  color: var(--ink);
+}
+
+.policy-emphasis {
+  border-left: 3px solid var(--accent);
+  padding-left: clamp(1rem, 4vw, 1.6rem);
+}
+
+.policy-disclosure {
+  border-left: 3px solid var(--accent);
+  margin-top: 1.6rem;
+  background: var(--bg-soft);
+  padding: 1.25rem;
+}
+
+.policy-disclosure p:last-child {
+  margin-bottom: 0;
+  font-size: 0.92rem;
+}
+
+.policy-list {
+  display: grid;
+  gap: 0.7rem;
+  margin-block: 1.25rem;
+  padding-left: 1.2rem;
+}
+
+.sms-keyword-guide {
+  border-block: 1px solid var(--line);
+  margin-block: clamp(1rem, 5vw, 2rem);
+  padding-block: clamp(2rem, 6vw, 3rem);
+}
+
+.sms-keyword-guide__intro {
+  max-width: 700px;
+}
+
+.sms-keyword-guide__cta {
+  color: var(--ink);
+  font-size: clamp(1.05rem, 3vw, 1.25rem);
+}
+
+.sms-keyword-guide__cta strong,
+.sms-keyword-guide__cta a {
+  color: var(--accent-strong);
+  font-weight: 900;
+}
+
+.sms-keyword-list {
+  margin-block: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.sms-keyword-list > div {
+  display: grid;
+  grid-template-columns: minmax(86px, 0.25fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+  padding-block: 1rem;
+}
+
+.sms-keyword-list dt,
+.sms-keyword-list dd {
+  margin: 0;
+}
+
+.sms-keyword-list code {
+  color: var(--accent-strong);
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.sms-keyword-guide__note {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
 .family-hero {
   overflow: hidden;
   background: var(--bg-soft);
@@ -2301,6 +2469,20 @@ summary:focus-visible {
   .visitor-grid {
     grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
     align-items: start;
+  }
+
+  .policy-layout {
+    grid-template-columns: minmax(190px, 0.28fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .policy-nav {
+    position: sticky;
+    top: 6rem;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border-top: 0;
+    padding-top: 0;
   }
 
   .ministry-hero__grid {
