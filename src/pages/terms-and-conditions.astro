@@ -1,0 +1,119 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../lib/content";
+---
+
+<BaseLayout
+  title="Terms and Conditions"
+  description="Terms and conditions for Wayside Church website and SMS text messaging communications."
+>
+  <section class="page-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">Legal</p>
+      <h1>Terms and Conditions</h1>
+      <p>These terms govern your use of the Wayside Church website and participation in our SMS text messaging program.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell legal-copy">
+      <p class="legal-copy__updated"><strong>Last updated:</strong> August 14, 2026</p>
+
+      <h2>Agreement to these terms</h2>
+      <p>
+        These Terms and Conditions apply to your use of the Wayside Church website at <a href="https://wayside.church">wayside.church</a>
+        and to text messages sent by or on behalf of Wayside Church. By using this website or opting in to our text messaging program,
+        you agree to these terms. If you do not agree, please do not use the website or enroll in the text messaging program.
+      </p>
+
+      <h2>SMS text messaging program</h2>
+      <p>
+        When you provide your mobile number and opt in, you authorize Wayside Church to send recurring automated or non-automated SMS
+        or MMS messages to that number. Messages may include church announcements, worship or event reminders, ministry updates,
+        volunteer coordination, schedule changes, and other communications related to the life of Wayside Church.
+      </p>
+      <ul>
+        <li><strong>Consent:</strong> Consent to receive text messages is not a condition of attending Wayside Church, making a donation, or receiving services.</li>
+        <li><strong>Message frequency:</strong> Message frequency varies based on church activities and the communications you request.</li>
+        <li><strong>Charges:</strong> Message and data rates may apply according to your mobile carrier and service plan.</li>
+        <li><strong>Opt out:</strong> Reply <strong>STOP</strong> to any message to unsubscribe. You may receive one final message confirming your opt-out. After that confirmation, no additional messages will be sent unless you opt in again.</li>
+        <li><strong>Help:</strong> Reply <strong>HELP</strong> for assistance, or call Wayside Church at <a href={site.contact.phoneHref}>{site.contact.phone}</a>.</li>
+        <li><strong>Carrier responsibility:</strong> Mobile carriers are not liable for delayed or undelivered messages. Delivery is subject to effective transmission by your carrier and is not guaranteed.</li>
+      </ul>
+
+      <h2>Your consent and mobile information</h2>
+      <p>
+        Your consent applies only to communications from Wayside Church for the purposes described above. We do not sell, rent, or share
+        your mobile number or SMS opt-in consent with third parties for their own marketing or promotional purposes. We may use service
+        providers only as needed to operate the messaging program, support church communications, or comply with the law.
+      </p>
+
+      <h2>Privacy</h2>
+      <p>
+        Our collection and use of personal information is also governed by the separate Wayside Church Privacy Policy provided with
+        our opt-in forms and messaging disclosures. The Privacy Policy and these Terms and Conditions are separate documents and should
+        be reviewed together.
+      </p>
+
+      <h2>Acceptable website use</h2>
+      <p>
+        You may use this website for lawful, personal, and noncommercial purposes. You may not attempt to disrupt the website, gain
+        unauthorized access to its systems, introduce malicious code, impersonate Wayside Church or another person, or use the website
+        in a way that violates applicable law or the rights of others.
+      </p>
+
+      <h2>Website information and third-party services</h2>
+      <p>
+        We work to keep information on this website accurate and current, but we do not guarantee that every page or external link will
+        always be complete, available, or error-free. Links to third-party websites and services are provided for convenience. Their use
+        is governed by the third party's own terms and privacy practices.
+      </p>
+
+      <h2>Changes to these terms</h2>
+      <p>
+        Wayside Church may update these terms from time to time. Changes will be posted on this page with a revised “Last updated” date.
+        Continued use of the website or messaging program after an update constitutes acceptance of the revised terms.
+      </p>
+
+      <h2>Contact Wayside Church</h2>
+      <address>
+        <strong>{site.church.name}</strong><br />
+        {site.contact.addressLine1}<br />
+        {site.contact.cityStateZip}<br />
+        <a href={site.contact.phoneHref}>{site.contact.phone}</a>
+      </address>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-copy {
+    max-width: 850px;
+  }
+
+  .legal-copy__updated {
+    color: var(--muted);
+  }
+
+  .legal-copy h2 {
+    margin: 2.5rem 0 0.8rem;
+    font-size: clamp(1.55rem, 5vw, 2.2rem);
+  }
+
+  .legal-copy ul {
+    display: grid;
+    gap: 0.85rem;
+    margin: 1.25rem 0;
+    padding-left: 1.25rem;
+  }
+
+  .legal-copy li,
+  .legal-copy address {
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .legal-copy address {
+    font-style: normal;
+  }
+</style>
