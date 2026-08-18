@@ -1,25 +1,43 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SmsOptIn from "../components/SmsOptIn.astro";
+import ButtonLink from "../components/ButtonLink.astro";
 import { site } from "../lib/content";
 ---
 
 <BaseLayout
-  title="Wayside Church Newsletter and Text Updates"
-  description="Join Wayside Church text updates with clear SMS consent, frequency, rates, STOP, HELP, Privacy Policy, and Terms links."
-  robots="noindex, follow"
+  title="Wayside Church Email Newsletter"
+  description="Join the Wayside Church email newsletter and prayer list for church announcements, ministry updates, and next steps."
 >
   <section class="page-hero page-hero--center">
     <div class="shell page-hero__inner">
-      <p class="eyebrow">Stay connected</p>
+      <p class="eyebrow">Email newsletter</p>
       <h1>{site.newsletterPage.title}</h1>
-      <p>Join Wayside Church text updates using the same clear consent process shown on our dedicated Text Updates page.</p>
+      <p>{site.newsletterPage.intro}</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="shell shell--narrow">
-      <SmsOptIn />
+    <div class="shell section-action-wide">
+      <div>
+        <p class="eyebrow">Email updates</p>
+        <h2>Receive Wayside news in your inbox.</h2>
+        <p>Use our Microsoft form to join Wayside email updates and the prayer list.</p>
+      </div>
+      <ButtonLink href={site.links.newsletter}>Open Email Sign-up</ButtonLink>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell section-action-wide">
+      <div>
+        <p class="eyebrow">Text updates</p>
+        <h2>SMS enrollment is separate.</h2>
+        <p>
+          Wayside does not use the email newsletter form as SMS consent. To receive recurring Wayside Church text
+          updates, review the complete disclosure and opt in on the dedicated Text Updates page.
+        </p>
+      </div>
+      <ButtonLink href="/text-updates/" variant="secondary">Review Text Updates</ButtonLink>
     </div>
   </section>
 </BaseLayout>
