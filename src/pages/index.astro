@@ -6,6 +6,7 @@ import LatestTeaching from "../components/LatestTeaching.astro";
 import MinistryList from "../components/MinistryList.astro";
 import SectionIntro from "../components/SectionIntro.astro";
 import SundayDate from "../components/SundayDate.astro";
+import TextUs from "../components/TextUs.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
@@ -144,6 +145,12 @@ const heroPreload = {
           </a>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell">
+      <TextUs id="home-text-us" />
     </div>
   </section>
 

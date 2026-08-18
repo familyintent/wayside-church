@@ -1,0 +1,72 @@
+---
+import { site } from "../lib/content";
+
+const sms = site.privacyPolicy.sms;
+const smsNumber = sms.smsNumberDisplay || sms.smsNumber;
+const smsHref = `sms:${sms.smsNumber}?body=${encodeURIComponent(sms.optInKeyword)}`;
+---
+
+<section class="sms-opt-in" aria-labelledby="sms-opt-in-title">
+  <div class="sms-opt-in__intro">
+    <p class="eyebrow">Wayside text updates</p>
+    <h2 id="sms-opt-in-title">Join by sending one text.</h2>
+    <p>
+      Enter the mobile number you will text from, review the consent statement, and open a pre-addressed message. Send
+      <strong>{sms.optInKeyword}</strong> to <a href={smsHref}>{smsNumber}</a> to finish joining Wayside Church text updates.
+    </p>
+  </div>
+
+  <form class="sms-opt-in__form" action="/text-updates/" method="get" data-sms-opt-in>
+    <div class="sms-opt-in__fields">
+      <label>
+        <span>Full name</span>
+        <input type="text" autocomplete="name" required data-sms-name />
+      </label>
+      <label>
+        <span>Mobile phone</span>
+        <input type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555" required data-sms-phone />
+      </label>
+    </div>
+
+    <label class="sms-opt-in__consent">
+      <input type="checkbox" required data-sms-consent />
+      <span>
+        I agree to receive recurring text messages from Wayside Church, including service reminders, prayer requests,
+        church announcements, and ministry updates, at the mobile number entered above. Message frequency varies. Msg
+        &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of attending,
+        giving, or receiving ministry care. Read our <a href="/privacy-policy/">Privacy Policy</a> and
+        <a href="/terms-and-conditions/">Terms &amp; Conditions</a>.
+      </span>
+    </label>
+
+    <button class="button button--primary" type="submit">Open a START text</button>
+    <p class="sms-opt-in__status" role="status" aria-live="polite" data-sms-status>
+      Your name and phone number stay in this browser. Wayside records your opt-in only when you send {sms.optInKeyword}
+      from your mobile phone.
+    </p>
+    <noscript>
+      <p>
+        JavaScript is unavailable. Text <strong>{sms.optInKeyword}</strong> to
+        <a href={`sms:${sms.smsNumber}`}>{smsNumber}</a> to join.
+      </p>
+    </noscript>
+  </form>
+</section>
+
+<script define:vars={{ smsHref, optInKeyword: sms.optInKeyword }}>
+  document.querySelectorAll("[data-sms-opt-in]").forEach((form) => {
+    if (!(form instanceof HTMLFormElement)) return;
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const status = form.querySelector("[data-sms-status]");
+      if (status) {
+        status.textContent = `Your texting app should open now. Send ${optInKeyword} to complete your opt-in.`;
+      }
+
+      window.location.href = smsHref;
+    });
+  });
+</script>

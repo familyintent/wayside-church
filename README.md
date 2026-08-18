@@ -103,11 +103,11 @@ The public privacy policy, SMS terms, consent disclosure, keyword instructions, 
 src/content/settings.yaml
 ```
 
-The single public policy URL is `https://wayside.church/privacy-policy/`. Azure application fields can link directly to its sections:
+Use these distinct public URLs for carrier or application review:
 
-- SMS / keyword opt-in: `https://wayside.church/privacy-policy/#sms-keywords`
+- SMS / keyword opt-in: `https://wayside.church/text-updates/`
 - Privacy policy: `https://wayside.church/privacy-policy/`
-- SMS terms and conditions: `https://wayside.church/privacy-policy/#sms-terms`
+- SMS terms and conditions: `https://wayside.church/terms-and-conditions/`
 
 Keep `privacyPolicy.sms.smsNumber` synchronized with Wayside's current verified Azure number. Keep the public keywords aligned with the Rule of Life Communications app. The current app handles `START` for opt-in or resubscription, `STOP` for opt-out, and `HELP` for support.
 

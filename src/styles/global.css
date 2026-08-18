@@ -1494,6 +1494,131 @@ summary:focus-visible {
   font-size: 0.94rem;
 }
 
+.sms-opt-in {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: clamp(1.35rem, 5vw, 2.5rem);
+}
+
+.sms-opt-in__intro {
+  max-width: 760px;
+}
+
+.sms-opt-in__intro h2,
+.text-us h2 {
+  margin-bottom: 0.85rem;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+}
+
+.sms-opt-in__form {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.sms-opt-in__fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.sms-opt-in__fields label {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.sms-opt-in__fields input {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.45rem;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 0.85rem 0.95rem;
+}
+
+.sms-opt-in__fields input:focus,
+.sms-opt-in__consent input:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  outline-offset: 2px;
+}
+
+.sms-opt-in__consent {
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: start;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-soft);
+  padding: 1.1rem;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.sms-opt-in__consent input {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.25rem;
+  accent-color: var(--accent-strong);
+}
+
+.sms-opt-in__form .button {
+  width: fit-content;
+  border: 0;
+  cursor: pointer;
+}
+
+.sms-opt-in__status {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.text-us {
+  display: grid;
+  gap: 1.5rem;
+  align-items: end;
+}
+
+.text-us__cta {
+  color: var(--ink);
+  font-size: clamp(1.08rem, 3vw, 1.3rem);
+}
+
+.text-us__cta strong,
+.text-us__cta > a {
+  color: var(--accent-strong);
+  font-weight: 900;
+}
+
+.text-us__disclosure {
+  max-width: 760px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.text-us__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (min-width: 700px) {
+  .sms-opt-in__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .text-us {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
 .family-hero {
   overflow: hidden;
   background: var(--bg-soft);
