@@ -59,6 +59,7 @@ export const GET: APIRoute = async () => {
     { label: "Beliefs", href: "/beliefs/" },
     { label: "Contact", href: "/contact/" },
     { label: "Giving", href: "/giving/" },
+    { label: "Email Newsletter", href: "/newsletter/" },
     { label: "Text Updates", href: "/text-updates/" },
     { label: "SMS Consent Methods", href: "/sms-consent-methods/" },
     { label: "Written SMS Consent Form", href: "/sms-written-consent/" },

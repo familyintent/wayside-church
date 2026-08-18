@@ -53,7 +53,7 @@ End users may join the Wayside Church SMS program through the following opt-in m
 4. Wayside retains the submitted form, disclosure version, source, date and time, and mobile number as the consent record.
 5. Staff enroll only numbers with a recorded checked box and send a confirmation identifying Wayside Church with HELP and STOP instructions.
 
-The legacy Microsoft Form is no longer linked from the Wayside Church website and must not be submitted as opt-in proof. Use the hosted written form and fillable PDF above for this method.
+The Microsoft Form is linked only from the email-newsletter page. Wayside does not use that form as SMS consent, and it must not be submitted as SMS opt-in proof. Its optional phone-number and SMS-consent questions are obsolete and should be removed from Microsoft Forms. Use the hosted written form and fillable PDF above for the written SMS method.
 
 ### 4. Verbal opt-in
 
