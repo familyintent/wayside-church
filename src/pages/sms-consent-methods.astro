@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import { site } from "../lib/content";
+
+const sms = site.privacyPolicy.sms;
+const smsNumber = sms.smsNumberDisplay || sms.smsNumber;
+---
+
+<BaseLayout
+  title="Wayside Church SMS Consent Methods"
+  description="Review the exact Wayside Church verbal SMS consent script, written consent workflow, keyword opt-in process, and consent recordkeeping steps."
+>
+  <section class="page-hero policy-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">SMS consent methods</p>
+      <h1>Reviewable proof for every active opt-in path.</h1>
+      <p>
+        Wayside Church uses clear, sender-specific consent steps for text updates. Providing a phone number alone never
+        enrolls someone in recurring messages.
+      </p>
+      <div class="page-hero__actions">
+        <ButtonLink href="/text-updates/">Website and Keyword Opt-in</ButtonLink>
+        <ButtonLink href="/sms-written-consent/" variant="secondary">Written Consent Form</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell policy-layout">
+      <nav class="policy-nav" aria-label="SMS consent method sections">
+        <p class="eyebrow">On this page</p>
+        <a href="#verbal-script">Verbal script</a>
+        <a href="#verbal-workflow">Verbal workflow</a>
+        <a href="#written-workflow">Written workflow</a>
+        <a href="#keyword-workflow">Website and keyword workflow</a>
+        <a href="#recordkeeping">Recordkeeping</a>
+      </nav>
+
+      <div class="policy-content consent-methods-content">
+        <section id="verbal-script">
+          <p class="eyebrow">Verbal consent</p>
+          <h2>The exact word-for-word staff script</h2>
+          <p>Staff read this script without shortening it and ask for an unambiguous yes:</p>
+          <blockquote class="consent-script">
+            "Would you like to receive text messages from Wayside Church, including service reminders, prayer requests,
+            church announcements, and ministry updates? Message frequency varies, and message and data rates may apply.
+            You can reply STOP at any time to opt out, or HELP for assistance. Consent is not a condition of attending
+            Wayside Church, giving, or receiving ministry care. Do I have your permission to send these text messages to
+            this phone number?"
+          </blockquote>
+          <p>
+            The individual must answer yes before staff enroll the number. Silence, an unclear response, or providing a
+            phone number without permission is not consent.
+          </p>
+        </section>
+
+        <section id="verbal-workflow">
+          <p class="eyebrow">Verbal workflow</p>
+          <h2>How staff document a verbal opt-in</h2>
+          <ol class="policy-list consent-steps">
+            <li>Staff identify Wayside Church and explain the text-message purpose.</li>
+            <li>Staff read the exact script above before requesting permission.</li>
+            <li>The individual gives a clear yes for the specific mobile number.</li>
+            <li>Staff record the mobile number, date and time, staff member, script version, and affirmative response.</li>
+            <li>An immediate confirmation message identifies Wayside Church and repeats frequency, rates, HELP, and STOP information.</li>
+          </ol>
+        </section>
+
+        <section id="written-workflow">
+          <p class="eyebrow">Paper or fillable PDF</p>
+          <h2>A separate written consent form is available for inspection.</h2>
+          <p>
+            The Wayside written form places the full SMS disclosure beside an unchecked consent box. It can be completed
+            in a browser and printed, or downloaded as a fillable PDF. The completed, signed form is returned to Wayside
+            staff and retained as the consent record; it is not submitted through this website.
+          </p>
+          <div class="button-row">
+            <ButtonLink href="/sms-written-consent/">Review Written Form</ButtonLink>
+            <ButtonLink href="/documents/wayside-church-sms-written-consent-form.pdf" variant="secondary">Download Fillable PDF</ButtonLink>
+          </div>
+        </section>
+
+        <section id="keyword-workflow">
+          <p class="eyebrow">Website and keyword</p>
+          <h2>Users complete the opt-in by sending START.</h2>
+          <ol class="policy-list consent-steps">
+            <li>The user visits <a href="/text-updates/">Wayside Church Text Updates</a>.</li>
+            <li>The page displays {smsNumber}, expected message types, variable frequency, rates, HELP, STOP, and both legal links.</li>
+            <li>The user reviews an unchecked-by-default SMS consent checkbox and chooses to select it.</li>
+            <li>The user opens and sends <strong>{sms.optInKeyword}</strong> to <a href={`sms:${sms.smsNumber}?body=${sms.optInKeyword}`}>{smsNumber}</a>.</li>
+            <li>The inbound START message, mobile number, and timestamp become the opt-in record.</li>
+          </ol>
+        </section>
+
+        <section id="recordkeeping">
+          <p class="eyebrow">Consent records</p>
+          <h2>Each active method produces reviewable evidence.</h2>
+          <ul class="policy-list">
+            <li>Website and keyword: inbound START, mobile number, and timestamp.</li>
+            <li>Verbal: mobile number, date and time, staff member, script version, and affirmative response.</li>
+            <li>Written: completed form, disclosure version, signature, date, mobile number, and receiving staff member.</li>
+          </ul>
+          <p>
+            Reply {sms.optOutKeyword} to opt out at any time or {sms.helpKeyword} for help. Read the
+            <a href="/privacy-policy/">Privacy Policy</a> and
+            <a href="/terms-and-conditions/">Terms &amp; Conditions</a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

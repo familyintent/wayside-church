@@ -106,6 +106,8 @@ src/content/settings.yaml
 Use these distinct public URLs for carrier or application review:
 
 - SMS / keyword opt-in: `https://wayside.church/text-updates/`
+- Verbal consent script and all active consent methods: `https://wayside.church/sms-consent-methods/`
+- Paper / fillable PDF consent form: `https://wayside.church/sms-written-consent/`
 - Privacy policy: `https://wayside.church/privacy-policy/`
 - SMS terms and conditions: `https://wayside.church/terms-and-conditions/`
 

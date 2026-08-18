@@ -77,10 +77,9 @@ contact:
   phone: "(508) 434-0401"
   phoneHref: "tel:+15084340401"
 
-# Keep external links for giving, newsletter signup, YouTube, and social profiles here.
+# Keep external links for giving, YouTube, and social profiles here.
 links:
   giving: "https://givingtools.com/give/1330"
-  newsletter: "https://forms.office.com/pages/responsepage.aspx?id=yp8cZEm-Ok6njO9u5jXf8T9IbOUSJpNEoxnoOSGXWr5UOTlQWlM2STlWSzhERFlGQzhGSDhJQ0U2NS4u"
   youtube: "https://www.youtube.com/@waysidechurch864"
   facebook: "https://www.facebook.com/WaysideACC"
   # Add a real Instagram profile URL here when one is ready. Leave blank to hide it.
