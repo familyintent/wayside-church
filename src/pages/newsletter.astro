@@ -1,33 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ButtonLink from "../components/ButtonLink.astro";
 import SmsOptIn from "../components/SmsOptIn.astro";
 import { site } from "../lib/content";
 ---
 
-<BaseLayout title="Wayside Church Newsletter" description="Sign up for Wayside Church updates, announcements, ministry rhythms, and next steps.">
+<BaseLayout
+  title="Wayside Church Newsletter and Text Updates"
+  description="Join Wayside Church text updates with clear SMS consent, frequency, rates, STOP, HELP, Privacy Policy, and Terms links."
+  robots="noindex, follow"
+>
   <section class="page-hero page-hero--center">
     <div class="shell page-hero__inner">
-      <p class="eyebrow">Newsletter</p>
+      <p class="eyebrow">Stay connected</p>
       <h1>{site.newsletterPage.title}</h1>
-      <p>{site.newsletterPage.intro}</p>
+      <p>Join Wayside Church text updates using the same clear consent process shown on our dedicated Text Updates page.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="shell shell--narrow">
       <SmsOptIn />
-    </div>
-  </section>
-
-  <section class="section section--muted">
-    <div class="shell section-action-wide">
-      <div>
-        <p class="eyebrow">Email updates</p>
-        <h2>Prefer the email newsletter?</h2>
-        <p>Use our Microsoft form to join Wayside email updates and the prayer list.</p>
-      </div>
-      <ButtonLink href={site.links.newsletter}>Open Email Sign-up</ButtonLink>
     </div>
   </section>
 </BaseLayout>

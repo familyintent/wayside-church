@@ -102,5 +102,10 @@ export default defineConfig({
   site: "https://wayside.church",
   base: "/",
   output: "static",
-  integrations: [sitemap({ serialize: getSitemapItem })],
+  integrations: [
+    sitemap({
+      filter: (page) => new URL(page).pathname !== "/newsletter/",
+      serialize: getSitemapItem,
+    }),
+  ],
 });

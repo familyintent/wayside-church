@@ -5,6 +5,9 @@ This is an internal implementation and carrier-submission reference. Public copy
 ## Public proof URLs
 
 - Website-assisted and keyword opt-in: `https://wayside.church/text-updates/`
+- Verbal consent script and method overview: `https://wayside.church/sms-consent-methods/`
+- Written consent form: `https://wayside.church/sms-written-consent/`
+- Fillable written consent PDF: `https://wayside.church/documents/wayside-church-sms-written-consent-form.pdf`
 - Homepage keyword CTA: `https://wayside.church/#home-text-us`
 - Contact-page keyword CTA: `https://wayside.church/contact/#contact-text-us`
 - Privacy Policy: `https://wayside.church/privacy-policy/`
@@ -50,7 +53,7 @@ End users may join the Wayside Church SMS program through the following opt-in m
 4. Wayside retains the submitted form, disclosure version, source, date and time, and mobile number as the consent record.
 5. Staff enroll only numbers with a recorded checked box and send a confirmation identifying Wayside Church with HELP and STOP instructions.
 
-The current Microsoft Form must use the full disclosure above before it is submitted as proof of this method. Until its checkbox copy is updated, submit `https://wayside.church/text-updates/` as the hosted proof for the keyword flow instead.
+The legacy Microsoft Form is no longer linked from the Wayside Church website and must not be submitted as opt-in proof. Use the hosted written form and fillable PDF above for this method.
 
 ### 4. Verbal opt-in
 
@@ -67,3 +70,25 @@ The current Microsoft Form must use the full disclosure above before it is submi
 - Do not send recurring messages after opt-out unless the user completes a new opt-in.
 - Respond to `HELP` with Wayside Church identification and a support path.
 - Keep public copy sender-specific. Do not transfer consent to another sender or program.
+
+## Recommended program responses
+
+Configure and test the actual messaging service so the following responses are sent where Twilio does not supply its own required carrier response.
+
+**Opt-in confirmation**
+
+> Wayside Church Text Updates: You are subscribed to service reminders, prayer requests, church announcements, and ministry updates. Message frequency varies. Msg & data rates may apply. Reply HELP for help or STOP to opt out.
+
+**HELP response**
+
+> Wayside Church Text Updates: Call (508) 434-0401 or visit https://wayside.church/text-updates/ for help. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out.
+
+**STOP response**
+
+> Wayside Church Text Updates: You are unsubscribed and will receive no further messages. Reply START to rejoin or call (508) 434-0401 for help.
+
+## Suggested carrier message-flow description
+
+Use only the methods that Wayside Church has actually adopted and can document. If all three methods below are active, the carrier field can say:
+
+> End users join Wayside Church Text Updates through three consent methods. (1) Website/keyword: the user visits https://wayside.church/text-updates/, reviews the sender, message purpose, variable frequency, message-and-data-rate notice, STOP/HELP instructions, Privacy Policy, and Terms & Conditions; enters a name and mobile number; selects a separate unchecked SMS-consent box; then sends the prefilled keyword START to (877) 826-0218. The inbound START, number, and timestamp are retained. (2) Verbal: trained staff read the exact script at https://wayside.church/sms-consent-methods/#verbal-script, receive an unambiguous yes for the specific number, and record the number, date/time, staff member, script version, and response. (3) Written: the individual uses the separate form at https://wayside.church/sms-written-consent/ or its linked fillable PDF, enters a mobile number, affirmatively checks the unchecked SMS-consent box beside the full disclosure, signs and dates it, and returns it to Wayside staff for retention. Providing a phone number alone never enrolls the user. Each method is followed by a Wayside Church confirmation with frequency, rates, HELP, and STOP information.

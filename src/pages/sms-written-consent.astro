@@ -1,0 +1,122 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import { site } from "../lib/content";
+
+const sms = site.privacyPolicy.sms;
+const smsNumber = sms.smsNumberDisplay || sms.smsNumber;
+---
+
+<BaseLayout
+  title="Wayside Church Written SMS Consent Form"
+  description="Review, complete, print, or download the Wayside Church written SMS consent form with an unchecked consent box and full messaging disclosures."
+>
+  <section class="page-hero written-consent-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">Written SMS consent</p>
+      <h1>A reviewable form for paper or fillable-PDF opt-in.</h1>
+      <p>
+        This form documents a person's express consent to Wayside Church text updates. It does not submit personal
+        information through the website.
+      </p>
+      <div class="page-hero__actions written-consent-actions">
+        <ButtonLink href="/documents/wayside-church-sms-written-consent-form.pdf">Download Fillable PDF</ButtonLink>
+        <ButtonLink href="/sms-consent-methods/" variant="secondary">Review All Consent Methods</ButtonLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="section written-consent-section">
+    <div class="shell shell--narrow">
+      <form class="written-consent-form" action="/sms-written-consent/" method="get" data-written-consent-form>
+        <header class="written-consent-form__header">
+          <div>
+            <p class="eyebrow">Wayside Church</p>
+            <h2>Written SMS Consent Form</h2>
+          </div>
+          <p><strong>Program number</strong><br />{smsNumber}</p>
+        </header>
+
+        <p>
+          Use this form only when a person chooses written consent. Completing or signing it is optional and is not a
+          condition of attending, giving, registering for an event, or receiving ministry care.
+        </p>
+
+        <div class="written-consent-form__fields">
+          <label>
+            <span>Full name</span>
+            <input type="text" autocomplete="name" required data-written-name />
+          </label>
+          <label>
+            <span>Mobile phone</span>
+            <input type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555" required data-written-phone />
+          </label>
+        </div>
+
+        <label class="written-consent-form__checkbox">
+          <input type="checkbox" required data-written-consent />
+          <span>
+            I agree to receive recurring text messages from Wayside Church, including service reminders, prayer
+            requests, church announcements, and ministry updates, at the mobile number entered above. Message frequency
+            varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of
+            attending, giving, or receiving ministry care. Read the
+            <a href="/privacy-policy/">Privacy Policy</a> and
+            <a href="/terms-and-conditions/">Terms &amp; Conditions</a>.
+          </span>
+        </label>
+
+        <div class="written-consent-form__fields written-consent-form__record-fields">
+          <label>
+            <span>Signature or typed name</span>
+            <input type="text" required data-written-signature />
+          </label>
+          <label>
+            <span>Date</span>
+            <input type="date" required data-written-date />
+          </label>
+          <label>
+            <span>Received by Wayside staff member</span>
+            <input type="text" data-written-staff />
+          </label>
+          <label>
+            <span>Consent record time</span>
+            <input type="time" data-written-time />
+          </label>
+        </div>
+
+        <div class="written-consent-form__instructions">
+          <h3>Staff recordkeeping</h3>
+          <p>
+            Return the completed form to Wayside staff. Staff retain the signed form, disclosure version, date and time,
+            mobile number, and receiving staff member. Staff then send an immediate confirmation identifying Wayside
+            Church with frequency, rates, HELP, and STOP instructions.
+          </p>
+          <p><strong>Form version:</strong> August 18, 2026</p>
+        </div>
+
+        <div class="button-row written-consent-actions">
+          <button class="button button--primary" type="submit">Validate and Print</button>
+          <ButtonLink href="/documents/wayside-church-sms-written-consent-form.pdf" variant="secondary">Download Fillable PDF</ButtonLink>
+        </div>
+        <p class="written-consent-form__note" role="status" aria-live="polite" data-written-status>
+          Nothing entered here is transmitted to Wayside Church. Print or save the completed form and return it to a staff member.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll("[data-written-consent-form]").forEach((form) => {
+    if (!(form instanceof HTMLFormElement)) return;
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const status = form.querySelector("[data-written-status]");
+      if (status) status.textContent = "The form is complete and ready to print or save as a PDF.";
+      window.print();
+    });
+  });
+</script>
