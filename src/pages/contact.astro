@@ -4,6 +4,7 @@ import ButtonLink from "../components/ButtonLink.astro";
 import CalendarActions from "../components/CalendarActions.astro";
 import ChurchContactBlock from "../components/ChurchContactBlock.astro";
 import SectionIntro from "../components/SectionIntro.astro";
+import TextUs from "../components/TextUs.astro";
 import { site } from "../lib/content";
 import { imageSize, imageSizesFor, imageSrcset } from "../lib/images";
 import { withBase } from "../lib/paths";
@@ -48,7 +49,13 @@ const charltonImageSrcset = imageSrcset(site.images.charlton);
     </div>
   </section>
 
-  <section class="section section--muted" id="faq">
+  <section class="section section--muted">
+    <div class="shell">
+      <TextUs id="contact-text-us" />
+    </div>
+  </section>
+
+  <section class="section" id="faq">
     <div class="shell">
       <SectionIntro eyebrow="FAQ" title="Frequently asked questions">
         <p>Helpful answers for guests and families planning a visit.</p>

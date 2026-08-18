@@ -1,0 +1,31 @@
+---
+import ButtonLink from "./ButtonLink.astro";
+import { site } from "../lib/content";
+
+type Props = {
+  id?: string;
+};
+
+const { id = "text-us" } = Astro.props;
+const sms = site.privacyPolicy.sms;
+const smsNumber = sms.smsNumberDisplay || sms.smsNumber;
+const smsHref = `sms:${sms.smsNumber}?body=${encodeURIComponent(sms.optInKeyword)}`;
+---
+
+<section class="text-us" id={id} aria-labelledby={`${id}-title`}>
+  <div>
+    <p class="eyebrow">Text us</p>
+    <h2 id={`${id}-title`}>Stay connected with Wayside.</h2>
+    <p class="text-us__cta">
+      Text <strong>{sms.optInKeyword}</strong> to <a href={smsHref}>{smsNumber}</a> to join our church text updates.
+    </p>
+    <p class="text-us__disclosure">
+      Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help.
+      <a href="/privacy-policy/">Privacy Policy</a> · <a href="/terms-and-conditions/">Terms &amp; Conditions</a>
+    </p>
+  </div>
+  <div class="text-us__actions">
+    <ButtonLink href={smsHref}>Text START</ButtonLink>
+    <ButtonLink href="/text-updates/" variant="secondary">Text Update Details</ButtonLink>
+  </div>
+</section>

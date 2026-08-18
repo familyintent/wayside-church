@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SmsOptIn from "../components/SmsOptIn.astro";
+import { site } from "../lib/content";
+
+const sms = site.privacyPolicy.sms;
+const smsNumber = sms.smsNumberDisplay || sms.smsNumber;
+---
+
+<BaseLayout
+  title="Wayside Church Text Updates"
+  description={`Join Wayside Church text updates by texting ${sms.optInKeyword} to ${smsNumber}. Message frequency varies. Message and data rates may apply.`}
+>
+  <section class="page-hero">
+    <div class="shell page-hero__inner">
+      <p class="eyebrow">Text updates</p>
+      <h1>Church updates, one text away.</h1>
+      <p>
+        Join optional Wayside Church text updates for service reminders, prayer requests, church announcements, and
+        ministry news.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell shell--narrow">
+      <SmsOptIn />
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="shell policy-content">
+      <p class="eyebrow">What to expect</p>
+      <h2>You stay in control.</h2>
+      <p>
+        {sms.messageFrequency} Message and data rates may apply. Reply {sms.optOutKeyword} at any time to opt out or
+        {sms.helpKeyword} for help. You may also call <a href={site.contact.phoneHref}>{site.contact.phone}</a> for assistance.
+      </p>
+      <p>
+        Providing a phone number by itself does not enroll you. Your opt-in is completed only after you affirm the
+        consent statement and send {sms.optInKeyword} from your mobile phone.
+      </p>
+      <p>
+        Read the <a href="/privacy-policy/">Privacy Policy</a> and
+        <a href="/terms-and-conditions/">Terms &amp; Conditions</a> before joining.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
