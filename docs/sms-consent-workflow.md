@@ -23,7 +23,7 @@ Use this disclosure immediately next to every SMS checkbox. The checkbox must be
 
 Adopt this as the actual staff script before submitting it to a carrier. Staff should read it without shortening it, receive a clear yes, and record the consent details described below.
 
-> Would you like to receive text messages from Wayside Church, including service reminders, prayer requests, church announcements, and ministry updates? Message frequency varies, and message and data rates may apply. You can reply STOP at any time to opt out, or HELP for assistance. Consent is not a condition of attending Wayside Church, giving, or receiving ministry care. Do I have your permission to send these text messages to this phone number?
+> Would you like to receive text messages from Wayside Church, including service reminders, prayer requests, church announcements, and ministry updates? Message frequency varies, and message and data rates may apply. You can reply STOP at any time to opt out, or HELP for assistance. Consent is not a condition of attending Wayside Church, giving, or receiving ministry care. You can review our Privacy Policy and Terms & Conditions at wayside.church/privacy-policy and wayside.church/terms-and-conditions. Do I have your permission to send these text messages to this phone number?
 
 ## Detailed opt-in workflow for a carrier submission
 
