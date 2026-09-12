@@ -1,4 +1,5 @@
 import type { LatestTeaching } from "./youtube";
+import { teachingOverrides } from "./teaching-overrides";
 
 function slugify(value: string) {
   return value
@@ -11,6 +12,9 @@ function slugify(value: string) {
 }
 
 export function getTeachingSlug(video: LatestTeaching) {
+  const override = teachingOverrides[video.videoId];
+  if (override) return override.slug;
+
   const titleSlug = slugify(video.title) || "teaching";
   return `${titleSlug}-${video.videoId}`;
 }

@@ -1,4 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
+import { teachingOverrides } from "./teaching-overrides";
 
 type YouTubeSettings = {
   channelId?: string;
@@ -47,7 +48,7 @@ function decodeJsonString(value: string): string {
 
 function videoFromId(videoId: string, title = "Latest teaching", publishedLabel = ""): LatestTeaching {
   return {
-    title,
+    title: teachingOverrides[videoId]?.title || title,
     videoId,
     url: `https://www.youtube.com/watch?v=${videoId}`,
     thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
@@ -90,7 +91,7 @@ async function getLatestFromChannelPage(settings: YouTubeSettings): Promise<Late
   const publishedLabelMatch = snippet.match(/"publishedTimeText":\{"simpleText":"([^"]+)"/);
 
   return {
-    title: titleMatch?.[1] ? decodeJsonString(titleMatch[1]) : "Latest teaching",
+    title: teachingOverrides[videoId]?.title || (titleMatch?.[1] ? decodeJsonString(titleMatch[1]) : "Latest teaching"),
     videoId,
     url: `https://www.youtube.com/watch?v=${videoId}`,
     thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
@@ -113,7 +114,7 @@ function getFeaturedVideo(settings: YouTubeSettings): LatestTeaching | null {
 
 function teachingFromFeedEntry(entry: any): LatestTeaching | null {
   const videoId = entry?.videoId;
-  const title = typeof entry?.title === "string" ? entry.title : "Latest teaching";
+  const title = teachingOverrides[videoId]?.title || (typeof entry?.title === "string" ? entry.title : "Latest teaching");
   const published = entry?.published || entry?.updated || "";
   const link = asFirst(entry?.link);
   const url = link?.["@_href"] || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "");
