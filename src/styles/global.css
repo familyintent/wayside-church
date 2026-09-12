@@ -959,12 +959,16 @@ summary:focus-visible {
 }
 
 .video-watch__copy {
+  min-width: 0;
   max-width: 760px;
 }
 
 .video-watch__copy h1 {
   margin-bottom: 1rem;
-  font-size: clamp(2.6rem, 9vw, 5.8rem);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .video-watch__date {
